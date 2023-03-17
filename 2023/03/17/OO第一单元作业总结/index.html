@@ -25,17 +25,17 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Part 1 第一次作业第一次作业 考虑到整个作业可以被分为两个部分：建立计算关系+用某种结构承载计算结果 为了方便化简，用于承载计算结构的结构必须有统一的形式 计算关系的构建采用传统的表达式树，树上的每个节点被抽象成一个Op，每当新增一种计算类型时，考虑通过拓展Op的种类来将新计算嵌入表达式树；以下是截至到第三次作业，我所拓展出来的关于Op的类图：  接下来考虑如何统一计算结果的结构 可以发现最">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="c:/Users/27670/AppData/Roaming/Typora/typora-user-images/image-20230317111415668.png">
-<meta property="og:image" content="c:/Users/27670/AppData/Roaming/Typora/typora-user-images/image-20230317150716626.png">
-<meta property="og:image" content="c:/Users/27670/AppData/Roaming/Typora/typora-user-images/image-20230317161251460.png">
-<meta property="og:image" content="c:/Users/27670/AppData/Roaming/Typora/typora-user-images/image-20230317161904455.png">
-<meta property="og:image" content="c:/Users/27670/AppData/Roaming/Typora/typora-user-images/image-20230317161921718.png">
+<meta property="og:image" content="http://example.com/....%5Csource%5Cimages%5Cimage-20230317111415668.png">
+<meta property="og:image" content="http://example.com/....%5Csource%5Cimages%5Cimage-20230317150716626.png">
+<meta property="og:image" content="http://example.com/....%5Csource%5Cimages%5Cimage-20230317161251460.png">
+<meta property="og:image" content="http://example.com/....%5Csource%5Cimages%5Cimage-20230317161904455.png">
+<meta property="og:image" content="http://example.com/....%5Csource%5Cimages%5Cimage-20230317161921718.png">
 <meta property="article:published_time" content="2023-03-17T00:20:40.000Z">
-<meta property="article:modified_time" content="2023-03-17T08:55:15.752Z">
+<meta property="article:modified_time" content="2023-03-17T14:48:37.070Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="面向对象">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="c:/Users/27670/AppData/Roaming/Typora/typora-user-images/image-20230317111415668.png">
+<meta name="twitter:image" content="http://example.com/....%5Csource%5Cimages%5Cimage-20230317111415668.png">
   <!-- Canonical links -->
   <link rel="canonical" href="http://example.com/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/index.html">
   
@@ -378,7 +378,7 @@
 <p>考虑到整个作业可以被分为两个部分：建立计算关系+用某种结构承载计算结果</p>
 <p>为了方便化简，用于承载计算结构的结构必须有统一的形式</p>
 <p>计算关系的构建采用传统的表达式树，树上的每个节点被抽象成一个<code>Op</code>，每当新增一种计算类型时，考虑通过拓展<code>Op</code>的种类来将新计算嵌入表达式树；以下是截至到第三次作业，我所拓展出来的关于<code>Op</code>的类图：</p>
-<p><img src="C:\Users\27670\AppData\Roaming\Typora\typora-user-images\image-20230317111415668.png" alt="image-20230317111415668"></p>
+<p><img src="/....%5Csource%5Cimages%5Cimage-20230317111415668.png" alt="image-20230317111415668"></p>
 <p>接下来考虑如何统一计算结果的结构</p>
 <p>可以发现最后计算结果一定会形如：$x^2y^3+xcos(?)-z^3sin^2(?)$</p>
 <p>可以粗略将其分成四层：</p>
@@ -389,17 +389,17 @@
 <li>基本函数，<code>x|y|z|cos|sin</code>，基础函数内部可能持有<code>Poly</code></li>
 </ul>
 <p>我最后的设计如下：</p>
-<p><img src="C:\Users\27670\AppData\Roaming\Typora\typora-user-images\image-20230317150716626.png" alt="image-20230317150716626"></p>
+<p><img src="/....%5Csource%5Cimages%5Cimage-20230317150716626.png" alt="image-20230317150716626"></p>
 <p>在解析字符串的过程中，我认为首先对字符串预处理，将其转化成为Token序列，再将Token序列喂给Parser会是一个比较方便的实现方式；在Parser中采用递归下降，生成一个表达式树</p>
 <p>我个人觉得<code>instanceof</code>简直是设计失败的补救，所以本次作业在代码避免出现任何一处<code>instanceof</code></p>
 <h1 id="Part-2-第二次作业"><a href="#Part-2-第二次作业" class="headerlink" title="Part 2 第二次作业"></a>Part 2 第二次作业</h1><p>添加了自定义函数</p>
 <p>考虑到普通程序里面的函数调用，我们会用一个栈来保存参数列表，那么在本次作业中我也进行了类似的设计：</p>
-<p><img src="C:\Users\27670\AppData\Roaming\Typora\typora-user-images\image-20230317161251460.png" alt="image-20230317161251460"></p>
+<p><img src="/....%5Csource%5Cimages%5Cimage-20230317161251460.png" alt="image-20230317161251460"></p>
 <p><code>FunDefine</code>里面包含了一棵表达式树，表示这个函数的定义</p>
 <p><code>FunOp</code>作为表达式树上的节点，当对其进行计算时，它会使用<code>FunEnv</code>来告诉全局，现在进入了某个函数内部进行计算，同时将参数入栈；<code>FunEnv</code>的计算过程就是调用<code>FunDefine</code>内部的表达式树的计算的过程；在<code>FunDefine</code>内部的<code>PlaceholderOp</code>中，会通过查询<code>FunEnv</code>的参数栈来获取该占位符的具体值</p>
 <h1 id="Part-3-第三次作业"><a href="#Part-3-第三次作业" class="headerlink" title="Part 3 第三次作业"></a>Part 3 第三次作业</h1><p>对“承载计算结果”的数据结构，即<code>Poly</code>，<code>Unit</code>，<code>Power</code>，<code>AtomFunc</code>都定义好对应的求导函数即可</p>
-<h1 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h1><p><img src="C:\Users\27670\AppData\Roaming\Typora\typora-user-images\image-20230317161904455.png" alt="image-20230317161904455"></p>
-<p><img src="C:\Users\27670\AppData\Roaming\Typora\typora-user-images\image-20230317161921718.png" alt="image-20230317161921718"></p>
+<h1 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h1><p><img src="/....%5Csource%5Cimages%5Cimage-20230317161904455.png" alt="image-20230317161904455"></p>
+<p><img src="/....%5Csource%5Cimages%5Cimage-20230317161921718.png" alt="image-20230317161921718"></p>
 <p>可以发现Lexer和Parser中的方法的认知复杂度较高，因为我采用的是一个类有一个大方法进行解析的操作，其内有较多的分支判断，打破了代码的连续性</p>
 
       
