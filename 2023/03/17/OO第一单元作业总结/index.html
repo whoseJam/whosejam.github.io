@@ -18,24 +18,24 @@
   
   
   <title>OO第一单元作业总结 | Hexo</title>
-  <meta name="description" content="Part 1 第一次作业第一次作业 考虑到整个作业可以被分为两个部分：建立计算关系+用某种结构承载计算结果 为了方便化简，用于承载计算结构的结构必须有统一的形式 计算关系的构建采用传统的表达式树，树上的每个节点被抽象成一个Op，每当新增一种计算类型时，考虑通过拓展Op的种类来将新计算嵌入表达式树；以下是截至到第三次作业，我所拓展出来的关于Op的类图：  接下来考虑如何统一计算结果的结构 可以发现最">
+  <meta name="description" content="Part 1 第一次作业第一次作业 考虑到整个作业可以被分为两个部分：建立计算关系+用某种结构承载计算结果 为了方便化简，用于承载计算结构的结构必须有统一的形式 计算关系的构建采用传统的表达式树，树上的每个节点被抽象成一个Op，每当新增一种计算类型时，考虑通过拓展Op的种类来将新计算嵌入表达式树；以下是截至到第三次作业，我所拓展出来的关于Op的类图：   接下来考虑如何统一计算结果的结构 可以发现">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OO第一单元作业总结">
 <meta property="og:url" content="http://example.com/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Part 1 第一次作业第一次作业 考虑到整个作业可以被分为两个部分：建立计算关系+用某种结构承载计算结果 为了方便化简，用于承载计算结构的结构必须有统一的形式 计算关系的构建采用传统的表达式树，树上的每个节点被抽象成一个Op，每当新增一种计算类型时，考虑通过拓展Op的种类来将新计算嵌入表达式树；以下是截至到第三次作业，我所拓展出来的关于Op的类图：  接下来考虑如何统一计算结果的结构 可以发现最">
+<meta property="og:description" content="Part 1 第一次作业第一次作业 考虑到整个作业可以被分为两个部分：建立计算关系+用某种结构承载计算结果 为了方便化简，用于承载计算结构的结构必须有统一的形式 计算关系的构建采用传统的表达式树，树上的每个节点被抽象成一个Op，每当新增一种计算类型时，考虑通过拓展Op的种类来将新计算嵌入表达式树；以下是截至到第三次作业，我所拓展出来的关于Op的类图：   接下来考虑如何统一计算结果的结构 可以发现">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://whosejam.github.io/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93%5Cimage-20230317111415668.png">
-<meta property="og:image" content="http://whosejam.github.io/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93%5Cimage-20230317150716626.png">
-<meta property="og:image" content="http://whosejam.github.io/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93%5Cimage-20230317161251460.png">
-<meta property="og:image" content="http://whosejam.github.io/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93%5Cimage-20230317161904455.png">
-<meta property="og:image" content="http://whosejam.github.io/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93%5Cimage-20230317161921718.png">
+<meta property="og:image" content="http://whosejam.github.io/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230317111415668.png">
+<meta property="og:image" content="http://whosejam.github.io/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230317150716626.png">
+<meta property="og:image" content="http://whosejam.github.io/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230317161251460.png">
+<meta property="og:image" content="http://whosejam.github.io/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230317161904455.png">
+<meta property="og:image" content="http://whosejam.github.io/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230317161921718.png">
 <meta property="article:published_time" content="2023-03-17T00:20:40.000Z">
-<meta property="article:modified_time" content="2023-03-20T01:53:33.249Z">
+<meta property="article:modified_time" content="2023-03-20T02:21:25.726Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="面向对象">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://whosejam.github.io/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93%5Cimage-20230317111415668.png">
+<meta name="twitter:image" content="http://whosejam.github.io/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230317111415668.png">
   <!-- Canonical links -->
   <link rel="canonical" href="http://example.com/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/index.html">
   
@@ -220,7 +220,7 @@
   <div class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E6%A6%82%E8%AE%BA/" rel="tag">航空航天概论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B8%B8%E8%AF%86/" rel="tag">计算机常识</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a><span class="tag-list-count">3</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/" rel="tag">vmware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E6%A6%82%E8%AE%BA/" rel="tag">航空航天概论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B8%B8%E8%AF%86/" rel="tag">计算机常识</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a><span class="tag-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -230,7 +230,7 @@
   <div class="widget">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/MySQL/" style="font-size: 13px;">MySQL</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 13.5px;">操作系统</a> <a href="/tags/%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E6%A6%82%E8%AE%BA/" style="font-size: 13px;">航空航天概论</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B8%B8%E8%AF%86/" style="font-size: 13px;">计算机常识</a> <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" style="font-size: 14px;">面向对象</a>
+      <a href="/tags/Docker/" style="font-size: 13px;">Docker</a> <a href="/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/vmware/" style="font-size: 13px;">vmware</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 14px;">操作系统</a> <a href="/tags/%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E6%A6%82%E8%AE%BA/" style="font-size: 13px;">航空航天概论</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B8%B8%E8%AF%86/" style="font-size: 13px;">计算机常识</a> <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" style="font-size: 13.67px;">面向对象</a>
     </div>
   </div>
 
@@ -239,7 +239,7 @@
   <div class="widget">
     <h3 class="widget-title">Archive</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -258,10 +258,10 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2023/03/17/%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F/" class="title">代码质量</a>
+                <a href="/2023/03/27/VMWare%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9/" class="title">VMWare共享文件夹</a>
               </p>
               <p class="item-date">
-                <time datetime="2023-03-17T08:20:10.000Z" itemprop="datePublished">2023-03-17</time>
+                <time datetime="2023-03-27T07:36:14.000Z" itemprop="datePublished">2023-03-27</time>
               </p>
             </div>
           </li>
@@ -273,10 +273,10 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2023/03/17/UML%E7%B1%BB%E5%9B%BE/" class="title">UML类图</a>
+                <a href="/2023/03/27/MySQL%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" class="title">MySQL文件管理</a>
               </p>
               <p class="item-date">
-                <time datetime="2023-03-17T08:03:53.000Z" itemprop="datePublished">2023-03-17</time>
+                <time datetime="2023-03-27T02:46:15.000Z" itemprop="datePublished">2023-03-27</time>
               </p>
             </div>
           </li>
@@ -288,10 +288,10 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/" class="title">OO第一单元作业总结</a>
+                <a href="/2023/03/23/source-list/" class="title">source.list</a>
               </p>
               <p class="item-date">
-                <time datetime="2023-03-17T00:20:40.000Z" itemprop="datePublished">2023-03-17</time>
+                <time datetime="2023-03-23T02:28:23.000Z" itemprop="datePublished">2023-03-23</time>
               </p>
             </div>
           </li>
@@ -303,10 +303,10 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2023/03/14/%E5%A4%A7%E6%B0%94/" class="title">大气</a>
+                <a href="/2023/03/23/shell/" class="title">shell</a>
               </p>
               <p class="item-date">
-                <time datetime="2023-03-14T02:32:59.000Z" itemprop="datePublished">2023-03-14</time>
+                <time datetime="2023-03-22T16:03:20.000Z" itemprop="datePublished">2023-03-23</time>
               </p>
             </div>
           </li>
@@ -318,10 +318,10 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2023/03/14/%E6%AE%B5%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" class="title">段式内存管理</a>
+                <a href="/2023/03/22/apt%E7%B3%BB%E5%88%97/" class="title">apt系列</a>
               </p>
               <p class="item-date">
-                <time datetime="2023-03-13T23:57:08.000Z" itemprop="datePublished">2023-03-14</time>
+                <time datetime="2023-03-22T15:19:52.000Z" itemprop="datePublished">2023-03-22</time>
               </p>
             </div>
           </li>
@@ -378,7 +378,8 @@
 <p>考虑到整个作业可以被分为两个部分：建立计算关系+用某种结构承载计算结果</p>
 <p>为了方便化简，用于承载计算结构的结构必须有统一的形式</p>
 <p>计算关系的构建采用传统的表达式树，树上的每个节点被抽象成一个<code>Op</code>，每当新增一种计算类型时，考虑通过拓展<code>Op</code>的种类来将新计算嵌入表达式树；以下是截至到第三次作业，我所拓展出来的关于<code>Op</code>的类图：</p>
-<p><img src="http://whosejam.github.io/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93%5Cimage-20230317111415668.png" alt="image-20230317111415668"></p>
+<img src="http://whosejam.github.io/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230317111415668.png">
+
 <p>接下来考虑如何统一计算结果的结构</p>
 <p>可以发现最后计算结果一定会形如：$x^2y^3+xcos(?)-z^3sin^2(?)$</p>
 <p>可以粗略将其分成四层：</p>
@@ -389,17 +390,21 @@
 <li>基本函数，<code>x|y|z|cos|sin</code>，基础函数内部可能持有<code>Poly</code></li>
 </ul>
 <p>我最后的设计如下：</p>
-<p><img src="http://whosejam.github.io/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93%5Cimage-20230317150716626.png" alt="image-20230317150716626"></p>
+<img src="http://whosejam.github.io/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230317150716626.png">
+
 <p>在解析字符串的过程中，我认为首先对字符串预处理，将其转化成为Token序列，再将Token序列喂给Parser会是一个比较方便的实现方式；在Parser中采用递归下降，生成一个表达式树</p>
 <p>我个人觉得<code>instanceof</code>简直是设计失败的补救，所以本次作业在代码避免出现任何一处<code>instanceof</code></p>
 <h1 id="Part-2-第二次作业"><a href="#Part-2-第二次作业" class="headerlink" title="Part 2 第二次作业"></a>Part 2 第二次作业</h1><p>添加了自定义函数</p>
 <p>考虑到普通程序里面的函数调用，我们会用一个栈来保存参数列表，那么在本次作业中我也进行了类似的设计：</p>
-<p><img src="http://whosejam.github.io/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93%5Cimage-20230317161251460.png" alt="image-20230317161251460"></p>
+<img src="http://whosejam.github.io/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230317161251460.png">
+
 <p><code>FunDefine</code>里面包含了一棵表达式树，表示这个函数的定义</p>
 <p><code>FunOp</code>作为表达式树上的节点，当对其进行计算时，它会使用<code>FunEnv</code>来告诉全局，现在进入了某个函数内部进行计算，同时将参数入栈；<code>FunEnv</code>的计算过程就是调用<code>FunDefine</code>内部的表达式树的计算的过程；在<code>FunDefine</code>内部的<code>PlaceholderOp</code>中，会通过查询<code>FunEnv</code>的参数栈来获取该占位符的具体值</p>
 <h1 id="Part-3-第三次作业"><a href="#Part-3-第三次作业" class="headerlink" title="Part 3 第三次作业"></a>Part 3 第三次作业</h1><p>对“承载计算结果”的数据结构，即<code>Poly</code>，<code>Unit</code>，<code>Power</code>，<code>AtomFunc</code>都定义好对应的求导函数即可</p>
-<h1 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h1><p><img src="http://whosejam.github.io/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93%5Cimage-20230317161904455.png" alt="image-20230317161904455"></p>
-<p><img src="http://whosejam.github.io/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93%5Cimage-20230317161921718.png" alt="image-20230317161921718"></p>
+<h1 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h1><img src="http://whosejam.github.io/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230317161904455.png">
+
+<img src="http://whosejam.github.io/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230317161921718.png">
+
 <p>可以发现Lexer和Parser中的方法的认知复杂度较高，因为我采用的是一个类有一个大方法进行解析的操作，其内有较多的分支判断，打破了代码的连续性</p>
 
       
