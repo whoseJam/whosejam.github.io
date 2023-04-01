@@ -17,24 +17,29 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>boot | Hexo</title>
-  <meta name="description" content="BootloaderBooter初始化硬件 Loader加载操作系统到内存中，并且跳转到操作系统的代码运行 X86启动过程 开机 CPU跳转到BIOS的物理地址处 BIOS进行系统自检 找到所有bootable devices 从MBR加载boot sector BIOS将控制流返回给Bootloader  BIOSBasic Input&#x2F;Output System，是被固化在电脑主板上">
+  <title>页表 | Hexo</title>
+  <meta name="description" content="本文假定读者对页式存储管理有基础的了解 忘了那些一级二级页表吧我们在描述页式存储管理时，引入了一级页表，二级页表，页目录等很多本质相同但形式不一样的概念，我认为这些概念无助于对页式存储管理的理解，故尝试在这一篇博客中抛弃 同时，我们只需要知道两个概念：页表和页表项 对页表影响最大的其实只有：页总数$N$，每一页可以存储多少个页表项$s$ 一个$N16s4$的例子  规则1一个页表占据一页，页表总是">
 <meta property="og:type" content="article">
-<meta property="og:title" content="boot">
-<meta property="og:url" content="http://example.com/2023/03/20/boot/index.html">
+<meta property="og:title" content="页表">
+<meta property="og:url" content="http://example.com/2023/04/01/%E9%A1%B5%E8%A1%A8/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="BootloaderBooter初始化硬件 Loader加载操作系统到内存中，并且跳转到操作系统的代码运行 X86启动过程 开机 CPU跳转到BIOS的物理地址处 BIOS进行系统自检 找到所有bootable devices 从MBR加载boot sector BIOS将控制流返回给Bootloader  BIOSBasic Input&#x2F;Output System，是被固化在电脑主板上">
+<meta property="og:description" content="本文假定读者对页式存储管理有基础的了解 忘了那些一级二级页表吧我们在描述页式存储管理时，引入了一级页表，二级页表，页目录等很多本质相同但形式不一样的概念，我认为这些概念无助于对页式存储管理的理解，故尝试在这一篇博客中抛弃 同时，我们只需要知道两个概念：页表和页表项 对页表影响最大的其实只有：页总数$N$，每一页可以存储多少个页表项$s$ 一个$N16s4$的例子  规则1一个页表占据一页，页表总是">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://whosejam.github.io/2023/03/20/boot/Users\27670\Project\blog\source\_posts\boot\image-20230320101742795.png">
-<meta property="og:image" content="http://whosejam.github.io/2023/03/20/boot/MBR分区表(01).jpg">
-<meta property="article:published_time" content="2023-03-20T01:58:42.000Z">
-<meta property="article:modified_time" content="2023-03-20T02:30:08.134Z">
+<meta property="og:image" content="http://whosejam.github.io/2023/04/01/%E9%A1%B5%E8%A1%A8/image-20230401202121284.png">
+<meta property="og:image" content="http://whosejam.github.io/2023/04/01/%E9%A1%B5%E8%A1%A8/image-20230401202514187.png">
+<meta property="og:image" content="http://whosejam.github.io/2023/04/01/%E9%A1%B5%E8%A1%A8/image-20230401204020982.png">
+<meta property="og:image" content="http://whosejam.github.io/2023/04/01/%E9%A1%B5%E8%A1%A8/image-20230401205115962.png">
+<meta property="og:image" content="http://whosejam.github.io/2023/04/01/%E9%A1%B5%E8%A1%A8/image-20230401212156451.png">
+<meta property="og:image" content="http://whosejam.github.io/2023/04/01/%E9%A1%B5%E8%A1%A8/image-20230401213732299.png">
+<meta property="og:image" content="http://whosejam.github.io/2023/04/01/%E9%A1%B5%E8%A1%A8/image-20230401214238818.png">
+<meta property="article:published_time" content="2023-04-01T12:03:42.000Z">
+<meta property="article:modified_time" content="2023-04-01T14:03:27.838Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="操作系统">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://whosejam.github.io/2023/03/20/boot/Users\27670\Project\blog\source\_posts\boot\image-20230320101742795.png">
+<meta name="twitter:image" content="http://whosejam.github.io/2023/04/01/%E9%A1%B5%E8%A1%A8/image-20230401202121284.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://example.com/2023/03/20/boot/index.html">
+  <link rel="canonical" href="http://example.com/2023/04/01/%E9%A1%B5%E8%A1%A8/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -336,14 +341,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-boot" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-页表" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      boot
+      页表
     </h1>
   
 
@@ -351,8 +356,8 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2023/03/20/boot/" class="article-date">
-	  <time datetime="2023-03-20T01:58:42.000Z" itemprop="datePublished">2023-03-20</time>
+	<a href="/2023/04/01/%E9%A1%B5%E8%A1%A8/" class="article-date">
+	  <time datetime="2023-04-01T12:03:42.000Z" itemprop="datePublished">2023-04-01</time>
 	</a>
 </span>
         
@@ -365,41 +370,53 @@
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/03/20/boot/#comments" class="article-comment-link">Comments</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/04/01/%E9%A1%B5%E8%A1%A8/#comments" class="article-comment-link">Comments</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="Bootloader"><a href="#Bootloader" class="headerlink" title="Bootloader"></a>Bootloader</h1><h2 id="Booter"><a href="#Booter" class="headerlink" title="Booter"></a>Booter</h2><p>初始化硬件</p>
-<h2 id="Loader"><a href="#Loader" class="headerlink" title="Loader"></a>Loader</h2><p>加载操作系统到内存中，并且跳转到操作系统的代码运行</p>
-<h1 id="X86启动过程"><a href="#X86启动过程" class="headerlink" title="X86启动过程"></a>X86启动过程</h1><ul>
-<li>开机</li>
-<li>CPU跳转到BIOS的物理地址处</li>
-<li>BIOS进行系统自检</li>
-<li>找到所有bootable devices</li>
-<li>从MBR加载boot sector</li>
-<li>BIOS将控制流返回给Bootloader</li>
-</ul>
-<h2 id="BIOS"><a href="#BIOS" class="headerlink" title="BIOS"></a>BIOS</h2><p>Basic Input&#x2F;Output System，是被固化在电脑主板上的ROM芯片中的一组程序，由于与硬件系统集成在一起，所以也被称为固件</p>
-<h3 id="Power-On-Self-Test"><a href="#Power-On-Self-Test" class="headerlink" title="Power-On Self-Test"></a>Power-On Self-Test</h3><p>如果硬件出现问题，主板会发出不同含义的蜂鸣</p>
-<h3 id="Boot-Sequence"><a href="#Boot-Sequence" class="headerlink" title="Boot Sequence"></a>Boot Sequence</h3><p>现代BIOS可以让用户选择哪个设备引导电脑，如光盘驱动器、硬盘、软盘、USB等</p>
-<h2 id="MBR"><a href="#MBR" class="headerlink" title="MBR"></a>MBR</h2><p>硬盘上第0磁头第0磁道第一个扇区被称为MBR，也就是Master Boot Record，即主引导记录，大小为512B，存放了预启动信息（Bootloader）、分区表信息</p>
-<img src="http://whosejam.github.io/2023/03/20/boot/Users\27670\Project\blog\source\_posts\boot\image-20230320101742795.png" alt="image-20230320101742795" style="zoom: 25%;">
+        <p>本文假定读者对页式存储管理有基础的了解</p>
+<h1 id="忘了那些一级二级页表吧"><a href="#忘了那些一级二级页表吧" class="headerlink" title="忘了那些一级二级页表吧"></a>忘了那些一级二级页表吧</h1><p>我们在描述页式存储管理时，引入了一级页表，二级页表，页目录等很多本质相同但形式不一样的概念，我认为这些概念无助于对页式存储管理的理解，故尝试在这一篇博客中抛弃</p>
+<p>同时，我们只需要知道两个概念：<strong>页表</strong>和<strong>页表项</strong></p>
+<p>对页表影响最大的其实只有：页总数$N$，每一页可以存储多少个页表项$s$</p>
+<h1 id="一个-N16s4-的例子"><a href="#一个-N16s4-的例子" class="headerlink" title="一个$N16s4$的例子"></a>一个$N16s4$的例子</h1><img src="http://whosejam.github.io/2023/04/01/%E9%A1%B5%E8%A1%A8/image-20230401202121284.png" alt="image-20230401202121284" style="zoom:25%;">
 
-<h3 id="启动代码和数据"><a href="#启动代码和数据" class="headerlink" title="启动代码和数据"></a>启动代码和数据</h3><p>占用了MBR的前446B</p>
-<h3 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h3><p>分区表由四个分区项组成，每个分区项数据为16B，记录了启动时所需要的分区参数，占用了分区表的第447~510B</p>
-<p>MBR限制了只能有四个主分区，系统必须装在主分区上面</p>
-<p>硬盘分区有三种：<strong>主磁盘分区、扩展磁盘分区、逻辑分区</strong></p>
-<p>一个硬盘满足：主磁盘分区+扩展磁盘分区不能超过4个，主磁盘分区至少有一个，逻辑分区可以有若干个；主分区只能有一个是激活的，其余都是未激活的</p>
-<p>分出主分区后，其余部分可以分成扩展分区，一般是剩下部分全部分成扩展分区，也可以不全分，剩下的部分就浪费了</p>
-<p>扩展分区不能直接使用，必须分成若干逻辑分区，所以逻辑分区都是扩展分区的一部分</p>
-<img src="http://whosejam.github.io/2023/03/20/boot/MBR分区表(01).jpg" style="zoom:33%;">
+<h2 id="规则1"><a href="#规则1" class="headerlink" title="规则1"></a>规则1</h2><p>一个页表占据一页，页表总是连续存在的</p>
+<h3 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h3><p>在$N16s4$的配置中，总共需要$\frac{16}{4}&#x3D;4$张页表，也就是需要4页来存储页表，那么应该是哪4页来存储页表呢？这是不确定的，唯一确定的是，这4页应该连续地排在一起，例如：</p>
+<img src="http://whosejam.github.io/2023/04/01/%E9%A1%B5%E8%A1%A8/image-20230401202514187.png" alt="image-20230401202514187" style="zoom:25%;">
 
-<p><strong>磁盘容量&#x3D;主分区容量+扩展分区容量</strong></p>
-<p><strong>扩展分区&#x3D;各逻辑分区容量之和</strong></p>
-<h3 id="幻数"><a href="#幻数" class="headerlink" title="幻数"></a>幻数</h3><p>后面紧跟着两个字节AA和55被称为幻数（Magic Number）</p>
-<p>BIOS读取MBR时总是检查最后是不是有这两个幻数，如果没有就被认为是一个没有被分区的硬盘</p>
+<p>以上三种情况均有可能</p>
+<h2 id="规则2"><a href="#规则2" class="headerlink" title="规则2"></a>规则2</h2><p>页表到物理页的映射是固定的，是线性的</p>
+<h3 id="解释-1"><a href="#解释-1" class="headerlink" title="解释"></a>解释</h3><img src="http://whosejam.github.io/2023/04/01/%E9%A1%B5%E8%A1%A8/image-20230401204020982.png" alt="image-20230401204020982" style="zoom:25%;">
+
+<p>即第0个页表映射到物理页的第0~3页，第1个页表映射到物理页的第4~7页……</p>
+<p>可以发现不同的页表排布方式，会导致有一个feature时有时无：左图所示情况，第一个页表映射的区域全是页表所在区，而右图则不存在这个特性。在实际情况下，我们更愿意让左图的情况发生，这会带来诸多好处，所以<strong>页表段（一段连续的存储页表的空间）</strong>的起始地址至少应该是 $s*PAGE_SIZE$ 的倍数（但其实还有一个更严格的条件，即起始地址是$s^{k-1}*PAGE_SIZE$的倍数，其中$k$的含义是$k$级页表）</p>
+<h2 id="概览-N16s4"><a href="#概览-N16s4" class="headerlink" title="概览$N16s4$"></a>概览$N16s4$</h2><p>以图中的箭头为边，我们进行一个DAG编号</p>
+<img src="http://whosejam.github.io/2023/04/01/%E9%A1%B5%E8%A1%A8/image-20230401205115962.png" alt="image-20230401205115962" style="zoom: 25%;">
+
+<p><code>type-0</code>页就是普通页，<code>type-1</code>页是存放了<strong>指向普通页的页表</strong>的页，<code>type-2</code>页是存放了<strong>指向指向普通页的页表的页表</strong>的页</p>
+<p>观察黑色加粗的描述，很有趣的情况出现了，这其实就是一个二级页表，<code>type-2</code>既是<strong>页目录</strong>，也可以说是一个恰好指向的数据都是<code>type-1</code>页的页表</p>
+<p>要让完美的这么一个页表结构出现还是需要一点点约束的，首先得有$N\ mod\ s&#x3D;0$来保证不会有页表项的浪费，其次是$N&#x3D;s^k$，用来保证一定可以满足<strong>规则2</strong>（同时$k$的大小暗示了这是一个$k$级页表）</p>
+<h1 id="一个-N8s2-的例子"><a href="#一个-N8s2-的例子" class="headerlink" title="一个$N8s2$的例子"></a>一个$N8s2$的例子</h1><img src="http://whosejam.github.io/2023/04/01/%E9%A1%B5%E8%A1%A8/image-20230401212156451.png" alt="image-20230401212156451" style="zoom:25%;">
+
+
+
+<h1 id="页表是如何拓展的"><a href="#页表是如何拓展的" class="headerlink" title="页表是如何拓展的"></a>页表是如何拓展的</h1><p>假设我们现在只知道$s&#x3D;4$，并不确定这是一个几级页表，假设它是一个$k$级页表，在我们逐步增加$k$的过程中，设$\frac{up}{dw}&#x3D;\frac{2}{1}$为页目录上边的页数量与下边的页数量的比值，容易发现每次增加$k&#x3D;k+1$，<strong>上边的页数量与下边的页数量的比值不会发生改变</strong>，永远维持在$2:1$</p>
+<p>显然推广到一般情况也成立</p>
+<img src="http://whosejam.github.io/2023/04/01/%E9%A1%B5%E8%A1%A8/image-20230401213732299.png" alt="image-20230401213732299" style="zoom:25%;">
+
+<p>那么假设$\frac{up}{dw}$，总页数为$\frac{N}{s}&#x3D;n$</p>
+<p>如何计算页目录所处的页呢？$(\frac{N}{s}-1)\frac{up}{up+dw}$</p>
+<p>如何计算映射到页目录的页表项呢？$(s-1)\frac{up}{up+dw}$</p>
+<h1 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h1><img src="http://whosejam.github.io/2023/04/01/%E9%A1%B5%E8%A1%A8/image-20230401214238818.png" alt="image-20230401214238818" style="zoom:80%;">
+
+<p>易知$N&#x3D;\frac{512GB}{4KB}&#x3D;2^{27}$，$s&#x3D;\frac{4KB}{8B}&#x3D;2^9$，$k&#x3D;3$</p>
+<p>页表段的长度为$\frac{N}{s}\cdot PAGE_SIZE&#x3D;2^{30}B&#x3D;1GB$</p>
+<p>总空间为$[0,512G)\ B$，页表段的范围是$[PT_{base},PT_{base}+1G)\ B$</p>
+<p>所以页目录所处页为$(\frac{N}{s}-1)(\frac{PT_{base}}{511G})$</p>
+<p>所以最终地址为$(\frac{N}{s}-1)(\frac{PT_{base}}{511G})PAGE_SIZE+(s-1)(\frac{PT_{base}}{511G})ITEM_SIZE$</p>
+<p>$&#x3D;(2^{18}-1)(\frac{PT_{base}}{511G})4KB+(2^9-1)(\frac{PT_{base}}{511G})8B$</p>
 
       
     </div>
@@ -409,7 +426,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://example.com/2023/03/20/boot/" title="boot" target="_blank" rel="external">http://example.com/2023/03/20/boot/</a>
+      <a href="http://example.com/2023/04/01/%E9%A1%B5%E8%A1%A8/" title="页表" target="_blank" rel="external">http://example.com/2023/04/01/页表/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -455,13 +472,9 @@
   
   <ul class="pager pull-left">
     
-    <li class="prev">
-      <a href="/2023/03/20/%E9%93%BE%E6%8E%A5%E4%B8%8E%E8%A3%85%E8%BD%BD/" title="链接与装载"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
-    </li>
-    
     
     <li class="next">
-      <a href="/2023/03/17/%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F/" title="代码质量"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2023/04/01/Ubuntu%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95/" title="Ubuntu中文输入法"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
