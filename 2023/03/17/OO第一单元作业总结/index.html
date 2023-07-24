@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang=en>
+<html lang=zh>
 <head>
   <meta charset="utf-8">
   
@@ -18,13 +18,13 @@
   
   
   <title>OO第一单元作业总结 | Hexo</title>
-  <meta name="description" content="Part 1 第一次作业第一次作业 考虑到整个作业可以被分为两个部分：建立计算关系+用某种结构承载计算结果 为了方便化简，用于承载计算结构的结构必须有统一的形式 计算关系的构建采用传统的表达式树，树上的每个节点被抽象成一个Op，每当新增一种计算类型时，考虑通过拓展Op的种类来将新计算嵌入表达式树；以下是截至到第三次作业，我所拓展出来的关于Op的类图：   接下来考虑如何统一计算结果的结构 可以发现">
+  <meta name="description" content="Part 1 第一次作业 第一次作业 考虑到整个作业可以被分为两个部分：建立计算关系+用某种结构承载计算结果 为了方便化简，用于承载计算结构的结构必须有统一的形式 计算关系的构建采用传统的表达式树，树上的每个节点被抽象成一个Op，每当新增一种计算类型时，考虑通过拓展Op的种类来将新计算嵌入表达式树；以下是截至到第三次作业，我所拓展出来的关于Op的类图：  接下来考虑如何统一计算结果的结构 可以发">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OO第一单元作业总结">
 <meta property="og:url" content="http://example.com/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Part 1 第一次作业第一次作业 考虑到整个作业可以被分为两个部分：建立计算关系+用某种结构承载计算结果 为了方便化简，用于承载计算结构的结构必须有统一的形式 计算关系的构建采用传统的表达式树，树上的每个节点被抽象成一个Op，每当新增一种计算类型时，考虑通过拓展Op的种类来将新计算嵌入表达式树；以下是截至到第三次作业，我所拓展出来的关于Op的类图：   接下来考虑如何统一计算结果的结构 可以发现">
-<meta property="og:locale" content="en_US">
+<meta property="og:description" content="Part 1 第一次作业 第一次作业 考虑到整个作业可以被分为两个部分：建立计算关系+用某种结构承载计算结果 为了方便化简，用于承载计算结构的结构必须有统一的形式 计算关系的构建采用传统的表达式树，树上的每个节点被抽象成一个Op，每当新增一种计算类型时，考虑通过拓展Op的种类来将新计算嵌入表达式树；以下是截至到第三次作业，我所拓展出来的关于Op的类图：  接下来考虑如何统一计算结果的结构 可以发">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://whosejam.github.io/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230317111415668.png">
 <meta property="og:image" content="http://whosejam.github.io/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230317150716626.png">
 <meta property="og:image" content="http://whosejam.github.io/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230317161251460.png">
@@ -54,7 +54,7 @@
 <meta name="generator" content="Hexo 5.4.2"></head>
 
 
-<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+<body class="main-center theme-green" itemscope itemtype="http://schema.org/WebPage">
   <header class="header" itemscope itemtype="http://schema.org/WPHeader">
   <div class="slimContent">
     <div class="navbar-header">
@@ -73,7 +73,7 @@
 
     <form class="search-form sidebar-form">
         <div class="input-group">
-            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
             <span class="input-group-btn">
                 <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
             </span>
@@ -83,7 +83,7 @@
   <div class="ins-search-mask"></div>
   <div class="ins-search-container">
     <div class="ins-input-wrapper">
-      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
       <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
     </div>
     <div class="ins-section-wrapper">
@@ -110,7 +110,7 @@
             
             <i class="icon icon-home-fill"></i>
             
-            <span class="menu-title">Home</span>
+            <span class="menu-title">首页</span>
           </a>
         </li>
         
@@ -120,7 +120,7 @@
             
             <i class="icon icon-archives-fill"></i>
             
-            <span class="menu-title">Archives</span>
+            <span class="menu-title">归档</span>
           </a>
         </li>
         
@@ -130,7 +130,7 @@
             
             <i class="icon icon-folder"></i>
             
-            <span class="menu-title">Categories</span>
+            <span class="menu-title">分类</span>
           </a>
         </li>
         
@@ -140,7 +140,7 @@
             
             <i class="icon icon-tags"></i>
             
-            <span class="menu-title">Tags</span>
+            <span class="menu-title">标签</span>
           </a>
         </li>
         
@@ -150,7 +150,7 @@
             
             <i class="icon icon-project"></i>
             
-            <span class="menu-title">Repository</span>
+            <span class="menu-title">项目</span>
           </a>
         </li>
         
@@ -160,7 +160,7 @@
             
             <i class="icon icon-book-fill"></i>
             
-            <span class="menu-title">Books</span>
+            <span class="menu-title">书单</span>
           </a>
         </li>
         
@@ -170,7 +170,7 @@
             
             <i class="icon icon-friendship"></i>
             
-            <span class="menu-title">Links</span>
+            <span class="menu-title">友链</span>
           </a>
         </li>
         
@@ -180,7 +180,7 @@
             
             <i class="icon icon-cup-fill"></i>
             
-            <span class="menu-title">About</span>
+            <span class="menu-title">关于</span>
           </a>
         </li>
         
@@ -202,7 +202,7 @@
   <div class="slimContent">
     
       <div class="widget">
-    <h3 class="widget-title">Board</h3>
+    <h3 class="widget-title">公告</h3>
     <div class="widget-body">
         <div id="board">
             <div class="content">
@@ -218,9 +218,9 @@
     
       
   <div class="widget">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">标签</h3>
     <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python-MySQL-pymysql/" rel="tag">python, MySQL, pymysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/" rel="tag">vmware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E6%A6%82%E8%AE%BA/" rel="tag">航空航天概论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B8%B8%E8%AF%86/" rel="tag">计算机常识</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a><span class="tag-list-count">4</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pymysql/" rel="tag">pymysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/" rel="tag">vmware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" rel="tag">博弈论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E6%A6%82%E8%AE%BA/" rel="tag">航空航天概论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B8%B8%E8%AF%86/" rel="tag">计算机常识</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a><span class="tag-list-count">5</span></li></ul>
     </div>
   </div>
 
@@ -228,18 +228,18 @@
     
       
   <div class="widget">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">标签云</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/Docker/" style="font-size: 13px;">Docker</a> <a href="/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 13.25px;">MySQL</a> <a href="/tags/python-MySQL-pymysql/" style="font-size: 13px;">python, MySQL, pymysql</a> <a href="/tags/vmware/" style="font-size: 13px;">vmware</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 13.75px;">操作系统</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 13px;">爬虫</a> <a href="/tags/%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E6%A6%82%E8%AE%BA/" style="font-size: 13px;">航空航天概论</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B8%B8%E8%AF%86/" style="font-size: 13px;">计算机常识</a> <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" style="font-size: 13.5px;">面向对象</a>
+      <a href="/tags/C/" style="font-size: 13px;">C++</a> <a href="/tags/Docker/" style="font-size: 13px;">Docker</a> <a href="/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/pymysql/" style="font-size: 13px;">pymysql</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/vmware/" style="font-size: 13px;">vmware</a> <a href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" style="font-size: 13px;">博弈论</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 13.67px;">操作系统</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 13px;">爬虫</a> <a href="/tags/%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E6%A6%82%E8%AE%BA/" style="font-size: 13px;">航空航天概论</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B8%B8%E8%AF%86/" style="font-size: 13px;">计算机常识</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 13px;">计算机网络</a> <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" style="font-size: 13.67px;">面向对象</a>
     </div>
   </div>
 
     
       
   <div class="widget">
-    <h3 class="widget-title">Archive</h3>
+    <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">七月 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">四月 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">三月 2023</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -247,7 +247,7 @@
     
       
   <div class="widget">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">最新文章</h3>
     <div class="widget-body">
       <ul class="recent-post-list list-unstyled no-thumbnail">
         
@@ -258,10 +258,10 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2023/04/01/%E9%A1%B5%E8%A1%A8/" class="title">页表</a>
+                <a href="/2023/07/24/Linux%E5%86%85%E6%A0%B8%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E6%A0%88/" class="title">Linux内核网络协议栈</a>
               </p>
               <p class="item-date">
-                <time datetime="2023-04-01T12:03:42.000Z" itemprop="datePublished">2023-04-01</time>
+                <time datetime="2023-07-24T10:25:44.000Z" itemprop="datePublished">2023-07-24</time>
               </p>
             </div>
           </li>
@@ -273,10 +273,10 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2023/04/01/Ubuntu%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95/" class="title">Ubuntu中文输入法</a>
+                <a href="/2023/07/22/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/" class="title">科学上网</a>
               </p>
               <p class="item-date">
-                <time datetime="2023-04-01T03:04:15.000Z" itemprop="datePublished">2023-04-01</time>
+                <time datetime="2023-07-22T01:08:11.000Z" itemprop="datePublished">2023-07-22</time>
               </p>
             </div>
           </li>
@@ -288,10 +288,10 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2023/03/30/%E5%8E%8B%E7%BC%A9%E5%92%8C%E8%A7%A3%E5%8E%8B/" class="title">压缩和解压</a>
+                <a href="/2023/05/16/OO%E7%AC%AC%E4%B8%89%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/" class="title">OO第三单元作业总结</a>
               </p>
               <p class="item-date">
-                <time datetime="2023-03-30T08:26:32.000Z" itemprop="datePublished">2023-03-30</time>
+                <time datetime="2023-05-16T14:18:34.000Z" itemprop="datePublished">2023-05-16</time>
               </p>
             </div>
           </li>
@@ -303,10 +303,10 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2023/03/29/TryXPath/" class="title">TryXPath</a>
+                <a href="/2023/05/07/C++%20template/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2023-03-29T15:27:01.000Z" itemprop="datePublished">2023-03-29</time>
+                <time datetime="2023-05-07T12:07:13.301Z" itemprop="datePublished">2023-05-07</time>
               </p>
             </div>
           </li>
@@ -318,10 +318,10 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2023/03/29/OO%E7%AC%AC%E4%BA%8C%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/" class="title">OO第二单元作业总结</a>
+                <a href="/2023/04/27/%E6%B5%8B%E8%AF%95%E5%BC%95%E8%AE%BA/" class="title">测试引论</a>
               </p>
               <p class="item-date">
-                <time datetime="2023-03-29T06:45:52.000Z" itemprop="datePublished">2023-03-29</time>
+                <time datetime="2023-04-27T07:54:28.000Z" itemprop="datePublished">2023-04-27</time>
               </p>
             </div>
           </li>
@@ -368,20 +368,20 @@
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/#comments" class="article-comment-link">Comments</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="Part-1-第一次作业"><a href="#Part-1-第一次作业" class="headerlink" title="Part 1 第一次作业"></a>Part 1 第一次作业</h1><p>第一次作业</p>
+        <h1 id="part-1-第一次作业"><a class="markdownIt-Anchor" href="#part-1-第一次作业"></a> Part 1 第一次作业</h1>
+<p>第一次作业</p>
 <p>考虑到整个作业可以被分为两个部分：建立计算关系+用某种结构承载计算结果</p>
 <p>为了方便化简，用于承载计算结构的结构必须有统一的形式</p>
 <p>计算关系的构建采用传统的表达式树，树上的每个节点被抽象成一个<code>Op</code>，每当新增一种计算类型时，考虑通过拓展<code>Op</code>的种类来将新计算嵌入表达式树；以下是截至到第三次作业，我所拓展出来的关于<code>Op</code>的类图：</p>
 <img src="http://whosejam.github.io/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230317111415668.png">
-
 <p>接下来考虑如何统一计算结果的结构</p>
-<p>可以发现最后计算结果一定会形如：$x^2y^3+xcos(?)-z^3sin^2(?)$</p>
+<p>可以发现最后计算结果一定会形如：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><msup><mi>y</mi><mn>3</mn></msup><mo>+</mo><mi>x</mi><mi>c</mi><mi>o</mi><mi>s</mi><mo stretchy="false">(</mo><mo stretchy="false">?</mo><mo stretchy="false">)</mo><mo>−</mo><msup><mi>z</mi><mn>3</mn></msup><mi>s</mi><mi>i</mi><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">(</mo><mo stretchy="false">?</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">x^2y^3+xcos(?)-z^3sin^2(?)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.008548em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">x</span><span class="mord mathnormal">c</span><span class="mord mathnormal">o</span><span class="mord mathnormal">s</span><span class="mopen">(</span><span class="mclose">?</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mord mathnormal">s</span><span class="mord mathnormal">i</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mclose">?</span><span class="mclose">)</span></span></span></span></p>
 <p>可以粗略将其分成四层：</p>
 <ul>
 <li>用加减号连接的<code>Poly</code></li>
@@ -391,20 +391,19 @@
 </ul>
 <p>我最后的设计如下：</p>
 <img src="http://whosejam.github.io/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230317150716626.png">
-
 <p>在解析字符串的过程中，我认为首先对字符串预处理，将其转化成为Token序列，再将Token序列喂给Parser会是一个比较方便的实现方式；在Parser中采用递归下降，生成一个表达式树</p>
 <p>我个人觉得<code>instanceof</code>简直是设计失败的补救，所以本次作业在代码避免出现任何一处<code>instanceof</code></p>
-<h1 id="Part-2-第二次作业"><a href="#Part-2-第二次作业" class="headerlink" title="Part 2 第二次作业"></a>Part 2 第二次作业</h1><p>添加了自定义函数</p>
+<h1 id="part-2-第二次作业"><a class="markdownIt-Anchor" href="#part-2-第二次作业"></a> Part 2 第二次作业</h1>
+<p>添加了自定义函数</p>
 <p>考虑到普通程序里面的函数调用，我们会用一个栈来保存参数列表，那么在本次作业中我也进行了类似的设计：</p>
 <img src="http://whosejam.github.io/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230317161251460.png">
-
 <p><code>FunDefine</code>里面包含了一棵表达式树，表示这个函数的定义</p>
 <p><code>FunOp</code>作为表达式树上的节点，当对其进行计算时，它会使用<code>FunEnv</code>来告诉全局，现在进入了某个函数内部进行计算，同时将参数入栈；<code>FunEnv</code>的计算过程就是调用<code>FunDefine</code>内部的表达式树的计算的过程；在<code>FunDefine</code>内部的<code>PlaceholderOp</code>中，会通过查询<code>FunEnv</code>的参数栈来获取该占位符的具体值</p>
-<h1 id="Part-3-第三次作业"><a href="#Part-3-第三次作业" class="headerlink" title="Part 3 第三次作业"></a>Part 3 第三次作业</h1><p>对“承载计算结果”的数据结构，即<code>Poly</code>，<code>Unit</code>，<code>Power</code>，<code>AtomFunc</code>都定义好对应的求导函数即可</p>
-<h1 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h1><img src="http://whosejam.github.io/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230317161904455.png">
-
+<h1 id="part-3-第三次作业"><a class="markdownIt-Anchor" href="#part-3-第三次作业"></a> Part 3 第三次作业</h1>
+<p>对“承载计算结果”的数据结构，即<code>Poly</code>，<code>Unit</code>，<code>Power</code>，<code>AtomFunc</code>都定义好对应的求导函数即可</p>
+<h1 id="代码分析"><a class="markdownIt-Anchor" href="#代码分析"></a> 代码分析</h1>
+<img src="http://whosejam.github.io/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230317161904455.png">
 <img src="http://whosejam.github.io/2023/03/17/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230317161921718.png">
-
 <p>可以发现Lexer和Parser中的方法的认知复杂度较高，因为我采用的是一个类有一个大方法进行解析的操作，其内有较多的分支判断，打破了代码的连续性</p>
 
       
@@ -462,12 +461,12 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2023/03/17/UML%E7%B1%BB%E5%9B%BE/" title="UML类图"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+      <a href="/2023/03/17/UML%E7%B1%BB%E5%9B%BE/" title="UML类图"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
     
     <li class="next">
-      <a href="/2023/03/14/%E5%A4%A7%E6%B0%94/" title="大气"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2023/03/14/%E5%A4%A7%E6%B0%94/" title="大气"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
@@ -516,11 +515,11 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 (function (window) {
     var INSIGHT_CONFIG = {
         TRANSLATION: {
-            POSTS: 'Posts',
-            PAGES: 'Pages',
-            CATEGORIES: 'Categories',
-            TAGS: 'Tags',
-            UNTITLED: '(Untitled)',
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
         },
         ROOT_URL: '/',
         CONTENT_URL: '/content.json',
