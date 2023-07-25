@@ -1,3 +1,6 @@
+http://example.com/2023/07/25/ICPC2018-Qingdao/
+http://example.com/2023/07/25/%E7%BD%AE%E6%8D%A2%E7%BE%A4/
+http://example.com/2023/07/25/CMake/
 http://example.com/2023/07/25/C-%E5%A4%9A%E7%BA%BF%E7%A8%8B/
 http://example.com/2023/07/24/Linux%E5%86%85%E6%A0%B8%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E6%A0%88/
 http://example.com/2023/03/27/pymysql/
@@ -48,3 +51,6 @@ http://example.com/tags/python/
 http://example.com/tags/pymysql/
 http://example.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/
 http://example.com/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/
+http://example.com/tags/ICPC/
+http://example.com/tags/CMake/
+http://example.com/tags/%E7%BE%A4%E8%AE%BA/
