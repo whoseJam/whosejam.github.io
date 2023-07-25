@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-07-24T10:37:09.790Z</updated>
+  <updated>2023-07-25T06:31:08.125Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,13 +17,38 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>C++多线程</title>
+    <link href="http://example.com/2023/07/25/C-%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    <id>http://example.com/2023/07/25/C-%E5%A4%9A%E7%BA%BF%E7%A8%8B/</id>
+    <published>2023-07-25T03:48:30.000Z</published>
+    <updated>2023-07-25T06:31:08.125Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="综述"><a class="markdownIt-Anchor" href="#综述"></a> 综述</h1><p>我们用<strong>mutex</strong>来保护一段数据；用<strong>lock</strong>在一段代码中封装mutex，管理mutex的上锁和释放锁</p><h1 id="mutex"><a class="markdownIt-Anchor" href="#mutex"></a> Mutex</h1><ul><li><p>mutex：一般意义上的互斥锁，同时只能有一个owner</p></li><li><p>shared_mutex：读写锁，拥有两种不同的访问方式</p><ul><li><table><thead><tr><th>操作</th><th>描述</th></tr></thead><tbody><tr><td>独家访问</td><td>相当于写者打算写入数据了</td></tr><tr><td>共同访问</td><td>相当于读者来查看数据</td></tr></tbody></table></li><li><p>这是一个写者优先的读写锁</p></li></ul></li></ul><h1 id="lock"><a class="markdownIt-Anchor" href="#lock"></a> Lock</h1><ul><li><p>lock_guard：在构造函数中自动上锁，在析构函数中自动释放锁，实现了RAII，可以用来管理<strong>mutex</strong></p><ul><li>相对简单，只能进行一次上锁和释放锁，所以在使用conditional variable的时候，或者在一个scope结束前就需要手动unlock的时候不能用lock_guard</li></ul></li><li><p>unique_lock：在构造函数中手动上锁，相比于lock_guard，灵活性更强，时间效率更低，占用空间更大</p></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;综述&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#综述&quot;&gt;&lt;/a&gt; 综述&lt;/h1&gt;
+&lt;p&gt;我们用&lt;strong&gt;mutex&lt;/strong&gt;来保护一段数据；用&lt;strong&gt;lock&lt;/strong&gt;在一段代码中封装mutex，管理m</summary>
+      
+    
+    
+    
+    
+    <category term="C++" scheme="http://example.com/tags/C/"/>
+    
+    <category term="多线程" scheme="http://example.com/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Linux内核网络协议栈</title>
     <link href="http://example.com/2023/07/24/Linux%E5%86%85%E6%A0%B8%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E6%A0%88/"/>
     <id>http://example.com/2023/07/24/Linux%E5%86%85%E6%A0%B8%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E6%A0%88/</id>
     <published>2023-07-24T10:25:44.000Z</published>
-    <updated>2023-07-24T10:37:09.790Z</updated>
+    <updated>2023-07-24T10:53:44.794Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="协议栈"><a class="markdownIt-Anchor" href="#协议栈"></a> 协议栈</h1><p>我们有很多协议，它们像栈一样垒起来，对在网络上传输的数据进行操作：<strong>发送时</strong>留下自己这个协议的标记，<strong>接收时</strong>解析自己这个协议留下的标记</p><h1 id="数据报文的封装与分用"><a class="markdownIt-Anchor" href="#数据报文的封装与分用"></a> 数据报文的封装与分用</h1><h2 id="封装"><a class="markdownIt-Anchor" href="#封装"></a> 封装</h2><p>数据进入内核协议栈中，被<code>TCP/IP</code><strong>协议族</strong>的每层协议打标记，最后得到一串比特流，进入网络的过程。对于每一层而言，对收到的数据都会封装对应的协议<strong>首部信息</strong>（有时还会增加<strong>尾部信息</strong>）</p><p><code>TCP segment</code>：<code>TCP</code>协议传递给<code>IP</code>协议的数据单元叫做<code>TCP</code>报文段，或者简称<code>TCP</code>段</p><p><code>IP datagram</code>：<code>IP</code>协议传递给<strong>数据链路层</strong>的数据单元叫做<code>IP</code>数据报</p><img src="Linux内核网络协议栈\1" alt="" style="zoom:50%;" />]]></content>
+    <content type="html"><![CDATA[<h1 id="协议栈"><a class="markdownIt-Anchor" href="#协议栈"></a> 协议栈</h1><p>我们有很多协议，它们像栈一样垒起来，对在网络上传输的数据进行操作：<strong>发送时</strong>留下自己这个协议的标记，<strong>接收时</strong>解析自己这个协议留下的标记</p><h1 id="数据报文的封装与分用"><a class="markdownIt-Anchor" href="#数据报文的封装与分用"></a> 数据报文的封装与分用</h1><h2 id="封装"><a class="markdownIt-Anchor" href="#封装"></a> 封装</h2><p>数据进入内核协议栈中，被TCP/IP<strong>协议族</strong>的每层协议打标记，最后得到一串比特流，进入网络的过程。对于每一层而言，对收到的数据都会封装对应的协议<strong>首部信息</strong>（有时还会增加<strong>尾部信息</strong>）</p><p>TCP segment：TCP协议传递给IP协议的数据单元叫做TCP报文段，或者简称TCP段</p><p>IP datagram：IP协议传递给<strong>数据链路层</strong>的数据单元叫做<code>IP</code>数据报</p><p>Frame：最后通过以太网传输的比特流称为帧</p><img src="Linux内核网络协议栈\1.jpg" alt="" style="zoom:50%;" /><h2 id="分用"><a class="markdownIt-Anchor" href="#分用"></a> 分用</h2><p>当目的主机接收到一个以太网的数据帧时，数据就开始从内核网络协议栈中由底向上升，同时去掉各层协议加上的报文首部，每层协议都会检查报文首部中的协议标识，以确定接收数据的上层协议，这个过程称为<strong>分用</strong></p><p><img src="Linux%E5%86%85%E6%A0%B8%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E6%A0%88%5C2.jpg" alt="在这里插入图片描述" /></p><h1 id="linux内核网络协议栈"><a class="markdownIt-Anchor" href="#linux内核网络协议栈"></a> Linux内核网络协议栈</h1><h2 id="协议栈的分层结构"><a class="markdownIt-Anchor" href="#协议栈的分层结构"></a> 协议栈的分层结构</h2><h3 id="逻辑抽象层级"><a class="markdownIt-Anchor" href="#逻辑抽象层级"></a> 逻辑抽象层级</h3><ul><li>物理层：主要提供各种连接的物理设备，如各种网卡，串口卡等</li><li>链路层：主要提供对物理层进行访问的各种接口卡的驱动程序，如网卡驱动等</li><li>网络层：负责把网络数据包传输到正确的位置，最重要的网络层协议是IP协议，此外还有如ICMP，ARP，RARP等协议</li><li>传输层：为应用程序提供端到端连接，主要为TCP和UDP协议</li><li>应用层：主要为应用程序提供，用来对传输数据进行语义解释的协议，如HTTP，SMTP，FTP等</li></ul>]]></content>
     
     
       
@@ -456,29 +481,6 @@
 &lt;tbody&gt;
 &lt;tr&gt;
 &lt;t</summary>
-      
-    
-    
-    
-    
-    <category term="Linux" scheme="http://example.com/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>apt系列</title>
-    <link href="http://example.com/2023/03/22/apt%E7%B3%BB%E5%88%97/"/>
-    <id>http://example.com/2023/03/22/apt%E7%B3%BB%E5%88%97/</id>
-    <published>2023-03-22T15:19:52.000Z</published>
-    <updated>2023-04-01T05:16:35.090Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="dpkg"><a class="markdownIt-Anchor" href="#dpkg"></a> dpkg</h1><p>Debian为了解决软件管理问题，开发了dpkg（Debian Packager）来简化软件的安装，更新和移除，然后又在dpkg的基础上开发了APT（Advanced Packaging Tool）</p><ul><li>Debian首先维护了一个代码仓库，这个仓库中有大量预先基于dpkg处理好的软件和软件依赖</li><li>软件仓库中的所有软件信息被记录在一张表中，当仓库中的软件发生变动时（例如更新、新增或者移除），该表也会对应变化</li><li>Debian终端用户获取远程仓库的记录表，从而知晓当前软件仓库中软件的情况</li></ul><table><thead><tr><th>选项</th><th>描述</th></tr></thead><tbody><tr><td>-s</td><td>报告指定包的状态信息</td></tr></tbody></table><h2 id="varlibdpkginfo"><a class="markdownIt-Anchor" href="#varlibdpkginfo"></a> /var/lib/dpkg/info</h2><p>在这里保存了各个软件包的配置文件列表</p><p>如果把这里的内容全部删除系统并不会崩溃，如果有未完全安装的软件包，那么把这个文件删除后再新建一个info是有效的解决方式</p><h2 id="软件包的期望状态"><a class="markdownIt-Anchor" href="#软件包的期望状态"></a> 软件包的期望状态</h2><table><thead><tr><th>状态</th><th>全称</th><th>描述</th></tr></thead><tbody><tr><td>u</td><td>unknown</td><td>软件包未安装且用户未请求安装</td></tr><tr><td>i</td><td>install</td><td>用户请求安装软件包</td></tr><tr><td>r</td><td>remove</td><td>用户请求卸载软件包</td></tr><tr><td>p</td><td>purge</td><td>用户请求卸载软件包并清理配置文件</td></tr><tr><td>h</td><td>hold</td><td>用户请求保持当前软件包版本</td></tr></tbody></table><h2 id="dpkg-configure-a"><a class="markdownIt-Anchor" href="#dpkg-configure-a"></a> dpkg --configure -a</h2><p>如果apt被打断了，包被下载了但解压过程可能没有被完全配置或者安装，就可能出现问题</p><p><code>--configure</code>让dpkg完成半安装的软件的配置，<code>-a</code>说明不只是一个特定的包，而是所有的解压过后的，但是没有被配置的软件都应该进行该处理</p><h1 id="apt-"><a class="markdownIt-Anchor" href="#apt-"></a> apt-</h1><ul><li>同步远程仓库中的记录表：<code>apt-get update</code></li><li>将本地所有软件包更新至远程仓库最新版本：<code>apt-get upgrade</code></li><li>在软件仓库中搜索某一软件包：<code>apt-cache search &lt;package&gt;</code></li><li>安装某个包：<code>apt-get install &lt;package&gt;</code></li></ul><table><thead><tr><th>附加选项</th><th>描述</th></tr></thead><tbody><tr><td><code>-f</code>，<code>--fix-missing</code></td><td>有时候会因为网络问题得不到一些包，这时候需要做</td></tr></tbody></table><ul><li>清除不必要的包，这些包是为了满足其他软件包的依赖而安装的，但是现在不再需要：<code>apt-get autoremove</code></li><li>把已经安装的软件包的安装包删除掉：<code>apt-get clean</code></li><li>删除已经安装的软件包（保留配置文件）：<code>apt-get remove</code></li></ul><table><thead><tr><th>附加选项</th><th>描述</th></tr></thead><tbody><tr><td><code>--purge</code></td><td>删除安装包，不保留配置文件，同时删除相应依赖软件包</td></tr></tbody></table>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;dpkg&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#dpkg&quot;&gt;&lt;/a&gt; dpkg&lt;/h1&gt;
-&lt;p&gt;Debian为了解决软件管理问题，开发了dpkg（Debian Packager）来简化软件的安装，更新和移除，然后又在dpkg的基</summary>
       
     
     
