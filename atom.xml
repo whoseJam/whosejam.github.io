@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-07-25T12:25:04.796Z</updated>
+  <updated>2023-07-27T11:01:15.292Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,68 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CF880</title>
+    <link href="http://example.com/2023/07/27/CF880/"/>
+    <id>http://example.com/2023/07/27/CF880/</id>
+    <published>2023-07-27T10:57:54.000Z</published>
+    <updated>2023-07-27T11:01:15.292Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="blottery"><a class="markdownIt-Anchor" href="#blottery"></a> B.Lottery</h1><p><a href="https://codeforces.com/contest/1835/problem/B">Problem - B - Codeforces</a></p><p>考虑当前位置是p，关注最近的前k个人和后k个人：<code>f[1] f[2] ... f[k] p b[1] b[2] ... b[k]</code></p><p>前面的获胜区间是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mo stretchy="false">(</mo><mi>p</mi><mo>+</mo><mi>f</mi><mo stretchy="false">[</mo><mn>1</mn><mo stretchy="false">]</mo><mo stretchy="false">)</mo><mi mathvariant="normal">/</mi><mn>2</mn><mo separator="true">,</mo><mi>p</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[(p+f[1])/2,p]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mopen">(</span><span class="mord mathnormal">p</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord">1</span><span class="mclose">]</span><span class="mclose">)</span><span class="mord">/</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">p</span><span class="mclose">]</span></span></span></span>，后面的获胜区间是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mi>p</mi><mo separator="true">,</mo><mo stretchy="false">(</mo><mi>p</mi><mo>+</mo><mi>b</mi><mo stretchy="false">[</mo><mi>k</mi><mo stretchy="false">]</mo><mo stretchy="false">)</mo><mi mathvariant="normal">/</mi><mn>2</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[p,(p+b[k])/2]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathnormal">p</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mopen">(</span><span class="mord mathnormal">p</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">b</span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mclose">]</span><span class="mclose">)</span><span class="mord">/</span><span class="mord">2</span><span class="mclose">]</span></span></span></span></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;blottery&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#blottery&quot;&gt;&lt;/a&gt; B.Lottery&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://codeforces.com/contest/1835/problem/</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>CF875</title>
+    <link href="http://example.com/2023/07/27/CF875/"/>
+    <id>http://example.com/2023/07/27/CF875/</id>
+    <published>2023-07-27T06:33:20.000Z</published>
+    <updated>2023-07-27T10:43:52.321Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="chyperregular-bracket-strings"><a class="markdownIt-Anchor" href="#chyperregular-bracket-strings"></a> C.Hyperregular Bracket Strings</h1><p><a href="https://codeforces.com/contest/1830/problem/C">Problem - C - Codeforces</a></p><p>一个长度为n的序列不加限制地做括号序列就是卡特兰数</p><p>若干限制会把序列切割成一小段一小段，每一小段都是一个完整的括号序列，那就是若干个卡特兰数之积就行了</p><h1 id="ebully-sort"><a class="markdownIt-Anchor" href="#ebully-sort"></a> E.Bully Sort</h1><p><a href="https://codeforces.com/contest/1830/problem/E">Problem - E - Codeforces</a></p><p>如果我们要把<code>p[i]</code>和<code>p[j]</code>进行交换，那么这之间的数字一定介于<code>p[i]</code>和<code>p[j]</code>之间，会产生逆序对减少<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>j</mi><mo>−</mo><mi>i</mi><mo stretchy="false">)</mo><mo>⋅</mo><mn>2</mn><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">(j-i)\cdot 2-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">i</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>个</p><p>那我们把一个较大的数字<code>p[i]</code>移动到自己应该在的位置，移动了<code>cnt</code>次，总共就会减少<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>p</mi><mi>i</mi></msub><mo>−</mo><mi>i</mi><mo stretchy="false">)</mo><mo>⋅</mo><mn>2</mn><mo>−</mo><mi>c</mi><mi>n</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">(p_i-i)\cdot 2-cnt</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">i</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathnormal">c</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span></span></span></span>个逆序对；假设我们把整个数组都排好序，那么累加起来应该有：</p><p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><munder><mo>∑</mo><mi>i</mi></munder><mo stretchy="false">(</mo><msub><mi>p</mi><mi>i</mi></msub><mo>−</mo><mi>i</mi><mo stretchy="false">)</mo><mo stretchy="false">[</mo><msub><mi>p</mi><mi>i</mi></msub><mo>&gt;</mo><mi>i</mi><mo stretchy="false">]</mo><mo>⋅</mo><mn>2</mn><mo>=</mo><mi>T</mi><mi>o</mi><mi>t</mi><mi>a</mi><mi>l</mi><mo>+</mo><mtext>逆序对数量</mtext></mrow><annotation encoding="application/x-tex">\sum_{i}(p_i-i)[p_i&gt;i]\cdot 2=Total+逆序对数量</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.327674em;vertical-align:-1.277669em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.0500050000000003em;"><span style="top:-1.872331em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.277669em;"><span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">i</span><span class="mclose">)</span><span class="mopen">[</span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">i</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal">o</span><span class="mord mathnormal">t</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">逆</span><span class="mord cjk_fallback">序</span><span class="mord cjk_fallback">对</span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">量</span></span></span></span></span></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;chyperregular-bracket-strings&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#chyperregular-bracket-strings&quot;&gt;&lt;/a&gt; C.Hyperregular Bracket String</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>CF887</title>
+    <link href="http://example.com/2023/07/26/CF887/"/>
+    <id>http://example.com/2023/07/26/CF887/</id>
+    <published>2023-07-26T07:40:38.000Z</published>
+    <updated>2023-07-26T10:32:06.934Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="cina-of-the-mountain"><a class="markdownIt-Anchor" href="#cina-of-the-mountain"></a> C.Ina of the Mountain</h1><p><a href="https://codeforces.com/contest/1852/problem/C">Problem - C - Codeforces</a></p><p>一个积木城堡，可以把任意一个积木的长度+k任意次，求最少用多少横线可以覆盖积木城堡</p><p>做一个差分，得到一个数组<code>d[]</code>，如果某个<code>d[i]&gt;0</code>，就会对答案产生<code>+d[i]</code>的贡献，如果我们遇到两个相邻积木的长度分别为<code>c[i-1]</code>和<code>c[i]</code>，讨论：</p><ul><li><p><code>c[i-1]&lt;c[i]</code>，那么我们要么付出<code>c[i]-c[i-1]</code>的代价，要么牺牲之前的某个位置（该位置满足<code>c[k-1]&gt;c[k]</code>）让<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mi>k</mi><mo separator="true">,</mo><mi>i</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[k,i]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">i</span><span class="mclose">]</span></span></span></span>这个区间上每个积木长度+k，付出的代价就是<code>c[k]-c[k-1]+K</code>，用一个优先队列来取最小值即可</p></li><li><p><code>c[i-1]&gt;=c[i]</code>，维护优先队列的<code>c[i]-c[i-1]+K</code>的最小值</p></li></ul><h1 id="dmiriany-and-matchstick"><a class="markdownIt-Anchor" href="#dmiriany-and-matchstick"></a> D.Miriany and Matchstick</h1><p><a href="https://codeforces.com/contest/1852/problem/D">Problem - D - Codeforces</a></p><p>设<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mrow><mi>A</mi><mi mathvariant="normal">/</mi><mi>B</mi></mrow></msub><mo stretchy="false">(</mo><mi>i</mi><mo separator="true">,</mo><mi>j</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f_{A/B}(i,j)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1052em;vertical-align:-0.3551999999999999em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.34480000000000005em;"><span style="top:-2.5198em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">A</span><span class="mord mtight">/</span><span class="mord mathnormal mtight" style="margin-right:0.05017em;">B</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3551999999999999em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">i</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span><span class="mclose">)</span></span></span></span>表示第<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathnormal">i</span></span></span></span>个元素填<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi mathvariant="normal">/</mi><mi>B</mi></mrow><annotation encoding="application/x-tex">A/B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">A</span><span class="mord">/</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span></span>，产生总共<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi></mrow><annotation encoding="application/x-tex">j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span></span></span></span>个不同是否可行，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mrow><mi>A</mi><mi mathvariant="normal">/</mi><mi>B</mi></mrow></msub><mo stretchy="false">(</mo><mi>i</mi><mo separator="true">,</mo><mi>j</mi><mo stretchy="false">)</mo><mo>=</mo><mn>0</mn><mi mathvariant="normal">/</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">f_{A/B}(i,j)=0/1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1052em;vertical-align:-0.3551999999999999em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.34480000000000005em;"><span style="top:-2.5198em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">A</span><span class="mord mtight">/</span><span class="mord mathnormal mtight" style="margin-right:0.05017em;">B</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3551999999999999em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">i</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mord">/</span><span class="mord">1</span></span></span></span></p><p>我们会发现<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mrow><mi>A</mi><mi mathvariant="normal">/</mi><mi>B</mi></mrow></msub><mo stretchy="false">(</mo><mi>i</mi><mo separator="true">,</mo><mo stretchy="false">?</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f_{A/B}(i,?)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1052em;vertical-align:-0.3551999999999999em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.34480000000000005em;"><span style="top:-2.5198em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">A</span><span class="mord mtight">/</span><span class="mord mathnormal mtight" style="margin-right:0.05017em;">B</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3551999999999999em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">i</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mclose">?</span><span class="mclose">)</span></span></span></span>中连续为1的<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi></mrow><annotation encoding="application/x-tex">j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span></span></span></span>的段数并不多，暴力维护这些段即可</p><p>（即从<code>bool f[A/B][i][j]</code>变成了<code>set&lt;segment&gt; f[A/B][i]</code>）</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;cina-of-the-mountain&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#cina-of-the-mountain&quot;&gt;&lt;/a&gt; C.Ina of the Mountain&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>置换群</title>
@@ -404,77 +466,6 @@
     
     
     <category term="面向对象" scheme="http://example.com/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>pymysql</title>
-    <link href="http://example.com/2023/03/27/pymysql/"/>
-    <id>http://example.com/2023/03/27/pymysql/</id>
-    <published>2023-03-27T14:30:18.000Z</published>
-    <updated>2023-07-24T10:24:36.138Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python[version] -m pip install pymysqls</span><br></pre></td></tr></table></figure><h1 id="Access-denied-for-user-‘root’-’localhost’"><a href="#Access-denied-for-user-‘root’-’localhost’" class="headerlink" title="Access denied for user ‘root’@’localhost’"></a>Access denied for user ‘root’@’localhost’</h1><p>首先进入MySQL</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root</span><br></pre></td></tr></table></figure><p>在MySQL中执行语句</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER USER &#x27;root&#x27;@&#x27;localhost&#x27; IDENTIFIED WITH mysql_native_password BY &#x27;test&#x27;</span><br></pre></td></tr></table></figure><p>其中<code>test</code>是root用户的新密码，同时记住最后要执行<code>service mysql restart</code></p><p>在pymysql连接数据库的时候一定要加上password选项，同时port在默认情况下是3306</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h1&gt;&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span </summary>
-      
-    
-    
-    
-    
-    <category term="MySQL" scheme="http://example.com/tags/MySQL/"/>
-    
-    <category term="python" scheme="http://example.com/tags/python/"/>
-    
-    <category term="pymysql" scheme="http://example.com/tags/pymysql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MySQL Server安装</title>
-    <link href="http://example.com/2023/03/27/MySQL-Server%E5%AE%89%E8%A3%85/"/>
-    <id>http://example.com/2023/03/27/MySQL-Server%E5%AE%89%E8%A3%85/</id>
-    <published>2023-03-27T08:40:30.000Z</published>
-    <updated>2023-03-27T14:29:40.141Z</updated>
-    
-    <content type="html"><![CDATA[<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install mysql-server-8.0</span><br></pre></td></tr></table></figure><p>安装完即可使用<code>mysql</code>，不过此时不要求身份验证就可以启动数据库，没有输入账号密码的那一步，非常适合测试</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span</summary>
-      
-    
-    
-    
-    
-    <category term="MySQL" scheme="http://example.com/tags/MySQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>VMWare共享文件夹</title>
-    <link href="http://example.com/2023/03/27/VMWare%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9/"/>
-    <id>http://example.com/2023/03/27/VMWare%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9/</id>
-    <published>2023-03-27T07:36:14.000Z</published>
-    <updated>2023-03-27T08:38:26.172Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="vmware找不到共享文件夹"><a class="markdownIt-Anchor" href="#vmware找不到共享文件夹"></a> VMWare找不到共享文件夹</h1><p>首先在VMWare的<code>VM&gt;Settings&gt;Options&gt;shared Folders</code>中启用共享文件夹，并设置主机上的共享文件夹的路径</p><p>对于用于共享的文件夹，在windows下先将共享，具体来说，打开属性界面</p><img src="http://whosejam.github.io/2023/03/27/VMWare%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9/image-20230327155506172.png" alt="image-20230327155506172" style="zoom:25%;"><p>选择当前的系统用户</p><img src="http://whosejam.github.io/2023/03/27/VMWare%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9/image-20230327155809682.png" alt="image-20230327155809682" style="zoom:25%;"><img src="http://whosejam.github.io/2023/03/27/VMWare%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9/image-20230327155848001.png" alt="image-20230327155848001" style="zoom:25%;"><p>然后打开<code>此电脑&gt;映射网络驱动器</code></p><img src="http://whosejam.github.io/2023/03/27/VMWare%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9/image-20230327160248473.png" alt="image-20230327160248473" style="zoom:25%;"><p>将刚才得到的网络路径填入</p><img src="http://whosejam.github.io/2023/03/27/VMWare%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9/image-20230327160459658.png" alt="image-20230327160459658" style="zoom:25%;"><p>即可得到</p><img src="http://whosejam.github.io/2023/03/27/VMWare%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9/image-20230327160606418.png" alt="image-20230327160606418" style="zoom:25%;"><p>最后在虚拟机中，在root状态下执行<code>vmhgfs-fuse /mnt/hgfs</code>即可，每次虚拟机开启需要用到共享文件夹时都需要执行这一条语句</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;vmware找不到共享文件夹&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#vmware找不到共享文件夹&quot;&gt;&lt;/a&gt; VMWare找不到共享文件夹&lt;/h1&gt;
-&lt;p&gt;首先在VMWare的&lt;code&gt;VM&amp;gt;Settings&amp;gt;Op</summary>
-      
-    
-    
-    
-    
-    <category term="vmware" scheme="http://example.com/tags/vmware/"/>
     
   </entry>
   

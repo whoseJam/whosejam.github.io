@@ -17,20 +17,20 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>curl | Hexo</title>
-  <meta name="description" content="1curl http:&#x2F;&#x2F;127.0.0.1:80&#x2F;judge&#x2F;submit -X POST -d &amp;#x27;hello&#x3D;world&amp;#x27;">
+  <title>CF887 | Hexo</title>
+  <meta name="description" content="C.Ina of the Mountain Problem - C - Codeforces 一个积木城堡，可以把任意一个积木的长度+k任意次，求最少用多少横线可以覆盖积木城堡 做一个差分，得到一个数组d[]，如果某个d[i]&gt;0，就会对答案产生+d[i]的贡献，如果我们遇到两个相邻积木的长度分别为c[i-1]和c[i]，讨论：   c[i-1]&lt;c[i]，那么我们要么付出c[i]-">
 <meta property="og:type" content="article">
-<meta property="og:title" content="curl">
-<meta property="og:url" content="http://example.com/2023/04/05/curl/index.html">
+<meta property="og:title" content="CF887">
+<meta property="og:url" content="http://example.com/2023/07/26/CF887/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="1curl http:&#x2F;&#x2F;127.0.0.1:80&#x2F;judge&#x2F;submit -X POST -d &amp;#x27;hello&#x3D;world&amp;#x27;">
+<meta property="og:description" content="C.Ina of the Mountain Problem - C - Codeforces 一个积木城堡，可以把任意一个积木的长度+k任意次，求最少用多少横线可以覆盖积木城堡 做一个差分，得到一个数组d[]，如果某个d[i]&gt;0，就会对答案产生+d[i]的贡献，如果我们遇到两个相邻积木的长度分别为c[i-1]和c[i]，讨论：   c[i-1]&lt;c[i]，那么我们要么付出c[i]-">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-04-04T16:02:57.000Z">
-<meta property="article:modified_time" content="2023-04-04T16:05:44.989Z">
+<meta property="article:published_time" content="2023-07-26T07:40:38.000Z">
+<meta property="article:modified_time" content="2023-07-26T10:32:06.934Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://example.com/2023/04/05/curl/index.html">
+  <link rel="canonical" href="http://example.com/2023/07/26/CF887/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -332,14 +332,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-curl" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-CF887" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      curl
+      CF887
     </h1>
   
 
@@ -347,8 +347,8 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2023/04/05/curl/" class="article-date">
-	  <time datetime="2023-04-04T16:02:57.000Z" itemprop="datePublished">2023-04-05</time>
+	<a href="/2023/07/26/CF887/" class="article-date">
+	  <time datetime="2023-07-26T07:40:38.000Z" itemprop="datePublished">2023-07-26</time>
 	</a>
 </span>
         
@@ -356,13 +356,29 @@
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/04/05/curl/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/07/26/CF887/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://127.0.0.1:80/judge/submit -X POST -d &#x27;hello=world&#x27;</span><br></pre></td></tr></table></figure>
+        <h1 id="cina-of-the-mountain"><a class="markdownIt-Anchor" href="#cina-of-the-mountain"></a> C.Ina of the Mountain</h1>
+<p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1852/problem/C">Problem - C - Codeforces</a></p>
+<p>一个积木城堡，可以把任意一个积木的长度+k任意次，求最少用多少横线可以覆盖积木城堡</p>
+<p>做一个差分，得到一个数组<code>d[]</code>，如果某个<code>d[i]&gt;0</code>，就会对答案产生<code>+d[i]</code>的贡献，如果我们遇到两个相邻积木的长度分别为<code>c[i-1]</code>和<code>c[i]</code>，讨论：</p>
+<ul>
+<li>
+<p><code>c[i-1]&lt;c[i]</code>，那么我们要么付出<code>c[i]-c[i-1]</code>的代价，要么牺牲之前的某个位置（该位置满足<code>c[k-1]&gt;c[k]</code>）让<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mi>k</mi><mo separator="true">,</mo><mi>i</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[k,i]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">i</span><span class="mclose">]</span></span></span></span>这个区间上每个积木长度+k，付出的代价就是<code>c[k]-c[k-1]+K</code>，用一个优先队列来取最小值即可</p>
+</li>
+<li>
+<p><code>c[i-1]&gt;=c[i]</code>，维护优先队列的<code>c[i]-c[i-1]+K</code>的最小值</p>
+</li>
+</ul>
+<h1 id="dmiriany-and-matchstick"><a class="markdownIt-Anchor" href="#dmiriany-and-matchstick"></a> D.Miriany and Matchstick</h1>
+<p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1852/problem/D">Problem - D - Codeforces</a></p>
+<p>设<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mrow><mi>A</mi><mi mathvariant="normal">/</mi><mi>B</mi></mrow></msub><mo stretchy="false">(</mo><mi>i</mi><mo separator="true">,</mo><mi>j</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f_{A/B}(i,j)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1052em;vertical-align:-0.3551999999999999em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.34480000000000005em;"><span style="top:-2.5198em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">A</span><span class="mord mtight">/</span><span class="mord mathnormal mtight" style="margin-right:0.05017em;">B</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3551999999999999em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">i</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span><span class="mclose">)</span></span></span></span>表示第<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathnormal">i</span></span></span></span>个元素填<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi mathvariant="normal">/</mi><mi>B</mi></mrow><annotation encoding="application/x-tex">A/B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">A</span><span class="mord">/</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span></span>，产生总共<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi></mrow><annotation encoding="application/x-tex">j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span></span></span></span>个不同是否可行，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mrow><mi>A</mi><mi mathvariant="normal">/</mi><mi>B</mi></mrow></msub><mo stretchy="false">(</mo><mi>i</mi><mo separator="true">,</mo><mi>j</mi><mo stretchy="false">)</mo><mo>=</mo><mn>0</mn><mi mathvariant="normal">/</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">f_{A/B}(i,j)=0/1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1052em;vertical-align:-0.3551999999999999em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.34480000000000005em;"><span style="top:-2.5198em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">A</span><span class="mord mtight">/</span><span class="mord mathnormal mtight" style="margin-right:0.05017em;">B</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3551999999999999em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">i</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mord">/</span><span class="mord">1</span></span></span></span></p>
+<p>我们会发现<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mrow><mi>A</mi><mi mathvariant="normal">/</mi><mi>B</mi></mrow></msub><mo stretchy="false">(</mo><mi>i</mi><mo separator="true">,</mo><mo stretchy="false">?</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f_{A/B}(i,?)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1052em;vertical-align:-0.3551999999999999em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.34480000000000005em;"><span style="top:-2.5198em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">A</span><span class="mord mtight">/</span><span class="mord mathnormal mtight" style="margin-right:0.05017em;">B</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3551999999999999em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">i</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mclose">?</span><span class="mclose">)</span></span></span></span>中连续为1的<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi></mrow><annotation encoding="application/x-tex">j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span></span></span></span>的段数并不多，暴力维护这些段即可</p>
+<p>（即从<code>bool f[A/B][i][j]</code>变成了<code>set&lt;segment&gt; f[A/B][i]</code>）</p>
 
       
     </div>
@@ -372,7 +388,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://example.com/2023/04/05/curl/" title="curl" target="_blank" rel="external">http://example.com/2023/04/05/curl/</a>
+      <a href="http://example.com/2023/07/26/CF887/" title="CF887" target="_blank" rel="external">http://example.com/2023/07/26/CF887/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -419,12 +435,12 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2023/04/26/%E7%B1%BB%E5%9E%8B%E6%93%A6%E9%99%A4/" title="C++类型擦除"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="/2023/07/27/CF875/" title="CF875"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
     
     <li class="next">
-      <a href="/2023/04/04/%E7%BA%B3%E4%BB%80%E5%9D%87%E8%A1%A1/" title="纳什均衡"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2023/07/25/%E7%BD%AE%E6%8D%A2%E7%BE%A4/" title="置换群"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     

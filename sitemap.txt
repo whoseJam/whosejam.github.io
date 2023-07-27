@@ -1,3 +1,6 @@
+http://example.com/2023/07/27/CF880/
+http://example.com/2023/07/27/CF875/
+http://example.com/2023/07/26/CF887/
 http://example.com/2023/07/25/ICPC2018-Qingdao/
 http://example.com/2023/07/25/%E7%BD%AE%E6%8D%A2%E7%BE%A4/
 http://example.com/2023/07/25/CMake/
