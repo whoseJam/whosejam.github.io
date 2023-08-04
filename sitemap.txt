@@ -1,8 +1,11 @@
+http://example.com/2023/08/03/CS144-Lab0/
+http://example.com/2023/07/29/netcat/
+http://example.com/2023/07/29/telnet/
+http://example.com/2023/07/25/%E7%BD%AE%E6%8D%A2%E7%BE%A4/
 http://example.com/2023/07/25/ICPC2018-Qingdao/
 http://example.com/2023/07/27/CF875/
 http://example.com/2023/07/27/CF880/
 http://example.com/2023/07/26/CF887/
-http://example.com/2023/07/25/%E7%BD%AE%E6%8D%A2%E7%BE%A4/
 http://example.com/2023/07/25/CMake/
 http://example.com/2023/07/25/C-%E5%A4%9A%E7%BA%BF%E7%A8%8B/
 http://example.com/2023/07/24/Linux%E5%86%85%E6%A0%B8%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E6%A0%88/
@@ -57,3 +60,6 @@ http://example.com/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/
 http://example.com/tags/ICPC/
 http://example.com/tags/CMake/
 http://example.com/tags/%E7%BE%A4%E8%AE%BA/
+http://example.com/tags/TCP-IP/
+http://example.com/tags/netcat/
+http://example.com/tags/telnet/
