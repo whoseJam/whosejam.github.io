@@ -1,3 +1,5 @@
+http://example.com/2023/08/04/CF889/
+http://example.com/2023/08/04/CS144-Lab1/
 http://example.com/2023/08/03/CS144-Lab0/
 http://example.com/2023/07/29/netcat/
 http://example.com/2023/07/29/telnet/
@@ -63,3 +65,4 @@ http://example.com/tags/%E7%BE%A4%E8%AE%BA/
 http://example.com/tags/TCP-IP/
 http://example.com/tags/netcat/
 http://example.com/tags/telnet/
+http://example.com/tags/TPC-IP/
