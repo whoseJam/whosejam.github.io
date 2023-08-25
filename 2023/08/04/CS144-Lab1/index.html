@@ -26,7 +26,7 @@
 <meta property="og:description" content="Lab1 我们需要实现一个Reassembler，来对乱序的字节流重排，问题可以抽象为：在世界上存在一个字符串，我们叫这个字符串为本源字符串，最初时我们无法观测到这个字符串，现在给出若干个[l,r]区间，每次提供字符串[l,r]区间内字符的信息 一个信息三元组：(l:int,r:int,data:string)，表示我观测到了这个本源字符串的[l,r]区间内的子串是data，如果在某个时刻，本源">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-08-04T11:50:01.000Z">
-<meta property="article:modified_time" content="2023-08-04T15:11:16.093Z">
+<meta property="article:modified_time" content="2023-08-08T10:55:34.466Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="TPC&#x2F;IP">
 <meta name="twitter:card" content="summary">
@@ -233,7 +233,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">八月 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">七月 2023</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">四月 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">三月 2023</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">八月 2023</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">七月 2023</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">四月 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">三月 2023</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -245,6 +245,21 @@
     <div class="widget-body">
       <ul class="recent-post-list list-unstyled no-thumbnail">
         
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2023/08/25/Animation-System-in-Slide/" class="title">Animation System in Slide</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-08-25T08:38:40.000Z" itemprop="datePublished">2023-08-25</time>
+              </p>
+            </div>
+          </li>
+          
           <li>
             
             <div class="item-inner">
@@ -305,21 +320,6 @@
             </div>
           </li>
           
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                
-              </p>
-              <p class="item-title">
-                <a href="/2023/07/29/telnet/" class="title">telnet</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2023-07-29T11:52:53.000Z" itemprop="datePublished">2023-07-29</time>
-              </p>
-            </div>
-          </li>
-          
       </ul>
     </div>
   </div>
@@ -375,6 +375,8 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[1,2]: bc	// *bc***</span><br><span class="line">[4,5]: ef	// *bc*ef</span><br><span class="line">[1,1]: b	// *bc*ef</span><br><span class="line">[0,1]: ab	// abc*ef</span><br><span class="line">向Writer中写入abc</span><br></pre></td></tr></table></figure>
 <h2 id="实现"><a class="markdownIt-Anchor" href="#实现"></a> 实现</h2>
 <p>可以用set维护每一个已知连续区间[l,r]以及这一段区间对应的字符串data，支持新加入一个区间时对区间进行合并操作</p>
+<h2 id="更劣的实现"><a class="markdownIt-Anchor" href="#更劣的实现"></a> 更劣的实现</h2>
+<p>尝试把字符串映射到<code>[0,capacity)</code>这个区间上，用一个循环数组维护，每一次添加字符时，遍历整个字符串，把字符一个一个搬运到循环数组对应位置上</p>
 <h2 id="效果"><a class="markdownIt-Anchor" href="#效果"></a> 效果</h2>
 <p>在我的虚拟机上：</p>
 <table>
@@ -386,12 +388,11 @@
 </thead>
 <tbody>
 <tr>
-<td></td>
-<td></td>
+<td>平凡的实现</td>
+<td>3.56 Gbit/s</td>
 </tr>
 </tbody>
 </table>
-<h2 id="优化"><a class="markdownIt-Anchor" href="#优化"></a> 优化</h2>
 
       
     </div>
