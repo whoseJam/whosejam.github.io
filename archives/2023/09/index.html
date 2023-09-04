@@ -17,22 +17,16 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>C++多线程 | Hexo</title>
-  <meta name="description" content="综述 我们用mutex来保护一段数据；用lock在一段代码中封装mutex，管理mutex的上锁和释放锁  Mutex   mutex：一般意义上的互斥锁，同时只能有一个owner   shared_mutex：读写锁，拥有两种不同的访问方式      操作 描述     独家访问 相当于写者打算写入数据了   共同访问 相当于读者来查看数据      这是一个写者优先的读写锁      Loc">
-<meta property="og:type" content="article">
-<meta property="og:title" content="C++多线程">
-<meta property="og:url" content="http://example.com/2023/07/25/C-%E5%A4%9A%E7%BA%BF%E7%A8%8B/index.html">
+  <title>归档: 2023/9 | Hexo</title>
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/archives/2023/09/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="综述 我们用mutex来保护一段数据；用lock在一段代码中封装mutex，管理mutex的上锁和释放锁  Mutex   mutex：一般意义上的互斥锁，同时只能有一个owner   shared_mutex：读写锁，拥有两种不同的访问方式      操作 描述     独家访问 相当于写者打算写入数据了   共同访问 相当于读者来查看数据      这是一个写者优先的读写锁      Loc">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-07-25T03:48:30.000Z">
-<meta property="article:modified_time" content="2023-07-25T06:31:08.125Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="C++">
-<meta property="article:tag" content="多线程">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://example.com/2023/07/25/C-%E5%A4%9A%E7%BA%BF%E7%A8%8B/index.html">
+  <link rel="canonical" href="http://example.com/archives/2023/09/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -333,167 +327,48 @@
   
   
 <main class="main" role="main">
-  <div class="content">
-  <article id="post-C-多线程" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  	<article class="content article article-archives article-type-list" itemscope="">
+	    <header class="article-header">
+	      <h1 itemprop="title">归档: 2023/9</h1>
+	      <p class="text-muted">共 49 篇文章</p>
+	    </header>
+	    <div class="article-body">
+	      
+  
+  
     
-    <div class="article-header">
+    
       
-        
-  
-    <h1 class="article-title" itemprop="name">
-      C++多线程
-    </h1>
-  
-
       
-      <div class="article-meta">
-        <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2023/07/25/C-%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="article-date">
-	  <time datetime="2023-07-25T03:48:30.000Z" itemprop="datePublished">2023-07-25</time>
-	</a>
-</span>
-        
-        
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/C/" rel="tag">C++</a>, <a class="article-tag-link-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a>
-  </span>
-
-
-        
-
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/07/25/C-%E5%A4%9A%E7%BA%BF%E7%A8%8B/#comments" class="article-comment-link">评论</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h1 id="综述"><a class="markdownIt-Anchor" href="#综述"></a> 综述</h1>
-<p>我们用<strong>mutex</strong>来保护一段数据；用<strong>lock</strong>在一段代码中封装mutex，管理mutex的上锁和释放锁</p>
-<h1 id="mutex"><a class="markdownIt-Anchor" href="#mutex"></a> Mutex</h1>
-<ul>
-<li>
-<p>mutex：一般意义上的互斥锁，同时只能有一个owner</p>
-</li>
-<li>
-<p>shared_mutex：读写锁，拥有两种不同的访问方式</p>
-<ul>
-<li>
-<table>
-<thead>
-<tr>
-<th>操作</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>独家访问</td>
-<td>相当于写者打算写入数据了</td>
-</tr>
-<tr>
-<td>共同访问</td>
-<td>相当于读者来查看数据</td>
-</tr>
-</tbody>
-</table>
-</li>
-<li>
-<p>这是一个写者优先的读写锁</p>
-</li>
-</ul>
-</li>
-</ul>
-<h1 id="lock"><a class="markdownIt-Anchor" href="#lock"></a> Lock</h1>
-<ul>
-<li>
-<p>lock_guard：在构造函数中自动上锁，在析构函数中自动释放锁，实现了RAII，可以用来管理<strong>mutex</strong></p>
-<ul>
-<li>相对简单，只能进行一次上锁和释放锁，所以在使用conditional variable的时候，或者在一个scope结束前就需要手动unlock的时候不能用lock_guard</li>
-</ul>
-</li>
-<li>
-<p>unique_lock：在构造函数中手动上锁，相比于lock_guard，灵活性更强，时间效率更低，占用空间更大</p>
-</li>
-</ul>
-
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
-  <ul class="post-copyright list-unstyled">
+      <section class="panel panel-default b-no">
+        <div class="panel-heading" role="tab">
+          <h3 class="panel-title">
+            <a data-toggle="collapse" href="#collapse2023" aria-expanded="true">
+              <i class="icon icon-calendar-plus text-active"></i><i class="icon icon-calendar-minus text"></i>
+              2023
+            </a>
+            <!-- <a href="/archives/2023" class="archive-year">2023</a> -->
+          </h3>
+        </div>
+        <div id="collapse2023" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2023">
+        <div class="panel-body">
+          <div class="collection">
     
-    <li class="post-copyright-link hidden-xs">
-      <strong>本文链接：</strong>
-      <a href="http://example.com/2023/07/25/C-%E5%A4%9A%E7%BA%BF%E7%A8%8B/" title="C++多线程" target="_blank" rel="external">http://example.com/2023/07/25/C-多线程/</a>
-    </li>
     
-    <li class="post-copyright-license">
-      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
-    </li>
-  </ul>
-</blockquote>
-
-
-<div class="panel panel-default panel-badger">
-  <div class="panel-body">
-    <figure class="media">
-      <div class="media-left">
-        <a href="https://github.com/cofess" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
-        </a>
-      </div>
-      <div class="media-body">
-        <h3 class="media-heading"><a href="https://github.com/cofess" target="_blank"><span class="text-dark">whoseJam</span><small class="ml-1x"></small></a></h3>
-        <div></div>
-      </div>
-    </figure>
-  </div>
-</div>
-
-
-    </div>
-  </article>
-  
-    
-  <section id="comments">
-  	
-      <div id="vcomments"></div>
-    
-  </section>
+<a href="/2023/09/04/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%861/" class="collection-item"   itemprop="url">
+  <time datetime="2023-09-04T03:09:27.000Z" itemprop="datePublished">2023-09-04</time>
+  <span>&nbsp;&nbsp;&nbsp;</span> 编译原理1-概论
+</a>
 
 
   
-</div>
-
-  <nav class="bar bar-footer clearfix" data-stick-bottom>
-  <div class="bar-inner">
   
-  <ul class="pager pull-left">
-    
-    <li class="prev">
-      <a href="/2023/07/25/CMake/" title="CMake"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
-    </li>
-    
-    
-    <li class="next">
-      <a href="/2023/07/24/Linux%E5%86%85%E6%A0%B8%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E6%A0%88/" title="Linux内核网络协议栈"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
-    </li>
-    
-    
-  </ul>
-  
-  
-  
-  <div class="bar-right">
-    
-  </div>
-  </div>
-</nav>
+    </div></div></div></section>
   
 
-
+	    </div>
+  	</article>
+  	 	
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -546,37 +421,6 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
-
-   
-
-
-
-
-   
-    
-  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/valine"></script>
-  <script type="text/javascript">
-  var GUEST = ['nick', 'mail', 'link'];
-  var meta = 'nick,mail,link';
-  meta = meta.split(',').filter(function(item) {
-    return GUEST.indexOf(item) > -1;
-  });
-  new Valine({
-    el: '#vcomments',
-    verify: false,
-    notify: false,
-    appId: '',
-    appKey: '',
-    placeholder: 'Just go go',
-    avatar: 'mm',
-    meta: meta,
-    pageSize: '10' || 10,
-    visitor: false
-  });
-  </script>
-
-     
 
 
 

@@ -17,22 +17,23 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>C++多线程 | Hexo</title>
-  <meta name="description" content="综述 我们用mutex来保护一段数据；用lock在一段代码中封装mutex，管理mutex的上锁和释放锁  Mutex   mutex：一般意义上的互斥锁，同时只能有一个owner   shared_mutex：读写锁，拥有两种不同的访问方式      操作 描述     独家访问 相当于写者打算写入数据了   共同访问 相当于读者来查看数据      这是一个写者优先的读写锁      Loc">
+  <title>编译原理1-概论 | Hexo</title>
+  <meta name="description" content="编译过程 词法分析：分析和识别单词 语法分析：根据语法规则，分析并识别出各种语法成分，如表达式、各种说明、各种语句、过程、函数等，并进行语法正确性检查 语义分析，生成中间代码 代码优化：为了获得高质量的目标程序 生成目标程序：与机器关系密切  中间代码一种介于源语言和目标语言之间的中间语言形式  方便做优化处理 方便编译程序的移植  中间代码可以自行设计，常用的有四元式，三元式，逆波兰表示等 四">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C++多线程">
-<meta property="og:url" content="http://example.com/2023/07/25/C-%E5%A4%9A%E7%BA%BF%E7%A8%8B/index.html">
+<meta property="og:title" content="编译原理1-概论">
+<meta property="og:url" content="http://example.com/2023/09/04/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%861/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="综述 我们用mutex来保护一段数据；用lock在一段代码中封装mutex，管理mutex的上锁和释放锁  Mutex   mutex：一般意义上的互斥锁，同时只能有一个owner   shared_mutex：读写锁，拥有两种不同的访问方式      操作 描述     独家访问 相当于写者打算写入数据了   共同访问 相当于读者来查看数据      这是一个写者优先的读写锁      Loc">
+<meta property="og:description" content="编译过程 词法分析：分析和识别单词 语法分析：根据语法规则，分析并识别出各种语法成分，如表达式、各种说明、各种语句、过程、函数等，并进行语法正确性检查 语义分析，生成中间代码 代码优化：为了获得高质量的目标程序 生成目标程序：与机器关系密切  中间代码一种介于源语言和目标语言之间的中间语言形式  方便做优化处理 方便编译程序的移植  中间代码可以自行设计，常用的有四元式，三元式，逆波兰表示等 四">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-07-25T03:48:30.000Z">
-<meta property="article:modified_time" content="2023-07-25T06:31:08.125Z">
+<meta property="og:image" content="http://example.com/2023/09/04/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%861/编译原理1/image-20230904111310548.png">
+<meta property="article:published_time" content="2023-09-04T03:09:27.000Z">
+<meta property="article:modified_time" content="2023-09-04T03:26:26.609Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="C++">
-<meta property="article:tag" content="多线程">
+<meta property="article:tag" content="编译原理">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/09/04/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%861/编译原理1/image-20230904111310548.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://example.com/2023/07/25/C-%E5%A4%9A%E7%BA%BF%E7%A8%8B/index.html">
+  <link rel="canonical" href="http://example.com/2023/09/04/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%861/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -334,14 +335,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-C-多线程" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-编译原理1" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      C++多线程
+      编译原理1-概论
     </h1>
   
 
@@ -349,74 +350,75 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2023/07/25/C-%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="article-date">
-	  <time datetime="2023-07-25T03:48:30.000Z" itemprop="datePublished">2023-07-25</time>
+	<a href="/2023/09/04/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%861/" class="article-date">
+	  <time datetime="2023-09-04T03:09:27.000Z" itemprop="datePublished">2023-09-04</time>
 	</a>
 </span>
         
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/C/" rel="tag">C++</a>, <a class="article-tag-link-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a>
+	<a class="article-tag-link-link" href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" rel="tag">编译原理</a>
   </span>
 
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/07/25/C-%E5%A4%9A%E7%BA%BF%E7%A8%8B/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/09/04/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%861/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="综述"><a class="markdownIt-Anchor" href="#综述"></a> 综述</h1>
-<p>我们用<strong>mutex</strong>来保护一段数据；用<strong>lock</strong>在一段代码中封装mutex，管理mutex的上锁和释放锁</p>
-<h1 id="mutex"><a class="markdownIt-Anchor" href="#mutex"></a> Mutex</h1>
+        <p><img src="编译原理1\image-20230904111310548.png" alt="image-20230904111310548" style="zoom:33%;" /></p>
+<h1 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h1><ol>
+<li><strong>词法分析</strong>：分析和识别<strong>单词</strong></li>
+<li><strong>语法分析</strong>：根据语法规则，分析并识别出各种语法成分，如表达式、各种说明、各种语句、过程、函数等，并进行<strong>语法正确性检查</strong></li>
+<li><strong>语义分析</strong>，生成中间代码</li>
+<li><strong>代码优化</strong>：为了获得高质量的目标程序</li>
+<li><strong>生成目标程序</strong>：与机器关系密切</li>
+</ol>
+<h1 id="中间代码"><a href="#中间代码" class="headerlink" title="中间代码"></a>中间代码</h1><p>一种介于源语言和目标语言之间的中间语言形式</p>
 <ul>
-<li>
-<p>mutex：一般意义上的互斥锁，同时只能有一个owner</p>
-</li>
-<li>
-<p>shared_mutex：读写锁，拥有两种不同的访问方式</p>
-<ul>
-<li>
+<li>方便做优化处理</li>
+<li>方便编译程序的移植</li>
+</ul>
+<p>中间代码可以自行设计，常用的有四元式，三元式，逆波兰表示等</p>
+<h2 id="四元式"><a href="#四元式" class="headerlink" title="四元式"></a>四元式</h2><p><code>X1 := (2.0 + 0.8) * C1</code></p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th>操作</th>
-<th>描述</th>
+<th>运算符</th>
+<th>左运算对象</th>
+<th>右运算对象</th>
+<th>结果</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>独家访问</td>
-<td>相当于写者打算写入数据了</td>
+<td>+</td>
+<td>2.0</td>
+<td>0.8</td>
+<td>T1</td>
 </tr>
 <tr>
-<td>共同访问</td>
-<td>相当于读者来查看数据</td>
+<td>*</td>
+<td>T1</td>
+<td>C1</td>
+<td>T2</td>
+</tr>
+<tr>
+<td>:=</td>
+<td>X1</td>
+<td>T2</td>
 </tr>
 </tbody>
 </table>
-</li>
-<li>
-<p>这是一个写者优先的读写锁</p>
-</li>
-</ul>
-</li>
-</ul>
-<h1 id="lock"><a class="markdownIt-Anchor" href="#lock"></a> Lock</h1>
-<ul>
-<li>
-<p>lock_guard：在构造函数中自动上锁，在析构函数中自动释放锁，实现了RAII，可以用来管理<strong>mutex</strong></p>
-<ul>
-<li>相对简单，只能进行一次上锁和释放锁，所以在使用conditional variable的时候，或者在一个scope结束前就需要手动unlock的时候不能用lock_guard</li>
-</ul>
-</li>
-<li>
-<p>unique_lock：在构造函数中手动上锁，相比于lock_guard，灵活性更强，时间效率更低，占用空间更大</p>
-</li>
-</ul>
+</div>
+<h2 id="多层中间表示和PASS"><a href="#多层中间表示和PASS" class="headerlink" title="多层中间表示和PASS"></a>多层中间表示和PASS</h2><p><strong>PASS</strong>：对源程序（包括源程序中间形式）从头到尾扫描一次，并做有关的加工处理 ，生成新的源程序中间形式或目标程序，通常称之为一遍</p>
+<h1 id="编译管理"><a href="#编译管理" class="headerlink" title="编译管理"></a>编译管理</h1><h2 id="符号表管理"><a href="#符号表管理" class="headerlink" title="符号表管理"></a>符号表管理</h2><p>在整个编译过程中始终都要贯穿着建表（填表）和查表的工作。要及时地把源程序中的信息和编译过程中所产生的信息登记在表格中，而在随后的编译过程中同时又要不断地查找这些表格中的信息</p>
+<h2 id="出错处理"><a href="#出错处理" class="headerlink" title="出错处理"></a>出错处理</h2><p>规模较大的源程序难免有多种错误，编译程序必须要有出错处理的功能。即能诊察出错误，并能报告用户错误的性质和位置，以便用户修改源程序。出错处理能力的大小是衡量编译程序质量好坏的一个重要指标</p>
 
       
     </div>
@@ -426,7 +428,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://example.com/2023/07/25/C-%E5%A4%9A%E7%BA%BF%E7%A8%8B/" title="C++多线程" target="_blank" rel="external">http://example.com/2023/07/25/C-多线程/</a>
+      <a href="http://example.com/2023/09/04/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%861/" title="编译原理1-概论" target="_blank" rel="external">http://example.com/2023/09/04/编译原理1/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -472,13 +474,9 @@
   
   <ul class="pager pull-left">
     
-    <li class="prev">
-      <a href="/2023/07/25/CMake/" title="CMake"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
-    </li>
-    
     
     <li class="next">
-      <a href="/2023/07/24/Linux%E5%86%85%E6%A0%B8%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E6%A0%88/" title="Linux内核网络协议栈"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2023/08/28/CS144-Lab2/" title="CS144-Lab2"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     

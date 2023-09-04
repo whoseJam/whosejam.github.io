@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-08-28T13:27:00.416Z</updated>
+  <updated>2023-09-04T03:26:26.609Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>编译原理1-概论</title>
+    <link href="http://example.com/2023/09/04/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%861/"/>
+    <id>http://example.com/2023/09/04/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%861/</id>
+    <published>2023-09-04T03:09:27.000Z</published>
+    <updated>2023-09-04T03:26:26.609Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="编译原理1\image-20230904111310548.png" alt="image-20230904111310548" style="zoom:33%;" /></p><h1 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h1><ol><li><strong>词法分析</strong>：分析和识别<strong>单词</strong></li><li><strong>语法分析</strong>：根据语法规则，分析并识别出各种语法成分，如表达式、各种说明、各种语句、过程、函数等，并进行<strong>语法正确性检查</strong></li><li><strong>语义分析</strong>，生成中间代码</li><li><strong>代码优化</strong>：为了获得高质量的目标程序</li><li><strong>生成目标程序</strong>：与机器关系密切</li></ol><h1 id="中间代码"><a href="#中间代码" class="headerlink" title="中间代码"></a>中间代码</h1><p>一种介于源语言和目标语言之间的中间语言形式</p><ul><li>方便做优化处理</li><li>方便编译程序的移植</li></ul><p>中间代码可以自行设计，常用的有四元式，三元式，逆波兰表示等</p><h2 id="四元式"><a href="#四元式" class="headerlink" title="四元式"></a>四元式</h2><p><code>X1 := (2.0 + 0.8) * C1</code></p><div class="table-container"><table><thead><tr><th>运算符</th><th>左运算对象</th><th>右运算对象</th><th>结果</th></tr></thead><tbody><tr><td>+</td><td>2.0</td><td>0.8</td><td>T1</td></tr><tr><td>*</td><td>T1</td><td>C1</td><td>T2</td></tr><tr><td>:=</td><td>X1</td><td>T2</td></tr></tbody></table></div><h2 id="多层中间表示和PASS"><a href="#多层中间表示和PASS" class="headerlink" title="多层中间表示和PASS"></a>多层中间表示和PASS</h2><p><strong>PASS</strong>：对源程序（包括源程序中间形式）从头到尾扫描一次，并做有关的加工处理 ，生成新的源程序中间形式或目标程序，通常称之为一遍</p><h1 id="编译管理"><a href="#编译管理" class="headerlink" title="编译管理"></a>编译管理</h1><h2 id="符号表管理"><a href="#符号表管理" class="headerlink" title="符号表管理"></a>符号表管理</h2><p>在整个编译过程中始终都要贯穿着建表（填表）和查表的工作。要及时地把源程序中的信息和编译过程中所产生的信息登记在表格中，而在随后的编译过程中同时又要不断地查找这些表格中的信息</p><h2 id="出错处理"><a href="#出错处理" class="headerlink" title="出错处理"></a>出错处理</h2><p>规模较大的源程序难免有多种错误，编译程序必须要有出错处理的功能。即能诊察出错误，并能报告用户错误的性质和位置，以便用户修改源程序。出错处理能力的大小是衡量编译程序质量好坏的一个重要指标</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;编译原理1\image-20230904111310548.png&quot; alt=&quot;image-20230904111310548&quot; style=&quot;zoom:33%;&quot; /&gt;&lt;/p&gt;
+&lt;h1 id=&quot;编译过程&quot;&gt;&lt;a href=&quot;#编译过程&quot; class=&quot;</summary>
+      
+    
+    
+    
+    
+    <category term="编译原理" scheme="http://example.com/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/"/>
+    
+  </entry>
   
   <entry>
     <title>CS144-Lab2</title>
@@ -427,27 +450,6 @@
       
     <summary type="html">&lt;h1 id=&quot;c-template&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#c-template&quot;&gt;&lt;/a&gt; C++ template&lt;/h1&gt;
 &lt;h2 id=&quot;需求1&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>测试引论</title>
-    <link href="http://example.com/2023/04/27/%E6%B5%8B%E8%AF%95%E5%BC%95%E8%AE%BA/"/>
-    <id>http://example.com/2023/04/27/%E6%B5%8B%E8%AF%95%E5%BC%95%E8%AE%BA/</id>
-    <published>2023-04-27T07:54:28.000Z</published>
-    <updated>2023-04-27T10:04:43.603Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="黑盒测试白盒测试"><a class="markdownIt-Anchor" href="#黑盒测试白盒测试"></a> 黑盒测试&amp;白盒测试</h1><h2 id="黑盒测试"><a class="markdownIt-Anchor" href="#黑盒测试"></a> 黑盒测试</h2><p>黑盒测试又称功能测试，在测试过程中不对程序的内部进行分析，而只对程序的输入和输出进行测试</p><img src="http://whosejam.github.io/2023/04/27/%E6%B5%8B%E8%AF%95%E5%BC%95%E8%AE%BA/format,png.png" alt="image-20200531202329881" style="zoom:50%;"><p>这种测试不需要我们中间参与编写任何代码，传入参数值后查看程序是否正常达到预期值即可</p><h2 id="白盒测试"><a class="markdownIt-Anchor" href="#白盒测试"></a> 白盒测试</h2><p>白盒测试又称为结构测试，程序对测试者是可见的，我们清楚代码的结构，在使用白盒测试时，测试人员必须检查程序的内部结构，从测试程序的逻辑开始，一步一步地检查传入参数并且查看程序的运行过输出结果，最终得出测试数据</p><img src="http://whosejam.github.io/2023/04/27/%E6%B5%8B%E8%AF%95%E5%BC%95%E8%AE%BA/format,png-1682582428881-3.png" alt="image-20200531202615957" style="zoom:50%;"><p>这也就是白盒测试叫穷举路径测试的原因</p><h1 id="单元测试"><a class="markdownIt-Anchor" href="#单元测试"></a> 单元测试</h1><p>单元测试是指对软件中最小的可测试单元进行检查和验证，至于单元的大小或者范围，并没有一个明确的标准，单元可以是一个函数、方法、类、功能模块或者子系统</p><p>单元测试通常和白盒测试联系到一起，如果单从概念上来讲两者是有区别的，不过我们通常说的单元测试和白盒测试都认为是和代码有关系的，所以某些语境下也认为这两者是同一个东西；还有一种理解方式：单元测试和白盒测试就是对开发人员所编写的代码进行测试</p><h2 id="junit单元测试编码规范"><a class="markdownIt-Anchor" href="#junit单元测试编码规范"></a> Junit单元测试编码规范</h2><ul><li>类名：定义测试类，类名由<code>被测试类名Test</code>构成，例如<code>CalculatorTest</code></li><li>包名：定义的测试类需要被放在<code>xxx.xxx.xxx.test</code>包中，例如<code>package com.mylifes1110.test</code></li><li>方法名：测试方法的方法名有两种定义方式<code>test测试方法</code>或<code>测试方法</code>，例如<code>testAdd</code>或<code>add</code></li><li>返回值：由于我们的方法只是在类中进行测试，可以独立运行，所以不需要处理任何返回值，返回值被设定为<code>void</code></li><li>参数列表：由于我们的方法是用来测试的，所以参数列表也为空</li><li><code>@Test</code>注解：测试是需要运行来完成的，如果我们只有一个<code>main</code>方法，显然我们还是需要繁琐地去不断“运行”-“注释”，所以我们在测试方法上加上<code>@Test</code>注解，只要是加过该注解的方法，都是可以单独运行的<ul><li><code>@Test</code>注解需要我们导入jar包才能使用的</li><li><code>@Test(expected=XX.class)</code>，表示某个异常即使发生，也是可以被通过测试的</li><li><code>@Test(timeout=毫秒)</code>表示如果测试方法在指定的时间内没有完成，就会强制停止</li></ul></li></ul><h3 id="assert断言"><a class="markdownIt-Anchor" href="#assert断言"></a> Assert断言</h3><table><thead><tr><th>断言方法</th><th>描述</th></tr></thead><tbody><tr><td><code>assertNull(Object)</code></td><td>检查对象是否为空</td></tr><tr><td><code>assertNotNull(Object)</code></td><td>检查对象是否不为空</td></tr><tr><td><code>assertEqual(long,long)</code></td><td>检查long的值是否相等</td></tr><tr><td><code>assertEqual(double,double,double)</code></td><td>检查double的值在精度范围内是否相等</td></tr><tr><td><code>assertFalse(boolean)</code></td><td>检查条件是否为假</td></tr><tr><td><code>assertTrue(boolean)</code></td><td>检查条件是否为真</td></tr><tr><td><code>assertSame(Object,Object)</code></td><td>检查两个对象引用是否引用同一对象</td></tr><tr><td><code>assertNotSame(Object,Object)</code></td><td>检查两个对象引用是否没引用同一对象</td></tr></tbody></table><h3 id="方法调用时机"><a class="markdownIt-Anchor" href="#方法调用时机"></a> 方法调用时机</h3><img src="http://whosejam.github.io/2023/04/27/%E6%B5%8B%E8%AF%95%E5%BC%95%E8%AE%BA/v2-1f3cf14e36c2182cb759f69ff38b9364_720w.webp" alt="img" style="zoom:50%;"><p>可以使用<code>@BeforeClass</code>，<code>@Before</code>，<code>@After</code>，<code>@AfterClass</code>来为测试类的方法，设定对应的调用时机</p><h3 id="测试套件"><a class="markdownIt-Anchor" href="#测试套件"></a> 测试套件</h3><p>测试嵌套，即将测试类封装起来，只要运行测试套件，就能运行所有的测试类了</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith(Suite.class)</span></span><br><span class="line"><span class="meta">@Suite</span>.SuiteClasses(&#123;Test1.class, Test2.class,...&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SuiteTest</span> &#123;</span><br><span class="line">    <span class="comment">// 这是一个不包含任何方法的空类</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="参数化设置"><a class="markdownIt-Anchor" href="#参数化设置"></a> 参数化设置</h3><p>以测试加法为例，测试1+1 expect 2是简单的，但如果要测试多组数据，提前配置好参数可能是一个更好的方法</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith(Parameterized.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ParameterTest</span> &#123;</span><br><span class="line">    <span class="type">int</span> expected, input1, input2;</span><br><span class="line">    <span class="meta">@Parameters</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Collection&lt;Object[]&gt; t() &#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.asList(<span class="keyword">new</span> <span class="title class_">Object</span>[][]&#123;</span><br><span class="line">            &#123;<span class="number">3</span>, <span class="number">1</span>, <span class="number">2</span>&#125;,</span><br><span class="line">            &#123;<span class="number">4</span>, <span class="number">2</span>, <span class="number">2</span>&#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">ParameterTest</span><span class="params">(<span class="type">int</span> expect, <span class="type">int</span> input1, <span class="type">int</span> input2)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.expect = expect;</span><br><span class="line">        <span class="built_in">this</span>.input1 = input1;</span><br><span class="line">        <span class="built_in">this</span>.input2 = input2;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testAdd</span><span class="params">()</span> &#123;</span><br><span class="line">        assertEquals(expected, <span class="keyword">new</span> <span class="title class_">Calculate</span>().add(input1, input2));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="googletest单元测试"><a class="markdownIt-Anchor" href="#googletest单元测试"></a> googletest单元测试</h2><h3 id="assert断言-2"><a class="markdownIt-Anchor" href="#assert断言-2"></a> Assert断言</h3><p>googletest中，是通过断言来判断代码实现的功能是否符合预期，断言的结果分为成功<code>success</code>，非致命错误<code>non-fatal failure</code>和致命错误<code>fatal failure</code></p><ul><li>成功：断言成功，程序的行为符合预期，程序允许继续向下运行，可以在代码中调用<code>SUCCEED()</code>来表示这个结果</li><li>非致命错误：断言失败，但程序没有直接中止，而是继续向下运行，可以在代码中调用<code>FAIL()</code>来表示这个结果</li><li>致命错误：中止当前函数或者程序崩溃，可以在代码中调用<code>ADD_FAILURE()</code>来表示这个结果</li></ul><p>这些断言都是宏，行为表现得像函数调用，当断言失败时googletest会打印断言的源文件和行号位置以及失败消息，还可以提供自定义失败消息</p><h4 id="expect"><a class="markdownIt-Anchor" href="#expect"></a> EXPECT</h4><p><code>EXPECT_*</code>在失败时会产生非致命错误</p><h4 id="assert"><a class="markdownIt-Anchor" href="#assert"></a> ASSERT</h4><p><code>ASSERT_*</code>在失败时会产生致命错误</p><h3 id="test"><a class="markdownIt-Anchor" href="#test"></a> TEST</h3><p><code>TEST</code>是一个没有返回值的宏函数</p><p>我们可以在该函数中使用断言来检测代码是否有效，测试的结果由断言决定</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">TEST</span>(TestSuiteName, TestName) &#123;</span><br><span class="line">    ... test body ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;黑盒测试白盒测试&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#黑盒测试白盒测试&quot;&gt;&lt;/a&gt; 黑盒测试&amp;amp;白盒测试&lt;/h1&gt;
-&lt;h2 id=&quot;黑盒测试&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#黑盒</summary>
       
     
     
