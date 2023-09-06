@@ -18,30 +18,30 @@
   
   
   <title>编译原理1-概论 | Hexo</title>
-  <meta name="description" content="编译过程 词法分析：分析和识别单词 语法分析：根据语法规则，分析并识别出各种语法成分，如表达式、各种说明、各种语句、过程、函数等，并进行语法正确性检查 语义分析，生成中间代码 代码优化：为了获得高质量的目标程序 生成目标程序：与机器关系密切  中间代码一种介于源语言和目标语言之间的中间语言形式  方便做优化处理 方便编译程序的移植  中间代码可以自行设计，常用的有四元式，三元式，逆波兰表示等 四">
+  <meta name="description" content="编译过程  词法分析：分析和识别单词 语法分析：根据语法规则，分析并识别出各种语法成分，如表达式、各种说明、各种语句、过程、函数等，并进行语法正确性检查 语义分析，生成中间代码 代码优化：为了获得高质量的目标程序 生成目标程序：与机器关系密切   中间代码 一种介于源语言和目标语言之间的中间语言形式  方便做优化处理 方便编译程序的移植  中间代码可以自行设计，常用的有四元式，三元式，逆波兰表">
 <meta property="og:type" content="article">
 <meta property="og:title" content="编译原理1-概论">
-<meta property="og:url" content="http://example.com/2023/09/04/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%861/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="编译过程 词法分析：分析和识别单词 语法分析：根据语法规则，分析并识别出各种语法成分，如表达式、各种说明、各种语句、过程、函数等，并进行语法正确性检查 语义分析，生成中间代码 代码优化：为了获得高质量的目标程序 生成目标程序：与机器关系密切  中间代码一种介于源语言和目标语言之间的中间语言形式  方便做优化处理 方便编译程序的移植  中间代码可以自行设计，常用的有四元式，三元式，逆波兰表示等 四">
+<meta property="og:url" content="https://whosejam.github.io/2023/09/04/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%861/index.html">
+<meta property="og:site_name" content="whoseJam">
+<meta property="og:description" content="编译过程  词法分析：分析和识别单词 语法分析：根据语法规则，分析并识别出各种语法成分，如表达式、各种说明、各种语句、过程、函数等，并进行语法正确性检查 语义分析，生成中间代码 代码优化：为了获得高质量的目标程序 生成目标程序：与机器关系密切   中间代码 一种介于源语言和目标语言之间的中间语言形式  方便做优化处理 方便编译程序的移植  中间代码可以自行设计，常用的有四元式，三元式，逆波兰表">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2023/09/04/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%861/编译原理1/image-20230904111310548.png">
+<meta property="og:image" content="https://whosejam.github.io/2023/09/04/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%861/编译原理1/image-20230904111310548.png">
 <meta property="article:published_time" content="2023-09-04T03:09:27.000Z">
-<meta property="article:modified_time" content="2023-09-04T03:26:26.609Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:modified_time" content="2023-09-06T13:27:36.116Z">
+<meta property="article:author" content="whoseJam">
 <meta property="article:tag" content="编译原理">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/09/04/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%861/编译原理1/image-20230904111310548.png">
+<meta name="twitter:image" content="https://whosejam.github.io/2023/09/04/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%861/编译原理1/image-20230904111310548.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://example.com/2023/09/04/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%861/index.html">
+  <link rel="canonical" href="https://whosejam.github.io/2023/09/04/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%861/index.html">
   
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="whoseJam" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png" type="image/x-icon">
   
   
-<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="https://whosejam.github.io/css/style.css">
 
   
   
@@ -57,8 +57,8 @@
       
       
       <div class="profile-block text-center">
-        <a id="avatar" href="https://github.com/cofess" target="_blank">
-          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        <a id="avatar" href="https://github.com/whosejam" target="_blank">
+          <img class="img-circle img-rotate" src="https://whosejam.github.io/images/avatar.jpg" width="200" height="200">
         </a>
         <h2 id="name" class="hidden-xs hidden-sm">whoseJam</h2>
         <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
@@ -102,7 +102,7 @@
         
         
         <li class="menu-item menu-item-home">
-          <a href="/.">
+          <a href="https://whosejam.github.io/">
             
             <i class="icon icon-home-fill"></i>
             
@@ -112,7 +112,7 @@
         
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives">
+          <a href="https://whosejam.github.io/archives">
             
             <i class="icon icon-archives-fill"></i>
             
@@ -122,7 +122,7 @@
         
         
         <li class="menu-item menu-item-categories">
-          <a href="/categories">
+          <a href="https://whosejam.github.io/categories">
             
             <i class="icon icon-folder"></i>
             
@@ -132,7 +132,7 @@
         
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags">
+          <a href="https://whosejam.github.io/tags">
             
             <i class="icon icon-tags"></i>
             
@@ -142,7 +142,7 @@
         
         
         <li class="menu-item menu-item-repository">
-          <a href="/repository">
+          <a href="https://whosejam.github.io/repository">
             
             <i class="icon icon-project"></i>
             
@@ -152,7 +152,7 @@
         
         
         <li class="menu-item menu-item-books">
-          <a href="/books">
+          <a href="https://whosejam.github.io/books">
             
             <i class="icon icon-book-fill"></i>
             
@@ -162,7 +162,7 @@
         
         
         <li class="menu-item menu-item-links">
-          <a href="/links">
+          <a href="https://whosejam.github.io/links">
             
             <i class="icon icon-friendship"></i>
             
@@ -172,7 +172,7 @@
         
         
         <li class="menu-item menu-item-about">
-          <a href="/about">
+          <a href="https://whosejam.github.io/about">
             
             <i class="icon icon-cup-fill"></i>
             
@@ -216,7 +216,7 @@
   <div class="widget">
     <h3 class="widget-title">标签</h3>
     <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/" rel="tag">CMake</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ICPC/" rel="tag">ICPC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP-IP/" rel="tag">TCP/IP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TPC-IP/" rel="tag">TPC/IP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flex/" rel="tag">flex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/netcat/" rel="tag">netcat</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pymysql/" rel="tag">pymysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/telnet/" rel="tag">telnet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/" rel="tag">vmware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" rel="tag">博弈论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" rel="tag">编译原理</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BE%A4%E8%AE%BA/" rel="tag">群论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E6%A6%82%E8%AE%BA/" rel="tag">航空航天概论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B8%B8%E8%AF%86/" rel="tag">计算机常识</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a><span class="tag-list-count">5</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="https://whosejam.github.io/tags/C/" rel="tag">C++</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="https://whosejam.github.io/tags/CMake/" rel="tag">CMake</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="https://whosejam.github.io/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="https://whosejam.github.io/tags/ICPC/" rel="tag">ICPC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="https://whosejam.github.io/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="https://whosejam.github.io/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="https://whosejam.github.io/tags/TCP-IP/" rel="tag">TCP/IP</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="https://whosejam.github.io/tags/flex/" rel="tag">flex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="https://whosejam.github.io/tags/netcat/" rel="tag">netcat</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="https://whosejam.github.io/tags/pymysql/" rel="tag">pymysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="https://whosejam.github.io/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="https://whosejam.github.io/tags/telnet/" rel="tag">telnet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="https://whosejam.github.io/tags/vmware/" rel="tag">vmware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="https://whosejam.github.io/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="https://whosejam.github.io/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" rel="tag">博弈论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="https://whosejam.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="https://whosejam.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="https://whosejam.github.io/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="https://whosejam.github.io/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" rel="tag">编译原理</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="https://whosejam.github.io/tags/%E7%BE%A4%E8%AE%BA/" rel="tag">群论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="https://whosejam.github.io/tags/%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E6%A6%82%E8%AE%BA/" rel="tag">航空航天概论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="https://whosejam.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B8%B8%E8%AF%86/" rel="tag">计算机常识</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="https://whosejam.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="https://whosejam.github.io/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a><span class="tag-list-count">5</span></li></ul>
     </div>
   </div>
 
@@ -226,7 +226,7 @@
   <div class="widget">
     <h3 class="widget-title">标签云</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/C/" style="font-size: 13.25px;">C++</a> <a href="/tags/CMake/" style="font-size: 13px;">CMake</a> <a href="/tags/Docker/" style="font-size: 13px;">Docker</a> <a href="/tags/ICPC/" style="font-size: 13px;">ICPC</a> <a href="/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 13.5px;">MySQL</a> <a href="/tags/TCP-IP/" style="font-size: 13.25px;">TCP/IP</a> <a href="/tags/TPC-IP/" style="font-size: 13.25px;">TPC/IP</a> <a href="/tags/flex/" style="font-size: 13px;">flex</a> <a href="/tags/netcat/" style="font-size: 13px;">netcat</a> <a href="/tags/pymysql/" style="font-size: 13px;">pymysql</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/telnet/" style="font-size: 13px;">telnet</a> <a href="/tags/vmware/" style="font-size: 13px;">vmware</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 13px;">前端</a> <a href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" style="font-size: 13px;">博弈论</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 13px;">多线程</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 13.75px;">操作系统</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 13px;">爬虫</a> <a href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" style="font-size: 13.25px;">编译原理</a> <a href="/tags/%E7%BE%A4%E8%AE%BA/" style="font-size: 13px;">群论</a> <a href="/tags/%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E6%A6%82%E8%AE%BA/" style="font-size: 13px;">航空航天概论</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B8%B8%E8%AF%86/" style="font-size: 13px;">计算机常识</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 13px;">计算机网络</a> <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" style="font-size: 13.75px;">面向对象</a>
+      <a href="https://whosejam.github.io/tags/C/" style="font-size: 13.25px;">C++</a> <a href="https://whosejam.github.io/tags/CMake/" style="font-size: 13px;">CMake</a> <a href="https://whosejam.github.io/tags/Docker/" style="font-size: 13px;">Docker</a> <a href="https://whosejam.github.io/tags/ICPC/" style="font-size: 13px;">ICPC</a> <a href="https://whosejam.github.io/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="https://whosejam.github.io/tags/MySQL/" style="font-size: 13.5px;">MySQL</a> <a href="https://whosejam.github.io/tags/TCP-IP/" style="font-size: 13.5px;">TCP/IP</a> <a href="https://whosejam.github.io/tags/flex/" style="font-size: 13px;">flex</a> <a href="https://whosejam.github.io/tags/netcat/" style="font-size: 13px;">netcat</a> <a href="https://whosejam.github.io/tags/pymysql/" style="font-size: 13px;">pymysql</a> <a href="https://whosejam.github.io/tags/python/" style="font-size: 13px;">python</a> <a href="https://whosejam.github.io/tags/telnet/" style="font-size: 13px;">telnet</a> <a href="https://whosejam.github.io/tags/vmware/" style="font-size: 13px;">vmware</a> <a href="https://whosejam.github.io/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 13px;">前端</a> <a href="https://whosejam.github.io/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" style="font-size: 13px;">博弈论</a> <a href="https://whosejam.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 13px;">多线程</a> <a href="https://whosejam.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 13.75px;">操作系统</a> <a href="https://whosejam.github.io/tags/%E7%88%AC%E8%99%AB/" style="font-size: 13px;">爬虫</a> <a href="https://whosejam.github.io/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" style="font-size: 13.25px;">编译原理</a> <a href="https://whosejam.github.io/tags/%E7%BE%A4%E8%AE%BA/" style="font-size: 13px;">群论</a> <a href="https://whosejam.github.io/tags/%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E6%A6%82%E8%AE%BA/" style="font-size: 13px;">航空航天概论</a> <a href="https://whosejam.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B8%B8%E8%AF%86/" style="font-size: 13px;">计算机常识</a> <a href="https://whosejam.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 13px;">计算机网络</a> <a href="https://whosejam.github.io/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" style="font-size: 13.75px;">面向对象</a>
     </div>
   </div>
 
@@ -235,7 +235,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">九月 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">八月 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">七月 2023</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">四月 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">三月 2023</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="https://whosejam.github.io/archives/2023/09/">九月 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="https://whosejam.github.io/archives/2023/08/">八月 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="https://whosejam.github.io/archives/2023/07/">七月 2023</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="https://whosejam.github.io/archives/2023/05/">五月 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="https://whosejam.github.io/archives/2023/04/">四月 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="https://whosejam.github.io/archives/2023/03/">三月 2023</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="https://whosejam.github.io/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="https://whosejam.github.io/archives/2023/01/">一月 2023</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -254,7 +254,7 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2023/09/06/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%862/" class="title">编译原理2-文法与语言</a>
+                <a href="https://whosejam.github.io/2023/09/06/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%862/" class="title">编译原理2-文法与语言</a>
               </p>
               <p class="item-date">
                 <time datetime="2023-09-06T11:48:31.000Z" itemprop="datePublished">2023-09-06</time>
@@ -269,7 +269,7 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2023/09/05/flex%E5%B8%83%E5%B1%80/" class="title">flex布局</a>
+                <a href="https://whosejam.github.io/2023/09/05/flex%E5%B8%83%E5%B1%80/" class="title">flex布局</a>
               </p>
               <p class="item-date">
                 <time datetime="2023-09-05T07:01:06.000Z" itemprop="datePublished">2023-09-05</time>
@@ -284,7 +284,7 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2023/09/04/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%861/" class="title">编译原理1-概论</a>
+                <a href="https://whosejam.github.io/2023/09/04/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%861/" class="title">编译原理1-概论</a>
               </p>
               <p class="item-date">
                 <time datetime="2023-09-04T03:09:27.000Z" itemprop="datePublished">2023-09-04</time>
@@ -299,7 +299,7 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2023/08/28/CS144-Lab2/" class="title">CS144-Lab2</a>
+                <a href="https://whosejam.github.io/2023/08/28/CS144-Lab2/" class="title">CS144-Lab2</a>
               </p>
               <p class="item-date">
                 <time datetime="2023-08-28T12:53:49.000Z" itemprop="datePublished">2023-08-28</time>
@@ -314,7 +314,7 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2023/08/28/CS144-Lab3/" class="title">CS144-Lab3</a>
+                <a href="https://whosejam.github.io/2023/08/28/CS144-Lab3/" class="title">CS144-Lab3</a>
               </p>
               <p class="item-date">
                 <time datetime="2023-08-28T12:44:33.000Z" itemprop="datePublished">2023-08-28</time>
@@ -350,7 +350,7 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2023/09/04/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%861/" class="article-date">
+	<a href="https://whosejam.github.io/2023/09/04/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%861/" class="article-date">
 	  <time datetime="2023-09-04T03:09:27.000Z" itemprop="datePublished">2023-09-04</time>
 	</a>
 </span>
@@ -358,34 +358,36 @@
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" rel="tag">编译原理</a>
+	<a class="article-tag-link-link" href="https://whosejam.github.io/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" rel="tag">编译原理</a>
   </span>
 
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/09/04/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%861/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="https://whosejam.github.io/2023/09/04/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%861/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <p><img src="编译原理1\image-20230904111310548.png" alt="image-20230904111310548" style="zoom:33%;" /></p>
-<h1 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h1><ol>
+        <img src="编译原理1\image-20230904111310548.png" alt="image-20230904111310548" style="zoom:33%;" />
+<h1 id="编译过程"><a class="markdownIt-Anchor" href="#编译过程"></a> 编译过程</h1>
+<ol>
 <li><strong>词法分析</strong>：分析和识别<strong>单词</strong></li>
 <li><strong>语法分析</strong>：根据语法规则，分析并识别出各种语法成分，如表达式、各种说明、各种语句、过程、函数等，并进行<strong>语法正确性检查</strong></li>
 <li><strong>语义分析</strong>，生成中间代码</li>
 <li><strong>代码优化</strong>：为了获得高质量的目标程序</li>
 <li><strong>生成目标程序</strong>：与机器关系密切</li>
 </ol>
-<h1 id="中间代码"><a href="#中间代码" class="headerlink" title="中间代码"></a>中间代码</h1><p>一种介于源语言和目标语言之间的中间语言形式</p>
+<h1 id="中间代码"><a class="markdownIt-Anchor" href="#中间代码"></a> 中间代码</h1>
+<p>一种介于源语言和目标语言之间的中间语言形式</p>
 <ul>
 <li>方便做优化处理</li>
 <li>方便编译程序的移植</li>
 </ul>
 <p>中间代码可以自行设计，常用的有四元式，三元式，逆波兰表示等</p>
-<h2 id="四元式"><a href="#四元式" class="headerlink" title="四元式"></a>四元式</h2><p><code>X1 := (2.0 + 0.8) * C1</code></p>
-<div class="table-container">
+<h2 id="四元式"><a class="markdownIt-Anchor" href="#四元式"></a> 四元式</h2>
+<p><code>X1 := (2.0 + 0.8) * C1</code></p>
 <table>
 <thead>
 <tr>
@@ -412,13 +414,17 @@
 <td>:=</td>
 <td>X1</td>
 <td>T2</td>
+<td></td>
 </tr>
 </tbody>
 </table>
-</div>
-<h2 id="多层中间表示和PASS"><a href="#多层中间表示和PASS" class="headerlink" title="多层中间表示和PASS"></a>多层中间表示和PASS</h2><p><strong>PASS</strong>：对源程序（包括源程序中间形式）从头到尾扫描一次，并做有关的加工处理 ，生成新的源程序中间形式或目标程序，通常称之为一遍</p>
-<h1 id="编译管理"><a href="#编译管理" class="headerlink" title="编译管理"></a>编译管理</h1><h2 id="符号表管理"><a href="#符号表管理" class="headerlink" title="符号表管理"></a>符号表管理</h2><p>在整个编译过程中始终都要贯穿着建表（填表）和查表的工作。要及时地把源程序中的信息和编译过程中所产生的信息登记在表格中，而在随后的编译过程中同时又要不断地查找这些表格中的信息</p>
-<h2 id="出错处理"><a href="#出错处理" class="headerlink" title="出错处理"></a>出错处理</h2><p>规模较大的源程序难免有多种错误，编译程序必须要有出错处理的功能。即能诊察出错误，并能报告用户错误的性质和位置，以便用户修改源程序。出错处理能力的大小是衡量编译程序质量好坏的一个重要指标</p>
+<h2 id="多层中间表示和pass"><a class="markdownIt-Anchor" href="#多层中间表示和pass"></a> 多层中间表示和PASS</h2>
+<p><strong>PASS</strong>：对源程序（包括源程序中间形式）从头到尾扫描一次，并做有关的加工处理 ，生成新的源程序中间形式或目标程序，通常称之为一遍</p>
+<h1 id="编译管理"><a class="markdownIt-Anchor" href="#编译管理"></a> 编译管理</h1>
+<h2 id="符号表管理"><a class="markdownIt-Anchor" href="#符号表管理"></a> 符号表管理</h2>
+<p>在整个编译过程中始终都要贯穿着建表（填表）和查表的工作。要及时地把源程序中的信息和编译过程中所产生的信息登记在表格中，而在随后的编译过程中同时又要不断地查找这些表格中的信息</p>
+<h2 id="出错处理"><a class="markdownIt-Anchor" href="#出错处理"></a> 出错处理</h2>
+<p>规模较大的源程序难免有多种错误，编译程序必须要有出错处理的功能。即能诊察出错误，并能报告用户错误的性质和位置，以便用户修改源程序。出错处理能力的大小是衡量编译程序质量好坏的一个重要指标</p>
 
       
     </div>
@@ -428,7 +434,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://example.com/2023/09/04/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%861/" title="编译原理1-概论" target="_blank" rel="external">http://example.com/2023/09/04/编译原理1/</a>
+      <a href="https://whosejam.github.io/2023/09/04/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%861/" title="编译原理1-概论" target="_blank" rel="external">https://whosejam.github.io/2023/09/04/编译原理1/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -442,12 +448,12 @@
   <div class="panel-body">
     <figure class="media">
       <div class="media-left">
-        <a href="https://github.com/cofess" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        <a href="https://github.com/whosejam" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://whosejam.github.io/images/avatar.jpg" class="img-rounded w-full" alt="">
         </a>
       </div>
       <div class="media-body">
-        <h3 class="media-heading"><a href="https://github.com/cofess" target="_blank"><span class="text-dark">whoseJam</span><small class="ml-1x"></small></a></h3>
+        <h3 class="media-heading"><a href="https://github.com/whosejam" target="_blank"><span class="text-dark">whoseJam</span><small class="ml-1x"></small></a></h3>
         <div></div>
       </div>
     </figure>
@@ -475,12 +481,12 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2023/09/05/flex%E5%B8%83%E5%B1%80/" title="flex布局"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="https://whosejam.github.io/2023/09/05/flex%E5%B8%83%E5%B1%80/" title="flex布局"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
     
     <li class="next">
-      <a href="/2023/08/28/CS144-Lab2/" title="CS144-Lab2"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="https://whosejam.github.io/2023/08/28/CS144-Lab2/" title="CS144-Lab2"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
@@ -519,10 +525,10 @@
 window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 </script>
 
-<script src="/js/plugin.min.js"></script>
+<script src="https://whosejam.github.io/js/plugin.min.js"></script>
 
 
-<script src="/js/application.js"></script>
+<script src="https://whosejam.github.io/js/application.js"></script>
 
 
     <script>
@@ -535,14 +541,14 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
             TAGS: '标签',
             UNTITLED: '(未命名)',
         },
-        ROOT_URL: '/',
-        CONTENT_URL: '/content.json',
+        ROOT_URL: 'https://whosejam.github.io/',
+        CONTENT_URL: 'https://whosejam.github.io/content.json',
     };
     window.INSIGHT_CONFIG = INSIGHT_CONFIG;
 })(window);
 </script>
 
-<script src="/js/insight.js"></script>
+<script src="https://whosejam.github.io/js/insight.js"></script>
 
 
 
