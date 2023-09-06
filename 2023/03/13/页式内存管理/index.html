@@ -18,21 +18,21 @@
   
   
   <title>页式内存管理 | Hexo</title>
-  <meta name="description" content="分页管理在分页系统下，一个程序发出的虚拟地址由两个部分组成：页面号和页内偏移 为了解决程序比内存大的问题，我们可以允许一个进程的部分虚拟页面存放在物理页面之外，也就是磁盘上，在需要访问这些外部虚拟页面时，再将其调入物理内存，需要腾出空间时，将暂时不用的内存swap到磁盘   系统对每个进程，都将保存一个页表，该页表记录了虚拟页面到物理页面的映射，每当为一个虚拟页面寻找到一个物理页面后，就要在页面内">
+  <meta name="description" content="分页管理 在分页系统下，一个程序发出的虚拟地址由两个部分组成：页面号和页内偏移 为了解决程序比内存大的问题，我们可以允许一个进程的部分虚拟页面存放在物理页面之外，也就是磁盘上，在需要访问这些外部虚拟页面时，再将其调入物理内存，需要腾出空间时，将暂时不用的内存swap到磁盘  系统对每个进程，都将保存一个页表，该页表记录了虚拟页面到物理页面的映射，每当为一个虚拟页面寻找到一个物理页面后，就要">
 <meta property="og:type" content="article">
 <meta property="og:title" content="页式内存管理">
 <meta property="og:url" content="http://github.com/whosejam/whosejam.github.io/2023/03/13/%E9%A1%B5%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/index.html">
 <meta property="og:site_name" content="whoseJam">
-<meta property="og:description" content="分页管理在分页系统下，一个程序发出的虚拟地址由两个部分组成：页面号和页内偏移 为了解决程序比内存大的问题，我们可以允许一个进程的部分虚拟页面存放在物理页面之外，也就是磁盘上，在需要访问这些外部虚拟页面时，再将其调入物理内存，需要腾出空间时，将暂时不用的内存swap到磁盘   系统对每个进程，都将保存一个页表，该页表记录了虚拟页面到物理页面的映射，每当为一个虚拟页面寻找到一个物理页面后，就要在页面内">
+<meta property="og:description" content="分页管理 在分页系统下，一个程序发出的虚拟地址由两个部分组成：页面号和页内偏移 为了解决程序比内存大的问题，我们可以允许一个进程的部分虚拟页面存放在物理页面之外，也就是磁盘上，在需要访问这些外部虚拟页面时，再将其调入物理内存，需要腾出空间时，将暂时不用的内存swap到磁盘  系统对每个进程，都将保存一个页表，该页表记录了虚拟页面到物理页面的映射，每当为一个虚拟页面寻找到一个物理页面后，就要">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://github.com/whosejam/whosejam.github.io/2023/03/13/%E9%A1%B5%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/页式内存管理/SouthEast.png">
-<meta property="og:image" content="http://github.com/whosejam/whosejam.github.io/2023/03/13/%E9%A1%B5%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/页式内存管理/v2-4ef9e40cde001a61f2afd5e18e638d02_1440w.webp">
+<meta property="og:image" content="http://github.com/whosejam.github.io/whosejam/whosejam.github.io/2023/03/13/%E9%A1%B5%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/SouthEast.png">
+<meta property="og:image" content="http://github.com/whosejam.github.io/whosejam/whosejam.github.io/2023/03/13/%E9%A1%B5%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/v2-4ef9e40cde001a61f2afd5e18e638d02_1440w.webp">
 <meta property="article:published_time" content="2023-03-13T10:12:50.421Z">
 <meta property="article:modified_time" content="2023-04-01T12:02:58.239Z">
 <meta property="article:author" content="whoseJam">
 <meta property="article:tag" content="操作系统">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://github.com/whosejam/whosejam.github.io/2023/03/13/%E9%A1%B5%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/页式内存管理/SouthEast.png">
+<meta name="twitter:image" content="http://github.com/whosejam.github.io/whosejam/whosejam.github.io/2023/03/13/%E9%A1%B5%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/SouthEast.png">
   <!-- Canonical links -->
   <link rel="canonical" href="http://github.com/whosejam/whosejam.github.io/2023/03/13/%E9%A1%B5%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/index.html">
   
@@ -371,15 +371,16 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="分页管理"><a href="#分页管理" class="headerlink" title="分页管理"></a>分页管理</h1><p>在分页系统下，一个程序发出的虚拟地址由两个部分组成：页面号和页内偏移</p>
+        <h1 id="分页管理">分页管理</h1>
+<p>在分页系统下，一个程序发出的虚拟地址由两个部分组成：页面号和页内偏移</p>
 <p>为了解决程序比内存大的问题，我们可以允许一个进程的部分虚拟页面存放在物理页面之外，也就是磁盘上，在需要访问这些外部虚拟页面时，再将其调入物理内存，需要腾出空间时，将暂时不用的内存swap到磁盘</p>
-<imgs src="页式内存管理\v2-ce97bc0d1ca954bc1de1be1af0980b61_1440w.webp">
-
+<p><imgs src="页式内存管理\v2-ce97bc0d1ca954bc1de1be1af0980b61_1440w.webp"></imgs></p>
 <p><strong>系统对每个进程，都将保存一个页表</strong>，该页表记录了虚拟页面到物理页面的映射，每当为一个虚拟页面寻找到一个物理页面后，就要在页面内增加一个记录，来保存该虚拟页面到物理页面的映射；随着虚拟页面进出物理页面，页表的内容页不断发生变化</p>
-<h1 id="页表"><a href="#页表" class="headerlink" title="页表"></a>页表</h1><p>一个页表项的结构：</p>
+<h1 id="页表">页表</h1>
+<p>一个页表项的结构：</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>缓存禁止</th>
 <th>访问位</th>
 <th>修改位</th>
@@ -388,30 +389,37 @@
 <th>物理页面号</th>
 </tr>
 </thead>
+<tbody>
+</tbody>
 </table>
-<h2 id="页表过大问题"><a href="#页表过大问题" class="headerlink" title="页表过大问题"></a>页表过大问题</h2><p>对于一个32位寻址的虚拟地址，如果页面大小为4KB，则虚拟页面数最多可以达到$2^{20}$个，那么页表的记录条数就为$2^{20}$条，这是一个页表过大问题</p>
-<h2 id="多级页表"><a href="#多级页表" class="headerlink" title="多级页表"></a>多级页表</h2><p>页表被划分成：顶级页表、一级页表、二级页表、三级页表等</p>
+<h2 id="页表过大问题">页表过大问题</h2>
+<p>对于一个32位寻址的虚拟地址，如果页面大小为4KB，则虚拟页面数最多可以达到<span class="math inline">\(2^{20}\)</span>个，那么页表的记录条数就为<span class="math inline">\(2^{20}\)</span>条，这是一个页表过大问题</p>
+<h2 id="多级页表">多级页表</h2>
+<p>页表被划分成：顶级页表、一级页表、二级页表、三级页表等</p>
 <p>顶级页表里面存放的是一级页表的信息</p>
 <p>一级页表里面存放的是二级页表的信息</p>
-<p>……</p>
+<p>......</p>
 <p>最后一级页表存放的才是虚拟页面到物理页面的映射</p>
 <p><strong>多级页表节省内存的本质：通过一个顶级页表，为真正有用的页表提供索引</strong></p>
-<img src="页式内存管理\SouthEast.png" alt="img" style="zoom:50%;" />
-
+<p><img src="/whosejam.github.io/whosejam/whosejam.github.io/2023/03/13/%E9%A1%B5%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/SouthEast.png" alt="img" style="zoom:50%;"></p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>顶级页表号</th>
 <th>次级页表项</th>
 <th>页内偏移值</th>
 </tr>
 </thead>
+<tbody>
+</tbody>
 </table>
-<h2 id="页表快速翻译"><a href="#页表快速翻译" class="headerlink" title="页表快速翻译"></a>页表快速翻译</h2><p>地址翻译因为增加了内存访问次数而降低了系统效率</p>
+<h2 id="页表快速翻译">页表快速翻译</h2>
+<p>地址翻译因为增加了内存访问次数而降低了系统效率</p>
 <p>如果只使用单级页表，则每次内存访问变为两次内存访问，速度的下降还可以接受；如果使用多级页表或者反转页表，则每次内存访问变为多于两次的内存访问，这样的访存效率下降非常明显</p>
-<p>考虑将页面的翻译结果放在缓存中，而不需要在访问该页面的每个地址时再翻译一次，这种存放翻译结果的缓存被成为<strong>翻译快表，Translation Look-Aside Buffer</strong>，TLB中存放的时从虚拟页面到物理页面的映射，其记录的<strong>格式与内容</strong>与正常的记录<strong>格式与内容</strong>一样</p>
-<img src="页式内存管理\v2-4ef9e40cde001a61f2afd5e18e638d02_1440w.webp">
-
+<p>考虑将页面的翻译结果放在缓存中，而不需要在访问该页面的每个地址时再翻译一次，这种存放翻译结果的缓存被成为<strong>翻译快表，Translation
+Look-Aside
+Buffer</strong>，TLB中存放的时从虚拟页面到物理页面的映射，其记录的<strong>格式与内容</strong>与正常的记录<strong>格式与内容</strong>一样</p>
+<p><img src="/whosejam.github.io/whosejam/whosejam.github.io/2023/03/13/%E9%A1%B5%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/v2-4ef9e40cde001a61f2afd5e18e638d02_1440w.webp"></p>
 <p>TLB虽然是线性结构，但是硬件设计让从中<code>item Ask(virtual-page)</code>这个操作的时间复杂度是<code>O(1)</code>的</p>
 <p>显然，采用多级页表的分页系统的效率将取决于TLB的命中率。如果命中率很高，则系统效率高；如果命中率低，则系统效率低。例如，Linux使用的是三级页表，按照常理来说，这将使得系统的执行效率大大降低，但许多人并没有感觉到Linux特别慢，这就是因为Linux的TLB命中率高，据称其命中率达98%</p>
 

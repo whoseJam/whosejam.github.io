@@ -18,12 +18,12 @@
   
   
   <title>Animation System in Slide | Hexo</title>
-  <meta name="description" content="语义设计一个完整的动画由若干动画节点组成，一个动画节点以start_animate开头，以end_animate结尾，一个动画节点可以包含若干动画描述，每一个动画描述指定了在这个动画节点中，某个属性将要变成什么    指令 描述    start_animate([duration]) 开启一段动画描述（开启一个动画节点）   end_animate() 结束一段动画描述（结束一个动画节点）">
+  <meta name="description" content="语义设计 一个完整的动画由若干动画节点组成，一个动画节点以start_animate开头，以end_animate结尾，一个动画节点可以包含若干动画描述，每一个动画描述指定了在这个动画节点中，某个属性将要变成什么        指令 描述     start_animate([duration]) 开启一段动画描述（开启一个动画节点）   end_animat">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Animation System in Slide">
 <meta property="og:url" content="http://github.com/whosejam/whosejam.github.io/2023/08/25/Animation-System-in-Slide/index.html">
 <meta property="og:site_name" content="whoseJam">
-<meta property="og:description" content="语义设计一个完整的动画由若干动画节点组成，一个动画节点以start_animate开头，以end_animate结尾，一个动画节点可以包含若干动画描述，每一个动画描述指定了在这个动画节点中，某个属性将要变成什么    指令 描述    start_animate([duration]) 开启一段动画描述（开启一个动画节点）   end_animate() 结束一段动画描述（结束一个动画节点）">
+<meta property="og:description" content="语义设计 一个完整的动画由若干动画节点组成，一个动画节点以start_animate开头，以end_animate结尾，一个动画节点可以包含若干动画描述，每一个动画描述指定了在这个动画节点中，某个属性将要变成什么        指令 描述     start_animate([duration]) 开启一段动画描述（开启一个动画节点）   end_animat">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-08-25T08:38:40.000Z">
 <meta property="article:modified_time" content="2023-08-25T08:44:38.004Z">
@@ -362,35 +362,42 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="语义设计"><a href="#语义设计" class="headerlink" title="语义设计"></a>语义设计</h1><p>一个完整的动画由若干<strong>动画节点</strong>组成，一个动画节点以<code>start_animate</code>开头，以<code>end_animate</code>结尾，一个动画节点可以包含若干<strong>动画描述</strong>，每一个动画描述指定了在这个动画节点中，某个属性将要变成什么</p>
+        <h1 id="语义设计">语义设计</h1>
+<p>一个完整的动画由若干<strong>动画节点</strong>组成，一个动画节点以<code>start_animate</code>开头，以<code>end_animate</code>结尾，一个动画节点可以包含若干<strong>动画描述</strong>，每一个动画描述指定了在这个动画节点中，某个属性将要变成什么</p>
 <table>
+<colgroup>
+<col style="width: 35%">
+<col style="width: 64%">
+</colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>指令</th>
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td><code>start_animate([duration])</code></td>
 <td>开启一段动画描述（开启一个动画节点）</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>end_animate()</code></td>
 <td>结束一段动画描述（结束一个动画节点）</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>&lt;do_something&gt;()</code></td>
 <td>对某个属性进行何种修改</td>
 </tr>
-<tr>
-<td>&#96;after(other</td>
-<td>time)&#96;</td>
+<tr class="even">
+<td><code>after(other|time)</code></td>
+<td>在某个对象执行完它当前的动画后/在某个时间点后执行</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>duration()</code></td>
 <td>获取当前对象当前动画描述的持续时间</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
       
     </div>

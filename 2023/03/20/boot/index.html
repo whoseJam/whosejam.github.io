@@ -18,21 +18,21 @@
   
   
   <title>boot | Hexo</title>
-  <meta name="description" content="BootloaderBooter初始化硬件 Loader加载操作系统到内存中，并且跳转到操作系统的代码运行 X86启动过程 开机 CPU跳转到BIOS的物理地址处 BIOS进行系统自检 找到所有bootable devices 从MBR加载boot sector BIOS将控制流返回给Bootloader  BIOSBasic Input&#x2F;Output System，是被固化在电脑主板上">
+  <meta name="description" content="Bootloader Booter 初始化硬件 Loader 加载操作系统到内存中，并且跳转到操作系统的代码运行 X86启动过程  开机 CPU跳转到BIOS的物理地址处 BIOS进行系统自检 找到所有bootable devices 从MBR加载boot sector BIOS将控制流返回给Bootloader  BIOS Basic Input&#x2F;Output S">
 <meta property="og:type" content="article">
 <meta property="og:title" content="boot">
 <meta property="og:url" content="http://github.com/whosejam/whosejam.github.io/2023/03/20/boot/index.html">
 <meta property="og:site_name" content="whoseJam">
-<meta property="og:description" content="BootloaderBooter初始化硬件 Loader加载操作系统到内存中，并且跳转到操作系统的代码运行 X86启动过程 开机 CPU跳转到BIOS的物理地址处 BIOS进行系统自检 找到所有bootable devices 从MBR加载boot sector BIOS将控制流返回给Bootloader  BIOSBasic Input&#x2F;Output System，是被固化在电脑主板上">
+<meta property="og:description" content="Bootloader Booter 初始化硬件 Loader 加载操作系统到内存中，并且跳转到操作系统的代码运行 X86启动过程  开机 CPU跳转到BIOS的物理地址处 BIOS进行系统自检 找到所有bootable devices 从MBR加载boot sector BIOS将控制流返回给Bootloader  BIOS Basic Input&#x2F;Output S">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="c:/Users/27670/Project/blog/source/_posts/boot/image-20230320101742795.png">
-<meta property="og:image" content="http://github.com/whosejam/whosejam.github.io/2023/03/20/boot/boot/MBR分区表(01).jpg">
+<meta property="og:image" content="http://github.com/whosejam.github.io/whosejam/whosejam.github.io/2023/03/20/boot/Users/27670/Project/blog/source/_posts/boot/image-20230320101742795.png">
+<meta property="og:image" content="http://github.com/whosejam.github.io/whosejam/whosejam.github.io/2023/03/20/boot/MBR分区表(01).jpg">
 <meta property="article:published_time" content="2023-03-20T01:58:42.000Z">
 <meta property="article:modified_time" content="2023-03-20T02:30:08.134Z">
 <meta property="article:author" content="whoseJam">
 <meta property="article:tag" content="操作系统">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="c:/Users/27670/Project/blog/source/_posts/boot/image-20230320101742795.png">
+<meta name="twitter:image" content="http://github.com/whosejam.github.io/whosejam/whosejam.github.io/2023/03/20/boot/Users/27670/Project/blog/source/_posts/boot/image-20230320101742795.png">
   <!-- Canonical links -->
   <link rel="canonical" href="http://github.com/whosejam/whosejam.github.io/2023/03/20/boot/index.html">
   
@@ -371,9 +371,13 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="Bootloader"><a href="#Bootloader" class="headerlink" title="Bootloader"></a>Bootloader</h1><h2 id="Booter"><a href="#Booter" class="headerlink" title="Booter"></a>Booter</h2><p>初始化硬件</p>
-<h2 id="Loader"><a href="#Loader" class="headerlink" title="Loader"></a>Loader</h2><p>加载操作系统到内存中，并且跳转到操作系统的代码运行</p>
-<h1 id="X86启动过程"><a href="#X86启动过程" class="headerlink" title="X86启动过程"></a>X86启动过程</h1><ul>
+        <h1 id="bootloader">Bootloader</h1>
+<h2 id="booter">Booter</h2>
+<p>初始化硬件</p>
+<h2 id="loader">Loader</h2>
+<p>加载操作系统到内存中，并且跳转到操作系统的代码运行</p>
+<h1 id="x86启动过程">X86启动过程</h1>
+<ul>
 <li>开机</li>
 <li>CPU跳转到BIOS的物理地址处</li>
 <li>BIOS进行系统自检</li>
@@ -381,24 +385,31 @@
 <li>从MBR加载boot sector</li>
 <li>BIOS将控制流返回给Bootloader</li>
 </ul>
-<h2 id="BIOS"><a href="#BIOS" class="headerlink" title="BIOS"></a>BIOS</h2><p>Basic Input&#x2F;Output System，是被固化在电脑主板上的ROM芯片中的一组程序，由于与硬件系统集成在一起，所以也被称为固件</p>
-<h3 id="Power-On-Self-Test"><a href="#Power-On-Self-Test" class="headerlink" title="Power-On Self-Test"></a>Power-On Self-Test</h3><p>如果硬件出现问题，主板会发出不同含义的蜂鸣</p>
-<h3 id="Boot-Sequence"><a href="#Boot-Sequence" class="headerlink" title="Boot Sequence"></a>Boot Sequence</h3><p>现代BIOS可以让用户选择哪个设备引导电脑，如光盘驱动器、硬盘、软盘、USB等</p>
-<h2 id="MBR"><a href="#MBR" class="headerlink" title="MBR"></a>MBR</h2><p>硬盘上第0磁头第0磁道第一个扇区被称为MBR，也就是Master Boot Record，即主引导记录，大小为512B，存放了预启动信息（Bootloader）、分区表信息</p>
-<img src="C:\Users\27670\Project\blog\source\_posts\boot\image-20230320101742795.png" alt="image-20230320101742795" style="zoom: 25%;" />
-
-<h3 id="启动代码和数据"><a href="#启动代码和数据" class="headerlink" title="启动代码和数据"></a>启动代码和数据</h3><p>占用了MBR的前446B</p>
-<h3 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h3><p>分区表由四个分区项组成，每个分区项数据为16B，记录了启动时所需要的分区参数，占用了分区表的第447~510B</p>
+<h2 id="bios">BIOS</h2>
+<p>Basic Input/Output
+System，是被固化在电脑主板上的ROM芯片中的一组程序，由于与硬件系统集成在一起，所以也被称为固件</p>
+<h3 id="power-on-self-test">Power-On Self-Test</h3>
+<p>如果硬件出现问题，主板会发出不同含义的蜂鸣</p>
+<h3 id="boot-sequence">Boot Sequence</h3>
+<p>现代BIOS可以让用户选择哪个设备引导电脑，如光盘驱动器、硬盘、软盘、USB等</p>
+<h2 id="mbr">MBR</h2>
+<p>硬盘上第0磁头第0磁道第一个扇区被称为MBR，也就是Master Boot
+Record，即主引导记录，大小为512B，存放了预启动信息（Bootloader）、分区表信息</p>
+<p><img src="/whosejam.github.io/whosejam/whosejam.github.io/2023/03/20/boot/Users\27670\Project\blog\source\_posts\boot\image-20230320101742795.png" alt="image-20230320101742795" style="zoom: 25%;"></p>
+<h3 id="启动代码和数据">启动代码和数据</h3>
+<p>占用了MBR的前446B</p>
+<h3 id="分区表">分区表</h3>
+<p>分区表由四个分区项组成，每个分区项数据为16B，记录了启动时所需要的分区参数，占用了分区表的第447~510B</p>
 <p>MBR限制了只能有四个主分区，系统必须装在主分区上面</p>
 <p>硬盘分区有三种：<strong>主磁盘分区、扩展磁盘分区、逻辑分区</strong></p>
 <p>一个硬盘满足：主磁盘分区+扩展磁盘分区不能超过4个，主磁盘分区至少有一个，逻辑分区可以有若干个；主分区只能有一个是激活的，其余都是未激活的</p>
 <p>分出主分区后，其余部分可以分成扩展分区，一般是剩下部分全部分成扩展分区，也可以不全分，剩下的部分就浪费了</p>
 <p>扩展分区不能直接使用，必须分成若干逻辑分区，所以逻辑分区都是扩展分区的一部分</p>
-<img src="boot\MBR分区表(01).jpg" style="zoom:33%;" >
-
-<p><strong>磁盘容量&#x3D;主分区容量+扩展分区容量</strong></p>
-<p><strong>扩展分区&#x3D;各逻辑分区容量之和</strong></p>
-<h3 id="幻数"><a href="#幻数" class="headerlink" title="幻数"></a>幻数</h3><p>后面紧跟着两个字节AA和55被称为幻数（Magic Number）</p>
+<p><img src="/whosejam.github.io/whosejam/whosejam.github.io/2023/03/20/boot/MBR分区表(01).jpg" style="zoom:33%;"></p>
+<p><strong>磁盘容量=主分区容量+扩展分区容量</strong></p>
+<p><strong>扩展分区=各逻辑分区容量之和</strong></p>
+<h3 id="幻数">幻数</h3>
+<p>后面紧跟着两个字节AA和55被称为幻数（Magic Number）</p>
 <p>BIOS读取MBR时总是检查最后是不是有这两个幻数，如果没有就被认为是一个没有被分区的硬盘</p>
 
       

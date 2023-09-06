@@ -18,20 +18,20 @@
   
   
   <title>链接与装载 | Hexo</title>
-  <meta name="description" content="Section.bss：存放了未初始化的全局变量int global_var;，所有模块可见 .data：静态变量static int local_var;，当前模块所有函数可见，模块外不可见 局部变量存储在栈中 .comment：存放版本控制信息 .debug：存放符号调试信息 .text：存放正文，也就是程序的执行指令 .symtab：存放符号表 What’s in gcccc1：预处理器和编">
+  <meta name="description" content="Section .bss：存放了未初始化的全局变量int global_var;，所有模块可见 .data：静态变量static int local_var;，当前模块所有函数可见，模块外不可见 局部变量存储在栈中 .comment：存放版本控制信息 .debug：存放符号调试信息 .text：存放正文，也就是程序的执行指令 .symtab：存放符号表 What&#39;s in gcc">
 <meta property="og:type" content="article">
 <meta property="og:title" content="链接与装载">
 <meta property="og:url" content="http://github.com/whosejam/whosejam.github.io/2023/03/20/%E9%93%BE%E6%8E%A5%E4%B8%8E%E8%A3%85%E8%BD%BD/index.html">
 <meta property="og:site_name" content="whoseJam">
-<meta property="og:description" content="Section.bss：存放了未初始化的全局变量int global_var;，所有模块可见 .data：静态变量static int local_var;，当前模块所有函数可见，模块外不可见 局部变量存储在栈中 .comment：存放版本控制信息 .debug：存放符号调试信息 .text：存放正文，也就是程序的执行指令 .symtab：存放符号表 What’s in gcccc1：预处理器和编">
+<meta property="og:description" content="Section .bss：存放了未初始化的全局变量int global_var;，所有模块可见 .data：静态变量static int local_var;，当前模块所有函数可见，模块外不可见 局部变量存储在栈中 .comment：存放版本控制信息 .debug：存放符号调试信息 .text：存放正文，也就是程序的执行指令 .symtab：存放符号表 What&#39;s in gcc">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://github.com/whosejam/whosejam.github.io/2023/03/20/%E9%93%BE%E6%8E%A5%E4%B8%8E%E8%A3%85%E8%BD%BD/链接与装载/image-20230320104316922.png">
+<meta property="og:image" content="http://github.com/whosejam.github.io/whosejam/whosejam.github.io/2023/03/20/%E9%93%BE%E6%8E%A5%E4%B8%8E%E8%A3%85%E8%BD%BD/image-20230320104316922.png">
 <meta property="article:published_time" content="2023-03-20T02:35:40.000Z">
 <meta property="article:modified_time" content="2023-03-20T02:43:43.607Z">
 <meta property="article:author" content="whoseJam">
 <meta property="article:tag" content="操作系统">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://github.com/whosejam/whosejam.github.io/2023/03/20/%E9%93%BE%E6%8E%A5%E4%B8%8E%E8%A3%85%E8%BD%BD/链接与装载/image-20230320104316922.png">
+<meta name="twitter:image" content="http://github.com/whosejam.github.io/whosejam/whosejam.github.io/2023/03/20/%E9%93%BE%E6%8E%A5%E4%B8%8E%E8%A3%85%E8%BD%BD/image-20230320104316922.png">
   <!-- Canonical links -->
   <link rel="canonical" href="http://github.com/whosejam/whosejam.github.io/2023/03/20/%E9%93%BE%E6%8E%A5%E4%B8%8E%E8%A3%85%E8%BD%BD/index.html">
   
@@ -370,18 +370,21 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="Section"><a href="#Section" class="headerlink" title="Section"></a>Section</h1><p><strong>.bss</strong>：存放了未初始化的全局变量<code>int global_var;</code>，所有模块可见</p>
+        <h1 id="section">Section</h1>
+<p><strong>.bss</strong>：存放了未初始化的全局变量<code>int global_var;</code>，所有模块可见</p>
 <p><strong>.data</strong>：静态变量<code>static int local_var;</code>，当前模块所有函数可见，模块外不可见</p>
 <p>局部变量存储在栈中</p>
 <p><strong>.comment</strong>：存放版本控制信息</p>
 <p><strong>.debug</strong>：存放符号调试信息</p>
 <p><strong>.text</strong>：存放正文，也就是程序的执行指令</p>
 <p><strong>.symtab</strong>：存放符号表</p>
-<h1 id="What’s-in-gcc"><a href="#What’s-in-gcc" class="headerlink" title="What’s in gcc"></a>What’s in gcc</h1><p><code>cc1</code>：预处理器和编译器</p>
+<h1 id="whats-in-gcc">What's in gcc</h1>
+<p><code>cc1</code>：预处理器和编译器</p>
 <p><code>as</code>：汇编器</p>
 <p><code>collect2</code>：链接器</p>
-<h1 id="ELF"><a href="#ELF" class="headerlink" title="ELF"></a>ELF</h1><p>Executable and Linkable Format：可执行文件格式</p>
-<img src="链接与装载\image-20230320104316922.png">
+<h1 id="elf">ELF</h1>
+<p>Executable and Linkable Format：可执行文件格式</p>
+<p><img src="/whosejam.github.io/whosejam/whosejam.github.io/2023/03/20/%E9%93%BE%E6%8E%A5%E4%B8%8E%E8%A3%85%E8%BD%BD/image-20230320104316922.png"></p>
 
       
     </div>

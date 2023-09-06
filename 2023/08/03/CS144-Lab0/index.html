@@ -18,12 +18,12 @@
   
   
   <title>CS144-Lab0 | Hexo</title>
-  <meta name="description" content="Lab0我们需要实现一个Reader和一个Writer，它们都继承自ByteStream类，Reader可以从ByteStream里面读取数据，Writer可以向ByteStream里面写入数据 ByteStream有一个容量限制，如果Writer写入的数据长度超过了容量限制，那么多余的数据就直接丢弃了 实现手写一个循环队列，用vector&lt;char&gt;来承载这个循环队列 效果在我的虚拟">
+  <meta name="description" content="Lab0 我们需要实现一个Reader和一个Writer，它们都继承自ByteStream类，Reader可以从ByteStream里面读取数据，Writer可以向ByteStream里面写入数据 ByteStream有一个容量限制，如果Writer写入的数据长度超过了容量限制，那么多余的数据就直接丢弃了 实现 手写一个循环队列，用vector&lt;char&gt;来承载这个循环队列">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CS144-Lab0">
 <meta property="og:url" content="http://github.com/whosejam/whosejam.github.io/2023/08/03/CS144-Lab0/index.html">
 <meta property="og:site_name" content="whoseJam">
-<meta property="og:description" content="Lab0我们需要实现一个Reader和一个Writer，它们都继承自ByteStream类，Reader可以从ByteStream里面读取数据，Writer可以向ByteStream里面写入数据 ByteStream有一个容量限制，如果Writer写入的数据长度超过了容量限制，那么多余的数据就直接丢弃了 实现手写一个循环队列，用vector&lt;char&gt;来承载这个循环队列 效果在我的虚拟">
+<meta property="og:description" content="Lab0 我们需要实现一个Reader和一个Writer，它们都继承自ByteStream类，Reader可以从ByteStream里面读取数据，Writer可以向ByteStream里面写入数据 ByteStream有一个容量限制，如果Writer写入的数据长度超过了容量限制，那么多余的数据就直接丢弃了 实现 手写一个循环队列，用vector&lt;char&gt;来承载这个循环队列">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-08-03T11:30:31.000Z">
 <meta property="article:modified_time" content="2023-08-04T11:24:35.092Z">
@@ -368,38 +368,44 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="Lab0"><a href="#Lab0" class="headerlink" title="Lab0"></a>Lab0</h1><p>我们需要实现一个Reader和一个Writer，它们都继承自ByteStream类，Reader可以从ByteStream里面读取数据，Writer可以向ByteStream里面写入数据</p>
+        <h1 id="lab0">Lab0</h1>
+<p>我们需要实现一个Reader和一个Writer，它们都继承自ByteStream类，Reader可以从ByteStream里面读取数据，Writer可以向ByteStream里面写入数据</p>
 <p>ByteStream有一个容量限制，如果Writer写入的数据长度超过了容量限制，那么多余的数据就直接丢弃了</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>手写一个循环队列，用vector&lt;char&gt;来承载这个循环队列</p>
-<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>在我的虚拟机上：</p>
+<h2 id="实现">实现</h2>
+<p>手写一个循环队列，用vector&lt;char&gt;来承载这个循环队列</p>
+<h2 id="效果">效果</h2>
+<p>在我的虚拟机上：</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>措施</th>
 <th>吞吐量</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td>平凡的实现</td>
-<td>0.52 Gbit&#x2F;s</td>
+<td>0.52 Gbit/s</td>
 </tr>
-<tr>
+<tr class="even">
 <td>减少取模</td>
 <td>无明显变化</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>peek的时候尽可能返回长的字符串</td>
-<td>3.95 Gbit&#x2F;s</td>
+<td>3.95 Gbit/s</td>
 </tr>
-</tbody></table>
-<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><ul>
+</tbody>
+</table>
+<h2 id="优化">优化</h2>
+<ul>
 <li>在循环队列的实现中少用取模</li>
-<li>Reader进行peek的时候<ul>
+<li>Reader进行peek的时候
+<ul>
 <li>如果循环队列为空，那么返回一个空的string_view</li>
 <li>如果循环队列的front和back满足front&lt;back，那么就认为可以直接把从front这个位置开始，长度为back-front的这一段字串打包返回，即：<code>string_view(&amp;queue[front],back-front)</code></li>
 <li>否则返回从front这个位置开始，长度为capacity-front的这一段字串打包返回，即：<code>string_view(&amp;queue[front],capacity-front)</code></li>
-</ul>
-</li>
+</ul></li>
 </ul>
 
       
