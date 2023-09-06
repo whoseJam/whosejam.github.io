@@ -1,3 +1,5 @@
+http://example.com/2023/09/06/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%862/
+http://example.com/2023/09/05/flex%E5%B8%83%E5%B1%80/
 http://example.com/2023/09/04/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%861/
 http://example.com/2023/08/28/CS144-Lab3/
 http://example.com/2023/08/28/CS144-Lab2/
@@ -71,3 +73,4 @@ http://example.com/tags/netcat/
 http://example.com/tags/telnet/
 http://example.com/tags/TPC-IP/
 http://example.com/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/
+http://example.com/tags/%E5%89%8D%E7%AB%AF-flex/

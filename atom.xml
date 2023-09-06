@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-09-04T03:26:26.609Z</updated>
+  <updated>2023-09-06T13:11:57.067Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,52 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>编译原理2-文法与语言</title>
+    <link href="http://example.com/2023/09/06/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%862/"/>
+    <id>http://example.com/2023/09/06/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%862/</id>
+    <published>2023-09-06T11:48:31.000Z</published>
+    <updated>2023-09-06T13:11:57.067Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="字母表和字符串"><a href="#字母表和字符串" class="headerlink" title="字母表和字符串"></a>字母表和字符串</h1><ul><li>字母表：符号的非空有限集，例如$\sum=\{a,b,c\}$</li><li>符号：字母表中的元素，例如$a,b,c$</li><li>符号串：符号的有穷序列，例如$a,aa,ac,abc,…$</li><li>空符号串：没有任何符号的符号串，例如$\epsilon$</li></ul><blockquote><p>约定</p><p>用a,b,c,d…,r和S,T,U,V,W,X,Y,Z来表示符号</p><p>用s,t,u,v,w,x,y,z来表示符号串</p><p>用A,B,C,D,…,R来表示符号串集合</p></blockquote><h1 id="文法"><a href="#文法" class="headerlink" title="文法"></a>文法</h1><blockquote><p>文法是在形式上对句子结构的定义和描述，未涉及到语义问题</p></blockquote><h2 id="语法树-语法推导树"><a href="#语法树-语法推导树" class="headerlink" title="语法树/语法推导树"></a>语法树/语法推导树</h2><p><img src="编译原理2\image-20230906202420844.png" alt="image-20230906202420844" style="zoom:33%;" /></p><ul><li>语法成分：又叫非终结符</li><li>单词符号：又叫终结符号</li></ul><h2 id="文法的定义"><a href="#文法的定义" class="headerlink" title="文法的定义"></a>文法的定义</h2><p>定义文法$G=(V_n,V_t,P,Z)$，其中：</p><p>$V_n$：非终结符号集</p><p>$V_t$：终结符号集</p><p>$P$：产生式或规则的集合</p><p>$Z$：开始符号/识别符号，$Z\in V_n$</p><p>$V=V_n\cup V_t$，称为文法的字汇表</p><p><strong>规则</strong>：规则是一个有序对$(U,x)$，通常写为$U::=x$或$U\rightarrow x$，其中$|U|=1,|x|\ge 0$</p><h1 id="推导"><a href="#推导" class="headerlink" title="推导"></a>推导</h1><p>定义文法$G$</p><script type="math/tex; mode=display">v\stackrel{G}{\Rightarrow}w</script><p>相当于在语法树上拓展了某一个节点，例如：</p><p><img src="编译原理2\image-20230906204406913.png" alt="image-20230906204406913" style="zoom:33%;" /></p><script type="math/tex; mode=display">v\mathop{\Rightarrow}^+_Gw</script><p>则表示在语法树上经过了$\ge 1$次拓展</p><script type="math/tex; mode=display">v\mathop{\Rightarrow}^*_Gw</script><p>则表示在语法树上经过了$\ge 0$次拓展</p><h1 id="语言"><a href="#语言" class="headerlink" title="语言"></a>语言</h1><p>假设我们有文法$G[Z]$</p><ul><li>句型：$x$是句型$\Leftrightarrow$ $Z\stackrel{<em>}{\Rightarrow}x$且$x\in V^</em>$</li><li>句子：$x$是句子$\Leftrightarrow$ $Z\stackrel{+}{\Rightarrow}x$且$x\in V_t^*$</li><li>语言：$L(G[Z])=\{x|x\in V_t^*,Z\stackrel{+}{\Rightarrow}x\}$，即由文法$G[Z]$所产生的句子的集合</li></ul><p><img src="编译原理2\image-20230906205416977.png" alt="image-20230906205416977" style="zoom:33%;" /></p><p>句型的定义更宽松一点，句子也满足句型的定义</p><p><strong>等价文法</strong>：设$G$和$G’$是两个不同的文法，若$L(G)=L(G’)$，则$G$和$G’$为等价文法</p><ul><li>短语：若$Z\stackrel{<em>}{\Rightarrow}xUy$，且$U\stackrel{</em>}{\Rightarrow}u$，则$u$是句型$w$相对于$U$的短语</li></ul><p><img src="编译原理2\image-20230906210324782.png" alt="image-20230906210324782" style="zoom:33%;" /></p><ul><li>简单短语：若$Z\stackrel{*}{\Rightarrow}xUy$，且$U{\Rightarrow}u$，则$u$是句型$w$相对于$U$的简单短语</li></ul><blockquote><p>直观理解：短语是前面句型中某个非终结符所能推导出的符号串</p></blockquote><ul><li>句柄：任一句型的最左简单短语称为该句型的句柄</li></ul><h1 id="二义性"><a href="#二义性" class="headerlink" title="二义性"></a>二义性</h1><p>若对于一个文法的某一个句型，存在两棵不同的语法树，则该文法是二义性文法，否则是无二义性文法</p><blockquote><p>文法的二义性是不可判定的</p></blockquote><p>若文法存在二义性，那么编译的时候就会产生不确定性，现在的解决方法是，提出一些<strong>限制条件</strong>，称为无二义性的充分条件，当文法满足这些条件时，就可以判定文法是无二义性的</p><p>也可以不改变二义性文法，而在代码实现层面上，保证不会出现编译错误</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;字母表和字符串&quot;&gt;&lt;a href=&quot;#字母表和字符串&quot; class=&quot;headerlink&quot; title=&quot;字母表和字符串&quot;&gt;&lt;/a&gt;字母表和字符串&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;字母表：符号的非空有限集，例如$\sum=\{a,b,c\}$&lt;/li&gt;
+&lt;li&gt;符号：</summary>
+      
+    
+    
+    
+    
+    <category term="编译原理" scheme="http://example.com/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>flex布局</title>
+    <link href="http://example.com/2023/09/05/flex%E5%B8%83%E5%B1%80/"/>
+    <id>http://example.com/2023/09/05/flex%E5%B8%83%E5%B1%80/</id>
+    <published>2023-09-05T07:01:06.000Z</published>
+    <updated>2023-09-05T08:22:03.671Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>采用flex布局的元素称为flex container，它的所有子元素自动称为容器成员，称为flex item，任何一个容器都可以指定为flex布局，行内元素也可以使用flex布局</p><h1 id="容器属性"><a href="#容器属性" class="headerlink" title="容器属性"></a>容器属性</h1><h2 id="flex-direction"><a href="#flex-direction" class="headerlink" title="flex-direction"></a>flex-direction</h2><p>决定主轴的方向</p><ul><li>row：主轴从左往右</li><li>row-reverse：主轴从右往左</li><li>column：主轴从上往下</li><li>column-reverse：主轴从下往上</li></ul><h2 id="flex-wrap"><a href="#flex-wrap" class="headerlink" title="flex-wrap"></a>flex-wrap</h2><p>决定换行的行为</p><ul><li>nowrap：不换行，当items总宽度超过了container，item将被挤压</li><li>wrap：换行，前一行在上方</li><li>wrap-reverse：换行，前一行在下方</li></ul><h2 id="justify-content"><a href="#justify-content" class="headerlink" title="justify-content"></a>justify-content</h2><p>设置成员在主轴上的对齐方式</p><ul><li>flex-start：左对齐</li><li>flex-end：右对齐</li><li>center：居中</li><li>space-between：两端对齐，成员之间的间隔全部相等</li><li>space-around：每个成员两侧的间隔相等</li></ul><h2 id="align-items"><a href="#align-items" class="headerlink" title="align-items"></a>align-items</h2><p>定义成员在交叉轴上的对齐方式</p><ul><li>flex-start：交叉轴的起点对齐</li><li>flex-end：交叉轴的终点对齐</li><li>center：交叉轴的中点对齐</li><li>baseline：成员的第一行文字的基线对齐</li><li>stretch：如果成员未设置高度，或者高度为auto，那么成员将占满交叉轴方向</li></ul><h2 id="align-content"><a href="#align-content" class="headerlink" title="align-content"></a>align-content</h2><p>定义了多根轴线（主轴）的对齐方式，如果container里面只有一根主轴，那么该属性不起作用</p><p>轴线数主要由flex-wrap属性来决定，当flex-wrap设置为nowrap的时候，容器仅存在一根轴线，因为item不会换行；当flex-wrap设置为wrap，容器可能会出现多条轴线，此时需要用align-content来设置多条轴线的对齐方式</p><ul><li>flex-start：从交叉轴开始位置填充</li><li>flex-end：从交叉轴结尾位置填充</li><li>center：与交叉轴中点对齐</li><li>space-between</li><li>space-around</li></ul><h1 id="项目属性"><a href="#项目属性" class="headerlink" title="项目属性"></a>项目属性</h1><h2 id="order"><a href="#order" class="headerlink" title="order"></a>order</h2><p>定义项目的排序顺序，数值越小，排名越靠前</p><h2 id="flex-grow"><a href="#flex-grow" class="headerlink" title="flex-grow"></a>flex-grow</h2><ul><li><p>定义成员的放大比例，默认是0，即如果存在剩余空间，也不放大</p></li><li><p>如果所有成员的flex-grow都是1，那么它们将等分剩余空间</p></li><li>如果有一个成员的flex-grow为2，其他项目都是1，则前者占据的剩余空间将比其他项目多一些</li></ul><h2 id="flex-shrink"><a href="#flex-shrink" class="headerlink" title="flex-shrink"></a>flex-shrink</h2><ul><li>flex-shrink属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小</li><li>如果所有项目的flex-shrink属性都为1，当空间不足时，都将等比例缩小。如果一个项目的flex-shrink属性为0，其他项目都为1，则空间不足时，前者不缩小</li><li>此属性设置负值无效</li></ul><h2 id="flex-basis"><a href="#flex-basis" class="headerlink" title="flex-basis"></a>flex-basis</h2><p>定义了在分配多余空间之前，项目占据的主轴空间，浏览器根据这个属性，计算主轴是否有多余空间</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;基本概念&quot;&gt;&lt;a href=&quot;#基本概念&quot; class=&quot;headerlink&quot; title=&quot;基本概念&quot;&gt;&lt;/a&gt;基本概念&lt;/h1&gt;&lt;p&gt;采用flex布局的元素称为flex container，它的所有子元素自动称为容器成员，称为flex item，任何一个容器</summary>
+      
+    
+    
+    
+    
+    <category term="-前端 -flex" scheme="http://example.com/tags/%E5%89%8D%E7%AB%AF-flex/"/>
+    
+  </entry>
   
   <entry>
     <title>编译原理1-概论</title>
@@ -407,50 +453,6 @@
     <published>2023-07-22T01:08:11.000Z</published>
     <updated>2023-07-22T01:08:11.766Z</updated>
     
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>OO第三单元作业总结</title>
-    <link href="http://example.com/2023/05/16/OO%E7%AC%AC%E4%B8%89%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/"/>
-    <id>http://example.com/2023/05/16/OO%E7%AC%AC%E4%B8%89%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/</id>
-    <published>2023-05-16T14:18:34.000Z</published>
-    <updated>2023-05-16T14:40:30.394Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h1><p>面向对象第三单元的课程主要学习了Java Modeling Language(JML)语言的一些基本知识与使用，并在编程的过程中回顾java继承等特性，以及一些简单的算法</p><h2 id="jml语言基础"><a class="markdownIt-Anchor" href="#jml语言基础"></a> JML语言基础</h2><blockquote><p>JML语言是对Java程序进行规格化设计的一种表示语言</p></blockquote><p>主要作用：</p><ul><li>开展规格化设计</li><li>针对已有代码书写其相应规格（OKTest）</li><li>不太适合人类阅读，我觉得JML是不可能大规模应用的，它增加的一层复杂度远远超过它能减少的复杂度</li></ul><p>JML用块注释的方法定义规格，包括三个部分：前置条件<code>require</code>，副作用限定范围<code>assignable</code>，后置条件<code>ensures</code></p><table><thead><tr><th>JML表达式</th><th>作用</th></tr></thead><tbody><tr><td>\result</td><td>方法的返回结果</td></tr><tr><td>\old(expr)</td><td>原有值</td></tr><tr><td>\type(type)</td><td>类型</td></tr><tr><td>\typeof(expr)</td><td>表达式最终结果的类型</td></tr><tr><td>\forall</td><td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∀</mi></mrow><annotation encoding="application/x-tex">\forall</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord">∀</span></span></span></span></td></tr><tr><td>\exists</td><td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∃</mi></mrow><annotation encoding="application/x-tex">\exists</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord">∃</span></span></span></span></td></tr></tbody></table><h1 id="测试"><a class="markdownIt-Anchor" href="#测试"></a> 测试</h1><p>黑箱测试：数据驱动</p><p>白箱测试：代码静态分析</p><p>单元测试：以“某个最小单元”为基础进行测试</p><p>功能测试：测试程序的特征和可操作行为</p><p>集成测试：软件的不同模块被集成作为一个整体进行测试</p><p>压力测试：在系统资源匮乏的条件下运行测试</p><p>回归测试：修改了旧代码后，重新进行测试以确认修改没有引入新的错误，或导致其他代码产生错误</p><h1 id="项目架构"><a class="markdownIt-Anchor" href="#项目架构"></a> 项目架构</h1><p>由于几乎完全按照JML实现，并没有自己在上面拓展，所以架构非常丑陋</p><img src="http://whosejam.github.io/2023/05/16/OO%E7%AC%AC%E4%B8%89%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230516223025537.png" alt="image-20230516223025537" style="zoom: 25%;"><h1 id="part-1-第一次作业"><a class="markdownIt-Anchor" href="#part-1-第一次作业"></a> Part 1 第一次作业</h1><p>在本次作业中，需要稍微考虑一下时间复杂度的部分是动态加边+三元环计数部分，考虑在每次加边时，维护一下本次加边后三元环个数的增量即可</p><h1 id="part-2-第二次作业"><a class="markdownIt-Anchor" href="#part-2-第二次作业"></a> Part 2 第二次作业</h1><p>本次作业中，需要稍微考虑一下时间复杂度的部分是删边后重构并查集，考虑删边时，对被删除边的两端分别dfs，暴力重构并查集的根为被删除边的端点</p><h1 id="part-3-第三次作业"><a class="markdownIt-Anchor" href="#part-3-第三次作业"></a> Part 3 第三次作业</h1><p>本次作业中，需要稍微考虑一下时间复杂度的部分是找无向图必经过某点的边权和最小环，可以首先跑出以必经点为根的最短路树，然后枚举每一对非树边，如果非树边的端点在最短路树上的最近公共祖先为根，那么就可以形成一个环，可能形成一个最小环，我们取这些环中的边权最小者即可</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;总结&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#总结&quot;&gt;&lt;/a&gt; 总结&lt;/h1&gt;
-&lt;p&gt;面向对象第三单元的课程主要学习了Java Modeling Language(JML)语言的一些基本知识与使用，并在编程的过程中回顾java继承</summary>
-      
-    
-    
-    
-    
-    <category term="面向对象" scheme="http://example.com/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="http://example.com/2023/05/07/C++%20template/"/>
-    <id>http://example.com/2023/05/07/C++%20template/</id>
-    <published>2023-05-07T12:07:13.301Z</published>
-    <updated>2023-05-07T12:14:47.038Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="c-template"><a class="markdownIt-Anchor" href="#c-template"></a> C++ template</h1><h2 id="需求1"><a class="markdownIt-Anchor" href="#需求1"></a> 需求1</h2><blockquote><p>有一个模板类Class&lt;T&gt;，我希望可以根据T的具体性质，在实现Class&lt;T&gt;时走不同的函数</p><p>例如，我写好了一个SegmentTree&lt;T,L&gt;，如果T是Mergeable的子类，那么我可能要额外走一个pushUp方法；如果L是Lazytag的子类，我可能要额外走一个pushDown的方法</p></blockquote><p>问题可以表述成：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if condition&lt;T&gt;:</span><br><span class="line">    do...(可能用到T这个类型的某些具体属性，e.g T.status)</span><br><span class="line">else:</span><br><span class="line">    do...</span><br></pre></td></tr></table></figure><p>问题麻烦之处在于使用到<code>T.status</code>的地方，如果T被特化成为了一个不具备status属性的类型，就会出现编译错误</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, condition&lt;T&gt;&gt;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">function</span>;</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">function</span>&lt;T, <span class="literal">true</span>&gt; &#123;...&#125;</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">function</span>&lt;T, <span class="literal">false</span>&gt; &#123;...&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;c-template&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#c-template&quot;&gt;&lt;/a&gt; C++ template&lt;/h1&gt;
-&lt;h2 id=&quot;需求1&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#</summary>
-      
     
     
     

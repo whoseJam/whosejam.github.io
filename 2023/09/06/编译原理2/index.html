@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>编译原理2-文法与语言 | Hexo</title>
+  <meta name="description" content="字母表和字符串 字母表：符号的非空有限集，例如$\sum&#x3D;\{a,b,c\}$ 符号：字母表中的元素，例如$a,b,c$ 符号串：符号的有穷序列，例如$a,aa,ac,abc,…$ 空符号串：没有任何符号的符号串，例如$\epsilon$   约定 用a,b,c,d…,r和S,T,U,V,W,X,Y,Z来表示符号 用s,t,u,v,w,x,y,z来表示符号串 用A,B,C,D,…,R来表示符号串集">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编译原理2-文法与语言">
+<meta property="og:url" content="http://example.com/2023/09/06/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%862/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="字母表和字符串 字母表：符号的非空有限集，例如$\sum&#x3D;\{a,b,c\}$ 符号：字母表中的元素，例如$a,b,c$ 符号串：符号的有穷序列，例如$a,aa,ac,abc,…$ 空符号串：没有任何符号的符号串，例如$\epsilon$   约定 用a,b,c,d…,r和S,T,U,V,W,X,Y,Z来表示符号 用s,t,u,v,w,x,y,z来表示符号串 用A,B,C,D,…,R来表示符号串集">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2023/09/06/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%862/编译原理2/image-20230906202420844.png">
+<meta property="og:image" content="http://example.com/2023/09/06/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%862/编译原理2/image-20230906204406913.png">
+<meta property="og:image" content="http://example.com/2023/09/06/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%862/编译原理2/image-20230906205416977.png">
+<meta property="og:image" content="http://example.com/2023/09/06/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%862/编译原理2/image-20230906210324782.png">
+<meta property="article:published_time" content="2023-09-06T11:48:31.000Z">
+<meta property="article:modified_time" content="2023-09-06T13:11:57.067Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="编译原理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/09/06/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%862/编译原理2/image-20230906202420844.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://example.com/2023/09/06/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%862/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body class="main-center theme-green" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/cofess" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">whoseJam</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> </small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/whosejam" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF-flex/" rel="tag">-前端 -flex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/" rel="tag">CMake</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ICPC/" rel="tag">ICPC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP-IP/" rel="tag">TCP/IP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TPC-IP/" rel="tag">TPC/IP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/netcat/" rel="tag">netcat</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pymysql/" rel="tag">pymysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/telnet/" rel="tag">telnet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/" rel="tag">vmware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" rel="tag">博弈论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" rel="tag">编译原理</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BE%A4%E8%AE%BA/" rel="tag">群论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E6%A6%82%E8%AE%BA/" rel="tag">航空航天概论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B8%B8%E8%AF%86/" rel="tag">计算机常识</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a><span class="tag-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/%E5%89%8D%E7%AB%AF-flex/" style="font-size: 13px;">-前端 -flex</a> <a href="/tags/C/" style="font-size: 13.25px;">C++</a> <a href="/tags/CMake/" style="font-size: 13px;">CMake</a> <a href="/tags/Docker/" style="font-size: 13px;">Docker</a> <a href="/tags/ICPC/" style="font-size: 13px;">ICPC</a> <a href="/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 13.5px;">MySQL</a> <a href="/tags/TCP-IP/" style="font-size: 13.25px;">TCP/IP</a> <a href="/tags/TPC-IP/" style="font-size: 13.25px;">TPC/IP</a> <a href="/tags/netcat/" style="font-size: 13px;">netcat</a> <a href="/tags/pymysql/" style="font-size: 13px;">pymysql</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/telnet/" style="font-size: 13px;">telnet</a> <a href="/tags/vmware/" style="font-size: 13px;">vmware</a> <a href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" style="font-size: 13px;">博弈论</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 13px;">多线程</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 13.75px;">操作系统</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 13px;">爬虫</a> <a href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" style="font-size: 13.25px;">编译原理</a> <a href="/tags/%E7%BE%A4%E8%AE%BA/" style="font-size: 13px;">群论</a> <a href="/tags/%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E6%A6%82%E8%AE%BA/" style="font-size: 13px;">航空航天概论</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B8%B8%E8%AF%86/" style="font-size: 13px;">计算机常识</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 13px;">计算机网络</a> <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" style="font-size: 13.75px;">面向对象</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">九月 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">八月 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">七月 2023</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">四月 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">三月 2023</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2023/09/06/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%862/" class="title">编译原理2-文法与语言</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-09-06T11:48:31.000Z" itemprop="datePublished">2023-09-06</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2023/09/05/flex%E5%B8%83%E5%B1%80/" class="title">flex布局</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-09-05T07:01:06.000Z" itemprop="datePublished">2023-09-05</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2023/09/04/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%861/" class="title">编译原理1-概论</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-09-04T03:09:27.000Z" itemprop="datePublished">2023-09-04</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2023/08/28/CS144-Lab2/" class="title">CS144-Lab2</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-08-28T12:53:49.000Z" itemprop="datePublished">2023-08-28</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2023/08/28/CS144-Lab3/" class="title">CS144-Lab3</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-08-28T12:44:33.000Z" itemprop="datePublished">2023-08-28</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-编译原理2" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      编译原理2-文法与语言
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2023/09/06/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%862/" class="article-date">
+	  <time datetime="2023-09-06T11:48:31.000Z" itemprop="datePublished">2023-09-06</time>
+	</a>
+</span>
+        
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" rel="tag">编译原理</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/09/06/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%862/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="字母表和字符串"><a href="#字母表和字符串" class="headerlink" title="字母表和字符串"></a>字母表和字符串</h1><ul>
+<li>字母表：符号的非空有限集，例如$\sum=\{a,b,c\}$</li>
+<li>符号：字母表中的元素，例如$a,b,c$</li>
+<li>符号串：符号的有穷序列，例如$a,aa,ac,abc,…$</li>
+<li>空符号串：没有任何符号的符号串，例如$\epsilon$</li>
+</ul>
+<blockquote>
+<p>约定</p>
+<p>用a,b,c,d…,r和S,T,U,V,W,X,Y,Z来表示符号</p>
+<p>用s,t,u,v,w,x,y,z来表示符号串</p>
+<p>用A,B,C,D,…,R来表示符号串集合</p>
+</blockquote>
+<h1 id="文法"><a href="#文法" class="headerlink" title="文法"></a>文法</h1><blockquote>
+<p>文法是在形式上对句子结构的定义和描述，未涉及到语义问题</p>
+</blockquote>
+<h2 id="语法树-语法推导树"><a href="#语法树-语法推导树" class="headerlink" title="语法树/语法推导树"></a>语法树/语法推导树</h2><p><img src="编译原理2\image-20230906202420844.png" alt="image-20230906202420844" style="zoom:33%;" /></p>
+<ul>
+<li>语法成分：又叫非终结符</li>
+<li>单词符号：又叫终结符号</li>
+</ul>
+<h2 id="文法的定义"><a href="#文法的定义" class="headerlink" title="文法的定义"></a>文法的定义</h2><p>定义文法$G=(V_n,V_t,P,Z)$，其中：</p>
+<p>$V_n$：非终结符号集</p>
+<p>$V_t$：终结符号集</p>
+<p>$P$：产生式或规则的集合</p>
+<p>$Z$：开始符号/识别符号，$Z\in V_n$</p>
+<p>$V=V_n\cup V_t$，称为文法的字汇表</p>
+<p><strong>规则</strong>：规则是一个有序对$(U,x)$，通常写为$U::=x$或$U\rightarrow x$，其中$|U|=1,|x|\ge 0$</p>
+<h1 id="推导"><a href="#推导" class="headerlink" title="推导"></a>推导</h1><p>定义文法$G$</p>
+<script type="math/tex; mode=display">
+v\stackrel{G}{\Rightarrow}w</script><p>相当于在语法树上拓展了某一个节点，例如：</p>
+<p><img src="编译原理2\image-20230906204406913.png" alt="image-20230906204406913" style="zoom:33%;" /></p>
+<script type="math/tex; mode=display">
+v\mathop{\Rightarrow}^+_Gw</script><p>则表示在语法树上经过了$\ge 1$次拓展</p>
+<script type="math/tex; mode=display">
+v\mathop{\Rightarrow}^*_Gw</script><p>则表示在语法树上经过了$\ge 0$次拓展</p>
+<h1 id="语言"><a href="#语言" class="headerlink" title="语言"></a>语言</h1><p>假设我们有文法$G[Z]$</p>
+<ul>
+<li>句型：$x$是句型$\Leftrightarrow$ $Z\stackrel{<em>}{\Rightarrow}x$且$x\in V^</em>$</li>
+<li>句子：$x$是句子$\Leftrightarrow$ $Z\stackrel{+}{\Rightarrow}x$且$x\in V_t^*$</li>
+<li>语言：$L(G[Z])=\{x|x\in V_t^*,Z\stackrel{+}{\Rightarrow}x\}$，即由文法$G[Z]$所产生的句子的集合</li>
+</ul>
+<p><img src="编译原理2\image-20230906205416977.png" alt="image-20230906205416977" style="zoom:33%;" /></p>
+<p>句型的定义更宽松一点，句子也满足句型的定义</p>
+<p><strong>等价文法</strong>：设$G$和$G’$是两个不同的文法，若$L(G)=L(G’)$，则$G$和$G’$为等价文法</p>
+<ul>
+<li>短语：若$Z\stackrel{<em>}{\Rightarrow}xUy$，且$U\stackrel{</em>}{\Rightarrow}u$，则$u$是句型$w$相对于$U$的短语</li>
+</ul>
+<p><img src="编译原理2\image-20230906210324782.png" alt="image-20230906210324782" style="zoom:33%;" /></p>
+<ul>
+<li>简单短语：若$Z\stackrel{*}{\Rightarrow}xUy$，且$U{\Rightarrow}u$，则$u$是句型$w$相对于$U$的简单短语</li>
+</ul>
+<blockquote>
+<p>直观理解：短语是前面句型中某个非终结符所能推导出的符号串</p>
+</blockquote>
+<ul>
+<li>句柄：任一句型的最左简单短语称为该句型的句柄</li>
+</ul>
+<h1 id="二义性"><a href="#二义性" class="headerlink" title="二义性"></a>二义性</h1><p>若对于一个文法的某一个句型，存在两棵不同的语法树，则该文法是二义性文法，否则是无二义性文法</p>
+<blockquote>
+<p>文法的二义性是不可判定的</p>
+</blockquote>
+<p>若文法存在二义性，那么编译的时候就会产生不确定性，现在的解决方法是，提出一些<strong>限制条件</strong>，称为无二义性的充分条件，当文法满足这些条件时，就可以判定文法是无二义性的</p>
+<p>也可以不改变二义性文法，而在代码实现层面上，保证不会出现编译错误</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2023/09/06/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%862/" title="编译原理2-文法与语言" target="_blank" rel="external">http://example.com/2023/09/06/编译原理2/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/cofess" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/cofess" target="_blank"><span class="text-dark">whoseJam</span><small class="ml-1x"></small></a></h3>
+        <div></div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2023/09/05/flex%E5%B8%83%E5%B1%80/" title="flex布局"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/whosejam" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
