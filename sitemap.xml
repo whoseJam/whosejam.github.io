@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://example.com/2023/09/06/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%862/</loc>
+    <loc>http://example.com/2023/09/05/flex%E5%B8%83%E5%B1%80/</loc>
     
     <lastmod>2023-09-06</lastmod>
     
@@ -11,9 +11,9 @@
   </url>
   
   <url>
-    <loc>http://example.com/2023/09/05/flex%E5%B8%83%E5%B1%80/</loc>
+    <loc>http://example.com/2023/09/06/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%862/</loc>
     
-    <lastmod>2023-09-05</lastmod>
+    <lastmod>2023-09-06</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -631,7 +631,14 @@
   </url>
   
   <url>
-    <loc>http://example.com/tags/%E5%89%8D%E7%AB%AF-flex/</loc>
+    <loc>http://example.com/tags/%E5%89%8D%E7%AB%AF/</loc>
+    <lastmod>2023-09-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/tags/flex/</loc>
     <lastmod>2023-09-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
