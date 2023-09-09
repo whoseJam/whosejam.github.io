@@ -1,10 +1,10 @@
+http://whosejam.github.io/2023/08/25/Animation-System-in-Slide/
 http://whosejam.github.io/2023/09/06/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%862/
 http://whosejam.github.io/2023/08/28/CS144-Lab3/
 http://whosejam.github.io/2023/08/04/CS144-Lab1/
 http://whosejam.github.io/2023/09/04/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%861/
 http://whosejam.github.io/2023/09/05/flex%E5%B8%83%E5%B1%80/
 http://whosejam.github.io/2023/08/28/CS144-Lab2/
-http://whosejam.github.io/2023/08/25/Animation-System-in-Slide/
 http://whosejam.github.io/2023/08/04/CF889/
 http://whosejam.github.io/2023/08/03/CS144-Lab0/
 http://whosejam.github.io/2023/07/29/netcat/
