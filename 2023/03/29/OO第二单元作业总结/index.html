@@ -18,12 +18,12 @@
   
   
   <title>OO第二单元作业总结 | Hexo</title>
-  <meta name="description" content="第一次作业 第一次作业要求六部电梯，支持处理从某层楼到某层楼的请求 整体架构如下：  Input读入任务后，将任务交给Dispatcher，Dispatcher内持有多个Scheduler，它来决定某个任务该分配给哪个Scheduler，Scheduler使用RequestTable来维护所有拿到的任务，操作电梯以某个策略完成这些任务 第二次作业 在原有设计的基础上增加了ADD-Ele">
+  <meta name="description" content="第一次作业第一次作业要求六部电梯，支持处理从某层楼到某层楼的请求 整体架构如下：   Input读入任务后，将任务交给Dispatcher，Dispatcher内持有多个Scheduler，它来决定某个任务该分配给哪个Scheduler，Scheduler使用RequestTable来维护所有拿到的任务，操作电梯以某个策略完成这些任务 第二次作业在原有设计的基础上增加了ADD-Elevator和M">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OO第二单元作业总结">
 <meta property="og:url" content="http://whosejam.github.io/2023/03/29/OO%E7%AC%AC%E4%BA%8C%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="whoseJam">
-<meta property="og:description" content="第一次作业 第一次作业要求六部电梯，支持处理从某层楼到某层楼的请求 整体架构如下：  Input读入任务后，将任务交给Dispatcher，Dispatcher内持有多个Scheduler，它来决定某个任务该分配给哪个Scheduler，Scheduler使用RequestTable来维护所有拿到的任务，操作电梯以某个策略完成这些任务 第二次作业 在原有设计的基础上增加了ADD-Ele">
+<meta property="og:description" content="第一次作业第一次作业要求六部电梯，支持处理从某层楼到某层楼的请求 整体架构如下：   Input读入任务后，将任务交给Dispatcher，Dispatcher内持有多个Scheduler，它来决定某个任务该分配给哪个Scheduler，Scheduler使用RequestTable来维护所有拿到的任务，操作电梯以某个策略完成这些任务 第二次作业在原有设计的基础上增加了ADD-Elevator和M">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://whosejam.github.io/2023/03/29/OO%E7%AC%AC%E4%BA%8C%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230329151101894.png">
 <meta property="og:image" content="http://whosejam.github.io/2023/03/29/OO%E7%AC%AC%E4%BA%8C%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230414232723664.png">
@@ -220,7 +220,7 @@
   <div class="widget">
     <h3 class="widget-title">标签</h3>
     <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/" rel="tag">CMake</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ICPC/" rel="tag">ICPC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP-IP/" rel="tag">TCP/IP</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flex/" rel="tag">flex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/netcat/" rel="tag">netcat</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pymysql/" rel="tag">pymysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/telnet/" rel="tag">telnet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/" rel="tag">vmware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" rel="tag">博弈论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" rel="tag">编译原理</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BE%A4%E8%AE%BA/" rel="tag">群论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E6%A6%82%E8%AE%BA/" rel="tag">航空航天概论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B8%B8%E8%AF%86/" rel="tag">计算机常识</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a><span class="tag-list-count">5</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/" rel="tag">CMake</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ICPC/" rel="tag">ICPC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP-IP/" rel="tag">TCP/IP</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flex/" rel="tag">flex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/netcat/" rel="tag">netcat</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pymysql/" rel="tag">pymysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sd/" rel="tag">sd</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/telnet/" rel="tag">telnet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/" rel="tag">vmware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" rel="tag">博弈论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" rel="tag">编译原理</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BE%A4%E8%AE%BA/" rel="tag">群论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E6%A6%82%E8%AE%BA/" rel="tag">航空航天概论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B8%B8%E8%AF%86/" rel="tag">计算机常识</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a><span class="tag-list-count">5</span></li></ul>
     </div>
   </div>
 
@@ -230,7 +230,7 @@
   <div class="widget">
     <h3 class="widget-title">标签云</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/C/" style="font-size: 13.25px;">C++</a> <a href="/tags/CMake/" style="font-size: 13px;">CMake</a> <a href="/tags/Docker/" style="font-size: 13px;">Docker</a> <a href="/tags/ICPC/" style="font-size: 13px;">ICPC</a> <a href="/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 13.5px;">MySQL</a> <a href="/tags/TCP-IP/" style="font-size: 13.5px;">TCP/IP</a> <a href="/tags/flex/" style="font-size: 13px;">flex</a> <a href="/tags/netcat/" style="font-size: 13px;">netcat</a> <a href="/tags/pymysql/" style="font-size: 13px;">pymysql</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/telnet/" style="font-size: 13px;">telnet</a> <a href="/tags/vmware/" style="font-size: 13px;">vmware</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 13px;">前端</a> <a href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" style="font-size: 13px;">博弈论</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 13px;">多线程</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 13.75px;">操作系统</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 13px;">爬虫</a> <a href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" style="font-size: 13.25px;">编译原理</a> <a href="/tags/%E7%BE%A4%E8%AE%BA/" style="font-size: 13px;">群论</a> <a href="/tags/%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E6%A6%82%E8%AE%BA/" style="font-size: 13px;">航空航天概论</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B8%B8%E8%AF%86/" style="font-size: 13px;">计算机常识</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 13px;">计算机网络</a> <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" style="font-size: 13.75px;">面向对象</a>
+      <a href="/tags/C/" style="font-size: 13.25px;">C++</a> <a href="/tags/CMake/" style="font-size: 13px;">CMake</a> <a href="/tags/Docker/" style="font-size: 13px;">Docker</a> <a href="/tags/ICPC/" style="font-size: 13px;">ICPC</a> <a href="/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 13.5px;">MySQL</a> <a href="/tags/TCP-IP/" style="font-size: 13.5px;">TCP/IP</a> <a href="/tags/flex/" style="font-size: 13px;">flex</a> <a href="/tags/netcat/" style="font-size: 13px;">netcat</a> <a href="/tags/pymysql/" style="font-size: 13px;">pymysql</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/sd/" style="font-size: 13px;">sd</a> <a href="/tags/telnet/" style="font-size: 13px;">telnet</a> <a href="/tags/vmware/" style="font-size: 13px;">vmware</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 13px;">前端</a> <a href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" style="font-size: 13px;">博弈论</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 13px;">多线程</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 13.75px;">操作系统</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 13px;">爬虫</a> <a href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" style="font-size: 13.25px;">编译原理</a> <a href="/tags/%E7%BE%A4%E8%AE%BA/" style="font-size: 13px;">群论</a> <a href="/tags/%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E6%A6%82%E8%AE%BA/" style="font-size: 13px;">航空航天概论</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B8%B8%E8%AF%86/" style="font-size: 13px;">计算机常识</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 13px;">计算机网络</a> <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" style="font-size: 13.75px;">面向对象</a>
     </div>
   </div>
 
@@ -239,7 +239,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">九月 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">八月 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">七月 2023</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">四月 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">三月 2023</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">九月 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">八月 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">七月 2023</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">四月 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">三月 2023</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -251,6 +251,51 @@
     <div class="widget-body">
       <ul class="recent-post-list list-unstyled no-thumbnail">
         
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2023/09/10/sd%E5%9F%BA%E7%A1%80%E5%85%83%E7%B4%A0/" class="title">sd基础元素</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-09-10T08:18:00.000Z" itemprop="datePublished">2023-09-10</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2023/09/09/sd%E5%9F%BA%E7%A1%80%E5%85%83%E7%B4%A0/array_show/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-09-09T14:35:55.443Z" itemprop="datePublished">2023-09-09</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2023/09/09/sd%E5%9F%BA%E7%A1%80%E5%85%83%E7%B4%A0/array_show/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-09-09T14:35:55.314Z" itemprop="datePublished">2023-09-09</time>
+              </p>
+            </div>
+          </li>
+          
           <li>
             
             <div class="item-inner">
@@ -277,51 +322,6 @@
               </p>
               <p class="item-date">
                 <time datetime="2023-09-05T07:01:06.000Z" itemprop="datePublished">2023-09-05</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                
-              </p>
-              <p class="item-title">
-                <a href="/2023/09/04/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%861/" class="title">编译原理1-概论</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2023-09-04T03:09:27.000Z" itemprop="datePublished">2023-09-04</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                
-              </p>
-              <p class="item-title">
-                <a href="/2023/08/28/CS144-Lab2/" class="title">CS144-Lab2</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2023-08-28T12:53:49.000Z" itemprop="datePublished">2023-08-28</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                
-              </p>
-              <p class="item-title">
-                <a href="/2023/08/28/CS144-Lab3/" class="title">CS144-Lab3</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2023-08-28T12:44:33.000Z" itemprop="datePublished">2023-08-28</time>
               </p>
             </div>
           </li>
@@ -374,23 +374,24 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="第一次作业">第一次作业</h1>
-<p>第一次作业要求六部电梯，支持处理从某层楼到某层楼的请求</p>
+        <h1 id="第一次作业"><a href="#第一次作业" class="headerlink" title="第一次作业"></a>第一次作业</h1><p>第一次作业要求六部电梯，支持处理从某层楼到某层楼的请求</p>
 <p>整体架构如下：</p>
-<p><img src="/2023/03/29/OO%E7%AC%AC%E4%BA%8C%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230329151101894.png" alt="image-20230329151101894" style="zoom:25%;"></p>
+<img src="/2023/03/29/OO%E7%AC%AC%E4%BA%8C%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230329151101894.png" alt="image-20230329151101894" style="zoom:25%;">
+
 <p><code>Input</code>读入任务后，将任务交给<code>Dispatcher</code>，<code>Dispatcher</code>内持有多个<code>Scheduler</code>，它来决定某个任务该分配给哪个<code>Scheduler</code>，<code>Scheduler</code>使用<code>RequestTable</code>来维护所有拿到的任务，操作电梯以某个策略完成这些任务</p>
-<h1 id="第二次作业">第二次作业</h1>
-<p>在原有设计的基础上增加了<code>ADD-Elevator</code>和<code>MAINTAIN</code>的操作，在<code>MAINTAIN</code>时会出现“请求回流”的现象：即某个乘客的请求已经到达某个电梯上，但是由于电梯即将进入维护状态，所以要将该乘客转移回<code>Dispatcher</code>，由<code>Dispatcher</code>进行请求的重新分配</p>
+<h1 id="第二次作业"><a href="#第二次作业" class="headerlink" title="第二次作业"></a>第二次作业</h1><p>在原有设计的基础上增加了<code>ADD-Elevator</code>和<code>MAINTAIN</code>的操作，在<code>MAINTAIN</code>时会出现“请求回流”的现象：即某个乘客的请求已经到达某个电梯上，但是由于电梯即将进入维护状态，所以要将该乘客转移回<code>Dispatcher</code>，由<code>Dispatcher</code>进行请求的重新分配</p>
 <p>在第二次作业中终止条件的判断变得复杂起来了，第一次作业<code>Dispatcher</code>的终止条件仅为<code>Input</code>线程读到了文件末尾，而现在即使<code>Input</code>线程读到文件末尾，也可能存在请求回流导致<code>Dispatcher</code>将继续担任分配任务的职责，所以考虑在<code>Dispatcher</code>内维护一个记录目前还有多少个任务的变量<code>cnt</code>，每新增一个任务就让<code>cnt++</code>，每完成一个任务就让<code>cnt--</code>，<code>Dispatcher</code>终止的条件即为<code>Input</code>读到文件末尾且<code>cnt==0</code></p>
-<h1 id="第三次作业">第三次作业</h1>
-<p>电梯增加了可达性限制，导致某些乘客可能需要换乘，需要进行路径规划，在这一步中可以用<code>bfs</code>算法来找到换乘数量最少的一种乘梯方案，如果有多种换成数量最少的方案，设某方案的负载为该方案涉及的电梯的最大挂载任务量，那么我们选最小负载的一种方案</p>
+<h1 id="第三次作业"><a href="#第三次作业" class="headerlink" title="第三次作业"></a>第三次作业</h1><p>电梯增加了可达性限制，导致某些乘客可能需要换乘，需要进行路径规划，在这一步中可以用<code>bfs</code>算法来找到换乘数量最少的一种乘梯方案，如果有多种换成数量最少的方案，设某方案的负载为该方案涉及的电梯的最大挂载任务量，那么我们选最小负载的一种方案</p>
 <p>每一层增加了停靠电梯的数量的限制，可以用信号量来解决</p>
 <p>整体架构如下：</p>
-<p><img src="/2023/03/29/OO%E7%AC%AC%E4%BA%8C%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230414232723664.png" alt="image-20230414232723664" style="zoom:50%;"></p>
+<img src="/2023/03/29/OO%E7%AC%AC%E4%BA%8C%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230414232723664.png" alt="image-20230414232723664" style="zoom:50%;">
+
 <p>时序图如下：</p>
-<p><img src="/2023/03/29/OO%E7%AC%AC%E4%BA%8C%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230414234038722.png" alt="image-20230414234038722" style="zoom: 50%;"></p>
-<p><img src="/2023/03/29/OO%E7%AC%AC%E4%BA%8C%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230414234143126.png" alt="image-20230414234143126" style="zoom:67%;"></p>
-<p><img src="/2023/03/29/OO%E7%AC%AC%E4%BA%8C%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230414234205775.png" alt="image-20230414234205775" style="zoom:80%;"></p>
+<img src="/2023/03/29/OO%E7%AC%AC%E4%BA%8C%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230414234038722.png" alt="image-20230414234038722" style="zoom: 50%;">
+
+<img src="/2023/03/29/OO%E7%AC%AC%E4%BA%8C%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230414234143126.png" alt="image-20230414234143126" style="zoom:67%;">
+
+<img src="/2023/03/29/OO%E7%AC%AC%E4%BA%8C%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230414234205775.png" alt="image-20230414234205775" style="zoom:80%;">
 
       
     </div>
