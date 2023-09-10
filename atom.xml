@@ -6,7 +6,7 @@
   <link href="http://whosejam.github.io/atom.xml" rel="self"/>
   
   <link href="http://whosejam.github.io/"/>
-  <updated>2023-09-10T08:39:13.794Z</updated>
+  <updated>2023-09-10T08:45:30.952Z</updated>
   <id>http://whosejam.github.io/</id>
   
   <author>
@@ -21,14 +21,15 @@
     <link href="http://whosejam.github.io/2023/09/10/sd%E5%9F%BA%E7%A1%80%E5%85%83%E7%B4%A0/"/>
     <id>http://whosejam.github.io/2023/09/10/sd%E5%9F%BA%E7%A1%80%E5%85%83%E7%B4%A0/</id>
     <published>2023-09-10T08:18:00.000Z</published>
-    <updated>2023-09-10T08:39:13.794Z</updated>
+    <updated>2023-09-10T08:45:30.952Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="基础元素"><a href="#基础元素" class="headerlink" title="基础元素"></a>基础元素</h1><iframe src="/2023/09/10/sd基础元素/array_show.html" height="600px" width="100%" scrolling="auto" frameborder="0" style="box-shadow: 0px 0px 20px -10px #888;"></iframe>]]></content>
+    <content type="html"><![CDATA[<h1 id="基础元素">基础元素</h1><iframe src="/2023/09/10/sd基础元素/array_show.html" height="600px" width="100%" scrolling="auto" frameborder="0" style="box-shadow: 0px 0px 20px -10px #888;"></iframe><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% asset_link sd基础元素/array_show.html TEST %&#125;</span><br></pre></td></tr></table></figure>]]></content>
     
     
       
       
-    <summary type="html">&lt;h1 id=&quot;基础元素&quot;&gt;&lt;a href=&quot;#基础元素&quot; class=&quot;headerlink&quot; title=&quot;基础元素&quot;&gt;&lt;/a&gt;基础元素&lt;/h1&gt;&lt;iframe src=&quot;/2023/09/10/sd基础元素/array_show.html&quot; height=&quot;600px&quot; w</summary>
+    <summary type="html">&lt;h1 id=&quot;基础元素&quot;&gt;基础元素&lt;/h1&gt;
+&lt;iframe src=&quot;/2023/09/10/sd基础元素/array_show.html&quot; height=&quot;600px&quot; width=&quot;100%&quot; scrolling=&quot;auto&quot; frameborder=&quot;0&quot; style</summary>
       
     
     
