@@ -1,5 +1,4 @@
 http://whosejam.github.io/2023/09/10/sd%E5%9F%BA%E7%A1%80%E5%85%83%E7%B4%A0/
-http://whosejam.github.io/2023/09/10/sd%E5%9F%BA%E7%A1%80%E5%85%83%E7%B4%A0/basic_show/
 http://whosejam.github.io/2023/08/25/Animation-System-in-Slide/
 http://whosejam.github.io/2023/09/06/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%862/
 http://whosejam.github.io/2023/08/28/CS144-Lab3/
