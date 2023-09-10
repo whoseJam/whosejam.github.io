@@ -579,20 +579,6 @@
   </url>
   
   <url>
-    <loc>http://whosejam.github.io/tags/python/</loc>
-    <lastmod>2023-09-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://whosejam.github.io/tags/pymysql/</loc>
-    <lastmod>2023-09-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>http://whosejam.github.io/tags/%E5%89%8D%E7%AB%AF/</loc>
     <lastmod>2023-09-10</lastmod>
     <changefreq>weekly</changefreq>
@@ -607,7 +593,14 @@
   </url>
   
   <url>
-    <loc>http://whosejam.github.io/tags/netcat/</loc>
+    <loc>http://whosejam.github.io/tags/python/</loc>
+    <lastmod>2023-09-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://whosejam.github.io/tags/pymysql/</loc>
     <lastmod>2023-09-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -615,6 +608,13 @@
   
   <url>
     <loc>http://whosejam.github.io/tags/sd/</loc>
+    <lastmod>2023-09-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://whosejam.github.io/tags/netcat/</loc>
     <lastmod>2023-09-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

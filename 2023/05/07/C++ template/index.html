@@ -18,12 +18,12 @@
   
   
   <title>Hexo</title>
-  <meta name="description" content="C++ template需求1 有一个模板类Class&lt;T&gt;，我希望可以根据T的具体性质，在实现Class&lt;T&gt;时走不同的函数 例如，我写好了一个SegmentTree&lt;T,L&gt;，如果T是Mergeable的子类，那么我可能要额外走一个pushUp方法；如果L是Lazytag的子类，我可能要额外走一个pushDown的方法  问题可以表述成： 1234if co">
+  <meta name="description" content="C++ template 需求1  有一个模板类Class&lt;T&gt;，我希望可以根据T的具体性质，在实现Class&lt;T&gt;时走不同的函数 例如，我写好了一个SegmentTree&lt;T,L&gt;，如果T是Mergeable的子类，那么我可能要额外走一个pushUp方法；如果L是Lazytag的子类，我可能要额外走一个pushDown的方法  问题可以表述成：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="whoseJam">
 <meta property="og:url" content="http://whosejam.github.io/2023/05/07/C++%20template/index.html">
 <meta property="og:site_name" content="whoseJam">
-<meta property="og:description" content="C++ template需求1 有一个模板类Class&lt;T&gt;，我希望可以根据T的具体性质，在实现Class&lt;T&gt;时走不同的函数 例如，我写好了一个SegmentTree&lt;T,L&gt;，如果T是Mergeable的子类，那么我可能要额外走一个pushUp方法；如果L是Lazytag的子类，我可能要额外走一个pushDown的方法  问题可以表述成： 1234if co">
+<meta property="og:description" content="C++ template 需求1  有一个模板类Class&lt;T&gt;，我希望可以根据T的具体性质，在实现Class&lt;T&gt;时走不同的函数 例如，我写好了一个SegmentTree&lt;T,L&gt;，如果T是Mergeable的子类，那么我可能要额外走一个pushUp方法；如果L是Lazytag的子类，我可能要额外走一个pushDown的方法  问题可以表述成：">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-05-07T12:07:13.301Z">
 <meta property="article:modified_time" content="2023-05-07T12:14:47.038Z">
@@ -354,16 +354,16 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="C-template"><a href="#C-template" class="headerlink" title="C++ template"></a>C++ template</h1><h2 id="需求1"><a href="#需求1" class="headerlink" title="需求1"></a>需求1</h2><blockquote>
+        <h1 id="c-template">C++ template</h1>
+<h2 id="需求1">需求1</h2>
+<blockquote>
 <p>有一个模板类Class&lt;T&gt;，我希望可以根据T的具体性质，在实现Class&lt;T&gt;时走不同的函数</p>
 <p>例如，我写好了一个SegmentTree&lt;T,L&gt;，如果T是Mergeable的子类，那么我可能要额外走一个pushUp方法；如果L是Lazytag的子类，我可能要额外走一个pushDown的方法</p>
 </blockquote>
 <p>问题可以表述成：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if condition&lt;T&gt;:</span><br><span class="line">	do...(可能用到T这个类型的某些具体属性，e.g T.status)</span><br><span class="line">else:</span><br><span class="line">	do...</span><br></pre></td></tr></table></figure>
-
 <p>问题麻烦之处在于使用到<code>T.status</code>的地方，如果T被特化成为了一个不具备status属性的类型，就会出现编译错误</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, condition&lt;T&gt;&gt;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">function</span>;</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">function</span>&lt;T, <span class="literal">true</span>&gt; &#123;...&#125;</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">function</span>&lt;T, <span class="literal">false</span>&gt; &#123;...&#125;</span><br></pre></td></tr></table></figure>
-
 
       
     </div>

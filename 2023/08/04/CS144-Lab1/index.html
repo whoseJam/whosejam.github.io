@@ -18,12 +18,12 @@
   
   
   <title>CS144-Lab1 | Hexo</title>
-  <meta name="description" content="Lab1我们需要实现一个Reassembler，来对乱序的字节流重排，问题可以抽象为：在世界上存在一个字符串，我们叫这个字符串为本源字符串，最初时我们无法观测到这个字符串，现在给出若干个[l,r]区间，每次提供字符串[l,r]区间内字符的信息 一个信息三元组：(l:int,r:int,data:string)，表示我观测到了这个本源字符串的[l,r]区间内的子串是data，如果在某个时刻，本源字符">
+  <meta name="description" content="Lab1 我们需要实现一个Reassembler，来对乱序的字节流重排，问题可以抽象为：在世界上存在一个字符串，我们叫这个字符串为本源字符串，最初时我们无法观测到这个字符串，现在给出若干个[l,r]区间，每次提供字符串[l,r]区间内字符的信息 一个信息三元组：(l:int,r:int,data:string)，表示我观测到了这个本源字符串的[l,r]区间内的子串是data，如果在某个时刻，本">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CS144-Lab1">
 <meta property="og:url" content="http://whosejam.github.io/2023/08/04/CS144-Lab1/index.html">
 <meta property="og:site_name" content="whoseJam">
-<meta property="og:description" content="Lab1我们需要实现一个Reassembler，来对乱序的字节流重排，问题可以抽象为：在世界上存在一个字符串，我们叫这个字符串为本源字符串，最初时我们无法观测到这个字符串，现在给出若干个[l,r]区间，每次提供字符串[l,r]区间内字符的信息 一个信息三元组：(l:int,r:int,data:string)，表示我观测到了这个本源字符串的[l,r]区间内的子串是data，如果在某个时刻，本源字符">
+<meta property="og:description" content="Lab1 我们需要实现一个Reassembler，来对乱序的字节流重排，问题可以抽象为：在世界上存在一个字符串，我们叫这个字符串为本源字符串，最初时我们无法观测到这个字符串，现在给出若干个[l,r]区间，每次提供字符串[l,r]区间内字符的信息 一个信息三元组：(l:int,r:int,data:string)，表示我观测到了这个本源字符串的[l,r]区间内的子串是data，如果在某个时刻，本">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-08-04T11:50:01.000Z">
 <meta property="article:modified_time" content="2023-09-06T13:37:17.796Z">
@@ -368,26 +368,31 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="Lab1"><a href="#Lab1" class="headerlink" title="Lab1"></a>Lab1</h1><p>我们需要实现一个Reassembler，来对乱序的字节流重排，问题可以抽象为：在世界上存在一个字符串，我们叫这个字符串为<strong>本源字符串</strong>，最初时我们无法观测到这个字符串，现在给出若干个[l,r]区间，每次提供字符串[l,r]区间内字符的信息</p>
+        <h1 id="lab1">Lab1</h1>
+<p>我们需要实现一个Reassembler，来对乱序的字节流重排，问题可以抽象为：在世界上存在一个字符串，我们叫这个字符串为<strong>本源字符串</strong>，最初时我们无法观测到这个字符串，现在给出若干个[l,r]区间，每次提供字符串[l,r]区间内字符的信息</p>
 <p>一个信息三元组：(l:int,r:int,data:string)，表示我观测到了这个<strong>本源字符串</strong>的[l,r]区间内的子串是data，如果在某个时刻，本源字符串的某个前缀已经被我全部观测到了，那么就可以把这一段前缀交给Writer了</p>
 <p>例如：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[1,2]: bc	// *bc***</span><br><span class="line">[4,5]: ef	// *bc*ef</span><br><span class="line">[1,1]: b	// *bc*ef</span><br><span class="line">[0,1]: ab	// abc*ef</span><br><span class="line">向Writer中写入abc</span><br></pre></td></tr></table></figure>
-
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>可以用set维护每一个已知连续区间[l,r]以及这一段区间对应的字符串data，支持新加入一个区间时对区间进行合并操作</p>
-<h2 id="更劣的实现"><a href="#更劣的实现" class="headerlink" title="更劣的实现"></a>更劣的实现</h2><p>尝试把字符串映射到<code>[0,capacity)</code>这个区间上，用一个循环数组维护，每一次添加字符时，遍历整个字符串，把字符一个一个搬运到循环数组对应位置上</p>
-<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>在我的虚拟机上：</p>
+<h2 id="实现">实现</h2>
+<p>可以用set维护每一个已知连续区间[l,r]以及这一段区间对应的字符串data，支持新加入一个区间时对区间进行合并操作</p>
+<h2 id="更劣的实现">更劣的实现</h2>
+<p>尝试把字符串映射到<code>[0,capacity)</code>这个区间上，用一个循环数组维护，每一次添加字符时，遍历整个字符串，把字符一个一个搬运到循环数组对应位置上</p>
+<h2 id="效果">效果</h2>
+<p>在我的虚拟机上：</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>措施</th>
 <th>吞吐量</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td>平凡的实现</td>
-<td>3.56 Gbit&#x2F;s</td>
+<td>3.56 Gbit/s</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
       
     </div>
