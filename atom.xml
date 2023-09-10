@@ -6,7 +6,7 @@
   <link href="http://whosejam.github.io/atom.xml" rel="self"/>
   
   <link href="http://whosejam.github.io/"/>
-  <updated>2023-09-10T09:25:09.150Z</updated>
+  <updated>2023-09-10T09:28:21.250Z</updated>
   <id>http://whosejam.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://whosejam.github.io/2023/09/10/sd%E5%9F%BA%E7%A1%80%E5%85%83%E7%B4%A0/"/>
     <id>http://whosejam.github.io/2023/09/10/sd%E5%9F%BA%E7%A1%80%E5%85%83%E7%B4%A0/</id>
     <published>2023-09-10T08:18:00.000Z</published>
-    <updated>2023-09-10T09:25:09.150Z</updated>
+    <updated>2023-09-10T09:28:21.250Z</updated>
     
     <content type="html"><![CDATA[<h1 id="基础元素">基础元素</h1><p>目前在sd中有5种基本元素：Rect，Circle，Text，Path，Line，如下图所示：</p><div style="position: relative; width: 100%; height: 0; padding-bottom: 50%"><pre><code>&lt;iframe src=&quot;&#123;% asset_path basic_show.html %&#125;&quot; scrolling=&quot;auto&quot; frameborder=&quot;0&quot; style=&quot;position: absolute; width: 100%; height: 100%; left: 0; top: 0 box-shadow: 0px 0px 20px -10px #888;&quot;&gt;&lt;/iframe&gt;</code></pre></div>]]></content>
     
