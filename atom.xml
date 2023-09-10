@@ -69,16 +69,16 @@
     <link href="http://whosejam.github.io/2023/09/10/sd%E5%9F%BA%E7%A1%80%E5%85%83%E7%B4%A0/"/>
     <id>http://whosejam.github.io/2023/09/10/sd%E5%9F%BA%E7%A1%80%E5%85%83%E7%B4%A0/</id>
     <published>2023-09-10T08:18:00.000Z</published>
-    <updated>2023-09-10T09:32:30.466Z</updated>
+    <updated>2023-09-10T10:16:02.104Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="基础元素">基础元素</h1><p>目前在sd中有5种基本元素：Rect，Circle，Text，Path，Line，如下图所示：</p><iframe src="basic_show.html" width="600" height="300" frameborder="0" loading="lazy" allowfullscreen></iframe>]]></content>
+    <content type="html"><![CDATA[<h1 id="基础元素">基础元素</h1><p>目前在sd中有5种基本元素：Rect，Circle，Text，Path，Line，如下图所示：</p><iframe src="basic_show.html" width="100%" height="300" frameborder="0" loading="lazy" allowfullscreen></iframe>]]></content>
     
     
       
       
     <summary type="html">&lt;h1 id=&quot;基础元素&quot;&gt;基础元素&lt;/h1&gt;
 &lt;p&gt;目前在sd中有5种基本元素：Rect，Circle，Text，Path，Line，如下图所示：&lt;/p&gt;
-&lt;iframe src=&quot;basic_show.html&quot; width=&quot;600&quot; height=&quot;300&quot; fram</summary>
+&lt;iframe src=&quot;basic_show.html&quot; width=&quot;100%&quot; height=&quot;300&quot; fra</summary>
       
     
     
