@@ -18,12 +18,12 @@
   
   
   <title>OO第二单元作业总结 | Hexo</title>
-  <meta name="description" content="第一次作业第一次作业要求六部电梯，支持处理从某层楼到某层楼的请求 整体架构如下：   Input读入任务后，将任务交给Dispatcher，Dispatcher内持有多个Scheduler，它来决定某个任务该分配给哪个Scheduler，Scheduler使用RequestTable来维护所有拿到的任务，操作电梯以某个策略完成这些任务 第二次作业在原有设计的基础上增加了ADD-Elevator和M">
+  <meta name="description" content="第一次作业 第一次作业要求六部电梯，支持处理从某层楼到某层楼的请求 整体架构如下：  Input读入任务后，将任务交给Dispatcher，Dispatcher内持有多个Scheduler，它来决定某个任务该分配给哪个Scheduler，Scheduler使用RequestTable来维护所有拿到的任务，操作电梯以某个策略完成这些任务 第二次作业 在原有设计的基础上增加了ADD-Ele">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OO第二单元作业总结">
 <meta property="og:url" content="http://whosejam.github.io/2023/03/29/OO%E7%AC%AC%E4%BA%8C%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="whoseJam">
-<meta property="og:description" content="第一次作业第一次作业要求六部电梯，支持处理从某层楼到某层楼的请求 整体架构如下：   Input读入任务后，将任务交给Dispatcher，Dispatcher内持有多个Scheduler，它来决定某个任务该分配给哪个Scheduler，Scheduler使用RequestTable来维护所有拿到的任务，操作电梯以某个策略完成这些任务 第二次作业在原有设计的基础上增加了ADD-Elevator和M">
+<meta property="og:description" content="第一次作业 第一次作业要求六部电梯，支持处理从某层楼到某层楼的请求 整体架构如下：  Input读入任务后，将任务交给Dispatcher，Dispatcher内持有多个Scheduler，它来决定某个任务该分配给哪个Scheduler，Scheduler使用RequestTable来维护所有拿到的任务，操作电梯以某个策略完成这些任务 第二次作业 在原有设计的基础上增加了ADD-Ele">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://whosejam.github.io/2023/03/29/OO%E7%AC%AC%E4%BA%8C%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230329151101894.png">
 <meta property="og:image" content="http://whosejam.github.io/2023/03/29/OO%E7%AC%AC%E4%BA%8C%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230414232723664.png">
@@ -374,24 +374,23 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="第一次作业"><a href="#第一次作业" class="headerlink" title="第一次作业"></a>第一次作业</h1><p>第一次作业要求六部电梯，支持处理从某层楼到某层楼的请求</p>
+        <h1 id="第一次作业">第一次作业</h1>
+<p>第一次作业要求六部电梯，支持处理从某层楼到某层楼的请求</p>
 <p>整体架构如下：</p>
-<img src="/2023/03/29/OO%E7%AC%AC%E4%BA%8C%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230329151101894.png" alt="image-20230329151101894" style="zoom:25%;">
-
+<p><img src="/2023/03/29/OO%E7%AC%AC%E4%BA%8C%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230329151101894.png" alt="image-20230329151101894" style="zoom:25%;"></p>
 <p><code>Input</code>读入任务后，将任务交给<code>Dispatcher</code>，<code>Dispatcher</code>内持有多个<code>Scheduler</code>，它来决定某个任务该分配给哪个<code>Scheduler</code>，<code>Scheduler</code>使用<code>RequestTable</code>来维护所有拿到的任务，操作电梯以某个策略完成这些任务</p>
-<h1 id="第二次作业"><a href="#第二次作业" class="headerlink" title="第二次作业"></a>第二次作业</h1><p>在原有设计的基础上增加了<code>ADD-Elevator</code>和<code>MAINTAIN</code>的操作，在<code>MAINTAIN</code>时会出现“请求回流”的现象：即某个乘客的请求已经到达某个电梯上，但是由于电梯即将进入维护状态，所以要将该乘客转移回<code>Dispatcher</code>，由<code>Dispatcher</code>进行请求的重新分配</p>
+<h1 id="第二次作业">第二次作业</h1>
+<p>在原有设计的基础上增加了<code>ADD-Elevator</code>和<code>MAINTAIN</code>的操作，在<code>MAINTAIN</code>时会出现“请求回流”的现象：即某个乘客的请求已经到达某个电梯上，但是由于电梯即将进入维护状态，所以要将该乘客转移回<code>Dispatcher</code>，由<code>Dispatcher</code>进行请求的重新分配</p>
 <p>在第二次作业中终止条件的判断变得复杂起来了，第一次作业<code>Dispatcher</code>的终止条件仅为<code>Input</code>线程读到了文件末尾，而现在即使<code>Input</code>线程读到文件末尾，也可能存在请求回流导致<code>Dispatcher</code>将继续担任分配任务的职责，所以考虑在<code>Dispatcher</code>内维护一个记录目前还有多少个任务的变量<code>cnt</code>，每新增一个任务就让<code>cnt++</code>，每完成一个任务就让<code>cnt--</code>，<code>Dispatcher</code>终止的条件即为<code>Input</code>读到文件末尾且<code>cnt==0</code></p>
-<h1 id="第三次作业"><a href="#第三次作业" class="headerlink" title="第三次作业"></a>第三次作业</h1><p>电梯增加了可达性限制，导致某些乘客可能需要换乘，需要进行路径规划，在这一步中可以用<code>bfs</code>算法来找到换乘数量最少的一种乘梯方案，如果有多种换成数量最少的方案，设某方案的负载为该方案涉及的电梯的最大挂载任务量，那么我们选最小负载的一种方案</p>
+<h1 id="第三次作业">第三次作业</h1>
+<p>电梯增加了可达性限制，导致某些乘客可能需要换乘，需要进行路径规划，在这一步中可以用<code>bfs</code>算法来找到换乘数量最少的一种乘梯方案，如果有多种换成数量最少的方案，设某方案的负载为该方案涉及的电梯的最大挂载任务量，那么我们选最小负载的一种方案</p>
 <p>每一层增加了停靠电梯的数量的限制，可以用信号量来解决</p>
 <p>整体架构如下：</p>
-<img src="/2023/03/29/OO%E7%AC%AC%E4%BA%8C%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230414232723664.png" alt="image-20230414232723664" style="zoom:50%;">
-
+<p><img src="/2023/03/29/OO%E7%AC%AC%E4%BA%8C%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230414232723664.png" alt="image-20230414232723664" style="zoom:50%;"></p>
 <p>时序图如下：</p>
-<img src="/2023/03/29/OO%E7%AC%AC%E4%BA%8C%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230414234038722.png" alt="image-20230414234038722" style="zoom: 50%;">
-
-<img src="/2023/03/29/OO%E7%AC%AC%E4%BA%8C%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230414234143126.png" alt="image-20230414234143126" style="zoom:67%;">
-
-<img src="/2023/03/29/OO%E7%AC%AC%E4%BA%8C%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230414234205775.png" alt="image-20230414234205775" style="zoom:80%;">
+<p><img src="/2023/03/29/OO%E7%AC%AC%E4%BA%8C%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230414234038722.png" alt="image-20230414234038722" style="zoom: 50%;"></p>
+<p><img src="/2023/03/29/OO%E7%AC%AC%E4%BA%8C%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230414234143126.png" alt="image-20230414234143126" style="zoom:67%;"></p>
+<p><img src="/2023/03/29/OO%E7%AC%AC%E4%BA%8C%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/image-20230414234205775.png" alt="image-20230414234205775" style="zoom:80%;"></p>
 
       
     </div>

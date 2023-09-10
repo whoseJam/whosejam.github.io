@@ -18,12 +18,12 @@
   
   
   <title>Animation System in Slide | Hexo</title>
-  <meta name="description" content="语义设计一个完整的动画由若干动画节点组成，一个动画节点以start_animate开头，以end_animate结尾，一个动画节点可以包含若干动画描述，每一个动画描述指定了在这个动画节点中，某个属性将要变成什么    指令 描述    start_animate([duration]) 开启一段动画描述（开启一个动画节点）   end_animate() 结束一段动画描述（结束一个动画节点）">
+  <meta name="description" content="语义设计 一个完整的动画由若干动画节点组成，一个动画节点以start_animate开头，以end_animate结尾，一个动画节点可以包含若干动画描述，每一个动画描述指定了在这个动画节点中，某个属性将要变成什么        指令 描述     start_animate([duration]) 开启一段动画描述（开启一个动画节点）   end_animat">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Animation System in Slide">
 <meta property="og:url" content="http://whosejam.github.io/2023/08/25/Animation-System-in-Slide/index.html">
 <meta property="og:site_name" content="whoseJam">
-<meta property="og:description" content="语义设计一个完整的动画由若干动画节点组成，一个动画节点以start_animate开头，以end_animate结尾，一个动画节点可以包含若干动画描述，每一个动画描述指定了在这个动画节点中，某个属性将要变成什么    指令 描述    start_animate([duration]) 开启一段动画描述（开启一个动画节点）   end_animate() 结束一段动画描述（结束一个动画节点）">
+<meta property="og:description" content="语义设计 一个完整的动画由若干动画节点组成，一个动画节点以start_animate开头，以end_animate结尾，一个动画节点可以包含若干动画描述，每一个动画描述指定了在这个动画节点中，某个属性将要变成什么        指令 描述     start_animate([duration]) 开启一段动画描述（开启一个动画节点）   end_animat">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://whosejam.github.io/2023/08/25/Animation-System-in-Slide/image-20230909192539680.png">
 <meta property="og:image" content="http://whosejam.github.io/2023/08/25/Animation-System-in-Slide/image-20230909193430017.png">
@@ -365,103 +365,122 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="语义设计"><a href="#语义设计" class="headerlink" title="语义设计"></a>语义设计</h1><p>一个完整的动画由若干<strong>动画节点</strong>组成，一个动画节点以<code>start_animate</code>开头，以<code>end_animate</code>结尾，一个动画节点可以包含若干<strong>动画描述</strong>，每一个动画描述指定了在这个动画节点中，某个属性将要变成什么</p>
+        <h1 id="语义设计">语义设计</h1>
+<p>一个完整的动画由若干<strong>动画节点</strong>组成，一个动画节点以<code>start_animate</code>开头，以<code>end_animate</code>结尾，一个动画节点可以包含若干<strong>动画描述</strong>，每一个动画描述指定了在这个动画节点中，某个属性将要变成什么</p>
 <table>
+<colgroup>
+<col style="width: 35%">
+<col style="width: 64%">
+</colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>指令</th>
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td><code>start_animate([duration])</code></td>
 <td>开启一段动画描述（开启一个动画节点）</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>end_animate()</code></td>
 <td>结束一段动画描述（结束一个动画节点）</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>&lt;do_something&gt;()</code></td>
 <td>对某个属性进行何种修改</td>
 </tr>
-<tr>
-<td>&#96;after(other</td>
-<td>time)&#96;</td>
+<tr class="even">
+<td><code>after(other|time)</code></td>
+<td>在某个对象执行完它当前的动画后/在某个时间点后执行</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>duration()</code></td>
 <td>获取当前对象当前动画描述的持续时间</td>
 </tr>
-</tbody></table>
-<h1 id="约定"><a href="#约定" class="headerlink" title="约定"></a>约定</h1><p>$N$表示动画节点，当存在很多个动画节点时，第$i$个动画节点可以被表示成$N_i$</p>
+</tbody>
+</table>
+<h1 id="约定">约定</h1>
+<p><span class="math inline">\(N\)</span>表示动画节点，当存在很多个动画节点时，第<span class="math inline">\(i\)</span>个动画节点可以被表示成<span class="math inline">\(N_i\)</span></p>
 <p>用<code>attr</code>表示属性</p>
-<p>用$D_{attr}$表示对<code>attr</code>这个属性的一个动画描述</p>
-<p>用$M_{attr}$表示对<code>attr</code>这个属性的一个修改操作（没有动画效果，就是瞬时的事情）</p>
-<p>不管是$N$，$D_{attr}$还是$M_{attr}$，都可以定义它们所位于的帧编号，开始时间，结束时间（对于修改操作来说，无非就是开始时间与结束时间相同）</p>
-<p>用$S(object)$来取开始时间，例如$S(N)$</p>
-<p>用$T(object)$来取结束时间，例如$T(D_{attr})$</p>
-<p>用$F(object)$来取帧编号，例如$F(M_{attr})$</p>
-<p>用$R_{attr}(N)$来取出$N$这个动画节点中，跟<code>attr</code>有关的那个动画描述，如果$N$中不存在与<code>attr</code>有关的动画节点，则$R_{attr}(N)&#x3D;\emptyset$</p>
-<h1 id="讨论"><a href="#讨论" class="headerlink" title="讨论"></a>讨论</h1><h2 id="Case-1位于同一帧下的两个动画节点"><a href="#Case-1位于同一帧下的两个动画节点" class="headerlink" title="Case.1位于同一帧下的两个动画节点"></a>Case.1位于同一帧下的两个动画节点</h2><h3 id="Case-1-1"><a href="#Case-1-1" class="headerlink" title="Case.1.1"></a>Case.1.1</h3><p>若存在两个动画节点$N_i$，$N_j$，满足$S(N_i)\le S(N_j)\le T(N_j)\le T(N_i)$，$R_{attr}(N_i)\ne \emptyset $，$ R_{attr}(N_j)\ne \emptyset$</p>
-<p>在$N_i$之后又添加了一个动画$N_j$，那么就意味着$R_{attr}(N_i)$应该不需要继续被执行了，一切以新的$N_j$的描述为准，所以时间表画出来应该如下：</p>
-<img src="/2023/08/25/Animation-System-in-Slide/image-20230909192539680.png" alt="image-20230909192539680" style="zoom:33%;">
-
-<h3 id="Case-1-2"><a href="#Case-1-2" class="headerlink" title="Case.1.2"></a>Case.1.2</h3><p>若存在两个动画$N_i$，$N_j$，满足$S(N_i)\le S(N_j)\le T(N_i)\le T(N_j)$，$R_{attr}(N_i)\ne \emptyset $，$R_{attr}(N_j)\ne \emptyset$</p>
-<p>同理，当$N_j$开始时，意味着$R_{attr}(N_i)$不需要被执行了，时间表如下：</p>
-<img src="/2023/08/25/Animation-System-in-Slide/image-20230909193430017.png" alt="image-20230909193430017" style="zoom:33%;">
-
-<h2 id="Case-2位于不同帧下的两个动画节点"><a href="#Case-2位于不同帧下的两个动画节点" class="headerlink" title="Case.2位于不同帧下的两个动画节点"></a>Case.2位于不同帧下的两个动画节点</h2><p>设$N_i$是靠前的某帧的动画节点，$N_j$是靠后的某帧的动画节点</p>
-<p>此时无法把$N_i$和$N_j$画在同一个时间轴上，我们知道这么一件事：如果$R_{attr}(N_i)\ne \emptyset$，$R_{attr}(N_j)\ne \emptyset$，那么$N_j$一定可以覆盖$N_i$对这个<code>attr</code>的效果，所以$N_j$开始执行的时候直接把$R_{attr}(N_i)$给删了就行了</p>
-<h2 id="Case-3代码实现层"><a href="#Case-3代码实现层" class="headerlink" title="Case.3代码实现层"></a>Case.3代码实现层</h2><p>假设正打算对元素的<code>attr</code>属性进行修改</p>
-<h3 id="Case-3-1Basic类"><a href="#Case-3-1Basic类" class="headerlink" title="Case.3.1Basic类"></a>Case.3.1Basic类</h3><ul>
-<li>如果<code>is_animating</code>为真，那么该元素一定存在一个动画节点$N$，新建一个$D_{attr}$，需要使得：<ul>
-<li>$S(D_{attr})&#x3D;S(N)$</li>
-<li>$T(D_{attr})&#x3D;T(N)$</li>
-<li>$F(D_{attr})&#x3D;F(N)$</li>
-<li>只需要在$N$处保留$S,T,F$这三个属性，然后把$D_{attr}$挂到$N$上即可</li>
+<p>用<span class="math inline">\(D_{attr}\)</span>表示对<code>attr</code>这个属性的一个动画描述</p>
+<p>用<span class="math inline">\(M_{attr}\)</span>表示对<code>attr</code>这个属性的一个修改操作（没有动画效果，就是瞬时的事情）</p>
+<p>不管是<span class="math inline">\(N\)</span>，<span class="math inline">\(D_{attr}\)</span>还是<span class="math inline">\(M_{attr}\)</span>，都可以定义它们所位于的帧编号，开始时间，结束时间（对于修改操作来说，无非就是开始时间与结束时间相同）</p>
+<p>用<span class="math inline">\(S(object)\)</span>来取开始时间，例如<span class="math inline">\(S(N)\)</span></p>
+<p>用<span class="math inline">\(T(object)\)</span>来取结束时间，例如<span class="math inline">\(T(D_{attr})\)</span></p>
+<p>用<span class="math inline">\(F(object)\)</span>来取帧编号，例如<span class="math inline">\(F(M_{attr})\)</span></p>
+<p>用<span class="math inline">\(R_{attr}(N)\)</span>来取出<span class="math inline">\(N\)</span>这个动画节点中，跟<code>attr</code>有关的那个动画描述，如果<span class="math inline">\(N\)</span>中不存在与<code>attr</code>有关的动画节点，则<span class="math inline">\(R_{attr}(N)=\emptyset\)</span></p>
+<h1 id="讨论">讨论</h1>
+<h2 id="case.1位于同一帧下的两个动画节点">Case.1位于同一帧下的两个动画节点</h2>
+<h3 id="case.1.1">Case.1.1</h3>
+<p>若存在两个动画节点<span class="math inline">\(N_i\)</span>，<span class="math inline">\(N_j\)</span>，满足<span class="math inline">\(S(N_i)\le S(N_j)\le T(N_j)\le
+T(N_i)\)</span>，$R_{attr}(N_i)<span class="math inline">\(，\)</span>
+R_{attr}(N_j)$</p>
+<p>在<span class="math inline">\(N_i\)</span>之后又添加了一个动画<span class="math inline">\(N_j\)</span>，那么就意味着<span class="math inline">\(R_{attr}(N_i)\)</span>应该不需要继续被执行了，一切以新的<span class="math inline">\(N_j\)</span>的描述为准，所以时间表画出来应该如下：</p>
+<p><img src="/2023/08/25/Animation-System-in-Slide/image-20230909192539680.png" alt="image-20230909192539680" style="zoom:33%;"></p>
+<h3 id="case.1.2">Case.1.2</h3>
+<p>若存在两个动画<span class="math inline">\(N_i\)</span>，<span class="math inline">\(N_j\)</span>，满足<span class="math inline">\(S(N_i)\le S(N_j)\le T(N_i)\le
+T(N_j)\)</span>，$R_{attr}(N_i)<span class="math inline">\(，\)</span>R_{attr}(N_j)$</p>
+<p>同理，当<span class="math inline">\(N_j\)</span>开始时，意味着<span class="math inline">\(R_{attr}(N_i)\)</span>不需要被执行了，时间表如下：</p>
+<p><img src="/2023/08/25/Animation-System-in-Slide/image-20230909193430017.png" alt="image-20230909193430017" style="zoom:33%;"></p>
+<h2 id="case.2位于不同帧下的两个动画节点">Case.2位于不同帧下的两个动画节点</h2>
+<p>设<span class="math inline">\(N_i\)</span>是靠前的某帧的动画节点，<span class="math inline">\(N_j\)</span>是靠后的某帧的动画节点</p>
+<p>此时无法把<span class="math inline">\(N_i\)</span>和<span class="math inline">\(N_j\)</span>画在同一个时间轴上，我们知道这么一件事：如果<span class="math inline">\(R_{attr}(N_i)\ne \emptyset\)</span>，<span class="math inline">\(R_{attr}(N_j)\ne \emptyset\)</span>，那么<span class="math inline">\(N_j\)</span>一定可以覆盖<span class="math inline">\(N_i\)</span>对这个<code>attr</code>的效果，所以<span class="math inline">\(N_j\)</span>开始执行的时候直接把<span class="math inline">\(R_{attr}(N_i)\)</span>给删了就行了</p>
+<h2 id="case.3代码实现层">Case.3代码实现层</h2>
+<p>假设正打算对元素的<code>attr</code>属性进行修改</p>
+<h3 id="case.3.1basic类">Case.3.1Basic类</h3>
+<ul>
+<li>如果<code>is_animating</code>为真，那么该元素一定存在一个动画节点<span class="math inline">\(N\)</span>，新建一个<span class="math inline">\(D_{attr}\)</span>，需要使得：
+<ul>
+<li><span class="math inline">\(S(D_{attr})=S(N)\)</span></li>
+<li><span class="math inline">\(T(D_{attr})=T(N)\)</span></li>
+<li><span class="math inline">\(F(D_{attr})=F(N)\)</span></li>
+<li>只需要在<span class="math inline">\(N\)</span>处保留<span class="math inline">\(S,T,F\)</span>这三个属性，然后把<span class="math inline">\(D_{attr}\)</span>挂到<span class="math inline">\(N\)</span>上即可</li>
+</ul></li>
+<li>如果<code>is_animating</code>为假，设该元素的上一个动画节点为<span class="math inline">\(N_{last}\)</span>，新建一个<span class="math inline">\(M_{attr}\)</span>
+<ul>
+<li>若<span class="math inline">\(T(N_{last})=S(M_{attr})\and
+F(N_{last})=F(M_{attr})\)</span>恰好成立
+<ul>
+<li>可以利用<span class="math inline">\(N_{last}\)</span>的结束回调，让<span class="math inline">\(M_{attr}\)</span>在恰当的时机执行</li>
+</ul></li>
+<li>否则，若<span class="math inline">\(S(M_{attr})=0\)</span>
+<ul>
+<li>可以直接执行<span class="math inline">\(M_{attr}\)</span>，无需等待</li>
+</ul></li>
+<li>否则
+<ul>
+<li>新建一个动画节点<span class="math inline">\(N\)</span>，让<span class="math inline">\(T(N)=S(M_{attr})\)</span></li>
+<li>利用<span class="math inline">\(N\)</span>的结束回调，让<span class="math inline">\(M_{attr}\)</span>在恰当的时机执行</li>
+</ul></li>
+</ul></li>
 </ul>
-</li>
-<li>如果<code>is_animating</code>为假，设该元素的上一个动画节点为$N_{last}$，新建一个$M_{attr}$<ul>
-<li>若$T(N_{last})&#x3D;S(M_{attr})\and F(N_{last})&#x3D;F(M_{attr})$恰好成立<ul>
-<li>可以利用$N_{last}$的结束回调，让$M_{attr}$在恰当的时机执行</li>
-</ul>
-</li>
-<li>否则，若$S(M_{attr})&#x3D;0$<ul>
-<li>可以直接执行$M_{attr}$，无需等待</li>
-</ul>
-</li>
-<li>否则<ul>
-<li>新建一个动画节点$N$，让$T(N)&#x3D;S(M_{attr})$</li>
-<li>利用$N$的结束回调，让$M_{attr}$在恰当的时机执行</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="Case-3-2-Container类"><a href="#Case-3-2-Container类" class="headerlink" title="Case.3.2 Container类"></a>Case.3.2 Container类</h3><p>一个container包含若干element，在container中的动画稍微复杂一点，需要做一点补充定义，在container中的动画可以被分成两类</p>
+<h3 id="case.3.2-container类">Case.3.2 Container类</h3>
+<p>一个container包含若干element，在container中的动画稍微复杂一点，需要做一点补充定义，在container中的动画可以被分成两类</p>
 <ul>
 <li>对某一个集合中的element的<code>attr</code>进行单步操作</li>
 <li>对某一个集合中的element的<code>attr</code>进行连续多步操作</li>
 </ul>
 <p>设计如下</p>
 <ul>
-<li>当<code>start_animate</code>的时候，开始录制动画，设动画可以被描述为$(S_A, T_A,F_A)$，为自己新建一个动画节点$N$，为内部的部分元素建立动画节点，假设第$i$个元素建立的动画节点被描述成$N_i$<ul>
-<li>$S(N)&#x3D;S_A$，$T(N)&#x3D;T_A$，$F(N)&#x3D;F_A$</li>
-<li>对于那些不涉及动画操作的元素$e_i$来说，理论上来说$N_i$是没有必要的</li>
-<li>对于那些涉及到动画操作的元素$e_i$来说<ul>
-<li>如果对$e_i$的操作最终是单步操作，则：<ul>
-<li>$S(N_i)&#x3D;S_A$，$T(N_i)&#x3D;T_A$，$F(N_i)&#x3D;F_A$</li>
-</ul>
-</li>
-<li>如果对$e_i$的操作最终是多步操作，假设是$k$步，则理论上需要对$e_i$建立$k$个动画节点：<ul>
-<li>$S(N_{i,1})&#x3D;S_A$，$T(N_{i,k})&#x3D;T_A$，$F(N_{i,1…k})&#x3D;F_A$</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
+<li>当<code>start_animate</code>的时候，开始录制动画，设动画可以被描述为<span class="math inline">\((S_A,
+T_A,F_A)\)</span>，为自己新建一个动画节点<span class="math inline">\(N\)</span>，为内部的部分元素建立动画节点，假设第<span class="math inline">\(i\)</span>个元素建立的动画节点被描述成<span class="math inline">\(N_i\)</span>
+<ul>
+<li><span class="math inline">\(S(N)=S_A\)</span>，<span class="math inline">\(T(N)=T_A\)</span>，<span class="math inline">\(F(N)=F_A\)</span></li>
+<li>对于那些不涉及动画操作的元素<span class="math inline">\(e_i\)</span>来说，理论上来说<span class="math inline">\(N_i\)</span>是没有必要的</li>
+<li>对于那些涉及到动画操作的元素<span class="math inline">\(e_i\)</span>来说
+<ul>
+<li>如果对<span class="math inline">\(e_i\)</span>的操作最终是单步操作，则：
+<ul>
+<li><span class="math inline">\(S(N_i)=S_A\)</span>，<span class="math inline">\(T(N_i)=T_A\)</span>，<span class="math inline">\(F(N_i)=F_A\)</span></li>
+</ul></li>
+<li>如果对<span class="math inline">\(e_i\)</span>的操作最终是多步操作，假设是<span class="math inline">\(k\)</span>步，则理论上需要对<span class="math inline">\(e_i\)</span>建立<span class="math inline">\(k\)</span>个动画节点：
+<ul>
+<li><span class="math inline">\(S(N_{i,1})=S_A\)</span>，<span class="math inline">\(T(N_{i,k})=T_A\)</span>，<span class="math inline">\(F(N_{i,1...k})=F_A\)</span></li>
+</ul></li>
+</ul></li>
+</ul></li>
 <li></li>
 </ul>
 
