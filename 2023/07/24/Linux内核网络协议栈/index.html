@@ -18,15 +18,15 @@
   
   
   <title>Linux内核网络协议栈 | Hexo</title>
-  <meta name="description" content="协议栈 我们有很多协议，它们像栈一样垒起来，对在网络上传输的数据进行操作：发送时留下自己这个协议的标记，接收时解析自己这个协议留下的标记 数据报文的封装与分用 封装 数据进入内核协议栈中，被TCP&#x2F;IP协议族的每层协议打标记，最后得到一串比特流，进入网络的过程。对于每一层而言，对收到的数据都会封装对应的协议首部信息（有时还会增加尾部信息） TCP segment：TCP协议传递给IP协">
+  <meta name="description" content="协议栈我们有很多协议，它们像栈一样垒起来，对在网络上传输的数据进行操作：发送时留下自己这个协议的标记，接收时解析自己这个协议留下的标记 数据报文的封装与分用封装数据进入内核协议栈中，被TCP&#x2F;IP协议族的每层协议打标记，最后得到一串比特流，进入网络的过程。对于每一层而言，对收到的数据都会封装对应的协议首部信息（有时还会增加尾部信息） TCP segment：TCP协议传递给IP协议的数据">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux内核网络协议栈">
 <meta property="og:url" content="http://whosejam.github.io/2023/07/24/Linux%E5%86%85%E6%A0%B8%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E6%A0%88/index.html">
 <meta property="og:site_name" content="whoseJam">
-<meta property="og:description" content="协议栈 我们有很多协议，它们像栈一样垒起来，对在网络上传输的数据进行操作：发送时留下自己这个协议的标记，接收时解析自己这个协议留下的标记 数据报文的封装与分用 封装 数据进入内核协议栈中，被TCP&#x2F;IP协议族的每层协议打标记，最后得到一串比特流，进入网络的过程。对于每一层而言，对收到的数据都会封装对应的协议首部信息（有时还会增加尾部信息） TCP segment：TCP协议传递给IP协">
+<meta property="og:description" content="协议栈我们有很多协议，它们像栈一样垒起来，对在网络上传输的数据进行操作：发送时留下自己这个协议的标记，接收时解析自己这个协议留下的标记 数据报文的封装与分用封装数据进入内核协议栈中，被TCP&#x2F;IP协议族的每层协议打标记，最后得到一串比特流，进入网络的过程。对于每一层而言，对收到的数据都会封装对应的协议首部信息（有时还会增加尾部信息） TCP segment：TCP协议传递给IP协议的数据">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://whosejam.github.io/2023/07/24/Linux%E5%86%85%E6%A0%B8%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E6%A0%88/1.jpg">
-<meta property="og:image" content="http://whosejam.github.io/2023/07/24/Linux%E5%86%85%E6%A0%B8%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E6%A0%88/2.jpg">
+<meta property="og:image" content="http://whosejam.github.io/2023/07/24/Linux%E5%86%85%E6%A0%B8%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E6%A0%88/Linux%E5%86%85%E6%A0%B8%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E6%A0%88%5C2.jpg">
 <meta property="article:published_time" content="2023-07-24T10:25:44.000Z">
 <meta property="article:modified_time" content="2023-07-24T10:53:44.794Z">
 <meta property="article:author" content="whoseJam">
@@ -372,27 +372,16 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="协议栈">协议栈</h1>
-<p>我们有很多协议，它们像栈一样垒起来，对在网络上传输的数据进行操作：<strong>发送时</strong>留下自己这个协议的标记，<strong>接收时</strong>解析自己这个协议留下的标记</p>
-<h1 id="数据报文的封装与分用">数据报文的封装与分用</h1>
-<h2 id="封装">封装</h2>
-<p>数据进入内核协议栈中，被TCP/IP<strong>协议族</strong>的每层协议打标记，最后得到一串比特流，进入网络的过程。对于每一层而言，对收到的数据都会封装对应的协议<strong>首部信息</strong>（有时还会增加<strong>尾部信息</strong>）</p>
-<p>TCP
-segment：TCP协议传递给IP协议的数据单元叫做TCP报文段，或者简称TCP段</p>
-<p>IP
-datagram：IP协议传递给<strong>数据链路层</strong>的数据单元叫做<code>IP</code>数据报</p>
+        <h1 id="协议栈"><a href="#协议栈" class="headerlink" title="协议栈"></a>协议栈</h1><p>我们有很多协议，它们像栈一样垒起来，对在网络上传输的数据进行操作：<strong>发送时</strong>留下自己这个协议的标记，<strong>接收时</strong>解析自己这个协议留下的标记</p>
+<h1 id="数据报文的封装与分用"><a href="#数据报文的封装与分用" class="headerlink" title="数据报文的封装与分用"></a>数据报文的封装与分用</h1><h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><p>数据进入内核协议栈中，被TCP&#x2F;IP<strong>协议族</strong>的每层协议打标记，最后得到一串比特流，进入网络的过程。对于每一层而言，对收到的数据都会封装对应的协议<strong>首部信息</strong>（有时还会增加<strong>尾部信息</strong>）</p>
+<p>TCP segment：TCP协议传递给IP协议的数据单元叫做TCP报文段，或者简称TCP段</p>
+<p>IP datagram：IP协议传递给<strong>数据链路层</strong>的数据单元叫做<code>IP</code>数据报</p>
 <p>Frame：最后通过以太网传输的比特流称为帧</p>
-<p><img src="/2023/07/24/Linux%E5%86%85%E6%A0%B8%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E6%A0%88/1.jpg" alt style="zoom:50%;"></p>
-<h2 id="分用">分用</h2>
-<p>当目的主机接收到一个以太网的数据帧时，数据就开始从内核网络协议栈中由底向上升，同时去掉各层协议加上的报文首部，每层协议都会检查报文首部中的协议标识，以确定接收数据的上层协议，这个过程称为<strong>分用</strong></p>
-<figure>
-<img src="/2023/07/24/Linux%E5%86%85%E6%A0%B8%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E6%A0%88/2.jpg" alt="在这里插入图片描述">
-<figcaption aria-hidden="true">在这里插入图片描述</figcaption>
-</figure>
-<h1 id="linux内核网络协议栈">Linux内核网络协议栈</h1>
-<h2 id="协议栈的分层结构">协议栈的分层结构</h2>
-<h3 id="逻辑抽象层级">逻辑抽象层级</h3>
-<ul>
+<img src="/2023/07/24/Linux%E5%86%85%E6%A0%B8%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E6%A0%88/1.jpg" alt style="zoom:50%;">
+
+<h2 id="分用"><a href="#分用" class="headerlink" title="分用"></a>分用</h2><p>当目的主机接收到一个以太网的数据帧时，数据就开始从内核网络协议栈中由底向上升，同时去掉各层协议加上的报文首部，每层协议都会检查报文首部中的协议标识，以确定接收数据的上层协议，这个过程称为<strong>分用</strong></p>
+<p><img src="/2023/07/24/Linux%E5%86%85%E6%A0%B8%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E6%A0%88/Linux%E5%86%85%E6%A0%B8%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E6%A0%88%5C2.jpg" alt="在这里插入图片描述"></p>
+<h1 id="Linux内核网络协议栈"><a href="#Linux内核网络协议栈" class="headerlink" title="Linux内核网络协议栈"></a>Linux内核网络协议栈</h1><h2 id="协议栈的分层结构"><a href="#协议栈的分层结构" class="headerlink" title="协议栈的分层结构"></a>协议栈的分层结构</h2><h3 id="逻辑抽象层级"><a href="#逻辑抽象层级" class="headerlink" title="逻辑抽象层级"></a>逻辑抽象层级</h3><ul>
 <li>物理层：主要提供各种连接的物理设备，如各种网卡，串口卡等</li>
 <li>链路层：主要提供对物理层进行访问的各种接口卡的驱动程序，如网卡驱动等</li>
 <li>网络层：负责把网络数据包传输到正确的位置，最重要的网络层协议是IP协议，此外还有如ICMP，ARP，RARP等协议</li>

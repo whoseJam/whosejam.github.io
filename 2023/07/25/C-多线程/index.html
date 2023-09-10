@@ -18,12 +18,12 @@
   
   
   <title>C++多线程 | Hexo</title>
-  <meta name="description" content="综述 我们用mutex来保护一段数据；用lock在一段代码中封装mutex，管理mutex的上锁和释放锁 Mutex  mutex：一般意义上的互斥锁，同时只能有一个owner shared_mutex：读写锁，拥有两种不同的访问方式     操作 描述     独家访问 相当于写者打算写入数据了   共同访问 相当于读者来查看数据    这是一个">
+  <meta name="description" content="综述我们用mutex来保护一段数据；用lock在一段代码中封装mutex，管理mutex的上锁和释放锁 Mutex mutex：一般意义上的互斥锁，同时只能有一个owner  shared_mutex：读写锁，拥有两种不同的访问方式     操作 描述    独家访问 相当于写者打算写入数据了   共同访问 相当于读者来查看数据    这是一个写者优先的读写锁     Lock lock_guar">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++多线程">
 <meta property="og:url" content="http://whosejam.github.io/2023/07/25/C-%E5%A4%9A%E7%BA%BF%E7%A8%8B/index.html">
 <meta property="og:site_name" content="whoseJam">
-<meta property="og:description" content="综述 我们用mutex来保护一段数据；用lock在一段代码中封装mutex，管理mutex的上锁和释放锁 Mutex  mutex：一般意义上的互斥锁，同时只能有一个owner shared_mutex：读写锁，拥有两种不同的访问方式     操作 描述     独家访问 相当于写者打算写入数据了   共同访问 相当于读者来查看数据    这是一个">
+<meta property="og:description" content="综述我们用mutex来保护一段数据；用lock在一段代码中封装mutex，管理mutex的上锁和释放锁 Mutex mutex：一般意义上的互斥锁，同时只能有一个owner  shared_mutex：读写锁，拥有两种不同的访问方式     操作 描述    独家访问 相当于写者打算写入数据了   共同访问 相当于读者来查看数据    这是一个写者优先的读写锁     Lock lock_guar">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-07-25T03:48:30.000Z">
 <meta property="article:modified_time" content="2023-07-25T06:31:08.125Z">
@@ -369,42 +369,42 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="综述">综述</h1>
-<p>我们用<strong>mutex</strong>来保护一段数据；用<strong>lock</strong>在一段代码中封装mutex，管理mutex的上锁和释放锁</p>
-<h1 id="mutex">Mutex</h1>
-<ul>
-<li><p>mutex：一般意义上的互斥锁，同时只能有一个owner</p></li>
+        <h1 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h1><p>我们用<strong>mutex</strong>来保护一段数据；用<strong>lock</strong>在一段代码中封装mutex，管理mutex的上锁和释放锁</p>
+<h1 id="Mutex"><a href="#Mutex" class="headerlink" title="Mutex"></a>Mutex</h1><ul>
+<li><p>mutex：一般意义上的互斥锁，同时只能有一个owner</p>
+</li>
 <li><p>shared_mutex：读写锁，拥有两种不同的访问方式</p>
 <ul>
 <li><table>
 <thead>
-<tr class="header">
+<tr>
 <th>操作</th>
 <th>描述</th>
 </tr>
 </thead>
-<tbody>
-<tr class="odd">
+<tbody><tr>
 <td>独家访问</td>
 <td>相当于写者打算写入数据了</td>
 </tr>
-<tr class="even">
+<tr>
 <td>共同访问</td>
 <td>相当于读者来查看数据</td>
 </tr>
-</tbody>
-</table></li>
-<li>这是一个写者优先的读写锁</li>
-</ul></li>
+</tbody></table>
+</li>
+<li><p>这是一个写者优先的读写锁</p>
+</li>
 </ul>
-<h1 id="lock">Lock</h1>
+</li>
+</ul>
+<h1 id="Lock"><a href="#Lock" class="headerlink" title="Lock"></a>Lock</h1><ul>
+<li><p>lock_guard：在构造函数中自动上锁，在析构函数中自动释放锁，实现了RAII，可以用来管理<strong>mutex</strong></p>
 <ul>
-<li>lock_guard：在构造函数中自动上锁，在析构函数中自动释放锁，实现了RAII，可以用来管理<strong>mutex</strong>
-<ul>
-<li>相对简单，只能进行一次上锁和释放锁，所以在使用conditional
-variable的时候，或者在一个scope结束前就需要手动unlock的时候不能用lock_guard</li>
-</ul></li>
-<li>unique_lock：在构造函数中手动上锁，相比于lock_guard，灵活性更强，时间效率更低，占用空间更大</li>
+<li>相对简单，只能进行一次上锁和释放锁，所以在使用conditional variable的时候，或者在一个scope结束前就需要手动unlock的时候不能用lock_guard</li>
+</ul>
+</li>
+<li><p>unique_lock：在构造函数中手动上锁，相比于lock_guard，灵活性更强，时间效率更低，占用空间更大</p>
+</li>
 </ul>
 
       
