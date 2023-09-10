@@ -502,13 +502,6 @@
   </url>
   
   <url>
-    <loc>http://whosejam.github.io/tags/CMake/</loc>
-    <lastmod>2023-09-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>http://whosejam.github.io/tags/TCP-IP/</loc>
     <lastmod>2023-09-10</lastmod>
     <changefreq>weekly</changefreq>
@@ -516,7 +509,21 @@
   </url>
   
   <url>
+    <loc>http://whosejam.github.io/tags/CMake/</loc>
+    <lastmod>2023-09-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>http://whosejam.github.io/tags/Docker/</loc>
+    <lastmod>2023-09-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://whosejam.github.io/tags/ICPC/</loc>
     <lastmod>2023-09-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -531,13 +538,6 @@
   
   <url>
     <loc>http://whosejam.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</loc>
-    <lastmod>2023-09-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://whosejam.github.io/tags/ICPC/</loc>
     <lastmod>2023-09-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -642,14 +642,14 @@
   </url>
   
   <url>
-    <loc>http://whosejam.github.io/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/</loc>
+    <loc>http://whosejam.github.io/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/</loc>
     <lastmod>2023-09-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://whosejam.github.io/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/</loc>
+    <loc>http://whosejam.github.io/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/</loc>
     <lastmod>2023-09-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
