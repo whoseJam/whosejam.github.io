@@ -17,21 +17,20 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>sd基础元素 | uselessName</title>
-  <meta name="description" content="基础元素 目前在sd中有6种基本元素：Rect，Circle，Text，Path，Line，Image，如下图所示：  每一个元素都是可以拖拽和缩放的（在上图中可以尝试） 创建元素 123456let svg &#x3D; sd.svg();			&#x2F;&#x2F; 获取svg画布let rct &#x3D; sd.Rect(svg);		&#x2F;&#x2F; 在svg画布上创建一个Rectlet cir &#x3D; sd.Circle(svg">
+  <title>sd容器-box | uselessName</title>
+  <meta name="description" content="Box Box是一种简单的容器，它有一个由Rect组成的背景，和一个可选的其他元素     方法 描述     rate 设置&#x2F;获取空闲率，空闲率用于计算布局   value 设置&#x2F;获取Box中装的元素   color 设置&#x2F;获取Box背景的颜色   opacity 设置Box的透明度，包括背景和内部元素   background 获取Bo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sd基础元素">
-<meta property="og:url" content="http://whosejam.github.io/2023/09/10/sd%E5%9F%BA%E7%A1%80%E5%85%83%E7%B4%A0/index.html">
+<meta property="og:title" content="sd容器-box">
+<meta property="og:url" content="http://whosejam.github.io/2023/09/11/sd%E5%AE%B9%E5%99%A8-box/index.html">
 <meta property="og:site_name" content="whoseJam">
-<meta property="og:description" content="基础元素 目前在sd中有6种基本元素：Rect，Circle，Text，Path，Line，Image，如下图所示：  每一个元素都是可以拖拽和缩放的（在上图中可以尝试） 创建元素 123456let svg &#x3D; sd.svg();			&#x2F;&#x2F; 获取svg画布let rct &#x3D; sd.Rect(svg);		&#x2F;&#x2F; 在svg画布上创建一个Rectlet cir &#x3D; sd.Circle(svg">
+<meta property="og:description" content="Box Box是一种简单的容器，它有一个由Rect组成的背景，和一个可选的其他元素     方法 描述     rate 设置&#x2F;获取空闲率，空闲率用于计算布局   value 设置&#x2F;获取Box中装的元素   color 设置&#x2F;获取Box背景的颜色   opacity 设置Box的透明度，包括背景和内部元素   background 获取Bo">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-09-10T08:18:00.000Z">
-<meta property="article:modified_time" content="2023-09-10T12:33:46.571Z">
+<meta property="article:published_time" content="2023-09-11T09:04:28.000Z">
+<meta property="article:modified_time" content="2023-09-11T09:15:43.629Z">
 <meta property="article:author" content="whoseJam">
-<meta property="article:tag" content="sd">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://whosejam.github.io/2023/09/10/sd%E5%9F%BA%E7%A1%80%E5%85%83%E7%B4%A0/index.html">
+  <link rel="canonical" href="http://whosejam.github.io/2023/09/11/sd%E5%AE%B9%E5%99%A8-box/index.html">
   
     <link rel="alternate" href="/atom.xml" title="whoseJam" type="application/atom+xml">
   
@@ -333,14 +332,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-sd基础元素" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-sd容器-box" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      sd基础元素
+      sd容器-box
     </h1>
   
 
@@ -348,38 +347,63 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2023/09/10/sd%E5%9F%BA%E7%A1%80%E5%85%83%E7%B4%A0/" class="article-date">
-	  <time datetime="2023-09-10T08:18:00.000Z" itemprop="datePublished">2023-09-10</time>
+	<a href="/2023/09/11/sd%E5%AE%B9%E5%99%A8-box/" class="article-date">
+	  <time datetime="2023-09-11T09:04:28.000Z" itemprop="datePublished">2023-09-11</time>
 	</a>
 </span>
         
         
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/sd/" rel="tag">sd</a>
-  </span>
-
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/09/10/sd%E5%9F%BA%E7%A1%80%E5%85%83%E7%B4%A0/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/09/11/sd%E5%AE%B9%E5%99%A8-box/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="基础元素">基础元素</h1>
-<p>目前在sd中有6种基本元素：Rect，Circle，Text，Path，Line，Image，如下图所示：</p>
-<iframe src="basic_show.html" width="100%" height="300" frameborder="0" loading="lazy" allowfullscreen></iframe>
-<p>每一个元素都是可以拖拽和缩放的（在上图中可以尝试）</p>
-<h1 id="创建元素">创建元素</h1>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> svg = sd.<span class="title function_">svg</span>();			<span class="comment">// 获取svg画布</span></span><br><span class="line"><span class="keyword">let</span> rct = sd.<span class="title class_">Rect</span>(svg);		<span class="comment">// 在svg画布上创建一个Rect</span></span><br><span class="line"><span class="keyword">let</span> cir = sd.<span class="title class_">Circle</span>(svg);	<span class="comment">// 在svg画布上创建一个Circle</span></span><br><span class="line"><span class="keyword">let</span> txt = sd.<span class="title class_">Text</span>(svg);		<span class="comment">// 在svg画布上创建一个Text</span></span><br><span class="line"><span class="keyword">let</span> lne = sd.<span class="title class_">Line</span>(svg);		<span class="comment">// 在svg画布上创建一个Line</span></span><br><span class="line"><span class="keyword">let</span> pth = sd.<span class="title class_">Path</span>(svg);		<span class="comment">// 在svg画布上创建一个Path</span></span><br></pre></td></tr></table></figure>
-<h1 id="拖拽">拖拽</h1>
-<p>想要让元素可拖拽，只需要调用<code>drag</code>方法即可</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> rct = sd.<span class="title class_">Rect</span>(svg);		<span class="comment">// 创建一个Rect</span></span><br><span class="line">rct.<span class="title function_">drag</span>(<span class="literal">true</span>);				<span class="comment">// 最简单的可拖拽方法</span></span><br><span class="line">rct.<span class="title function_">drag</span>(<span class="function">(<span class="params">e</span>) =&gt;</span> &#123;			<span class="comment">// 自定义拖拽方式</span></span><br><span class="line">    rct.<span class="title function_">dx</span>(e.<span class="property">dx</span>);</span><br><span class="line">    rct.<span class="title function_">dy</span>(e.<span class="property">dy</span>);</span><br><span class="line">&#125;);</span><br><span class="line">rct.<span class="title function_">drag</span>(&#123;					<span class="comment">// 自定义拖拽方式，支持自定义拖拽开始，拖拽过程，拖拽结束的函数回调</span></span><br><span class="line">    <span class="attr">start</span>: <span class="function">() =&gt;</span> &#123; <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;start drag&quot;</span>); &#125;,</span><br><span class="line">    <span class="attr">drag</span>: <span class="function">(<span class="params">e</span>) =&gt;</span> &#123; rct.<span class="title function_">dx</span>(e.<span class="property">dx</span>).<span class="title function_">dy</span>(e.<span class="property">dy</span>); &#125;,</span><br><span class="line">    <span class="attr">end</span>: <span class="function">() =&gt;</span> &#123; <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;end drag&quot;</span>); &#125;</span><br><span class="line">&#125;);</span><br><span class="line">rct.<span class="title function_">drag</span>(<span class="literal">false</span>);			<span class="comment">// 禁止拖拽（默认）</span></span><br></pre></td></tr></table></figure>
-<h1 id="缩放">缩放</h1>
-<p>想让元素可缩放，只需要调用<code>resizeable</code>方法即可</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> rct = sd.<span class="title class_">Rect</span>(svg);</span><br><span class="line">rct.<span class="title function_">resizeable</span>(<span class="literal">true</span>);		<span class="comment">// 允许缩放</span></span><br><span class="line">rct.<span class="title function_">resizeable</span>(<span class="literal">false</span>);		<span class="comment">// 禁止缩放</span></span><br></pre></td></tr></table></figure>
+        <h1 id="box">Box</h1>
+<p>Box是一种简单的容器，它有一个由Rect组成的背景，和一个可选的其他元素</p>
+<iframe src="box_intro.html" width="100%" height="300" frameborder="0" loading="lazy" allowfullscreen></iframe>
+<table>
+<thead>
+<tr class="header">
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>rate</code></td>
+<td>设置/获取空闲率，空闲率用于计算布局</td>
+</tr>
+<tr class="even">
+<td><code>value</code></td>
+<td>设置/获取Box中装的元素</td>
+</tr>
+<tr class="odd">
+<td><code>color</code></td>
+<td>设置/获取Box背景的颜色</td>
+</tr>
+<tr class="even">
+<td><code>opacity</code></td>
+<td>设置Box的透明度，包括背景和内部元素</td>
+</tr>
+<tr class="odd">
+<td><code>background</code></td>
+<td>获取Box的背景元素</td>
+</tr>
+<tr class="even">
+<td><code>layout</code></td>
+<td>设置Box的元素的布局方式</td>
+</tr>
+</tbody>
+</table>
+<h1 id="创建box">创建Box</h1>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> svg = sd.<span class="title function_">svg</span>();		<span class="comment">// 获取svg画布</span></span><br><span class="line"><span class="keyword">let</span> box = sd.<span class="title class_">Box</span>(svg);	<span class="comment">// 创建一个空的box</span></span><br></pre></td></tr></table></figure>
+<h2 id="rate">rate</h2>
+<p>设置空闲率，试试效果</p>
+<iframe src="box_rate.html" width="100%" height="300" frameborder="0" loading="lazy" allowfullscreen></iframe>
 
       
     </div>
@@ -389,7 +413,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://whosejam.github.io/2023/09/10/sd%E5%9F%BA%E7%A1%80%E5%85%83%E7%B4%A0/" title="sd基础元素" target="_blank" rel="external">http://whosejam.github.io/2023/09/10/sd基础元素/</a>
+      <a href="http://whosejam.github.io/2023/09/11/sd%E5%AE%B9%E5%99%A8-box/" title="sd容器-box" target="_blank" rel="external">http://whosejam.github.io/2023/09/11/sd容器-box/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -435,13 +459,9 @@
   
   <ul class="pager pull-left">
     
-    <li class="prev">
-      <a href="/2023/09/11/sd%E5%AE%B9%E5%99%A8-box/" title="sd容器-box"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
-    </li>
-    
     
     <li class="next">
-      <a href="/2023/09/06/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%862/" title="编译原理2-文法与语言"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2023/09/10/sd%E5%9F%BA%E7%A1%80%E5%85%83%E7%B4%A0/" title="sd基础元素"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
