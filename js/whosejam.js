@@ -1,10 +1,18 @@
 !(function() {
     window.onload = function () {
+        let theads = document.getElementsByTagName("thead");
+        for (let i = 0; i < theads.length; i++) {
+            let thead = theads[i];
+            for (const child of thead.children) {
+                if (child.tagName === "TR") {
+                    child.setAttribute("class", "");
+                }
+            }
+        }
+
         function maintain() {
             let article = document.getElementsByTagName("article")[0];
             let iframes = document.getElementsByTagName("iframe");
-            console.log(article);
-            console.log(article.clientWidth);
             let width = article.clientWidth;
             let height = width / 2;
             for (let i = 0; i < iframes.length; i++) {
