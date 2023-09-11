@@ -17,7 +17,7 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>Animation System in Slide | Hexo</title>
+  <title>Animation System in Slide | uselessName</title>
   <meta name="description" content="语义设计 一个完整的动画由若干动画节点组成，一个动画节点以start_animate开头，以end_animate结尾，一个动画节点可以包含若干动画描述，每一个动画描述指定了在这个动画节点中，某个属性将要变成什么        指令 描述     start_animate([duration]) 开启一段动画描述（开启一个动画节点）   end_animat">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Animation System in Slide">
@@ -28,7 +28,7 @@
 <meta property="og:image" content="http://whosejam.github.io/2023/08/25/Animation-System-in-Slide/image-20230909192539680.png">
 <meta property="og:image" content="http://whosejam.github.io/2023/08/25/Animation-System-in-Slide/image-20230909193430017.png">
 <meta property="article:published_time" content="2023-08-25T08:38:40.000Z">
-<meta property="article:modified_time" content="2023-09-09T13:54:42.560Z">
+<meta property="article:modified_time" content="2023-09-11T07:44:36.935Z">
 <meta property="article:author" content="whoseJam">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://whosejam.github.io/2023/08/25/Animation-System-in-Slide/image-20230909192539680.png">
@@ -412,7 +412,8 @@
 <p>用<span class="math inline">\(F(object)\)</span>来取帧编号，例如<span class="math inline">\(F(M_{attr})\)</span></p>
 <p>用<span class="math inline">\(R_{attr}(N)\)</span>来取出<span class="math inline">\(N\)</span>这个动画节点中，跟<code>attr</code>有关的那个动画描述，如果<span class="math inline">\(N\)</span>中不存在与<code>attr</code>有关的动画节点，则<span class="math inline">\(R_{attr}(N)=\emptyset\)</span></p>
 <h1 id="讨论">讨论</h1>
-<h2 id="case.1位于同一帧下的两个动画节点">Case.1位于同一帧下的两个动画节点</h2>
+<h2 id="case.1-位于同一帧下的两个动画节点">Case.1
+位于同一帧下的两个动画节点</h2>
 <h3 id="case.1.1">Case.1.1</h3>
 <p>若存在两个动画节点<span class="math inline">\(N_i\)</span>，<span class="math inline">\(N_j\)</span>，满足<span class="math inline">\(S(N_i)\le S(N_j)\le T(N_j)\le
 T(N_i)\)</span>，$R_{attr}(N_i)<span class="math inline">\(，\)</span>
@@ -424,12 +425,13 @@ R_{attr}(N_j)$</p>
 T(N_j)\)</span>，$R_{attr}(N_i)<span class="math inline">\(，\)</span>R_{attr}(N_j)$</p>
 <p>同理，当<span class="math inline">\(N_j\)</span>开始时，意味着<span class="math inline">\(R_{attr}(N_i)\)</span>不需要被执行了，时间表如下：</p>
 <p><img src="/2023/08/25/Animation-System-in-Slide/image-20230909193430017.png" alt="image-20230909193430017" style="zoom:33%;"></p>
-<h2 id="case.2位于不同帧下的两个动画节点">Case.2位于不同帧下的两个动画节点</h2>
+<h2 id="case.2-位于不同帧下的两个动画节点">Case.2
+位于不同帧下的两个动画节点</h2>
 <p>设<span class="math inline">\(N_i\)</span>是靠前的某帧的动画节点，<span class="math inline">\(N_j\)</span>是靠后的某帧的动画节点</p>
 <p>此时无法把<span class="math inline">\(N_i\)</span>和<span class="math inline">\(N_j\)</span>画在同一个时间轴上，我们知道这么一件事：如果<span class="math inline">\(R_{attr}(N_i)\ne \emptyset\)</span>，<span class="math inline">\(R_{attr}(N_j)\ne \emptyset\)</span>，那么<span class="math inline">\(N_j\)</span>一定可以覆盖<span class="math inline">\(N_i\)</span>对这个<code>attr</code>的效果，所以<span class="math inline">\(N_j\)</span>开始执行的时候直接把<span class="math inline">\(R_{attr}(N_i)\)</span>给删了就行了</p>
-<h2 id="case.3代码实现层">Case.3代码实现层</h2>
+<h2 id="case.3-代码实现层">Case.3 代码实现层</h2>
 <p>假设正打算对元素的<code>attr</code>属性进行修改</p>
-<h3 id="case.3.1basic类">Case.3.1Basic类</h3>
+<h3 id="case.3.1-basic类">Case.3.1 Basic类</h3>
 <ul>
 <li>如果<code>is_animating</code>为真，那么该元素一定存在一个动画节点<span class="math inline">\(N\)</span>，新建一个<span class="math inline">\(D_{attr}\)</span>，需要使得：
 <ul>
@@ -464,7 +466,7 @@ F(N_{last})=F(M_{attr})\)</span>恰好成立
 </ul>
 <p>设计如下</p>
 <ul>
-<li>当<code>start_animate</code>的时候，开始录制动画，设动画可以被描述为<span class="math inline">\((S_A,
+<li>当开始录制动画时，设动画可以被描述为<span class="math inline">\((S_A,
 T_A,F_A)\)</span>，为自己新建一个动画节点<span class="math inline">\(N\)</span>，为内部的部分元素建立动画节点，假设第<span class="math inline">\(i\)</span>个元素建立的动画节点被描述成<span class="math inline">\(N_i\)</span>
 <ul>
 <li><span class="math inline">\(S(N)=S_A\)</span>，<span class="math inline">\(T(N)=T_A\)</span>，<span class="math inline">\(F(N)=F_A\)</span></li>
@@ -481,8 +483,40 @@ T_A,F_A)\)</span>，为自己新建一个动画节点<span class="math inline">\
 </ul></li>
 </ul></li>
 </ul></li>
-<li></li>
+<li>当普通修改时，设修改可以被描述为<span class="math inline">\((S_M,T_M(=S_M),F_M)\)</span>
+<ul>
+<li>对内部元素进行操作时，显然需要让内部元素的修改开始时间与<span class="math inline">\(S_M\)</span>保持一致</li>
+</ul></li>
 </ul>
+<h2 id="case3.3">Case3.3</h2>
+<h3 id="case3.3.1">Case3.3.1</h3>
+<p>container开启动画，内部element有并行的不同的动画步</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Array a(Box b1, Box b2, Box b3);</span><br><span class="line">D: animate duration</span><br><span class="line">S: animate start stamp</span><br><span class="line">a.after(S);</span><br><span class="line">a.start_animate(D);</span><br><span class="line">	// 动画1: [S, S+D/2]</span><br><span class="line">	b1.after(a);</span><br><span class="line">	b1.start_animate(D/2);</span><br><span class="line">	b1.&lt;prop&gt;();</span><br><span class="line">	b1.end_animate();</span><br><span class="line">	</span><br><span class="line">	// 动画2: [S+D/2, S+D]</span><br><span class="line">	b1.after(a + D/2);</span><br><span class="line">	b1.start_animate(D/2);</span><br><span class="line">	b1.&lt;prop&gt;();</span><br><span class="line">	b1.end_animate();</span><br><span class="line">	</span><br><span class="line">	// 动画3: [S, S+D]</span><br><span class="line">	b1.after(a);</span><br><span class="line">	b1.start_animate(D);</span><br><span class="line">	b1.&lt;prop&gt;();</span><br><span class="line">	b1.end_animate();</span><br><span class="line">a.end_animate();</span><br></pre></td></tr></table></figure>
+<h3 id="case3.3.2">Case3.3.2</h3>
+<p>container开启延时</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Array a(Box b1, Box b2, Box b3);</span><br><span class="line">D: animate duration</span><br><span class="line">S: animate start stamp</span><br><span class="line">a.after(S);</span><br><span class="line">	// 行动1: S</span><br><span class="line">	b1.after(a);</span><br><span class="line">	b1.&lt;prop&gt;();</span><br><span class="line">	</span><br><span class="line">	// 行动2: S(行动1之后)</span><br><span class="line">	b1.after(a);</span><br><span class="line">	b1.&lt;prop&gt;();</span><br><span class="line">	</span><br><span class="line">	// 行动3: S(行动2之后)</span><br><span class="line">	b1.after(a);</span><br><span class="line">	b1.&lt;prop&gt;();</span><br></pre></td></tr></table></figure>
+<h3 id="case3.3.3">Case3.3.3</h3>
+<p>container没有发生动画，仅仅是container内部的element进行了动画</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Array a(Box b1, Box b2, Box b3);</span><br><span class="line">D: animate duration</span><br><span class="line">S: animate start stamp</span><br><span class="line">b1.after(S)</span><br><span class="line">// 动画1: [S, S+D/2]</span><br><span class="line">b1.start_animate(D);</span><br><span class="line">b1.&lt;prop&gt;();</span><br><span class="line">b1.end_animate(D);</span><br><span class="line">	</span><br><span class="line">// 动画2: [S+D/2, S+D]</span><br><span class="line">b1.start_animate(D);</span><br><span class="line">b1.&lt;prop&gt;();</span><br><span class="line">b1.end_animate(D);</span><br><span class="line">	</span><br><span class="line">// 动画3: [S, S+D]</span><br><span class="line">b1.after(S)</span><br><span class="line">  .start_animate(D);</span><br><span class="line">b1.&lt;prop&gt;();</span><br><span class="line">b1.end_animate();</span><br></pre></td></tr></table></figure>
+<p>我们把element叫做<span class="math inline">\(E\)</span>，container叫做<span class="math inline">\(C\)</span>，把对<span class="math inline">\(E\)</span>的一次涉及到属性修改的函数调用叫做<span class="math inline">\(P_E\)</span></p>
+<p>可以对<span class="math inline">\(E\)</span>和<span class="math inline">\(C\)</span>定义出<span class="math inline">\(start\)</span>，<span class="math inline">\(duration\)</span>和<span class="math inline">\(animating\)</span>函数，分别表示<span class="math inline">\(E/C\)</span>的动画开始时间，<span class="math inline">\(E/C\)</span>的动画持续时间，<span class="math inline">\(E/C\)</span>是否处于录制动画的状态</p>
+<p>可以对<span class="math inline">\(P_E\)</span>定义出<span class="math inline">\(start\)</span>和<span class="math inline">\(duration\)</span>函数，满足<span class="math inline">\(start(P_E),duration(P_E)\in
+[0,1]\)</span>，分别表示<span class="math inline">\(P_E\)</span>的相对开始时间点，和相对持续时间</p>
+<p>观察发现，应有如下关系成立： <span class="math display">\[
+start(E)=\begin{cases}
+start(C)+animating(C)\cdot duration(C)\cdot start(P_E) &amp; P_E被C调用
+\\
+start(E) &amp; P_E单独调用 \\
+\end{cases} \\
+duration(E)=\begin{cases}
+duration(C)\cdot duration(P_E) &amp; P_E被C调用 \\
+duration(E) &amp; P_E被单独调用
+\end{cases} \\
+animating(E)=\begin{cases}
+animating(C) &amp; P_E被C调用 \\
+animating(E) &amp; P_E被单独调用
+\end{cases}
+\]</span></p>
 
       
     </div>
