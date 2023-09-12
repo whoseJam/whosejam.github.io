@@ -528,5 +528,15 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
-<!-- hexo injector body_end start --><script src="/js/whosejam.js"></script><!-- hexo injector body_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<!-- hexo injector body_end start -->
+    <script src="/js/whosejam.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <script>
+        hljs.configure({
+            tabReplace: '    ',
+            classPrefix: ''
+        });
+        hljs.initHighlightingOnLoad();
+    </script><!-- hexo injector body_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

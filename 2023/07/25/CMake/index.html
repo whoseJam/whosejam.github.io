@@ -18,12 +18,12 @@
   
   
   <title>CMake | uselessName</title>
-  <meta name="description" content="CMake 12345678910111213141516171819202122232425cmake_minimum_required(VERSION 3.15)project(DataMaker)\t\t&#x2F;&#x2F;设置项目名set(CMAKE_CXX_STANDARD 17)set(CMAKE_CXX_STANDARD_REQUIRED true)set(CMAKE_EXPORT_COMPILE">
+  <meta name="description" content="CMake cmake_minimum_required(VERSION 3.15)  project(DataMaker)      &#x2F;&#x2F;设置项目名  set(CMAKE_CXX_STANDARD 17) set(CMAKE_CXX_STANDARD_REQUIRED true) set(CMAKE_EXPORT_COMPILE_COMMANDS True) set(SRC_LI">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CMake">
 <meta property="og:url" content="http://whosejam.github.io/2023/07/25/CMake/index.html">
 <meta property="og:site_name" content="whoseJam">
-<meta property="og:description" content="CMake 12345678910111213141516171819202122232425cmake_minimum_required(VERSION 3.15)project(DataMaker)\t\t&#x2F;&#x2F;设置项目名set(CMAKE_CXX_STANDARD 17)set(CMAKE_CXX_STANDARD_REQUIRED true)set(CMAKE_EXPORT_COMPILE">
+<meta property="og:description" content="CMake cmake_minimum_required(VERSION 3.15)  project(DataMaker)      &#x2F;&#x2F;设置项目名  set(CMAKE_CXX_STANDARD 17) set(CMAKE_CXX_STANDARD_REQUIRED true) set(CMAKE_EXPORT_COMPILE_COMMANDS True) set(SRC_LI">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-07-25T07:04:20.000Z">
 <meta property="article:modified_time" content="2023-07-25T07:08:37.183Z">
@@ -369,7 +369,31 @@
     <div class="article-entry marked-body" itemprop="articleBody">
       
         <h1 id="cmake">CMake</h1>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.15</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">project</span>(DataMaker)\t\t//设置项目名</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">17</span>)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD_REQUIRED <span class="keyword">true</span>)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_EXPORT_COMPILE_COMMANDS <span class="keyword">True</span>)</span><br><span class="line"><span class="keyword">set</span>(SRC_LIST example/<span class="keyword">test</span>/test_segment_tree.cpp)</span><br><span class="line"></span><br><span class="line"><span class="keyword">include_directories</span>(<span class="keyword">include</span>)</span><br><span class="line"><span class="keyword">include_directories</span>(<span class="keyword">include</span>/AbStructure)</span><br><span class="line"><span class="keyword">include_directories</span>(<span class="keyword">include</span>/DtStructure)</span><br><span class="line"><span class="keyword">include_directories</span>(<span class="keyword">include</span>/Utility)</span><br><span class="line"><span class="keyword">include_directories</span>(src/DtStructure)</span><br><span class="line"><span class="keyword">include_directories</span>(/usr/local/<span class="keyword">include</span>/gtest)</span><br><span class="line">//\t设置<span class="keyword">include</span>路径</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_subdirectory</span>(src/AbStructure)</span><br><span class="line"><span class="keyword">add_subdirectory</span>(src/DtStructure)</span><br><span class="line"><span class="keyword">add_subdirectory</span>(src/Utility)</span><br><span class="line">//\t设置子路径</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_executable</span>(<span class="variable">$&#123;PROJECT_NAME&#125;</span> <span class="variable">$&#123;SRC_LIST&#125;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_link_libraries</span>(<span class="variable">$&#123;PROJECT_NAME&#125;</span> PUBLIC AbStructure DtStructure Utility gtest)</span><br></pre></td></tr></table></figure>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">cmake_minimum_required</span>(<span class="ot">VERSION</span> <span class="dt">3.15</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">project</span>(DataMaker)      <span class="er">//设置项目名</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">set</span>(<span class="dv">CMAKE_CXX_STANDARD</span> 17)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">set</span>(<span class="dv">CMAKE_CXX_STANDARD_REQUIRED</span> true)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">set</span>(<span class="dv">CMAKE_EXPORT_COMPILE_COMMANDS</span> True)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">set</span>(SRC_LIST example/test/test_segment_tree.cpp)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">include_directories</span>(include)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="kw">include_directories</span>(include/AbStructure)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="kw">include_directories</span>(include/DtStructure)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="kw">include_directories</span>(include/Utility)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="kw">include_directories</span>(src/DtStructure)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="kw">include_directories</span>(/usr/local/include/gtest)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="er">//  设置include路径</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="kw">add_subdirectory</span>(src/AbStructure)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="kw">add_subdirectory</span>(src/DtStructure)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="kw">add_subdirectory</span>(src/Utility)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="er">//  设置子路径</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="kw">add_executable</span>(<span class="dv">$&#123;PROJECT_NAME&#125;</span> <span class="dv">$&#123;SRC_LIST&#125;</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="kw">target_link_libraries</span>(<span class="dv">$&#123;PROJECT_NAME&#125;</span> <span class="bn">PUBLIC</span> AbStructure DtStructure Utility gtest)</span></code></pre></div>
 
       
     </div>
@@ -537,5 +561,15 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
-<!-- hexo injector body_end start --><script src="/js/whosejam.js"></script><!-- hexo injector body_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<!-- hexo injector body_end start -->
+    <script src="/js/whosejam.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <script>
+        hljs.configure({
+            tabReplace: '    ',
+            classPrefix: ''
+        });
+        hljs.initHighlightingOnLoad();
+    </script><!-- hexo injector body_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

@@ -18,12 +18,12 @@
   
   
   <title>sd容器-box | uselessName</title>
-  <meta name="description" content="Box Box是一种简单的容器，它有一个由Rect组成的背景，和一个可选的其他元素     方法 描述     rate 设置&#x2F;获取空闲率，空闲率用于计算布局   value 设置&#x2F;获取Box中装的元素   color 设置&#x2F;获取Box背景的颜色   opacity 设置Box的透明度，包括背景和内部元素   background 获取Box的背景元素   layout 设置Box的元素的布局方">
+  <meta name="description" content="Box Box是一种简单的容器，它有一个由Rect组成的背景，和一个可选的其他元素     方法 描述     rate 设置&#x2F;获取空闲率，空闲率用于计算布局   value 设置&#x2F;获取Box中装的元素   color 设置&#x2F;获取Box背景的颜色   opacity 设置Box的透明度，包括背景和内部元素   background 获取Bo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="sd容器-box">
 <meta property="og:url" content="http://whosejam.github.io/2023/09/11/sd%E5%AE%B9%E5%99%A8-box/index.html">
 <meta property="og:site_name" content="whoseJam">
-<meta property="og:description" content="Box Box是一种简单的容器，它有一个由Rect组成的背景，和一个可选的其他元素     方法 描述     rate 设置&#x2F;获取空闲率，空闲率用于计算布局   value 设置&#x2F;获取Box中装的元素   color 设置&#x2F;获取Box背景的颜色   opacity 设置Box的透明度，包括背景和内部元素   background 获取Box的背景元素   layout 设置Box的元素的布局方">
+<meta property="og:description" content="Box Box是一种简单的容器，它有一个由Rect组成的背景，和一个可选的其他元素     方法 描述     rate 设置&#x2F;获取空闲率，空闲率用于计算布局   value 设置&#x2F;获取Box中装的元素   color 设置&#x2F;获取Box背景的颜色   opacity 设置Box的透明度，包括背景和内部元素   background 获取Bo">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-09-11T09:04:28.000Z">
 <meta property="article:modified_time" content="2023-09-11T15:27:26.978Z">
@@ -362,55 +362,57 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="box"><a class="markdownIt-Anchor" href="#box"></a> Box</h1>
+        <h1 id="box">Box</h1>
 <p>Box是一种简单的容器，它有一个由Rect组成的背景，和一个可选的其他元素</p>
 <iframe src="box_intro.html" width="100%" height="300" frameborder="0" loading="lazy" allowfullscreen></iframe>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>方法</th>
 <th>描述</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code>rate</code></td>
 <td>设置/获取空闲率，空闲率用于计算布局</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>value</code></td>
 <td>设置/获取Box中装的元素</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>color</code></td>
 <td>设置/获取Box背景的颜色</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>opacity</code></td>
 <td>设置Box的透明度，包括背景和内部元素</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>background</code></td>
 <td>获取Box的背景元素</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>layout</code></td>
 <td>设置Box的元素的布局方式</td>
 </tr>
 </tbody>
 </table>
-<h1 id="创建box"><a class="markdownIt-Anchor" href="#创建box"></a> 创建Box</h1>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> svg = sd.<span class="title function_">svg</span>();		<span class="comment">// 获取svg画布</span></span><br><span class="line"><span class="keyword">let</span> box = sd.<span class="title class_">Box</span>(svg);	<span class="comment">// 创建一个空的box</span></span><br></pre></td></tr></table></figure>
-<h2 id="rate"><a class="markdownIt-Anchor" href="#rate"></a> rate</h2>
+<h1 id="创建box">创建Box</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> svg <span class="op">=</span> sd<span class="op">.</span><span class="fu">svg</span>()<span class="op">;</span>     <span class="co">// 获取svg画布</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> box <span class="op">=</span> sd<span class="op">.</span><span class="fu">Box</span>(svg)<span class="op">;</span>  <span class="co">// 创建一个空的box</span></span></code></pre></div>
+<h2 id="rate">rate</h2>
 <p>设置空闲率，试试效果</p>
 <iframe src="box_rate.html" width="100%" height="300" frameborder="0" loading="lazy" allowfullscreen></iframe>
-<h2 id="color"><a class="markdownIt-Anchor" href="#color"></a> color</h2>
+<h2 id="color">color</h2>
 <p>设置颜色，试试效果</p>
 <iframe src="box_color.html" width="100%" height="300" frameborder="0" loading="lazy" allowfullscreen></iframe>
-<h2 id="layout"><a class="markdownIt-Anchor" href="#layout"></a> layout</h2>
-<p>设置布局，有九种可选值：<code>top_left</code>，<code>top</code>，<code>top_right</code>，<code>left</code>，<code>center</code>，<code>right</code>，<code>bottom_left</code>， <code>bottom</code>，<code>bottom_right</code></p>
+<h2 id="layout">layout</h2>
+<p>设置布局，有九种可选值：<code>top_left</code>，<code>top</code>，<code>top_right</code>，<code>left</code>，<code>center</code>，<code>right</code>，<code>bottom_left</code>，
+<code>bottom</code>，<code>bottom_right</code></p>
 <iframe src="box_layout.html" width="100%" height="300" frameborder="0" loading="lazy" allowfullscreen></iframe>
-<h2 id="fix_width-fix_height"><a class="markdownIt-Anchor" href="#fix_width-fix_height"></a> fix_width &amp; fix_height</h2>
+<h2 id="fix_width-fix_height">fix_width &amp; fix_height</h2>
 <p>这两个属性将会让value的width/height永远保持原始值，当你不希望缩放value的长/宽的时候会很有用</p>
 <iframe src="box_fix.html" width="100%" height="300" frameborder="0" loading="lazy" allowfullscreen></iframe>
 
@@ -580,5 +582,15 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
-<!-- hexo injector body_end start --><script src="/js/whosejam.js"></script><!-- hexo injector body_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<!-- hexo injector body_end start -->
+    <script src="/js/whosejam.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <script>
+        hljs.configure({
+            tabReplace: '    ',
+            classPrefix: ''
+        });
+        hljs.initHighlightingOnLoad();
+    </script><!-- hexo injector body_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

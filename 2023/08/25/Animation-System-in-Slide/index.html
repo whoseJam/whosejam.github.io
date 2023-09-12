@@ -491,13 +491,67 @@ T_A,F_A)\)</span>，为自己新建一个动画节点<span class="math inline">\
 <h2 id="case3.3">Case3.3</h2>
 <h3 id="case3.3.1">Case3.3.1</h3>
 <p>container开启动画，内部element有并行的不同的动画步</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Array a(Box b1, Box b2, Box b3);</span><br><span class="line">D: animate duration</span><br><span class="line">S: animate start stamp</span><br><span class="line">a.after(S);</span><br><span class="line">a.start_animate(D);</span><br><span class="line">\t// 动画1: [S, S+D/2]</span><br><span class="line">\tb1.after(a);</span><br><span class="line">\tb1.start_animate(D/2);</span><br><span class="line">\tb1.&lt;prop&gt;();</span><br><span class="line">\tb1.end_animate();</span><br><span class="line">\t</span><br><span class="line">\t// 动画2: [S+D/2, S+D]</span><br><span class="line">\tb1.after(a + D/2);</span><br><span class="line">\tb1.start_animate(D/2);</span><br><span class="line">\tb1.&lt;prop&gt;();</span><br><span class="line">\tb1.end_animate();</span><br><span class="line">\t</span><br><span class="line">\t// 动画3: [S, S+D]</span><br><span class="line">\tb1.after(a);</span><br><span class="line">\tb1.start_animate(D);</span><br><span class="line">\tb1.&lt;prop&gt;();</span><br><span class="line">\tb1.end_animate();</span><br><span class="line">a.end_animate();</span><br></pre></td></tr></table></figure>
+<pre><code>Array a(Box b1, Box b2, Box b3);
+D: animate duration
+S: animate start stamp
+a.after(S);
+a.start_animate(D);
+    // 动画1: [S, S+D/2]
+    b1.after(a);
+    b1.start_animate(D/2);
+    b1.&lt;prop&gt;();
+    b1.end_animate();
+    
+    // 动画2: [S+D/2, S+D]
+    b1.after(a + D/2);
+    b1.start_animate(D/2);
+    b1.&lt;prop&gt;();
+    b1.end_animate();
+    
+    // 动画3: [S, S+D]
+    b1.after(a);
+    b1.start_animate(D);
+    b1.&lt;prop&gt;();
+    b1.end_animate();
+a.end_animate();</code></pre>
 <h3 id="case3.3.2">Case3.3.2</h3>
 <p>container开启延时</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Array a(Box b1, Box b2, Box b3);</span><br><span class="line">D: animate duration</span><br><span class="line">S: animate start stamp</span><br><span class="line">a.after(S);</span><br><span class="line">\t// 行动1: S</span><br><span class="line">\tb1.after(a);</span><br><span class="line">\tb1.&lt;prop&gt;();</span><br><span class="line">\t</span><br><span class="line">\t// 行动2: S(行动1之后)</span><br><span class="line">\tb1.after(a);</span><br><span class="line">\tb1.&lt;prop&gt;();</span><br><span class="line">\t</span><br><span class="line">\t// 行动3: S(行动2之后)</span><br><span class="line">\tb1.after(a);</span><br><span class="line">\tb1.&lt;prop&gt;();</span><br></pre></td></tr></table></figure>
+<pre><code>Array a(Box b1, Box b2, Box b3);
+D: animate duration
+S: animate start stamp
+a.after(S);
+    // 行动1: S
+    b1.after(a);
+    b1.&lt;prop&gt;();
+    
+    // 行动2: S(行动1之后)
+    b1.after(a);
+    b1.&lt;prop&gt;();
+    
+    // 行动3: S(行动2之后)
+    b1.after(a);
+    b1.&lt;prop&gt;();</code></pre>
 <h3 id="case3.3.3">Case3.3.3</h3>
 <p>container没有发生动画，仅仅是container内部的element进行了动画</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Array a(Box b1, Box b2, Box b3);</span><br><span class="line">D: animate duration</span><br><span class="line">S: animate start stamp</span><br><span class="line">b1.after(S)</span><br><span class="line">// 动画1: [S, S+D/2]</span><br><span class="line">b1.start_animate(D);</span><br><span class="line">b1.&lt;prop&gt;();</span><br><span class="line">b1.end_animate(D);</span><br><span class="line">\t</span><br><span class="line">// 动画2: [S+D/2, S+D]</span><br><span class="line">b1.start_animate(D);</span><br><span class="line">b1.&lt;prop&gt;();</span><br><span class="line">b1.end_animate(D);</span><br><span class="line">\t</span><br><span class="line">// 动画3: [S, S+D]</span><br><span class="line">b1.after(S)</span><br><span class="line">  .start_animate(D);</span><br><span class="line">b1.&lt;prop&gt;();</span><br><span class="line">b1.end_animate();</span><br></pre></td></tr></table></figure>
+<pre><code>Array a(Box b1, Box b2, Box b3);
+D: animate duration
+S: animate start stamp
+b1.after(S)
+// 动画1: [S, S+D/2]
+b1.start_animate(D);
+b1.&lt;prop&gt;();
+b1.end_animate(D);
+    
+// 动画2: [S+D/2, S+D]
+b1.start_animate(D);
+b1.&lt;prop&gt;();
+b1.end_animate(D);
+    
+// 动画3: [S, S+D]
+b1.after(S)
+  .start_animate(D);
+b1.&lt;prop&gt;();
+b1.end_animate();</code></pre>
 <p>我们把element叫做<span class="math inline">\(E\)</span>，container叫做<span class="math inline">\(C\)</span>，把对<span class="math inline">\(E\)</span>的一次涉及到属性修改的函数调用叫做<span class="math inline">\(P_E\)</span></p>
 <p>可以对<span class="math inline">\(E\)</span>和<span class="math inline">\(C\)</span>定义出<span class="math inline">\(start\)</span>，<span class="math inline">\(duration\)</span>和<span class="math inline">\(animating\)</span>函数，分别表示<span class="math inline">\(E/C\)</span>的动画开始时间，<span class="math inline">\(E/C\)</span>的动画持续时间，<span class="math inline">\(E/C\)</span>是否处于录制动画的状态</p>
 <p>可以对<span class="math inline">\(P_E\)</span>定义出<span class="math inline">\(start\)</span>和<span class="math inline">\(duration\)</span>函数，满足<span class="math inline">\(start(P_E),duration(P_E)\in
@@ -684,5 +738,15 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
-<!-- hexo injector body_end start --><script src="/js/whosejam.js"></script><!-- hexo injector body_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<!-- hexo injector body_end start -->
+    <script src="/js/whosejam.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <script>
+        hljs.configure({
+            tabReplace: '    ',
+            classPrefix: ''
+        });
+        hljs.initHighlightingOnLoad();
+    </script><!-- hexo injector body_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

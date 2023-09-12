@@ -18,12 +18,12 @@
   
   
   <title>curl | uselessName</title>
-  <meta name="description" content="1curl http:&#x2F;&#x2F;127.0.0.1:80&#x2F;judge&#x2F;submit -X POST -d &amp;#x27;hello&#x3D;world&amp;#x27;">
+  <meta name="description" content="curl http:&#x2F;&#x2F;127.0.0.1:80&#x2F;judge&#x2F;submit -X POST -d &#39;hello&#x3D;world&#39;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="curl">
 <meta property="og:url" content="http://whosejam.github.io/2023/04/05/curl/index.html">
 <meta property="og:site_name" content="whoseJam">
-<meta property="og:description" content="1curl http:&#x2F;&#x2F;127.0.0.1:80&#x2F;judge&#x2F;submit -X POST -d &amp;#x27;hello&#x3D;world&amp;#x27;">
+<meta property="og:description" content="curl http:&#x2F;&#x2F;127.0.0.1:80&#x2F;judge&#x2F;submit -X POST -d &#39;hello&#x3D;world&#39;">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-04-04T16:02:57.000Z">
 <meta property="article:modified_time" content="2023-04-04T16:05:44.989Z">
@@ -362,7 +362,7 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://127.0.0.1:80/judge/submit -X POST -d &#x27;hello=world&#x27;</span><br></pre></td></tr></table></figure>
+        <pre><code>curl http://127.0.0.1:80/judge/submit -X POST -d &#39;hello=world&#39;</code></pre>
 
       
     </div>
@@ -530,5 +530,15 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
-<!-- hexo injector body_end start --><script src="/js/whosejam.js"></script><!-- hexo injector body_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<!-- hexo injector body_end start -->
+    <script src="/js/whosejam.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <script>
+        hljs.configure({
+            tabReplace: '    ',
+            classPrefix: ''
+        });
+        hljs.initHighlightingOnLoad();
+    </script><!-- hexo injector body_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

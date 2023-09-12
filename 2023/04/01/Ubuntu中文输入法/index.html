@@ -18,12 +18,12 @@
   
   
   <title>Ubuntu中文输入法 | uselessName</title>
-  <meta name="description" content="输入框架 有ibus，fcitx等，需要下载准备好（ibus可能是ubuntu自带的，fcitx需要单独下载） 12apt-get install fcitxapt-get install ibus Input Sources 首先在Settings&gt;Keyboard中找到Input Sources选项（根据版本不同，Input Sources也可能出现在Settings&gt;Re">
+  <meta name="description" content="输入框架 有ibus，fcitx等，需要下载准备好（ibus可能是ubuntu自带的，fcitx需要单独下载） apt-get install fcitx apt-get install ibus Input Sources 首先在Settings&gt;Keyboard中找到Input Sources选项（根据版本不同，Input Sources也可能出现在Settings&gt;Re">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Ubuntu中文输入法">
 <meta property="og:url" content="http://whosejam.github.io/2023/04/01/Ubuntu%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95/index.html">
 <meta property="og:site_name" content="whoseJam">
-<meta property="og:description" content="输入框架 有ibus，fcitx等，需要下载准备好（ibus可能是ubuntu自带的，fcitx需要单独下载） 12apt-get install fcitxapt-get install ibus Input Sources 首先在Settings&gt;Keyboard中找到Input Sources选项（根据版本不同，Input Sources也可能出现在Settings&gt;Re">
+<meta property="og:description" content="输入框架 有ibus，fcitx等，需要下载准备好（ibus可能是ubuntu自带的，fcitx需要单独下载） apt-get install fcitx apt-get install ibus Input Sources 首先在Settings&gt;Keyboard中找到Input Sources选项（根据版本不同，Input Sources也可能出现在Settings&gt;Re">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://whosejam.github.io/2023/04/01/Ubuntu%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95/image-20230401113553498.png">
 <meta property="og:image" content="http://whosejam.github.io/2023/04/01/Ubuntu%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95/image-20230401114302570.png">
@@ -379,7 +379,8 @@
       
         <h1 id="输入框架">输入框架</h1>
 <p>有ibus，fcitx等，需要下载准备好（ibus可能是ubuntu自带的，fcitx需要单独下载）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get install fcitx</span><br><span class="line">apt-get install ibus</span><br></pre></td></tr></table></figure>
+<pre><code>apt-get install fcitx
+apt-get install ibus</code></pre>
 <h1 id="input-sources">Input Sources</h1>
 <p>首先在<code>Settings&gt;Keyboard</code>中找到<code>Input Sources</code>选项（根据版本不同，<code>Input Sources</code>也可能出现在<code>Settings&gt;Region &amp; Language</code>）</p>
 <p>默认情况下可能这个列表中只有<code>English (US)</code>，将<code>Chinese</code>添加到这个列表中</p>
@@ -407,7 +408,8 @@
 <h2 id="搜狗输入法">搜狗输入法</h2>
 <p>在搜狗官网上下载安装包，随后用dpkg安装</p>
 <p>接着安装搜狗输入法的依赖</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get install libqt5qml5 libqt5quick5 libqt5quickwidgets5 qml-module-qtquick2</span><br><span class="line">apt-get install libgsettings-qt1</span><br></pre></td></tr></table></figure>
+<pre class="shell"><code>apt-get install libqt5qml5 libqt5quick5 libqt5quickwidgets5 qml-module-qtquick2
+apt-get install libgsettings-qt1</code></pre>
 <p>重启一下电脑</p>
 <h2 id="fcitx-configure">fcitx configure</h2>
 <p><img src="/2023/04/01/Ubuntu%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95/image-20230401135202123.png" alt="image-20230401135202123" style="zoom:50%;"></p>
@@ -588,5 +590,15 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
-<!-- hexo injector body_end start --><script src="/js/whosejam.js"></script><!-- hexo injector body_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<!-- hexo injector body_end start -->
+    <script src="/js/whosejam.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <script>
+        hljs.configure({
+            tabReplace: '    ',
+            classPrefix: ''
+        });
+        hljs.initHighlightingOnLoad();
+    </script><!-- hexo injector body_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

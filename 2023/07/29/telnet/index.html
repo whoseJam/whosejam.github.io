@@ -18,12 +18,12 @@
   
   
   <title>telnet | uselessName</title>
-  <meta name="description" content="建立连接 1telnet &lt;网址&gt; &lt;协议名&gt;     字段 描述     网址 可以是ip地址，也可以是网址   协议名 形如http，smtp    操作">
+  <meta name="description" content="建立连接 telnet &lt;网址&gt; &lt;协议名&gt;     字段 描述     网址 可以是ip地址，也可以是网址   协议名 形如http，smtp    操作">
 <meta property="og:type" content="article">
 <meta property="og:title" content="telnet">
 <meta property="og:url" content="http://whosejam.github.io/2023/07/29/telnet/index.html">
 <meta property="og:site_name" content="whoseJam">
-<meta property="og:description" content="建立连接 1telnet &lt;网址&gt; &lt;协议名&gt;     字段 描述     网址 可以是ip地址，也可以是网址   协议名 形如http，smtp    操作">
+<meta property="og:description" content="建立连接 telnet &lt;网址&gt; &lt;协议名&gt;     字段 描述     网址 可以是ip地址，也可以是网址   协议名 形如http，smtp    操作">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-07-29T11:52:53.000Z">
 <meta property="article:modified_time" content="2023-07-29T11:58:42.437Z">
@@ -369,7 +369,7 @@
     <div class="article-entry marked-body" itemprop="articleBody">
       
         <h1 id="建立连接">建立连接</h1>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">telnet &lt;网址&gt; &lt;协议名&gt; </span><br></pre></td></tr></table></figure>
+<pre><code>telnet &lt;网址&gt; &lt;协议名&gt; </code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -556,5 +556,15 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
-<!-- hexo injector body_end start --><script src="/js/whosejam.js"></script><!-- hexo injector body_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<!-- hexo injector body_end start -->
+    <script src="/js/whosejam.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <script>
+        hljs.configure({
+            tabReplace: '    ',
+            classPrefix: ''
+        });
+        hljs.initHighlightingOnLoad();
+    </script><!-- hexo injector body_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

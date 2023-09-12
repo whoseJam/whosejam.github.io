@@ -444,11 +444,34 @@
 <p>可以使用<code>@BeforeClass</code>，<code>@Before</code>，<code>@After</code>，<code>@AfterClass</code>来为测试类的方法，设定对应的调用时机</p>
 <h3 id="测试套件">测试套件</h3>
 <p>测试嵌套，即将测试类封装起来，只要运行测试套件，就能运行所有的测试类了</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith(Suite.class)</span></span><br><span class="line"><span class="meta">@Suite</span>.SuiteClasses(&#123;Test1.class, Test2.class,...&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SuiteTest</span> &#123;</span><br><span class="line">\t<span class="comment">// 这是一个不包含任何方法的空类</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div class="sourceCode" id="cb1"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="at">@RunWith</span><span class="op">(</span>Suite<span class="op">.</span><span class="fu">class</span><span class="op">)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">@Suite</span><span class="op">.</span><span class="fu">SuiteClasses</span><span class="op">(&#123;</span>Test1<span class="op">.</span><span class="fu">class</span><span class="op">,</span> Test2<span class="op">.</span><span class="fu">class</span><span class="op">,</span><span class="kw">...</span><span class="op">&#125;)</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> SuiteTest <span class="op">&#123;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 这是一个不包含任何方法的空类</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="op">&#125;</span></span></code></pre></div>
 <h3 id="参数化设置">参数化设置</h3>
 <p>以测试加法为例，测试1+1 expect
 2是简单的，但如果要测试多组数据，提前配置好参数可能是一个更好的方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith(Parameterized.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ParameterTest</span> &#123;</span><br><span class="line">\t<span class="type">int</span> expected, input1, input2;</span><br><span class="line">\t<span class="meta">@Parameters</span></span><br><span class="line">\t<span class="keyword">public</span> <span class="keyword">static</span> Collection&lt;Object[]&gt; t() &#123;</span><br><span class="line">\t\t<span class="keyword">return</span> Arrays.asList(<span class="keyword">new</span> <span class="title class_">Object</span>[][]&#123;</span><br><span class="line">\t\t\t&#123;<span class="number">3</span>, <span class="number">1</span>, <span class="number">2</span>&#125;,</span><br><span class="line">\t\t\t&#123;<span class="number">4</span>, <span class="number">2</span>, <span class="number">2</span>&#125;</span><br><span class="line">\t\t&#125;);</span><br><span class="line">\t&#125;</span><br><span class="line">\t<span class="keyword">public</span> <span class="title function_">ParameterTest</span><span class="params">(<span class="type">int</span> expect, <span class="type">int</span> input1, <span class="type">int</span> input2)</span> &#123;</span><br><span class="line">\t\t<span class="built_in">this</span>.expect = expect;</span><br><span class="line">\t\t<span class="built_in">this</span>.input1 = input1;</span><br><span class="line">\t\t<span class="built_in">this</span>.input2 = input2;</span><br><span class="line">\t&#125;</span><br><span class="line">\t<span class="meta">@Test</span></span><br><span class="line">\t<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testAdd</span><span class="params">()</span> &#123;</span><br><span class="line">\t\tassertEquals(expected, <span class="keyword">new</span> <span class="title class_">Calculate</span>().add(input1, input2));</span><br><span class="line">\t&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div class="sourceCode" id="cb2"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="at">@RunWith</span><span class="op">(</span>Parameterized<span class="op">.</span><span class="fu">class</span><span class="op">)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> ParameterTest <span class="op">&#123;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> expected<span class="op">,</span> input1<span class="op">,</span> input2<span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Parameters</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="bu">Collection</span><span class="op">&lt;</span><span class="bu">Object</span><span class="op">[]&gt;</span> <span class="fu">t</span><span class="op">()</span> <span class="op">&#123;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">Arrays</span><span class="op">.</span><span class="fu">asList</span><span class="op">(</span><span class="kw">new</span> <span class="bu">Object</span><span class="op">[][]&#123;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>            <span class="op">&#123;</span><span class="dv">3</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">&#125;,</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>            <span class="op">&#123;</span><span class="dv">4</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">2</span><span class="op">&#125;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">&#125;);</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">&#125;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="fu">ParameterTest</span><span class="op">(</span><span class="dt">int</span> expect<span class="op">,</span> <span class="dt">int</span> input1<span class="op">,</span> <span class="dt">int</span> input2<span class="op">)</span> <span class="op">&#123;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">expect</span> <span class="op">=</span> expect<span class="op">;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">input1</span> <span class="op">=</span> input1<span class="op">;</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">input2</span> <span class="op">=</span> input2<span class="op">;</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">&#125;</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Test</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">testAdd</span><span class="op">()</span> <span class="op">&#123;</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">assertEquals</span><span class="op">(</span>expected<span class="op">,</span> <span class="kw">new</span> <span class="fu">Calculate</span><span class="op">().</span><span class="fu">add</span><span class="op">(</span>input1<span class="op">,</span> input2<span class="op">));</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">&#125;</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="op">&#125;</span></span></code></pre></div>
 <h2 id="googletest单元测试">googletest单元测试</h2>
 <h3 id="assert断言-1">Assert断言</h3>
 <p>googletest中，是通过断言来判断代码实现的功能是否符合预期，断言的结果分为成功<code>success</code>，非致命错误<code>non-fatal failure</code>和致命错误<code>fatal failure</code></p>
@@ -465,7 +488,9 @@
 <h3 id="test">TEST</h3>
 <p><code>TEST</code>是一个没有返回值的宏函数</p>
 <p>我们可以在该函数中使用断言来检测代码是否有效，测试的结果由断言决定</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">TEST</span>(TestSuiteName, TestName) &#123;</span><br><span class="line">\t... test body ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>TEST<span class="op">(</span>TestSuiteName<span class="op">,</span> TestName<span class="op">)</span> <span class="op">&#123;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span> test body <span class="op">...</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="op">&#125;</span></span></code></pre></div>
 
       
     </div>
@@ -633,5 +658,15 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
-<!-- hexo injector body_end start --><script src="/js/whosejam.js"></script><!-- hexo injector body_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<!-- hexo injector body_end start -->
+    <script src="/js/whosejam.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <script>
+        hljs.configure({
+            tabReplace: '    ',
+            classPrefix: ''
+        });
+        hljs.initHighlightingOnLoad();
+    </script><!-- hexo injector body_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

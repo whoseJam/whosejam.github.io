@@ -372,7 +372,11 @@
 <p>我们需要实现一个Reassembler，来对乱序的字节流重排，问题可以抽象为：在世界上存在一个字符串，我们叫这个字符串为<strong>本源字符串</strong>，最初时我们无法观测到这个字符串，现在给出若干个[l,r]区间，每次提供字符串[l,r]区间内字符的信息</p>
 <p>一个信息三元组：(l:int,r:int,data:string)，表示我观测到了这个<strong>本源字符串</strong>的[l,r]区间内的子串是data，如果在某个时刻，本源字符串的某个前缀已经被我全部观测到了，那么就可以把这一段前缀交给Writer了</p>
 <p>例如：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[1,2]: bc\t// *bc***</span><br><span class="line">[4,5]: ef\t// *bc*ef</span><br><span class="line">[1,1]: b\t// *bc*ef</span><br><span class="line">[0,1]: ab\t// abc*ef</span><br><span class="line">向Writer中写入abc</span><br></pre></td></tr></table></figure>
+<pre><code>[1,2]: bc   // *bc***
+[4,5]: ef   // *bc*ef
+[1,1]: b    // *bc*ef
+[0,1]: ab   // abc*ef
+向Writer中写入abc</code></pre>
 <h2 id="实现">实现</h2>
 <p>可以用set维护每一个已知连续区间[l,r]以及这一段区间对应的字符串data，支持新加入一个区间时对区间进行合并操作</p>
 <h2 id="更劣的实现">更劣的实现</h2>
@@ -560,5 +564,15 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
-<!-- hexo injector body_end start --><script src="/js/whosejam.js"></script><!-- hexo injector body_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<!-- hexo injector body_end start -->
+    <script src="/js/whosejam.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <script>
+        hljs.configure({
+            tabReplace: '    ',
+            classPrefix: ''
+        });
+        hljs.initHighlightingOnLoad();
+    </script><!-- hexo injector body_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

@@ -18,12 +18,12 @@
   
   
   <title>sd基础元素 | uselessName</title>
-  <meta name="description" content="基础元素 目前在sd中有6种基本元素：Rect，Circle，Text，Path，Line，Image，如下图所示：  每一个元素都是可以拖拽和缩放的（在上图中可以尝试） 创建元素 123456let svg &#x3D; sd.svg();\t\t\t&#x2F;&#x2F; 获取svg画布let rct &#x3D; sd.Rect(svg);\t\t&#x2F;&#x2F; 在svg画布上创建一个Rectlet cir &#x3D; sd.Circl">
+  <meta name="description" content="基础元素 目前在sd中有6种基本元素：Rect，Circle，Text，Path，Line，Image，如下图所示：  每一个元素都是可以拖拽和缩放的（在上图中可以尝试） 创建元素 let svg &#x3D; sd.svg();         &#x2F;&#x2F; 获取svg画布 let rct &#x3D; sd.Rect(svg);     &#x2F;&#x2F; 在svg画布上创建一个Rect let cir &#x3D; sd.Cir">
 <meta property="og:type" content="article">
 <meta property="og:title" content="sd基础元素">
 <meta property="og:url" content="http://whosejam.github.io/2023/09/10/sd%E5%9F%BA%E7%A1%80%E5%85%83%E7%B4%A0/index.html">
 <meta property="og:site_name" content="whoseJam">
-<meta property="og:description" content="基础元素 目前在sd中有6种基本元素：Rect，Circle，Text，Path，Line，Image，如下图所示：  每一个元素都是可以拖拽和缩放的（在上图中可以尝试） 创建元素 123456let svg &#x3D; sd.svg();\t\t\t&#x2F;&#x2F; 获取svg画布let rct &#x3D; sd.Rect(svg);\t\t&#x2F;&#x2F; 在svg画布上创建一个Rectlet cir &#x3D; sd.Circl">
+<meta property="og:description" content="基础元素 目前在sd中有6种基本元素：Rect，Circle，Text，Path，Line，Image，如下图所示：  每一个元素都是可以拖拽和缩放的（在上图中可以尝试） 创建元素 let svg &#x3D; sd.svg();         &#x2F;&#x2F; 获取svg画布 let rct &#x3D; sd.Rect(svg);     &#x2F;&#x2F; 在svg画布上创建一个Rect let cir &#x3D; sd.Cir">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-09-10T08:18:00.000Z">
 <meta property="article:modified_time" content="2023-09-10T12:33:46.571Z">
@@ -373,13 +373,31 @@
 <iframe src="basic_show.html" width="100%" height="300" frameborder="0" loading="lazy" allowfullscreen></iframe>
 <p>每一个元素都是可以拖拽和缩放的（在上图中可以尝试）</p>
 <h1 id="创建元素">创建元素</h1>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> svg = sd.<span class="title function_">svg</span>();\t\t\t<span class="comment">// 获取svg画布</span></span><br><span class="line"><span class="keyword">let</span> rct = sd.<span class="title class_">Rect</span>(svg);\t\t<span class="comment">// 在svg画布上创建一个Rect</span></span><br><span class="line"><span class="keyword">let</span> cir = sd.<span class="title class_">Circle</span>(svg);\t<span class="comment">// 在svg画布上创建一个Circle</span></span><br><span class="line"><span class="keyword">let</span> txt = sd.<span class="title class_">Text</span>(svg);\t\t<span class="comment">// 在svg画布上创建一个Text</span></span><br><span class="line"><span class="keyword">let</span> lne = sd.<span class="title class_">Line</span>(svg);\t\t<span class="comment">// 在svg画布上创建一个Line</span></span><br><span class="line"><span class="keyword">let</span> pth = sd.<span class="title class_">Path</span>(svg);\t\t<span class="comment">// 在svg画布上创建一个Path</span></span><br></pre></td></tr></table></figure>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> svg <span class="op">=</span> sd<span class="op">.</span><span class="fu">svg</span>()<span class="op">;</span>         <span class="co">// 获取svg画布</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> rct <span class="op">=</span> sd<span class="op">.</span><span class="fu">Rect</span>(svg)<span class="op">;</span>     <span class="co">// 在svg画布上创建一个Rect</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> cir <span class="op">=</span> sd<span class="op">.</span><span class="fu">Circle</span>(svg)<span class="op">;</span>   <span class="co">// 在svg画布上创建一个Circle</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> txt <span class="op">=</span> sd<span class="op">.</span><span class="fu">Text</span>(svg)<span class="op">;</span>     <span class="co">// 在svg画布上创建一个Text</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> lne <span class="op">=</span> sd<span class="op">.</span><span class="fu">Line</span>(svg)<span class="op">;</span>     <span class="co">// 在svg画布上创建一个Line</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> pth <span class="op">=</span> sd<span class="op">.</span><span class="fu">Path</span>(svg)<span class="op">;</span>     <span class="co">// 在svg画布上创建一个Path</span></span></code></pre></div>
 <h1 id="拖拽">拖拽</h1>
 <p>想要让元素可拖拽，只需要调用<code>drag</code>方法即可</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> rct = sd.<span class="title class_">Rect</span>(svg);\t\t<span class="comment">// 创建一个Rect</span></span><br><span class="line">rct.<span class="title function_">drag</span>(<span class="literal">true</span>);\t\t\t\t<span class="comment">// 最简单的可拖拽方法</span></span><br><span class="line">rct.<span class="title function_">drag</span>(<span class="function">(<span class="params">e</span>) =&gt;</span> &#123;\t\t\t<span class="comment">// 自定义拖拽方式</span></span><br><span class="line">    rct.<span class="title function_">dx</span>(e.<span class="property">dx</span>);</span><br><span class="line">    rct.<span class="title function_">dy</span>(e.<span class="property">dy</span>);</span><br><span class="line">&#125;);</span><br><span class="line">rct.<span class="title function_">drag</span>(&#123;\t\t\t\t\t<span class="comment">// 自定义拖拽方式，支持自定义拖拽开始，拖拽过程，拖拽结束的函数回调</span></span><br><span class="line">    <span class="attr">start</span>: <span class="function">() =&gt;</span> &#123; <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;start drag&quot;</span>); &#125;,</span><br><span class="line">    <span class="attr">drag</span>: <span class="function">(<span class="params">e</span>) =&gt;</span> &#123; rct.<span class="title function_">dx</span>(e.<span class="property">dx</span>).<span class="title function_">dy</span>(e.<span class="property">dy</span>); &#125;,</span><br><span class="line">    <span class="attr">end</span>: <span class="function">() =&gt;</span> &#123; <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;end drag&quot;</span>); &#125;</span><br><span class="line">&#125;);</span><br><span class="line">rct.<span class="title function_">drag</span>(<span class="literal">false</span>);\t\t\t<span class="comment">// 禁止拖拽（默认）</span></span><br></pre></td></tr></table></figure>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> rct <span class="op">=</span> sd<span class="op">.</span><span class="fu">Rect</span>(svg)<span class="op">;</span>     <span class="co">// 创建一个Rect</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>rct<span class="op">.</span><span class="fu">drag</span>(<span class="kw">true</span>)<span class="op">;</span>             <span class="co">// 最简单的可拖拽方法</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>rct<span class="op">.</span><span class="fu">drag</span>((e) <span class="kw">=&gt;</span> &#123;           <span class="co">// 自定义拖拽方式</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    rct<span class="op">.</span><span class="fu">dx</span>(e<span class="op">.</span><span class="at">dx</span>)<span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    rct<span class="op">.</span><span class="fu">dy</span>(e<span class="op">.</span><span class="at">dy</span>)<span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>&#125;)<span class="op">;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>rct<span class="op">.</span><span class="fu">drag</span>(&#123;                  <span class="co">// 自定义拖拽方式，支持自定义拖拽开始，拖拽过程，拖拽结束的函数回调</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">start</span><span class="op">:</span> () <span class="kw">=&gt;</span> &#123; <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&quot;start drag&quot;</span>)<span class="op">;</span> &#125;<span class="op">,</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">drag</span><span class="op">:</span> (e) <span class="kw">=&gt;</span> &#123; rct<span class="op">.</span><span class="fu">dx</span>(e<span class="op">.</span><span class="at">dx</span>)<span class="op">.</span><span class="fu">dy</span>(e<span class="op">.</span><span class="at">dy</span>)<span class="op">;</span> &#125;<span class="op">,</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">end</span><span class="op">:</span> () <span class="kw">=&gt;</span> &#123; <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&quot;end drag&quot;</span>)<span class="op">;</span> &#125;</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>&#125;)<span class="op">;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>rct<span class="op">.</span><span class="fu">drag</span>(<span class="kw">false</span>)<span class="op">;</span>            <span class="co">// 禁止拖拽（默认）</span></span></code></pre></div>
 <h1 id="缩放">缩放</h1>
 <p>想让元素可缩放，只需要调用<code>resizeable</code>方法即可</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> rct = sd.<span class="title class_">Rect</span>(svg);</span><br><span class="line">rct.<span class="title function_">resizeable</span>(<span class="literal">true</span>);\t\t<span class="comment">// 允许缩放</span></span><br><span class="line">rct.<span class="title function_">resizeable</span>(<span class="literal">false</span>);\t\t<span class="comment">// 禁止缩放</span></span><br></pre></td></tr></table></figure>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> rct <span class="op">=</span> sd<span class="op">.</span><span class="fu">Rect</span>(svg)<span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>rct<span class="op">.</span><span class="fu">resizeable</span>(<span class="kw">true</span>)<span class="op">;</span>       <span class="co">// 允许缩放</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>rct<span class="op">.</span><span class="fu">resizeable</span>(<span class="kw">false</span>)<span class="op">;</span>      <span class="co">// 禁止缩放</span></span></code></pre></div>
 
       
     </div>
@@ -547,5 +565,15 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
-<!-- hexo injector body_end start --><script src="/js/whosejam.js"></script><!-- hexo injector body_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<!-- hexo injector body_end start -->
+    <script src="/js/whosejam.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <script>
+        hljs.configure({
+            tabReplace: '    ',
+            classPrefix: ''
+        });
+        hljs.initHighlightingOnLoad();
+    </script><!-- hexo injector body_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>
