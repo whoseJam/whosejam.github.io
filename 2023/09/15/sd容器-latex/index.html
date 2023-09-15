@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>sd容器-latex | uselessName</title>
+  <meta name="description" content="Latex Latex是盛放数学公式的容器    方法 描述     push 推送一段“文本”到公式的末尾，下文会详细描述“文本”可以是什么   lfloor 添加一个⌊\lfloor⌊到公式的末尾   rfloor 添加一个⌋\rfloor⌋到公式的末尾   equiv 添加一个≡\equiv≡到公式的末尾   sup 添加一个上标   sub 添加一个下标     push push的对象">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sd容器-latex">
+<meta property="og:url" content="http://whosejam.github.io/2023/09/15/sd%E5%AE%B9%E5%99%A8-latex/index.html">
+<meta property="og:site_name" content="whoseJam">
+<meta property="og:description" content="Latex Latex是盛放数学公式的容器    方法 描述     push 推送一段“文本”到公式的末尾，下文会详细描述“文本”可以是什么   lfloor 添加一个⌊\lfloor⌊到公式的末尾   rfloor 添加一个⌋\rfloor⌋到公式的末尾   equiv 添加一个≡\equiv≡到公式的末尾   sup 添加一个上标   sub 添加一个下标     push push的对象">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-09-15T00:39:09.000Z">
+<meta property="article:modified_time" content="2023-09-15T02:31:24.923Z">
+<meta property="article:author" content="whoseJam">
+<meta property="article:tag" content="sd">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://whosejam.github.io/2023/09/15/sd%E5%AE%B9%E5%99%A8-latex/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="whoseJam" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    <link href="//cdn.jsdelivr.net/npm/katex@0.9.0/dist/katex.min.css" rel="stylesheet">
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.2"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+
+<body class="main-center theme-green" itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/whosejam" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">whoseJam</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> </small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/whosejam" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/" rel="tag">CMake</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ICPC/" rel="tag">ICPC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLVM/" rel="tag">LLVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP-IP/" rel="tag">TCP/IP</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flex/" rel="tag">flex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/netcat/" rel="tag">netcat</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pymysql/" rel="tag">pymysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sd/" rel="tag">sd</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/telnet/" rel="tag">telnet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/" rel="tag">vmware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" rel="tag">博弈论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" rel="tag">编译原理</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BE%A4%E8%AE%BA/" rel="tag">群论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E6%A6%82%E8%AE%BA/" rel="tag">航空航天概论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B8%B8%E8%AF%86/" rel="tag">计算机常识</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a><span class="tag-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/C/" style="font-size: 13.2px;">C++</a> <a href="/tags/CMake/" style="font-size: 13px;">CMake</a> <a href="/tags/Docker/" style="font-size: 13px;">Docker</a> <a href="/tags/ICPC/" style="font-size: 13px;">ICPC</a> <a href="/tags/LLVM/" style="font-size: 13px;">LLVM</a> <a href="/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 13.6px;">MySQL</a> <a href="/tags/TCP-IP/" style="font-size: 13.6px;">TCP/IP</a> <a href="/tags/flex/" style="font-size: 13px;">flex</a> <a href="/tags/netcat/" style="font-size: 13px;">netcat</a> <a href="/tags/pymysql/" style="font-size: 13px;">pymysql</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/sd/" style="font-size: 13.8px;">sd</a> <a href="/tags/telnet/" style="font-size: 13px;">telnet</a> <a href="/tags/vmware/" style="font-size: 13px;">vmware</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 13px;">前端</a> <a href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" style="font-size: 13px;">博弈论</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 13px;">多线程</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 13.8px;">操作系统</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 13px;">爬虫</a> <a href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" style="font-size: 13.4px;">编译原理</a> <a href="/tags/%E7%BE%A4%E8%AE%BA/" style="font-size: 13px;">群论</a> <a href="/tags/%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E6%A6%82%E8%AE%BA/" style="font-size: 13px;">航空航天概论</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B8%B8%E8%AF%86/" style="font-size: 13px;">计算机常识</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 13px;">计算机网络</a> <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" style="font-size: 13.8px;">面向对象</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">九月 2023</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">八月 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">七月 2023</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">四月 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">三月 2023</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2023/09/15/sd%E5%AE%B9%E5%99%A8-latex/" class="title">sd容器-latex</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-09-15T00:39:09.000Z" itemprop="datePublished">2023-09-15</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2023/09/12/sd%E5%8A%A8%E7%94%BB%E7%B3%BB%E7%BB%9F/" class="title">sd动画系统</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-09-12T00:17:30.000Z" itemprop="datePublished">2023-09-12</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2023/09/11/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%863/" class="title">编译原理3</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-09-11T12:00:27.000Z" itemprop="datePublished">2023-09-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2023/09/11/sd%E5%AE%B9%E5%99%A8-box/" class="title">sd容器-box</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-09-11T09:04:28.000Z" itemprop="datePublished">2023-09-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2023/09/10/sd%E5%9F%BA%E7%A1%80%E5%85%83%E7%B4%A0/" class="title">sd基础元素</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-09-10T08:18:00.000Z" itemprop="datePublished">2023-09-10</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-sd容器-latex" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      sd容器-latex
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2023/09/15/sd%E5%AE%B9%E5%99%A8-latex/" class="article-date">
+	  <time datetime="2023-09-15T00:39:09.000Z" itemprop="datePublished">2023-09-15</time>
+	</a>
+</span>
+        
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/sd/" rel="tag">sd</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/09/15/sd%E5%AE%B9%E5%99%A8-latex/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="latex"><a class="markdownIt-Anchor" href="#latex"></a> Latex</h1>
+<p>Latex是盛放数学公式的容器</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>push</code></td>
+<td>推送一段“文本”到公式的末尾，下文会详细描述“文本”可以是什么</td>
+</tr>
+<tr>
+<td><code>lfloor</code></td>
+<td>添加一个<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">⌊</mo></mrow><annotation encoding="application/x-tex">\lfloor</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⌊</span></span></span></span>到公式的末尾</td>
+</tr>
+<tr>
+<td><code>rfloor</code></td>
+<td>添加一个<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">⌋</mo></mrow><annotation encoding="application/x-tex">\rfloor</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mclose">⌋</span></span></span></span>到公式的末尾</td>
+</tr>
+<tr>
+<td><code>equiv</code></td>
+<td>添加一个<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≡</mo></mrow><annotation encoding="application/x-tex">\equiv</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.46375em;vertical-align:0em;"></span><span class="mrel">≡</span></span></span></span>到公式的末尾</td>
+</tr>
+<tr>
+<td><code>sup</code></td>
+<td>添加一个上标</td>
+</tr>
+<tr>
+<td><code>sub</code></td>
+<td>添加一个下标</td>
+</tr>
+</tbody>
+</table>
+<h1 id="push"><a class="markdownIt-Anchor" href="#push"></a> push</h1>
+<p><code>push</code>的对象可以是一段字符串，可以是任意具有<code>font_size</code>方法的对象，还可以是另外一个Latex对象，下图分别展示了这三种情况：</p>
+<pre class="highlight"><code class="js"><span class="hljs-keyword">let</span> <span class="hljs-title class_">AplusB</span> = sd.<span class="hljs-title class_">Latex</span>()
+	.<span class="hljs-title function_">push</span>(<span class="hljs-string">"a"</span>)
+	.<span class="hljs-title function_">push</span>(<span class="hljs-string">"+"</span>)
+    .<span class="hljs-title function_">push</span>(<span class="hljs-string">"b"</span>);
+<span class="hljs-keyword">let</span> <span class="hljs-title class_">ImageplusRect</span> = sd.<span class="hljs-title class_">Latex</span>()
+	.<span class="hljs-title function_">push</span>(<span class="hljs-title class_">ImageRect</span>())
+    .<span class="hljs-title function_">push</span>(<span class="hljs-string">"+"</span>)
+    .<span class="hljs-title function_">push</span>(<span class="hljs-title class_">TextRect</span>().<span class="hljs-title function_">color</span>(C.<span class="hljs-property">RED</span>));
+<span class="hljs-keyword">let</span> <span class="hljs-title class_">CplusD</span> = sd.<span class="hljs-title class_">Latex</span>()
+   	.<span class="hljs-title function_">push</span>(<span class="hljs-string">"c"</span>)
+    .<span class="hljs-title function_">push</span>(<span class="hljs-string">"+"</span>)
+    .<span class="hljs-title function_">push</span>(<span class="hljs-string">"d"</span>)
+    .<span class="hljs-title function_">push</span>(<span class="hljs-string">"="</span>)
+	.<span class="hljs-title function_">push</span>(<span class="hljs-title class_">AplusB</span>);
+</code></pre>
+<iframe src="latex_intro" width="100%" height="300" frameborder="0" loading="lazy" allowfullscreen></iframe>
+<h1 id="符号"><a class="markdownIt-Anchor" href="#符号"></a> 符号</h1>
+<p>在Latex中有各种数学符号，例如<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">⌊</mo></mrow><annotation encoding="application/x-tex">\lfloor</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⌊</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≡</mo></mrow><annotation encoding="application/x-tex">\equiv</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.46375em;vertical-align:0em;"></span><span class="mrel">≡</span></span></span></span>，直接调用对应函数就可以在字符串末尾添加一个对应的符号，如下图所示：</p>
+<pre class="highlight"><code class="js"><span class="hljs-keyword">let</span> eq = sd.<span class="hljs-title class_">Latex</span>(svg)
+	.<span class="hljs-title function_">lfloor</span>()
+	.<span class="hljs-title function_">push</span>(<span class="hljs-string">"c"</span>)
+	.<span class="hljs-title function_">push</span>(<span class="hljs-string">"/"</span>)
+	.<span class="hljs-title function_">push</span>(<span class="hljs-string">"d"</span>)
+	.<span class="hljs-title function_">rfloor</span>()
+	.<span class="hljs-title function_">equiv</span>()
+	.<span class="hljs-title function_">push</span>(<span class="hljs-string">"1"</span>);
+</code></pre>
+<iframe src="latex_symbol" width="100%" height="300" frameborder="0" loading="lazy" allowfullscreen></iframe>
+<h1 id="supsub"><a class="markdownIt-Anchor" href="#supsub"></a> sup/sub</h1>
+<p><code>sup</code>和<code>sub</code>分别用来定义上标和下标，上标和下标既可以是一个字符串，也可以是任意具有<code>font_size</code>方法的对象，还可以是另一个Latex对象，如下图所示：</p>
+<pre class="highlight"><code class="js"><span class="hljs-keyword">let</span> exp1 = sd.<span class="hljs-title class_">Latex</span>(svg)
+    .<span class="hljs-title function_">push</span>(<span class="hljs-string">"("</span>)
+    .<span class="hljs-title function_">push</span>(<span class="hljs-string">"a"</span>)
+    .<span class="hljs-title function_">push</span>(<span class="hljs-string">"+"</span>)
+    .<span class="hljs-title function_">push</span>(<span class="hljs-string">"b"</span>)
+    .<span class="hljs-title function_">push</span>(<span class="hljs-string">")"</span>)
+    .<span class="hljs-title function_">sup</span>(<span class="hljs-string">"c"</span>);
+<span class="hljs-keyword">let</span> exp2 = sd.<span class="hljs-title class_">Latex</span>(svg)
+	.<span class="hljs-title function_">push</span>(<span class="hljs-string">"("</span>)
+	.<span class="hljs-title function_">push</span>(sd.<span class="hljs-title class_">Latex</span>(svg).<span class="hljs-title function_">push</span>(<span class="hljs-string">"a"</span>).<span class="hljs-title function_">sub</span>(<span class="hljs-string">"i,k"</span>).<span class="hljs-title function_">sup</span>(<span class="hljs-string">"F"</span>))
+	.<span class="hljs-title function_">push</span>(<span class="hljs-string">"+"</span>)
+	.<span class="hljs-title function_">push</span>(sd.<span class="hljs-title class_">Latex</span>(svg).<span class="hljs-title function_">push</span>(<span class="hljs-string">"b"</span>).<span class="hljs-title function_">sub</span>(<span class="hljs-string">"k,j"</span>).<span class="hljs-title function_">sup</span>(<span class="hljs-string">"G"</span>))
+	.<span class="hljs-title function_">push</span>(<span class="hljs-string">")"</span>)
+</code></pre>
+<iframe src="latex_supb" width="100%" height="300" frameborder="0" loading="lazy" allowfullscreen></iframe>
+<h1 id="frac"><a class="markdownIt-Anchor" href="#frac"></a> frac</h1>
+<p>即类似<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>a</mi><mi>b</mi></mfrac></mrow><annotation encoding="application/x-tex">\frac a b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.040392em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.695392em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>的效果，如下图所示</p>
+<pre class="highlight"><code class="js"><span class="hljs-keyword">let</span> exp = sd.<span class="hljs-title class_">Latex</span>(svg)
+	.<span class="hljs-title function_">frac</span>(<span class="hljs-string">"c"</span>, <span class="hljs-string">"d"</span>)
+	.<span class="hljs-title function_">push</span>(<span class="hljs-string">"+"</span>)
+	.<span class="hljs-title function_">frac</span>(sd.<span class="hljs-title class_">Latex</span>(svg).<span class="hljs-title function_">push</span>(<span class="hljs-string">"a"</span>).<span class="hljs-title function_">push</span>(<span class="hljs-string">"+"</span>).<span class="hljs-title function_">push</span>(<span class="hljs-string">"b"</span>), 
+          sd.<span class="hljs-title class_">Latex</span>(svg).<span class="hljs-title function_">push</span>(<span class="hljs-string">"e"</span>).<span class="hljs-title function_">push</span>(<span class="hljs-string">"+"</span>).<span class="hljs-title function_">push</span>(<span class="hljs-string">"f"</span>))
+    .<span class="hljs-title function_">push</span>(<span class="hljs-string">"="</span>)
+    .<span class="hljs-title function_">push</span>(<span class="hljs-string">"1"</span>);
+</code></pre>
+<iframe src="latex_frac" width="100%" height="300" frameborder="0" loading="lazy" allowfullscreen></iframe>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://whosejam.github.io/2023/09/15/sd%E5%AE%B9%E5%99%A8-latex/" title="sd容器-latex" target="_blank" rel="external">http://whosejam.github.io/2023/09/15/sd容器-latex/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/whosejam" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/whosejam" target="_blank"><span class="text-dark">whoseJam</span><small class="ml-1x"></small></a></h3>
+        <div></div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2023/09/12/sd%E5%8A%A8%E7%94%BB%E7%B3%BB%E7%BB%9F/" title="sd动画系统"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/whosejam" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+<!-- hexo injector body_end start -->
+    <script src="/js/whosejam.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <script>
+        hljs.configure({
+            tabReplace: '    ',
+            classPrefix: ''
+        });
+        hljs.initHighlightingOnLoad();
+    </script><!-- hexo injector body_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+</html>
