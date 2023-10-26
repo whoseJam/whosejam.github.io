@@ -17,16 +17,16 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>编译原理3 | uselessName</title>
-  <meta name="description" content="LLVM-IR 结构 LLVM IR文件的基本单位称为module，一个module中可以拥有多个顶层实体（比如function和global variable） 一个function define里面至少有一个basicblock，每个basicblock中有若干instruction，并且都以terminator instruction结尾 例子 @a &#x3D; global i3">
+  <title>编译原理3-LLVM | uselessName</title>
+  <meta name="description" content="LLVM-IR  结构 LLVM IR文件的基本单位称为module，一个module中可以拥有多个顶层实体（比如function和global variable） 一个function define里面至少有一个basicblock，每个basicblock中有若干instruction，并且都以terminator instruction结尾  例子 @a &#x3D; global i32 5  d">
 <meta property="og:type" content="article">
-<meta property="og:title" content="编译原理3">
+<meta property="og:title" content="编译原理3-LLVM">
 <meta property="og:url" content="http://whosejam.github.io/2023/09/11/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%863/index.html">
 <meta property="og:site_name" content="whoseJam">
-<meta property="og:description" content="LLVM-IR 结构 LLVM IR文件的基本单位称为module，一个module中可以拥有多个顶层实体（比如function和global variable） 一个function define里面至少有一个basicblock，每个basicblock中有若干instruction，并且都以terminator instruction结尾 例子 @a &#x3D; global i3">
+<meta property="og:description" content="LLVM-IR  结构 LLVM IR文件的基本单位称为module，一个module中可以拥有多个顶层实体（比如function和global variable） 一个function define里面至少有一个basicblock，每个basicblock中有若干instruction，并且都以terminator instruction结尾  例子 @a &#x3D; global i32 5  d">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-09-11T12:00:27.000Z">
-<meta property="article:modified_time" content="2023-09-11T12:36:10.190Z">
+<meta property="article:modified_time" content="2023-09-18T06:59:17.577Z">
 <meta property="article:author" content="whoseJam">
 <meta property="article:tag" content="编译原理">
 <meta property="article:tag" content="LLVM">
@@ -215,7 +215,7 @@
   <div class="widget">
     <h3 class="widget-title">标签</h3>
     <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/" rel="tag">CMake</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ICPC/" rel="tag">ICPC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLVM/" rel="tag">LLVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP-IP/" rel="tag">TCP/IP</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flex/" rel="tag">flex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/netcat/" rel="tag">netcat</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pymysql/" rel="tag">pymysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sd/" rel="tag">sd</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/telnet/" rel="tag">telnet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/" rel="tag">vmware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" rel="tag">博弈论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" rel="tag">编译原理</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BE%A4%E8%AE%BA/" rel="tag">群论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E6%A6%82%E8%AE%BA/" rel="tag">航空航天概论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B8%B8%E8%AF%86/" rel="tag">计算机常识</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a><span class="tag-list-count">5</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/" rel="tag">CMake</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ICPC/" rel="tag">ICPC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLVM/" rel="tag">LLVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/" rel="tag">SQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP-IP/" rel="tag">TCP/IP</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flex/" rel="tag">flex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/netcat/" rel="tag">netcat</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pymysql/" rel="tag">pymysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sd/" rel="tag">sd</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/telnet/" rel="tag">telnet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/" rel="tag">vmware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" rel="tag">博弈论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%90%9C%E7%B4%A2/" rel="tag">搜索</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" rel="tag">编译原理</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BE%A4%E8%AE%BA/" rel="tag">群论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E6%A6%82%E8%AE%BA/" rel="tag">航空航天概论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B8%B8%E8%AF%86/" rel="tag">计算机常识</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a><span class="tag-list-count">5</span></li></ul>
     </div>
   </div>
 
@@ -225,7 +225,7 @@
   <div class="widget">
     <h3 class="widget-title">标签云</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/C/" style="font-size: 13.2px;">C++</a> <a href="/tags/CMake/" style="font-size: 13px;">CMake</a> <a href="/tags/Docker/" style="font-size: 13px;">Docker</a> <a href="/tags/ICPC/" style="font-size: 13px;">ICPC</a> <a href="/tags/LLVM/" style="font-size: 13px;">LLVM</a> <a href="/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 13.6px;">MySQL</a> <a href="/tags/TCP-IP/" style="font-size: 13.6px;">TCP/IP</a> <a href="/tags/flex/" style="font-size: 13px;">flex</a> <a href="/tags/netcat/" style="font-size: 13px;">netcat</a> <a href="/tags/pymysql/" style="font-size: 13px;">pymysql</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/sd/" style="font-size: 13.8px;">sd</a> <a href="/tags/telnet/" style="font-size: 13px;">telnet</a> <a href="/tags/vmware/" style="font-size: 13px;">vmware</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 13px;">前端</a> <a href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" style="font-size: 13px;">博弈论</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 13px;">多线程</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 13.8px;">操作系统</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 13px;">爬虫</a> <a href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" style="font-size: 13.4px;">编译原理</a> <a href="/tags/%E7%BE%A4%E8%AE%BA/" style="font-size: 13px;">群论</a> <a href="/tags/%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E6%A6%82%E8%AE%BA/" style="font-size: 13px;">航空航天概论</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B8%B8%E8%AF%86/" style="font-size: 13px;">计算机常识</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 13px;">计算机网络</a> <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" style="font-size: 13.8px;">面向对象</a>
+      <a href="/tags/C/" style="font-size: 13.2px;">C++</a> <a href="/tags/CMake/" style="font-size: 13px;">CMake</a> <a href="/tags/Docker/" style="font-size: 13px;">Docker</a> <a href="/tags/ICPC/" style="font-size: 13px;">ICPC</a> <a href="/tags/LLVM/" style="font-size: 13px;">LLVM</a> <a href="/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 13.6px;">MySQL</a> <a href="/tags/SQL/" style="font-size: 13px;">SQL</a> <a href="/tags/TCP-IP/" style="font-size: 13.6px;">TCP/IP</a> <a href="/tags/flex/" style="font-size: 13px;">flex</a> <a href="/tags/netcat/" style="font-size: 13px;">netcat</a> <a href="/tags/pymysql/" style="font-size: 13px;">pymysql</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/sd/" style="font-size: 13.8px;">sd</a> <a href="/tags/telnet/" style="font-size: 13px;">telnet</a> <a href="/tags/vmware/" style="font-size: 13px;">vmware</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 13px;">前端</a> <a href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" style="font-size: 13px;">博弈论</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 13px;">多线程</a> <a href="/tags/%E6%90%9C%E7%B4%A2/" style="font-size: 13.4px;">搜索</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 13.8px;">操作系统</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 13.2px;">数据库</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 13px;">爬虫</a> <a href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" style="font-size: 13.6px;">编译原理</a> <a href="/tags/%E7%BE%A4%E8%AE%BA/" style="font-size: 13px;">群论</a> <a href="/tags/%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E6%A6%82%E8%AE%BA/" style="font-size: 13px;">航空航天概论</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B8%B8%E8%AF%86/" style="font-size: 13px;">计算机常识</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 13px;">计算机网络</a> <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" style="font-size: 13.8px;">面向对象</a>
     </div>
   </div>
 
@@ -234,7 +234,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">九月 2023</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">八月 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">七月 2023</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">四月 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">三月 2023</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">十月 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">九月 2023</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">八月 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">七月 2023</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">四月 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">三月 2023</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -253,10 +253,10 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2023/09/15/sd%E5%AE%B9%E5%99%A8-latex/" class="title">sd容器-latex</a>
+                <a href="/2023/10/26/%E7%A6%81%E5%BF%8C%E6%90%9C%E7%B4%A2/" class="title">禁忌搜索</a>
               </p>
               <p class="item-date">
-                <time datetime="2023-09-15T00:39:09.000Z" itemprop="datePublished">2023-09-15</time>
+                <time datetime="2023-10-26T09:02:04.000Z" itemprop="datePublished">2023-10-26</time>
               </p>
             </div>
           </li>
@@ -268,10 +268,10 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2023/09/12/sd%E5%8A%A8%E7%94%BB%E7%B3%BB%E7%BB%9F/" class="title">sd动画系统</a>
+                <a href="/2023/10/26/%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB/" class="title">模拟退火</a>
               </p>
               <p class="item-date">
-                <time datetime="2023-09-12T00:17:30.000Z" itemprop="datePublished">2023-09-12</time>
+                <time datetime="2023-10-26T08:49:32.000Z" itemprop="datePublished">2023-10-26</time>
               </p>
             </div>
           </li>
@@ -283,10 +283,10 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2023/09/11/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%863/" class="title">编译原理3</a>
+                <a href="/2023/10/26/%E7%88%AC%E5%B1%B1%E7%AE%97%E6%B3%95/" class="title">爬山算法</a>
               </p>
               <p class="item-date">
-                <time datetime="2023-09-11T12:00:27.000Z" itemprop="datePublished">2023-09-11</time>
+                <time datetime="2023-10-26T08:22:27.000Z" itemprop="datePublished">2023-10-26</time>
               </p>
             </div>
           </li>
@@ -298,10 +298,10 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2023/09/11/sd%E5%AE%B9%E5%99%A8-box/" class="title">sd容器-box</a>
+                <a href="/2023/10/18/SQL/" class="title">SQL</a>
               </p>
               <p class="item-date">
-                <time datetime="2023-09-11T09:04:28.000Z" itemprop="datePublished">2023-09-11</time>
+                <time datetime="2023-10-18T07:43:16.000Z" itemprop="datePublished">2023-10-18</time>
               </p>
             </div>
           </li>
@@ -313,10 +313,10 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2023/09/10/sd%E5%9F%BA%E7%A1%80%E5%85%83%E7%B4%A0/" class="title">sd基础元素</a>
+                <a href="/2023/10/18/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" class="title">数据库基本概念</a>
               </p>
               <p class="item-date">
-                <time datetime="2023-09-10T08:18:00.000Z" itemprop="datePublished">2023-09-10</time>
+                <time datetime="2023-10-18T07:33:21.000Z" itemprop="datePublished">2023-10-18</time>
               </p>
             </div>
           </li>
@@ -341,7 +341,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      编译原理3
+      编译原理3-LLVM
     </h1>
   
 
@@ -369,16 +369,12 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="llvm-ir">LLVM-IR</h1>
-<h2 id="结构">结构</h2>
-<p>LLVM
-IR文件的基本单位称为module，一个module中可以拥有多个顶层实体（比如function和global
-variable）</p>
-<p>一个function
-define里面至少有一个basicblock，每个basicblock中有若干instruction，并且都以terminator
-instruction结尾</p>
-<h2 id="例子">例子</h2>
-<pre><code>@a = global i32 5
+        <h1 id="llvm-ir"><a class="markdownIt-Anchor" href="#llvm-ir"></a> LLVM-IR</h1>
+<h2 id="结构"><a class="markdownIt-Anchor" href="#结构"></a> 结构</h2>
+<p>LLVM IR文件的基本单位称为module，一个module中可以拥有多个顶层实体（比如function和global variable）</p>
+<p>一个function define里面至少有一个basicblock，每个basicblock中有若干instruction，并且都以terminator instruction结尾</p>
+<h2 id="例子"><a class="markdownIt-Anchor" href="#例子"></a> 例子</h2>
+<pre class="highlight"><code class>@a = global i32 5
 
 define i32 @foo(i32 %0, i32 %1)  &#123;
   %3 = alloca i32
@@ -408,64 +404,64 @@ define i32 @main() &#123;
   %5 = call i32 @foo(i32 %3, i32 %4)
 
   ret i32 %5
-&#125;</code></pre>
-<h2 id="全局变量与局部变量">全局变量与局部变量</h2>
+&#125;
+</code></pre>
+<h2 id="全局变量与局部变量"><a class="markdownIt-Anchor" href="#全局变量与局部变量"></a> 全局变量与局部变量</h2>
 <p>全局变量和局部变量用前缀作为区分，全局变量和函数名以<code>@</code>为前缀，局部变量以<code>%</code>为前缀</p>
 <p>局部变量的作用域为单个函数，两个不同局部变量的<code>%1</code>指代不同的内容</p>
-<h2 id="函数定义">函数定义</h2>
-<pre><code>define i32 @main() &#123;
-    ret i32 0
+<h2 id="函数定义"><a class="markdownIt-Anchor" href="#函数定义"></a> 函数定义</h2>
+<pre class="highlight"><code class>define i32 @main() &#123;
+	ret i32 0
 &#125;
 define i32 @foo(i32 %a, i32 %b) &#123;
-    return i32 0
-&#125;</code></pre>
-<h2 id="函数声明">函数声明</h2>
+	return i32 0
+&#125;
+</code></pre>
+<h2 id="函数声明"><a class="markdownIt-Anchor" href="#函数声明"></a> 函数声明</h2>
 <p>我们在一个module里，如果想要调用别的模块的函数，就需要在本模块先声明这个函数</p>
-<pre><code>declare i32 @getint()
+<pre class="highlight"><code class>declare i32 @getint()
 declare i32 @getarray(i32*)
 declare i32 @getch()
 declare void @putint(i32)
 declare void @putch(i32)
-declare void @putarray(i32,i32*)</code></pre>
-<h2 id="基本块">基本块</h2>
+declare void @putarray(i32,i32*)
+</code></pre>
+<h2 id="基本块"><a class="markdownIt-Anchor" href="#基本块"></a> 基本块</h2>
 <p>一个基本块是包含了若干指令和一个终结指令的代码序列</p>
 <p>基本块只会从终结指令退出，并且基本块的执行是原子性的，这个约束<strong>是通过代码的语义实现的</strong>。基本块内部没有控制流，控制流是多个基本块直接通过跳转指令实现的</p>
-<h2 id="指令">指令</h2>
-<p>指令是LLVM
-IR中的非分支指令，通常用来进行某种计算或者是访存，这些指令不会改变程序的控制流</p>
+<h2 id="指令"><a class="markdownIt-Anchor" href="#指令"></a> 指令</h2>
+<p>指令是LLVM IR中的非分支指令，通常用来进行某种计算或者是访存，这些指令不会改变程序的控制流</p>
 <p>call指令也是非分支指令（仅仅是跳转，没有分支）</p>
-<h2 id="类型">类型</h2>
+<h2 id="类型"><a class="markdownIt-Anchor" href="#类型"></a> 类型</h2>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>类型</th>
 <th>描述</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>void</td>
 <td>不代表值，不占用空间，占位用</td>
 </tr>
-<tr class="even">
-<td>i1/i32...</td>
+<tr>
+<td>i1/i32…</td>
 <td>表示1bit/32bit长的integer</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>label</td>
 <td>标签类型，用作代码标签，跳转时用</td>
 </tr>
 </tbody>
 </table>
-<h1 id="ssa">SSA</h1>
-<p><strong>静态单赋值（Static Single
-Assignment，SSA）</strong>是编译器中间表示中非常重要的一个概念，它是一种变量的命名约定。当程序中每个变量有且仅有一个赋值语句时，称一个程序是SSA形式的</p>
-<p>在LLVM
-IR中，每个变量在使用前都必须被定义，且每个变量只能被赋值一次</p>
+<h1 id="ssa"><a class="markdownIt-Anchor" href="#ssa"></a> SSA</h1>
+<p>**静态单赋值（Static Single Assignment，SSA）**是编译器中间表示中非常重要的一个概念，它是一种变量的命名约定。当程序中每个变量有且仅有一个赋值语句时，称一个程序是SSA形式的</p>
+<p>在LLVM IR中，每个变量在使用前都必须被定义，且每个变量只能被赋值一次</p>
 <p>有的时候生成SSA不太方便，就是会出现本质为变量重新赋值的情况，我们有两种解决方案</p>
-<h3 id="phi">phi</h3>
+<h3 id="phi"><a class="markdownIt-Anchor" href="#phi"></a> phi</h3>
 <p>TODO</p>
-<h3 id="memory">memory</h3>
+<h3 id="memory"><a class="markdownIt-Anchor" href="#memory"></a> memory</h3>
 <p>利用对一个局部变量进行多次load/store操作，利用内存不要求是SSA形式的特点来妥协，但是把每次变量的存取都变成了访存操作，导致严重的性能问题</p>
 
       
@@ -476,7 +472,7 @@ IR中，每个变量在使用前都必须被定义，且每个变量只能被赋
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://whosejam.github.io/2023/09/11/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%863/" title="编译原理3" target="_blank" rel="external">http://whosejam.github.io/2023/09/11/编译原理3/</a>
+      <a href="http://whosejam.github.io/2023/09/11/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%863/" title="编译原理3-LLVM" target="_blank" rel="external">http://whosejam.github.io/2023/09/11/编译原理3/</a>
     </li>
     
     <li class="post-copyright-license">

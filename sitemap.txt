@@ -1,9 +1,16 @@
+http://whosejam.github.io/2023/10/26/%E7%A6%81%E5%BF%8C%E6%90%9C%E7%B4%A2/
+http://whosejam.github.io/2023/10/26/%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB/
+http://whosejam.github.io/2023/10/26/%E7%88%AC%E5%B1%B1%E7%AE%97%E6%B3%95/
+http://whosejam.github.io/2023/02/04/MySQL%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/
+http://whosejam.github.io/2023/10/18/SQL/
+http://whosejam.github.io/2023/10/18/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/
+http://whosejam.github.io/2023/09/18/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%864/
+http://whosejam.github.io/2023/09/11/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%863/
 http://whosejam.github.io/2023/09/15/sd%E5%AE%B9%E5%99%A8-latex/
 http://whosejam.github.io/2023/09/06/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%862/
 http://whosejam.github.io/2023/08/25/Animation-System-in-Slide/
 http://whosejam.github.io/2023/09/11/sd%E5%AE%B9%E5%99%A8-box/
 http://whosejam.github.io/2023/09/12/sd%E5%8A%A8%E7%94%BB%E7%B3%BB%E7%BB%9F/
-http://whosejam.github.io/2023/09/11/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%863/
 http://whosejam.github.io/2023/09/10/sd%E5%9F%BA%E7%A1%80%E5%85%83%E7%B4%A0/
 http://whosejam.github.io/2023/08/28/CS144-Lab3/
 http://whosejam.github.io/2023/08/04/CS144-Lab1/
@@ -51,7 +58,6 @@ http://whosejam.github.io/2023/03/17/UML%E7%B1%BB%E5%9B%BE/
 http://whosejam.github.io/2023/03/14/%E6%AE%B5%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/
 http://whosejam.github.io/2023/03/14/%E5%A4%A7%E6%B0%94/
 http://whosejam.github.io/2023/03/17/%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F/
-http://whosejam.github.io/2023/02/04/MySQL%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/
 http://whosejam.github.io/2023/01/10/%E5%A4%84%E7%90%86%E5%99%A8%E6%9E%B6%E6%9E%84/
 http://whosejam.github.io/2023/01/10/hello-world/
 http://whosejam.github.io/
@@ -81,3 +87,6 @@ http://whosejam.github.io/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/
 http://whosejam.github.io/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/
 http://whosejam.github.io/tags/LLVM/
 http://whosejam.github.io/tags/%E7%BE%A4%E8%AE%BA/
+http://whosejam.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/
+http://whosejam.github.io/tags/SQL/
+http://whosejam.github.io/tags/%E6%90%9C%E7%B4%A2/
