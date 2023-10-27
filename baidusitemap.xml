@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://whosejam.github.io/2023/10/27/OptaPlanner%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</loc>
+    <lastmod>2023-10-27</lastmod>
+  </url>
+  <url>
+    <loc>http://whosejam.github.io/2023/10/27/ContinuousPlanning/</loc>
+    <lastmod>2023-10-27</lastmod>
+  </url>
+  <url>
+    <loc>http://whosejam.github.io/2023/10/27/OverconstraintPlanning/</loc>
+    <lastmod>2023-10-27</lastmod>
+  </url>
+  <url>
+    <loc>http://whosejam.github.io/2023/10/27/OptaPlanner%E9%82%BB%E5%9F%9F%E6%90%9C%E7%B4%A2/</loc>
+    <lastmod>2023-10-27</lastmod>
+  </url>
+  <url>
     <loc>http://whosejam.github.io/2023/10/26/%E7%A6%81%E5%BF%8C%E6%90%9C%E7%B4%A2/</loc>
     <lastmod>2023-10-26</lastmod>
   </url>
