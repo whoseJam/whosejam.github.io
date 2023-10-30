@@ -1,7 +1,9 @@
+http://whosejam.github.io/2023/03/27/VMWare%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9/
+http://whosejam.github.io/2023/10/29/EIIE/
+http://whosejam.github.io/2023/10/27/OptaPlanner%E9%82%BB%E5%9F%9F%E6%90%9C%E7%B4%A2/
 http://whosejam.github.io/2023/10/27/OptaPlanner%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/
 http://whosejam.github.io/2023/10/27/ContinuousPlanning/
 http://whosejam.github.io/2023/10/27/OverconstraintPlanning/
-http://whosejam.github.io/2023/10/27/OptaPlanner%E9%82%BB%E5%9F%9F%E6%90%9C%E7%B4%A2/
 http://whosejam.github.io/2023/10/26/%E7%A6%81%E5%BF%8C%E6%90%9C%E7%B4%A2/
 http://whosejam.github.io/2023/10/26/%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB/
 http://whosejam.github.io/2023/10/26/%E7%88%AC%E5%B1%B1%E7%AE%97%E6%B3%95/
@@ -51,7 +53,6 @@ http://whosejam.github.io/2023/01/22/Docker/
 http://whosejam.github.io/2023/03/27/MySQL%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/
 http://whosejam.github.io/2023/03/29/TryXPath/
 http://whosejam.github.io/2023/03/27/MySQL-Server%E5%AE%89%E8%A3%85/
-http://whosejam.github.io/2023/03/27/VMWare%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9/
 http://whosejam.github.io/2023/03/23/source-list/
 http://whosejam.github.io/2023/03/22/PPA/
 http://whosejam.github.io/2023/03/23/shell/
