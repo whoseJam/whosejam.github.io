@@ -1,3 +1,14 @@
+http://whosejam.github.io/2023/11/14/DataLayer-in-FinRL/
+http://whosejam.github.io/2023/11/13/HttpAPI/
+http://whosejam.github.io/2023/11/12/PG/
+http://whosejam.github.io/2023/11/10/ClassLoader/
+http://whosejam.github.io/2023/11/09/torch%E9%9A%8F%E6%89%8B%E8%AE%B0%E5%BD%95/
+http://whosejam.github.io/2023/11/09/Java%E5%8F%8D%E5%B0%84/
+http://whosejam.github.io/2023/11/09/Java%E6%B3%A8%E8%A7%A3/
+http://whosejam.github.io/2023/10/27/OptaPlanner%E9%82%BB%E5%9F%9F%E6%90%9C%E7%B4%A2/
+http://whosejam.github.io/2023/11/04/Optaplanner%E9%82%BB%E5%9F%9F%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95/
+http://whosejam.github.io/2023/11/03/%E6%96%B9%E5%B7%AE%E4%B8%8E%E5%8D%8F%E6%96%B9%E5%B7%AE/
+http://whosejam.github.io/2023/11/03/Value-at-Risk/
 http://whosejam.github.io/2023/11/03/Portfolio-Management/
 http://whosejam.github.io/2023/11/03/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E5%AD%90%E6%B3%95/
 http://whosejam.github.io/2023/10/31/MLP/
@@ -9,7 +20,6 @@ http://whosejam.github.io/2023/10/31/RL-in-Trading/
 http://whosejam.github.io/2023/10/31/MMCV-Config%E7%BB%84%E4%BB%B6/
 http://whosejam.github.io/2023/03/27/VMWare%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9/
 http://whosejam.github.io/2023/10/29/EIIE/
-http://whosejam.github.io/2023/10/27/OptaPlanner%E9%82%BB%E5%9F%9F%E6%90%9C%E7%B4%A2/
 http://whosejam.github.io/2023/10/27/OptaPlanner%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/
 http://whosejam.github.io/2023/10/27/ContinuousPlanning/
 http://whosejam.github.io/2023/10/27/OverconstraintPlanning/
@@ -108,3 +118,8 @@ http://whosejam.github.io/tags/LLVM/
 http://whosejam.github.io/tags/%E7%BE%A4%E8%AE%BA/
 http://whosejam.github.io/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/
 http://whosejam.github.io/tags/%E6%9C%80%E4%BC%98%E5%8C%96/
+http://whosejam.github.io/tags/Java/
+http://whosejam.github.io/tags/FinRL/
+http://whosejam.github.io/tags/Optaplanner/
+http://whosejam.github.io/tags/torch/
+http://whosejam.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1/
