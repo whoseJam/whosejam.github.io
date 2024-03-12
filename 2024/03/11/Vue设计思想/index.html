@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Vue设计思想 | uselessName</title>
+  <meta name="description" content="Virtual DOM Tree 虚拟DOM为前端框架带来了跨平台的能力，是一层对真实DOM的抽象 在JS中，虚拟DOM是一个Object对象，并且至少包含tag，attrs和children三个属性，不同的框架对这三个属性的命名可能会有差别 通过VNode，Vue可以对抽象树进行创建节点，删除节点以及修改节点，经过diff算法得出一些需要修改的最小单位，再更新视图，减少了DOM操作，提高了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue设计思想">
+<meta property="og:url" content="http://whosejam.github.io/2024/03/11/Vue%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3/index.html">
+<meta property="og:site_name" content="whoseJam">
+<meta property="og:description" content="Virtual DOM Tree 虚拟DOM为前端框架带来了跨平台的能力，是一层对真实DOM的抽象 在JS中，虚拟DOM是一个Object对象，并且至少包含tag，attrs和children三个属性，不同的框架对这三个属性的命名可能会有差别 通过VNode，Vue可以对抽象树进行创建节点，删除节点以及修改节点，经过diff算法得出一些需要修改的最小单位，再更新视图，减少了DOM操作，提高了">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://whosejam.github.io/2024/03/11/Vue%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3/eb15ed6582a24138ba151f027f2d537.jpg">
+<meta property="og:image" content="http://whosejam.github.io/2024/03/11/Vue%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3/83308f80-d881-11ea-ae44-f5d67be454e7.png">
+<meta property="article:published_time" content="2024-03-11T09:01:31.000Z">
+<meta property="article:modified_time" content="2024-03-11T16:21:01.537Z">
+<meta property="article:author" content="whoseJam">
+<meta property="article:tag" content="前端">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://whosejam.github.io/2024/03/11/Vue%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3/eb15ed6582a24138ba151f027f2d537.jpg">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://whosejam.github.io/2024/03/11/Vue%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="whoseJam" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.2"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+
+<body class="main-center theme-green" itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/whosejam" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">whoseJam</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> </small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/whosejam" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/" rel="tag">CMake</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DRL/" rel="tag">DRL</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FinRL/" rel="tag">FinRL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ICPC/" rel="tag">ICPC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLVM/" rel="tag">LLVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MMCV/" rel="tag">MMCV</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS/" rel="tag">OS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OptaPlanner/" rel="tag">OptaPlanner</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Optaplanner/" rel="tag">Optaplanner</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RL/" rel="tag">RL</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/" rel="tag">SQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP-IP/" rel="tag">TCP/IP</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flex/" rel="tag">flex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/netcat/" rel="tag">netcat</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pymysql/" rel="tag">pymysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sd/" rel="tag">sd</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/telnet/" rel="tag">telnet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/torch/" rel="tag">torch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/" rel="tag">vmware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" rel="tag">信息论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" rel="tag">博弈论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%89%E5%85%A8/" rel="tag">安全</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%90%9C%E7%B4%A2/" rel="tag">搜索</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E4%BC%98%E5%8C%96/" rel="tag">最优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1/" rel="tag">概率统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag">神经网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" rel="tag">编译原理</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BE%A4%E8%AE%BA/" rel="tag">群论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E6%A6%82%E8%AE%BA/" rel="tag">航空航天概论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B8%B8%E8%AF%86/" rel="tag">计算机常识</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a><span class="tag-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/C/" style="font-size: 13.13px;">C++</a> <a href="/tags/CMake/" style="font-size: 13px;">CMake</a> <a href="/tags/DRL/" style="font-size: 13.88px;">DRL</a> <a href="/tags/Docker/" style="font-size: 13px;">Docker</a> <a href="/tags/FinRL/" style="font-size: 13.13px;">FinRL</a> <a href="/tags/ICPC/" style="font-size: 13px;">ICPC</a> <a href="/tags/Java/" style="font-size: 13.25px;">Java</a> <a href="/tags/LLVM/" style="font-size: 13px;">LLVM</a> <a href="/tags/Linux/" style="font-size: 13.75px;">Linux</a> <a href="/tags/MMCV/" style="font-size: 13px;">MMCV</a> <a href="/tags/MySQL/" style="font-size: 13.63px;">MySQL</a> <a href="/tags/OS/" style="font-size: 13px;">OS</a> <a href="/tags/OptaPlanner/" style="font-size: 13.38px;">OptaPlanner</a> <a href="/tags/Optaplanner/" style="font-size: 13px;">Optaplanner</a> <a href="/tags/RL/" style="font-size: 14px;">RL</a> <a href="/tags/SQL/" style="font-size: 13px;">SQL</a> <a href="/tags/TCP-IP/" style="font-size: 13.38px;">TCP/IP</a> <a href="/tags/flex/" style="font-size: 13px;">flex</a> <a href="/tags/netcat/" style="font-size: 13px;">netcat</a> <a href="/tags/pymysql/" style="font-size: 13px;">pymysql</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/sd/" style="font-size: 13.5px;">sd</a> <a href="/tags/telnet/" style="font-size: 13px;">telnet</a> <a href="/tags/torch/" style="font-size: 13px;">torch</a> <a href="/tags/vmware/" style="font-size: 13px;">vmware</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" style="font-size: 13px;">信息论</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 13.13px;">前端</a> <a href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" style="font-size: 13px;">博弈论</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 13px;">多线程</a> <a href="/tags/%E5%AE%89%E5%85%A8/" style="font-size: 13px;">安全</a> <a href="/tags/%E6%90%9C%E7%B4%A2/" style="font-size: 13.25px;">搜索</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 13.5px;">操作系统</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 13.13px;">数据库</a> <a href="/tags/%E6%9C%80%E4%BC%98%E5%8C%96/" style="font-size: 13px;">最优化</a> <a href="/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1/" style="font-size: 13px;">概率统计</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 13px;">爬虫</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 13px;">神经网络</a> <a href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" style="font-size: 13.38px;">编译原理</a> <a href="/tags/%E7%BE%A4%E8%AE%BA/" style="font-size: 13px;">群论</a> <a href="/tags/%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E6%A6%82%E8%AE%BA/" style="font-size: 13px;">航空航天概论</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B8%B8%E8%AF%86/" style="font-size: 13px;">计算机常识</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 13px;">计算机网络</a> <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" style="font-size: 13.5px;">面向对象</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">十一月 2023</a><span class="archive-list-count">23</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">十月 2023</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">九月 2023</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">八月 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">七月 2023</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">四月 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">三月 2023</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/03/12/MySQL%E4%BA%8B%E5%8A%A1/" class="title">MySQL事务</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-03-12T00:13:07.000Z" itemprop="datePublished">2024-03-12</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/03/12/MySQL%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3/" class="title">MySQL设计思想</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-03-12T00:06:20.000Z" itemprop="datePublished">2024-03-12</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/03/11/Vue%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3/" class="title">Vue设计思想</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-03-11T09:01:31.000Z" itemprop="datePublished">2024-03-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/03/10/%E5%8A%A0%E7%9B%90/" class="title">加盐</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-03-10T02:18:45.000Z" itemprop="datePublished">2024-03-10</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/03/09/setjmp-longjmp/" class="title">setjmp&amp;longjmp</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-03-09T15:14:17.000Z" itemprop="datePublished">2024-03-09</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-Vue设计思想" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Vue设计思想
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2024/03/11/Vue%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3/" class="article-date">
+	  <time datetime="2024-03-11T09:01:31.000Z" itemprop="datePublished">2024-03-11</time>
+	</a>
+</span>
+        
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2024/03/11/Vue%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="virtual-dom-tree">Virtual DOM Tree</h1>
+<p>虚拟DOM为前端框架带来了跨平台的能力，是一层对真实DOM的抽象</p>
+<p>在JS中，虚拟DOM是一个Object对象，并且至少包含tag，attrs和children三个属性，不同的框架对这三个属性的命名可能会有差别</p>
+<p>通过VNode，Vue可以对抽象树进行创建节点，删除节点以及修改节点，经过diff算法得出一些需要修改的最小单位，再更新视图，减少了DOM操作，提高了性能</p>
+<h1 id="性能问题">性能问题</h1>
+<p>一个真实的DOM节点，哪怕是一个最简单的div也包含很多属性，操作DOM的代价是昂贵的，频繁操作还是会出现页面卡顿，影响用户体验</p>
+<h3 id="举个例子">举个例子</h3>
+<p>用传统的原生API或jQuery去操作DOM时，浏览器会从构建DOM树开始从头到尾执行一遍流程</p>
+<p>当你在一次操作时，需要更新10个DOM节点，浏览器收到第一个更新DOM请求后，并不知道后续还有9个过呢更新操作，因此会马上执行流程，最终执行10次流程</p>
+<p>而通过VNode，同样更新10个DOM节点，虚拟DOM不会立即操作DOM，而是将这10次更新的diff内容保存到本地的一个js对象中，最终将这个js对象一次性attach到DOM树上，避免了大量的无谓计算</p>
+<h1 id="双向数据绑定">双向数据绑定</h1>
+<p>采用数据劫持，发布者订阅者模式，通过Proxy来劫持元素各个属性的setter和getter，在数据变动时发布消息给订阅者，触发相应的监听回调</p>
+<ul>
+<li>Observer观测需要被观测的对象，其数据对象被Vue递归遍历，包括子属性对象的属性，都加上setter和getter。那么对这个对象的某个值赋值，就会触发setter，就能<strong>监听到数据变化</strong></li>
+<li>Compile解析模板指令，将模板中的变量替换成数据，然后初始化渲染页面视图，并将每个指令对应的节点绑定更新函数，添加监听数据的订阅者，一旦数据有变动，<strong>收到通知，更新视图</strong></li>
+<li>Watcher，订阅者，是Observer和Compile之间的通信桥梁，主要工作：
+<ul>
+<li>在自身实例化时，往属性订阅<code>dep</code>中添加自己</li>
+<li>自身需要有一个update()方法</li>
+<li>等到属性发生变动，dep.notice()通知时，能调用自己的update()方法，并触发Compile中的回调</li>
+</ul></li>
+</ul>
+<p>MVVM作为数据绑定的入口，整合Observer，Compile和Watcher，通过Observer来监听自己的model数据变化，通过Compile来解析编译模板指令（whoseJam：相当于SD中的Rules），利用Watcher搭建起Observer和Compile的通信，最终实现：<strong>数据变化-&gt;视图更新</strong>，<strong>视图交互变化-&gt;数据更新</strong></p>
+<p><img src="/2024/03/11/Vue%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3/eb15ed6582a24138ba151f027f2d537.jpg" alt="eb15ed6582a24138ba151f027f2d537" style="zoom:50%;"></p>
+<h1 id="slot">slot</h1>
+<h2 id="默认插槽">默认插槽</h2>
+<pre class="vue"><code>//子组件 (假设名为ebutton)
+&lt;template&gt;
+  &lt;div class= &#39;button&#39;&gt;
+      &lt;button&gt;&lt;/button&gt;
+      &lt;slot&gt;SOME TEXT会显示在此处&lt;/slot&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+//父组件 (引用子组件ebutton)
+&lt;template&gt;
+  &lt;div class= &#39;app&#39;&gt;
+     &lt;ebutton&gt;SOME TEXT&lt;/ebutton&gt;
+  &lt;/div&gt;
+&lt;/template&gt;</code></pre>
+<h2 id="具名插槽">具名插槽</h2>
+<pre class="vue"><code>//子组件 (假设名为ebutton)
+&lt;template&gt;
+  &lt;div class= &#39;button&#39;&gt;
+      &lt;button&gt;  &lt;/button&gt;
+      &lt;slot name= &#39;one&#39;&gt; 这就是默认值1&lt;/slot&gt;
+      &lt;slot name=&#39;two&#39;&gt; 这就是默认值2 &lt;/slot&gt;
+      &lt;slot name=&#39;three&#39;&gt; 这就是默认值3 &lt;/slot&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+//父组件 (引用子组件ebutton)
+&lt;template&gt;
+  &lt;div class= &#39;app&#39;&gt;
+     &lt;ebutton&gt; 
+        &lt;template v-slot:one&gt; 这是插入到one插槽的内容 &lt;/template&gt;
+        &lt;template v-slot:two&gt; 这是插入到two插槽的内容 &lt;/template&gt;
+        &lt;template v-slot:three&gt; 这是插入到three插槽的内容 &lt;/template&gt;
+     &lt;/ebutton&gt;
+  &lt;/div&gt;
+&lt;/template&gt;</code></pre>
+<h1 id="nexttick">$nextTick</h1>
+<p>在下次DOM更新循环结束之后执行延迟回调，在修改数据之后立即使用这个方法，获取更新后的DOM</p>
+<ul>
+<li>Vue更新DOM是有策略的，不是同步更新</li>
+<li>nextTick以一个函数作为入参</li>
+<li>nextTick后能拿到最新的数据</li>
+</ul>
+<h2 id="js执行机制">JS执行机制</h2>
+<h3 id="同步与异步">同步与异步</h3>
+<ul>
+<li>同步：在主线程上排队执行的任务，只有一个任务执行完毕，才能执行后一个任务</li>
+<li>异步：不进入主线程，而进入任务队列，只有任务队列通知主线程，某个异步任务可以执行了，该任务才会进入主线程中执行</li>
+</ul>
+<h3 id="机制">机制</h3>
+<ul>
+<li>所有同步任务都在主线程上执行，形成一个执行栈（Execution Context
+Stack）</li>
+<li>主线程之外，还存在一个任务队列（Task
+Queue）。只要异步任务有了运行结果，就在任务队列里面放置一个事件</li>
+<li>一旦执行栈中的所有同步任务都执行完毕，系统就会读取任务队列，看看里面有哪些事件，那些对应的异步任务，就会结束等待状态，进入执行栈，开始执行</li>
+</ul>
+<p><img src="/2024/03/11/Vue%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3/83308f80-d881-11ea-ae44-f5d67be454e7.png" alt="image.png" style="zoom:50%;"></p>
+<h2 id="nexttick实现">nextTick实现</h2>
+<p>实现很简单，完全基于语言执行机制实现，直接创建一个异步任务，那么nextTick自然就达到在同步任务后执行的目的</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> p <span class="op">=</span> <span class="bu">Promise</span><span class="op">.</span><span class="fu">resolve</span>()<span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">function</span> <span class="fu">nextTick</span>(fn<span class="op">?:</span> () <span class="kw">=&gt;</span> <span class="kw">void</span>)<span class="op">:</span> <span class="bu">Promise</span><span class="op">&lt;</span><span class="kw">void</span><span class="op">&gt;</span> &#123;</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> fn <span class="op">?</span> p<span class="op">.</span><span class="fu">then</span>(fn) <span class="op">:</span> p<span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>&#125;</span></code></pre></div>
+<p><strong>数据修改过后不会立即更新的原因</strong>：有一个queueJob维护了所有effect，之后还需要对这些effect进行去重，减少计算量，等所有同步任务完成之后，再用nextTick来施加影响</p>
+<h1 id="单页面应用和多页面应用">单页面应用和多页面应用</h1>
+<p>SPA，SinglePage
+Aplication，只有一个主页，一开始只需要加载一次js，css等相关资源，所有内容都包含在主页面里，对每一个功能模块组件化。单页面应用跳转，就是切换相关组件，仅仅刷新局部资源</p>
+<p>MPA，MultiPage
+Application，指有多个独立页面的应用，每个页面必须重复加载js，css等相关资源，多页面应用的跳转，需要整页资源刷新</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://whosejam.github.io/2024/03/11/Vue%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3/" title="Vue设计思想" target="_blank" rel="external">http://whosejam.github.io/2024/03/11/Vue设计思想/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/whosejam" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/whosejam" target="_blank"><span class="text-dark">whoseJam</span><small class="ml-1x"></small></a></h3>
+        <div></div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2024/03/12/MySQL%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3/" title="MySQL设计思想"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2024/03/10/%E5%8A%A0%E7%9B%90/" title="加盐"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/whosejam" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+<!-- hexo injector body_end start -->
+    <script src="/js/whosejam.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <script>
+        hljs.configure({
+            tabReplace: '    ',
+            classPrefix: ''
+        });
+        hljs.initHighlightingOnLoad();
+    </script><!-- hexo injector body_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+</html>
