@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://whosejam.github.io/2024/03/15/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F/</loc>
+    <lastmod>2024-03-15</lastmod>
+  </url>
+  <url>
+    <loc>http://whosejam.github.io/2024/03/12/MySQL%E4%BA%8B%E5%8A%A1/</loc>
+    <lastmod>2024-03-15</lastmod>
+  </url>
+  <url>
+    <loc>http://whosejam.github.io/2023/11/18/DQN/</loc>
+    <lastmod>2024-03-15</lastmod>
+  </url>
+  <url>
+    <loc>http://whosejam.github.io/2023/11/20/A2C/</loc>
+    <lastmod>2024-03-15</lastmod>
+  </url>
+  <url>
+    <loc>http://whosejam.github.io/2023/11/20/A3C/</loc>
+    <lastmod>2024-03-15</lastmod>
+  </url>
+  <url>
+    <loc>http://whosejam.github.io/2023/11/20/PPO/</loc>
+    <lastmod>2024-03-15</lastmod>
+  </url>
+  <url>
+    <loc>http://whosejam.github.io/2023/11/20/TRPO/</loc>
+    <lastmod>2024-03-15</lastmod>
+  </url>
+  <url>
+    <loc>http://whosejam.github.io/2023/11/18/AC/</loc>
+    <lastmod>2024-03-15</lastmod>
+  </url>
+  <url>
+    <loc>http://whosejam.github.io/2023/03/27/pymysql/</loc>
+    <lastmod>2024-03-15</lastmod>
+  </url>
+  <url>
     <loc>http://whosejam.github.io/2024/03/14/Renderer%E6%80%BB%E7%BB%93/</loc>
     <lastmod>2024-03-14</lastmod>
   </url>
@@ -33,10 +69,6 @@
     <lastmod>2024-03-12</lastmod>
   </url>
   <url>
-    <loc>http://whosejam.github.io/2024/03/12/MySQL%E4%BA%8B%E5%8A%A1/</loc>
-    <lastmod>2024-03-12</lastmod>
-  </url>
-  <url>
     <loc>http://whosejam.github.io/2024/03/11/Vue%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3/</loc>
     <lastmod>2024-03-11</lastmod>
   </url>
@@ -57,35 +89,11 @@
     <lastmod>2023-11-21</lastmod>
   </url>
   <url>
-    <loc>http://whosejam.github.io/2023/11/20/TRPO/</loc>
-    <lastmod>2023-11-20</lastmod>
-  </url>
-  <url>
-    <loc>http://whosejam.github.io/2023/11/20/PPO/</loc>
-    <lastmod>2023-11-20</lastmod>
-  </url>
-  <url>
     <loc>http://whosejam.github.io/2023/11/20/DDPG/</loc>
     <lastmod>2023-11-20</lastmod>
   </url>
   <url>
-    <loc>http://whosejam.github.io/2023/11/20/A2C/</loc>
-    <lastmod>2023-11-20</lastmod>
-  </url>
-  <url>
-    <loc>http://whosejam.github.io/2023/11/20/A3C/</loc>
-    <lastmod>2023-11-20</lastmod>
-  </url>
-  <url>
-    <loc>http://whosejam.github.io/2023/11/18/AC/</loc>
-    <lastmod>2023-11-20</lastmod>
-  </url>
-  <url>
     <loc>http://whosejam.github.io/2023/11/18/DoubleDQN/</loc>
-    <lastmod>2023-11-18</lastmod>
-  </url>
-  <url>
-    <loc>http://whosejam.github.io/2023/11/18/DQN/</loc>
     <lastmod>2023-11-18</lastmod>
   </url>
   <url>
@@ -302,10 +310,6 @@
   </url>
   <url>
     <loc>http://whosejam.github.io/2023/07/24/Linux%E5%86%85%E6%A0%B8%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E6%A0%88/</loc>
-    <lastmod>2023-07-24</lastmod>
-  </url>
-  <url>
-    <loc>http://whosejam.github.io/2023/03/27/pymysql/</loc>
     <lastmod>2023-07-24</lastmod>
   </url>
   <url>
