@@ -18,12 +18,12 @@
   
   
   <title>Renderer总结 | uselessName</title>
-  <meta name="description" content="Renderer是我学计算机图形学的时候的动手实践，在此做一点简单的记录，以防自己以后看不懂自己的代码 Object &amp; Component 类似Unity的设计，一个场景中可以有很多Object，每个Object可以通过挂不同的Component，被赋予不同的功能。Component类似于插件，Object和Component共同构成了一棵树，都可以有自己的parent，但Compo">
+  <meta name="description" content="Renderer是我学计算机图形学的时候的动手实践，在此做一点简单的记录，以防自己以后看不懂自己的代码  Object &amp; Component 类似Unity的设计，一个场景中可以有很多Object，每个Object可以通过挂不同的Component，被赋予不同的功能。Component类似于插件，Object和Component共同构成了一棵树，都可以有自己的parent，但Compon">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Renderer总结">
 <meta property="og:url" content="http://whosejam.github.io/2024/03/14/Renderer%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="whoseJam">
-<meta property="og:description" content="Renderer是我学计算机图形学的时候的动手实践，在此做一点简单的记录，以防自己以后看不懂自己的代码 Object &amp; Component 类似Unity的设计，一个场景中可以有很多Object，每个Object可以通过挂不同的Component，被赋予不同的功能。Component类似于插件，Object和Component共同构成了一棵树，都可以有自己的parent，但Compo">
+<meta property="og:description" content="Renderer是我学计算机图形学的时候的动手实践，在此做一点简单的记录，以防自己以后看不懂自己的代码  Object &amp; Component 类似Unity的设计，一个场景中可以有很多Object，每个Object可以通过挂不同的Component，被赋予不同的功能。Component类似于插件，Object和Component共同构成了一棵树，都可以有自己的parent，但Compon">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://whosejam.github.io/2024/03/14/Renderer%E6%80%BB%E7%BB%93/image-20240314220854462-1710425337897-1.png">
 <meta property="og:image" content="http://whosejam.github.io/2024/03/14/Renderer%E6%80%BB%E7%BB%93/image-20240314221523050-1710425726315-3.png">
@@ -31,7 +31,7 @@
 <meta property="og:image" content="http://whosejam.github.io/2024/03/14/Renderer%E6%80%BB%E7%BB%93/image-20240314221750465-1710425877178-5.png">
 <meta property="og:image" content="http://whosejam.github.io/2024/03/14/Renderer%E6%80%BB%E7%BB%93/image-20240314222336778.png">
 <meta property="article:published_time" content="2024-03-14T13:30:39.000Z">
-<meta property="article:modified_time" content="2024-03-14T16:07:43.349Z">
+<meta property="article:modified_time" content="2024-03-20T13:09:53.468Z">
 <meta property="article:author" content="whoseJam">
 <meta property="article:tag" content="计算机图形学">
 <meta name="twitter:card" content="summary">
@@ -220,7 +220,7 @@
   <div class="widget">
     <h3 class="widget-title">标签</h3>
     <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/" rel="tag">CMake</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FinRL/" rel="tag">FinRL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ICPC/" rel="tag">ICPC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLVM/" rel="tag">LLVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MMCV/" rel="tag">MMCV</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS/" rel="tag">OS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OptaPlanner/" rel="tag">OptaPlanner</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Optaplanner/" rel="tag">Optaplanner</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RL/" rel="tag">RL</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/" rel="tag">SQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP-IP/" rel="tag">TCP/IP</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/netcat/" rel="tag">netcat</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sd/" rel="tag">sd</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/telnet/" rel="tag">telnet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/torch/" rel="tag">torch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/" rel="tag">vmware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" rel="tag">信息论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" rel="tag">博弈论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%89%E5%85%A8/" rel="tag">安全</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%90%9C%E7%B4%A2/" rel="tag">搜索</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E4%BC%98%E5%8C%96/" rel="tag">最优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1/" rel="tag">概率统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag">神经网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" rel="tag">编译原理</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BE%A4%E8%AE%BA/" rel="tag">群论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E6%A6%82%E8%AE%BA/" rel="tag">航空航天概论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag">计算机图形学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B8%B8%E8%AF%86/" rel="tag">计算机常识</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" rel="tag">计算机组成原理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a><span class="tag-list-count">5</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/" rel="tag">CMake</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FinRL/" rel="tag">FinRL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ICPC/" rel="tag">ICPC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/" rel="tag">JS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLVM/" rel="tag">LLVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MMCV/" rel="tag">MMCV</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS/" rel="tag">OS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OptaPlanner/" rel="tag">OptaPlanner</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Optaplanner/" rel="tag">Optaplanner</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RL/" rel="tag">RL</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/" rel="tag">SQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP-IP/" rel="tag">TCP/IP</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/netcat/" rel="tag">netcat</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sd/" rel="tag">sd</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/telnet/" rel="tag">telnet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/torch/" rel="tag">torch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/" rel="tag">vmware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" rel="tag">信息论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" rel="tag">博弈论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%89%E5%85%A8/" rel="tag">安全</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%90%9C%E7%B4%A2/" rel="tag">搜索</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E4%BC%98%E5%8C%96/" rel="tag">最优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1/" rel="tag">概率统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag">神经网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" rel="tag">编译原理</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BE%A4%E8%AE%BA/" rel="tag">群论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E6%A6%82%E8%AE%BA/" rel="tag">航空航天概论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag">计算机图形学</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B8%B8%E8%AF%86/" rel="tag">计算机常识</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" rel="tag">计算机组成原理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a><span class="tag-list-count">5</span></li></ul>
     </div>
   </div>
 
@@ -230,7 +230,7 @@
   <div class="widget">
     <h3 class="widget-title">标签云</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/C/" style="font-size: 13.29px;">C++</a> <a href="/tags/CMake/" style="font-size: 13px;">CMake</a> <a href="/tags/Docker/" style="font-size: 13px;">Docker</a> <a href="/tags/FinRL/" style="font-size: 13.14px;">FinRL</a> <a href="/tags/ICPC/" style="font-size: 13px;">ICPC</a> <a href="/tags/Java/" style="font-size: 13.29px;">Java</a> <a href="/tags/LLVM/" style="font-size: 13px;">LLVM</a> <a href="/tags/Linux/" style="font-size: 13.86px;">Linux</a> <a href="/tags/MMCV/" style="font-size: 13px;">MMCV</a> <a href="/tags/MySQL/" style="font-size: 13.71px;">MySQL</a> <a href="/tags/OS/" style="font-size: 13px;">OS</a> <a href="/tags/OptaPlanner/" style="font-size: 13.43px;">OptaPlanner</a> <a href="/tags/Optaplanner/" style="font-size: 13px;">Optaplanner</a> <a href="/tags/RL/" style="font-size: 14px;">RL</a> <a href="/tags/SQL/" style="font-size: 13px;">SQL</a> <a href="/tags/TCP-IP/" style="font-size: 13.43px;">TCP/IP</a> <a href="/tags/Vue/" style="font-size: 13px;">Vue</a> <a href="/tags/netcat/" style="font-size: 13px;">netcat</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/sd/" style="font-size: 13.57px;">sd</a> <a href="/tags/telnet/" style="font-size: 13px;">telnet</a> <a href="/tags/torch/" style="font-size: 13px;">torch</a> <a href="/tags/vmware/" style="font-size: 13px;">vmware</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" style="font-size: 13px;">信息论</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 13.14px;">前端</a> <a href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" style="font-size: 13px;">博弈论</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 13px;">多线程</a> <a href="/tags/%E5%AE%89%E5%85%A8/" style="font-size: 13px;">安全</a> <a href="/tags/%E6%90%9C%E7%B4%A2/" style="font-size: 13.29px;">搜索</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 13.57px;">操作系统</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 13.14px;">数据库</a> <a href="/tags/%E6%9C%80%E4%BC%98%E5%8C%96/" style="font-size: 13px;">最优化</a> <a href="/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1/" style="font-size: 13px;">概率统计</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 13px;">爬虫</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 13px;">神经网络</a> <a href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" style="font-size: 13.43px;">编译原理</a> <a href="/tags/%E7%BE%A4%E8%AE%BA/" style="font-size: 13px;">群论</a> <a href="/tags/%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E6%A6%82%E8%AE%BA/" style="font-size: 13px;">航空航天概论</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" style="font-size: 13px;">计算机图形学</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B8%B8%E8%AF%86/" style="font-size: 13px;">计算机常识</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" style="font-size: 13px;">计算机组成原理</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 13px;">计算机网络</a> <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" style="font-size: 13.57px;">面向对象</a>
+      <a href="/tags/C/" style="font-size: 13.33px;">C++</a> <a href="/tags/CMake/" style="font-size: 13px;">CMake</a> <a href="/tags/Docker/" style="font-size: 13px;">Docker</a> <a href="/tags/FinRL/" style="font-size: 13.17px;">FinRL</a> <a href="/tags/ICPC/" style="font-size: 13px;">ICPC</a> <a href="/tags/JS/" style="font-size: 13.17px;">JS</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/LLM/" style="font-size: 13px;">LLM</a> <a href="/tags/LLVM/" style="font-size: 13px;">LLVM</a> <a href="/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/tags/MMCV/" style="font-size: 13px;">MMCV</a> <a href="/tags/MySQL/" style="font-size: 13.83px;">MySQL</a> <a href="/tags/OS/" style="font-size: 13px;">OS</a> <a href="/tags/OptaPlanner/" style="font-size: 13.5px;">OptaPlanner</a> <a href="/tags/Optaplanner/" style="font-size: 13px;">Optaplanner</a> <a href="/tags/RL/" style="font-size: 14px;">RL</a> <a href="/tags/SQL/" style="font-size: 13px;">SQL</a> <a href="/tags/TCP-IP/" style="font-size: 13.5px;">TCP/IP</a> <a href="/tags/netcat/" style="font-size: 13px;">netcat</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/sd/" style="font-size: 13.67px;">sd</a> <a href="/tags/telnet/" style="font-size: 13px;">telnet</a> <a href="/tags/torch/" style="font-size: 13px;">torch</a> <a href="/tags/vmware/" style="font-size: 13px;">vmware</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" style="font-size: 13px;">信息论</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 13.5px;">前端</a> <a href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" style="font-size: 13px;">博弈论</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 13px;">多线程</a> <a href="/tags/%E5%AE%89%E5%85%A8/" style="font-size: 13px;">安全</a> <a href="/tags/%E6%90%9C%E7%B4%A2/" style="font-size: 13.33px;">搜索</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 13.67px;">操作系统</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 13.17px;">数据库</a> <a href="/tags/%E6%9C%80%E4%BC%98%E5%8C%96/" style="font-size: 13px;">最优化</a> <a href="/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1/" style="font-size: 13px;">概率统计</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 13px;">爬虫</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 13px;">神经网络</a> <a href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" style="font-size: 13.5px;">编译原理</a> <a href="/tags/%E7%BE%A4%E8%AE%BA/" style="font-size: 13px;">群论</a> <a href="/tags/%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E6%A6%82%E8%AE%BA/" style="font-size: 13px;">航空航天概论</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" style="font-size: 13.17px;">计算机图形学</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B8%B8%E8%AF%86/" style="font-size: 13px;">计算机常识</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" style="font-size: 13px;">计算机组成原理</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 13.33px;">计算机网络</a> <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" style="font-size: 13.67px;">面向对象</a>
     </div>
   </div>
 
@@ -239,7 +239,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">十一月 2023</a><span class="archive-list-count">23</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">十月 2023</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">九月 2023</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">八月 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">七月 2023</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">四月 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">三月 2023</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">25</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">十一月 2023</a><span class="archive-list-count">23</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">十月 2023</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">九月 2023</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">八月 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">七月 2023</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">四月 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">三月 2023</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -258,10 +258,10 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2024/03/17/Diff%E7%AE%97%E6%B3%95/" class="title">Diff算法</a>
+                <a href="/2024/03/20/DNS/" class="title">DNS</a>
               </p>
               <p class="item-date">
-                <time datetime="2024-03-17T03:15:03.000Z" itemprop="datePublished">2024-03-17</time>
+                <time datetime="2024-03-20T15:31:12.000Z" itemprop="datePublished">2024-03-20</time>
               </p>
             </div>
           </li>
@@ -273,10 +273,10 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2024/03/16/%E8%99%9A%E8%A1%A8/" class="title">虚表</a>
+                <a href="/2024/03/20/ARP/" class="title">ARP</a>
               </p>
               <p class="item-date">
-                <time datetime="2024-03-16T10:57:10.000Z" itemprop="datePublished">2024-03-16</time>
+                <time datetime="2024-03-20T15:10:40.000Z" itemprop="datePublished">2024-03-20</time>
               </p>
             </div>
           </li>
@@ -288,10 +288,10 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2024/03/15/IPC/" class="title">IPC</a>
+                <a href="/2024/03/20/VSync/" class="title">VSync</a>
               </p>
               <p class="item-date">
-                <time datetime="2024-03-15T09:53:06.000Z" itemprop="datePublished">2024-03-15</time>
+                <time datetime="2024-03-20T11:51:56.000Z" itemprop="datePublished">2024-03-20</time>
               </p>
             </div>
           </li>
@@ -303,10 +303,10 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2024/03/15/GPU%E6%A6%82%E8%BF%B0/" class="title">GPU概述</a>
+                <a href="/2024/03/20/%E5%9B%9E%E6%B5%81%E4%B8%8E%E9%87%8D%E7%BB%98/" class="title">回流与重绘</a>
               </p>
               <p class="item-date">
-                <time datetime="2024-03-15T09:22:50.000Z" itemprop="datePublished">2024-03-15</time>
+                <time datetime="2024-03-20T07:13:53.000Z" itemprop="datePublished">2024-03-20</time>
               </p>
             </div>
           </li>
@@ -318,10 +318,10 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2024/03/15/MySQL%E7%9A%84%E7%BC%96%E7%A0%81%E4%B8%8E%E5%AD%97%E7%AC%A6%E9%9B%86/" class="title">MySQL的编码与字符集</a>
+                <a href="/2024/03/18/JSBridge/" class="title">JSBridge</a>
               </p>
               <p class="item-date">
-                <time datetime="2024-03-15T02:59:53.000Z" itemprop="datePublished">2024-03-15</time>
+                <time datetime="2024-03-18T07:16:14.000Z" itemprop="datePublished">2024-03-18</time>
               </p>
             </div>
           </li>
@@ -375,158 +375,217 @@
     <div class="article-entry marked-body" itemprop="articleBody">
       
         <p><a href="[whoseJam/Renderer: 学图形学时的动手实践 (github.com)](https://github.com/whoseJam/Renderer)">Renderer</a>是我学计算机图形学的时候的动手实践，在此做一点简单的记录，以防自己以后看不懂自己的代码</p>
-<h1 id="object-component">Object &amp; Component</h1>
+<h1 id="object-component"><a class="markdownIt-Anchor" href="#object-component"></a> Object &amp; Component</h1>
 <p>类似Unity的设计，一个场景中可以有很多Object，每个Object可以通过挂不同的Component，被赋予不同的功能。Component类似于<strong>插件</strong>，Object和Component共同构成了一棵树，都可以有自己的parent，但Component一定是树的叶子节点</p>
-<p><img src="/2024/03/14/Renderer%E6%80%BB%E7%BB%93/image-20240314220854462-1710425337897-1.png" alt="image-20240314220854462" style="zoom: 50%;"></p>
-<p>对每个Object都提供了showHierarchyUI的方法，用于显示其子树内Object的UI面板，例如<span class="math inline">\(O_2\)</span>的showHierarchyUI会递归调用并显示以下这些Object的UI面板：</p>
-<p><img src="/2024/03/14/Renderer%E6%80%BB%E7%BB%93/image-20240314221523050-1710425726315-3.png" alt="image-20240314221523050" style="zoom: 50%;"></p>
-<p><img src="/2024/03/14/Renderer%E6%80%BB%E7%BB%93/image-20240314222119399-1710426083850-7.png" alt="image-20240314222119399" style="zoom:50%;"></p>
-<p>对每个Object都提供了showComponentUI，用于显示直接属于该Object的Component的面板，例如<span class="math inline">\(O_4\)</span>的showComponentUI会调用并显示以下这些Component的UI面板（本质上是调用每个Component提供的showUI）：</p>
-<p><img src="/2024/03/14/Renderer%E6%80%BB%E7%BB%93/image-20240314221750465-1710425877178-5.png" alt="image-20240314221750465" style="zoom: 50%;"></p>
-<p><img src="/2024/03/14/Renderer%E6%80%BB%E7%BB%93/image-20240314222336778.png" alt="image-20240314222336778" style="zoom:50%;"></p>
-<h1 id="资源">资源</h1>
-<h2 id="shader">Shader</h2>
+<img src="/2024/03/14/Renderer%E6%80%BB%E7%BB%93/image-20240314220854462-1710425337897-1.png" alt="image-20240314220854462" style="zoom: 50%;">
+<p>对每个Object都提供了showHierarchyUI的方法，用于显示其子树内Object的UI面板，例如<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>O</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">O_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>的showHierarchyUI会递归调用并显示以下这些Object的UI面板：</p>
+<img src="/2024/03/14/Renderer%E6%80%BB%E7%BB%93/image-20240314221523050-1710425726315-3.png" alt="image-20240314221523050" style="zoom: 50%;">
+<img src="/2024/03/14/Renderer%E6%80%BB%E7%BB%93/image-20240314222119399-1710426083850-7.png" alt="image-20240314222119399" style="zoom:50%;">
+<p>对每个Object都提供了showComponentUI，用于显示直接属于该Object的Component的面板，例如<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>O</mi><mn>4</mn></msub></mrow><annotation encoding="application/x-tex">O_4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>的showComponentUI会调用并显示以下这些Component的UI面板（本质上是调用每个Component提供的showUI）：</p>
+<img src="/2024/03/14/Renderer%E6%80%BB%E7%BB%93/image-20240314221750465-1710425877178-5.png" alt="image-20240314221750465" style="zoom: 50%;">
+<img src="/2024/03/14/Renderer%E6%80%BB%E7%BB%93/image-20240314222336778.png" alt="image-20240314222336778" style="zoom:50%;">
+<h1 id="资源"><a class="markdownIt-Anchor" href="#资源"></a> 资源</h1>
+<h2 id="shader"><a class="markdownIt-Anchor" href="#shader"></a> Shader</h2>
 <p>一个shader由一个<strong>顶点着色器</strong>和一个<strong>片段着色器</strong>组成，在shader内部提供了多种对顶点着色器和片段着色器的uniform变量赋值的代码，接口界面如下：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Shader <span class="op">&#123;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    Shader<span class="op">(</span><span class="at">const</span> <span class="dt">char</span><span class="op">*</span> vertexPath<span class="op">,</span> <span class="at">const</span> <span class="dt">char</span><span class="op">*</span> fragmentPath<span class="op">);</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> use<span class="op">();</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> setBool<span class="op">(</span><span class="at">const</span> <span class="bu">std::</span>string<span class="op">&amp;</span> name<span class="op">,</span> <span class="dt">bool</span> value<span class="op">)</span> <span class="at">const</span><span class="op">;</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> setInt<span class="op">(</span><span class="at">const</span> <span class="bu">std::</span>string<span class="op">&amp;</span> name<span class="op">,</span> <span class="dt">int</span> value<span class="op">)</span> <span class="at">const</span><span class="op">;</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> setFloat<span class="op">(</span><span class="at">const</span> <span class="bu">std::</span>string<span class="op">&amp;</span> name<span class="op">,</span> <span class="dt">float</span>  value<span class="op">)</span> <span class="at">const</span><span class="op">;</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> setMat4f<span class="op">(</span><span class="at">const</span> <span class="bu">std::</span>string<span class="op">&amp;</span> name<span class="op">,</span> <span class="at">const</span> Eigen<span class="op">::</span>Matrix4f<span class="op">&amp;</span> value<span class="op">)</span> <span class="at">const</span><span class="op">;</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> setVec3f<span class="op">(</span><span class="at">const</span> <span class="bu">std::</span>string<span class="op">&amp;</span> name<span class="op">,</span> <span class="dt">float</span> x<span class="op">,</span> <span class="dt">float</span> y<span class="op">,</span> <span class="dt">float</span> z<span class="op">)</span> <span class="at">const</span><span class="op">;</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> setVec3f<span class="op">(</span><span class="at">const</span> <span class="bu">std::</span>string<span class="op">&amp;</span> name<span class="op">,</span> <span class="at">const</span> Eigen<span class="op">::</span>Vector3f<span class="op">&amp;</span> value<span class="op">)</span> <span class="at">const</span><span class="op">;</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> setTexture<span class="op">(</span><span class="at">const</span> <span class="bu">std::</span>string<span class="op">&amp;</span> name<span class="op">,</span> TextureID texture<span class="op">,</span> <span class="dt">int</span> rank<span class="op">)</span> <span class="at">const</span><span class="op">;</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> setColor<span class="op">(</span><span class="at">const</span> <span class="bu">std::</span>string<span class="op">&amp;</span> name<span class="op">,</span> Color value<span class="op">)</span> <span class="at">const</span><span class="op">;</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="kw">private</span><span class="op">:</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    ShaderID ID<span class="op">;</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="op">&#125;;</span></span></code></pre></div>
-<h3 id="创建着色器">创建着色器</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>GLuint glCreateShader<span class="op">(</span>GLenum shaderType<span class="op">);</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>shaderType <span class="op">=</span> </span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>GL_VERTEX_SHADER<span class="op">:</span> 顶点着色器</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>GL_FRAGMENT_SHADER<span class="op">:</span> 片段着色器</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>GL_GEOMETRY_SHADER<span class="op">:</span> 几何着色器</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>GL_TESS_CONTROL_SHADER<span class="op">:</span> Tessellation控制着色器</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>GL_TESS_EVALUATION_SHADER<span class="op">:</span> Tessellation评估着色器</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>GL_COMPUTE_SHADER<span class="op">:</span> 计算着色器</span></code></pre></div>
-<h3 id="设置着色器代码">设置着色器代码</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> glShaderSource<span class="op">(</span>GLuint shader<span class="op">,</span> GLsizei count<span class="op">,</span> <span class="at">const</span> GLchar <span class="op">**</span>string<span class="op">,</span> <span class="at">const</span> GLint <span class="op">*</span>length<span class="op">);</span></span></code></pre></div>
-<h3 id="编译着色器代码">编译着色器代码</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> glCompileShader<span class="op">(</span>GLuint shader<span class="op">);</span></span></code></pre></div>
-<h3 id="把着色器搭建成管线">把着色器搭建成管线</h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>GLuint glCreateProgram<span class="op">(</span><span class="dt">void</span><span class="op">);</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> glAttachShader<span class="op">(</span>GLuint program<span class="op">,</span> GLuint shader<span class="op">);</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> glLinkProgram<span class="op">(</span>GLuint program<span class="op">);</span></span></code></pre></div>
+<pre class="highlight"><code class="c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Shader</span> &#123;
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-built_in">Shader</span>(<span class="hljs-type">const</span> <span class="hljs-type">char</span>* vertexPath, <span class="hljs-type">const</span> <span class="hljs-type">char</span>* fragmentPath);
+	<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">use</span><span class="hljs-params">()</span></span>;
+	<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">setBool</span><span class="hljs-params">(<span class="hljs-type">const</span> std::string&amp; name, <span class="hljs-type">bool</span> value)</span> <span class="hljs-type">const</span></span>;
+	<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">setInt</span><span class="hljs-params">(<span class="hljs-type">const</span> std::string&amp; name, <span class="hljs-type">int</span> value)</span> <span class="hljs-type">const</span></span>;
+	<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">setFloat</span><span class="hljs-params">(<span class="hljs-type">const</span> std::string&amp; name, <span class="hljs-type">float</span>  value)</span> <span class="hljs-type">const</span></span>;
+	<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">setMat4f</span><span class="hljs-params">(<span class="hljs-type">const</span> std::string&amp; name, <span class="hljs-type">const</span> Eigen::Matrix4f&amp; value)</span> <span class="hljs-type">const</span></span>;
+	<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">setVec3f</span><span class="hljs-params">(<span class="hljs-type">const</span> std::string&amp; name, <span class="hljs-type">float</span> x, <span class="hljs-type">float</span> y, <span class="hljs-type">float</span> z)</span> <span class="hljs-type">const</span></span>;
+	<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">setVec3f</span><span class="hljs-params">(<span class="hljs-type">const</span> std::string&amp; name, <span class="hljs-type">const</span> Eigen::Vector3f&amp; value)</span> <span class="hljs-type">const</span></span>;
+	<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">setTexture</span><span class="hljs-params">(<span class="hljs-type">const</span> std::string&amp; name, TextureID texture, <span class="hljs-type">int</span> rank)</span> <span class="hljs-type">const</span></span>;
+	<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">setColor</span><span class="hljs-params">(<span class="hljs-type">const</span> std::string&amp; name, Color value)</span> <span class="hljs-type">const</span></span>;
+<span class="hljs-keyword">private</span>:
+	ShaderID ID;
+&#125;;
+</code></pre>
+<h3 id="创建着色器"><a class="markdownIt-Anchor" href="#创建着色器"></a> 创建着色器</h3>
+<pre class="highlight"><code class="c++"><span class="hljs-function">GLuint <span class="hljs-title">glCreateShader</span><span class="hljs-params">(GLenum shaderType)</span></span>;
+shaderType = 
+GL_VERTEX_SHADER: 顶点着色器
+GL_FRAGMENT_SHADER: 片段着色器
+GL_GEOMETRY_SHADER: 几何着色器
+GL_TESS_CONTROL_SHADER: Tessellation控制着色器
+GL_TESS_EVALUATION_SHADER: Tessellation评估着色器
+GL_COMPUTE_SHADER: 计算着色器
+</code></pre>
+<h3 id="设置着色器代码"><a class="markdownIt-Anchor" href="#设置着色器代码"></a> 设置着色器代码</h3>
+<pre class="highlight"><code class="c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">glShaderSource</span><span class="hljs-params">(GLuint shader, GLsizei count, <span class="hljs-type">const</span> GLchar **string, <span class="hljs-type">const</span> GLint *length)</span></span>;
+</code></pre>
+<h3 id="编译着色器代码"><a class="markdownIt-Anchor" href="#编译着色器代码"></a> 编译着色器代码</h3>
+<pre class="highlight"><code class="c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">glCompileShader</span><span class="hljs-params">(GLuint shader)</span></span>;
+</code></pre>
+<h3 id="把着色器搭建成管线"><a class="markdownIt-Anchor" href="#把着色器搭建成管线"></a> 把着色器搭建成管线</h3>
+<pre class="highlight"><code class="c++"><span class="hljs-function">GLuint <span class="hljs-title">glCreateProgram</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span></span>;
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">glAttachShader</span><span class="hljs-params">(GLuint program, GLuint shader)</span></span>;
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">glLinkProgram</span><span class="hljs-params">(GLuint program)</span></span>;
+</code></pre>
 <p>若干个着色器可以attach到一个program上，随后这个program就可以被使用，当着色器被attach到program上之后，删除着色器对象并不会影响已经链接到程序对象的着色器程序。<strong>程序对象在链接成功后已经获取了所需的着色器信息，并不再直接依赖于着色器对象的状态</strong></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> glDeleteShader<span class="op">(</span>GLuint shader<span class="op">);</span></span></code></pre></div>
-<h3 id="设置着色器参数">设置着色器参数</h3>
+<pre class="highlight"><code class="c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">glDeleteShader</span><span class="hljs-params">(GLuint shader)</span></span>;
+</code></pre>
+<h3 id="设置着色器参数"><a class="markdownIt-Anchor" href="#设置着色器参数"></a> 设置着色器参数</h3>
 <p>使用glUniform*系列函数，uniform变量是在着色器中声明的全局变量，用于在应用程序和着色器之间进行数据传递</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>GLint glGetUniformLocation<span class="op">(</span>GLuint program<span class="op">,</span> <span class="at">const</span> GLchar <span class="op">*</span>name<span class="op">);</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> glUniform1i<span class="op">(</span>GLint location<span class="op">,</span> GLint value<span class="op">);</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> glUniform1f<span class="op">(</span>GLint location<span class="op">,</span> GLfloat value<span class="op">);</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> glUniformMatrix4fv<span class="op">(</span>GLint location<span class="op">,</span> GLsizei count<span class="op">,</span> GLboolean transpose<span class="op">,</span> <span class="at">const</span> GLfloat <span class="op">*</span>value<span class="op">);</span></span></code></pre></div>
-<h2 id="mesh">Mesh</h2>
-<p>一个mesh由若干vertices组成，一个vertex应该具有位置信息<span class="math inline">\(\vec{p}\)</span>，法向量信息<span class="math inline">\(\vec{n}\)</span>，材质位置信息<span class="math inline">\(\vec{t}\)</span></p>
-<h3 id="vertexarray">VertexArray</h3>
+<pre class="highlight"><code class="c++"><span class="hljs-function">GLint <span class="hljs-title">glGetUniformLocation</span><span class="hljs-params">(GLuint program, <span class="hljs-type">const</span> GLchar *name)</span></span>;
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">glUniform1i</span><span class="hljs-params">(GLint location, GLint value)</span></span>;
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">glUniform1f</span><span class="hljs-params">(GLint location, GLfloat value)</span></span>;
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">glUniformMatrix4fv</span><span class="hljs-params">(GLint location, GLsizei count, GLboolean transpose, <span class="hljs-type">const</span> GLfloat *value)</span></span>;
+</code></pre>
+<h2 id="mesh"><a class="markdownIt-Anchor" href="#mesh"></a> Mesh</h2>
+<p>一个mesh由若干vertices组成，一个vertex应该具有位置信息<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>p</mi><mo>⃗</mo></mover></mrow><annotation encoding="application/x-tex">\vec{p}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9084399999999999em;vertical-align:-0.19444em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">p</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.15216em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width="0.471em" height="0.714em" style="width:0.471em" viewbox="0 0 471 714" preserveaspectratio="xMinYMin"><path d="M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z"/></svg></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span></span></span></span>，法向量信息<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>n</mi><mo>⃗</mo></mover></mrow><annotation encoding="application/x-tex">\vec{n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.714em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">n</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2355em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width="0.471em" height="0.714em" style="width:0.471em" viewbox="0 0 471 714" preserveaspectratio="xMinYMin"><path d="M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z"/></svg></span></span></span></span></span></span></span></span></span></span>，材质位置信息<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>t</mi><mo>⃗</mo></mover></mrow><annotation encoding="application/x-tex">\vec{t}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.89808em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.89808em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">t</span></span></span><span style="top:-3.18408em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.15216em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width="0.471em" height="0.714em" style="width:0.471em" viewbox="0 0 471 714" preserveaspectratio="xMinYMin"><path d="M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z"/></svg></span></span></span></span></span></span></span></span></span></span></p>
+<h3 id="vertexarray"><a class="markdownIt-Anchor" href="#vertexarray"></a> VertexArray</h3>
 <p>VertexArray是用来存储和管理顶点数据的机制，它是一种数据结构，用来组织顶点数据，以供渲染管线使用</p>
 <p>VertexArray将顶点数据存储在显存中，并以一种更高效的方式传输给GPU，它提供一种将多个顶点数据打包成连续内存块的大方法，并通过指定偏移量和步长来描述每个顶点属性的布局</p>
 <p>首先把VertexArray设置成活跃状态</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> glBindVertexArray<span class="op">(</span>GLuint array<span class="op">);</span></span></code></pre></div>
+<pre class="highlight"><code class="c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">glBindVertexArray</span><span class="hljs-params">(GLuint array)</span></span>;
+</code></pre>
 <p>然后对VBO，EBO等等buffer进行数据绑定（见buffer）</p>
 <p>随后，配置VertexArray的布局</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> glVertexAttribPointer<span class="op">(</span>GLuint index<span class="op">,</span> GLint size<span class="op">,</span> GLenum type<span class="op">,</span> GLboolean normalized<span class="op">,</span> GLsizei stride<span class="op">,</span> <span class="at">const</span> <span class="dt">void</span><span class="op">*</span> pointer<span class="op">);</span></span></code></pre></div>
+<pre class="highlight"><code class="c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">glVertexAttribPointer</span><span class="hljs-params">(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, <span class="hljs-type">const</span> <span class="hljs-type">void</span>* pointer)</span></span>;
+</code></pre>
 <p>如此这般，我们就完成了一个VertexArray的初始化，在未来渲染的时候，就可以利用VAO+shader，在GPU上做出我们希望得到的效果了</p>
-<h3 id="buffer">Buffer</h3>
+<h3 id="buffer"><a class="markdownIt-Anchor" href="#buffer"></a> Buffer</h3>
 <p>Buffer是一段连续的内存区域，用来存储各种类型的数据，如顶点数据，纹理数据，索引数据等</p>
 <p>Buffer主要用于把数据从CPU搬到GPU，通过Buffer，我们可以把数据一次性传输到GPU，而不需要逐个发送，这种批量传输提高了渲染效率</p>
 <table>
-<colgroup>
-<col style="width: 39%">
-<col style="width: 60%">
-</colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>常见缓冲区类型</th>
 <th>描述</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>Vertex Buffer Objects</td>
 <td>用于存储顶点数据，如顶点位置，颜色，法线等</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Index Buffer Objects</td>
 <td>用于存储索引数据，绘制索引化几何图形</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Uniform Buffer Objects</td>
 <td>用于存储uniform数据，如变换矩阵</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Shader Storage Buffer Objects</td>
 <td>用于存储可读写的数据，供着色器使用</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Texture Buffer Objects</td>
 <td>用于存储纹理数据，可以在着色器中进行采样操作</td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb10"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> glGenBuffers<span class="op">(</span>GLsizei n<span class="op">,</span> GLuint <span class="op">*</span>buffers<span class="op">);</span></span></code></pre></div>
+<pre class="highlight"><code class="c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">glGenBuffers</span><span class="hljs-params">(GLsizei n, GLuint *buffers)</span></span>;
+</code></pre>
 <p>当生成一个buffer之后，需要将这个buffer和<strong>某种类型</strong>的<strong>数据</strong>关联上</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>绑定类型</th>
 <th>描述</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><code>GL_ARRAY_BUFFER</code></td>
 <td>用于顶点数据</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>GL_ELEMENT_ARRAY_BUFFER</code></td>
 <td>用于索引数据</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code>GL_UNIFORM_BUFFER</code></td>
 <td>用于unifom数据</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>GL_SHADER_STORAGE_BUFFER</code></td>
 <td>用于着色器存储数据</td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb11"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> glBindBuffer<span class="op">(</span>GLenum target<span class="op">,</span> GLuint buffer<span class="op">);</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> glBufferData<span class="op">(</span>GLenum target<span class="op">,</span> GLsizeiptr size<span class="op">,</span> <span class="at">const</span> <span class="dt">void</span> <span class="op">*</span>data<span class="op">,</span> GLenum usage<span class="op">);</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>usage <span class="op">=</span> </span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>GL_STATIC_DRAW<span class="op">:</span> 数据不会频繁变动，适用于静态数据</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>GL_DYNAMIC_DRAW<span class="op">:</span> 数据会频繁更新，适用于动态数据</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>GL_STREAM_DRAW<span class="op">:</span> 数据每帧都会变动，适用于流式数据</span></code></pre></div>
-<h1 id="光照模型">光照模型</h1>
+<pre class="highlight"><code class="c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">glBindBuffer</span><span class="hljs-params">(GLenum target, GLuint buffer)</span></span>;
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">glBufferData</span><span class="hljs-params">(GLenum target, GLsizeiptr size, <span class="hljs-type">const</span> <span class="hljs-type">void</span> *data, GLenum usage)</span></span>;
+usage = 
+GL_STATIC_DRAW: 数据不会频繁变动，适用于静态数据
+GL_DYNAMIC_DRAW: 数据会频繁更新，适用于动态数据
+GL_STREAM_DRAW: 数据每帧都会变动，适用于流式数据
+</code></pre>
+<h1 id="光照模型"><a class="markdownIt-Anchor" href="#光照模型"></a> 光照模型</h1>
 <p>光照模型永远不可能完全真实，我们只能尽可能保留更多的<strong>真实分量</strong>，或者拟造一些光，来近似<strong>在有限时间内</strong>，无法精确计算的，但存在于现实世界中的部分光</p>
-<h2 id="phong光照模型">Phong光照模型</h2>
+<h2 id="phong光照模型"><a class="markdownIt-Anchor" href="#phong光照模型"></a> Phong光照模型</h2>
 <p>真实分量=环境光+漫反射光+镜面反射光</p>
 <ul>
-<li><p>环境光（Ambient
-Light）：场景中无论光源位置如何，都存在的背景光照</p>
+<li>
+<p>环境光（Ambient Light）：场景中无论光源位置如何，都存在的背景光照</p>
 <ul>
-<li><p><span class="math display">\[
-Ambient\ Light=C\cdot [全局环境光强度]
-\]</span></p></li>
-<li><p><span class="math inline">\(C\)</span>是物体表面的颜色，全局环境光强度是一个<span class="math inline">\([0,1]\)</span>的值</p></li>
-</ul></li>
-<li><p>漫反射光（Diffuse
-Light）：光源射向物体表面，在各个方向上，均匀散射开来的光线</p></li>
-<li><p>镜面光（Specular
-Light）：光源射向物体表面，在特定方向上反射的光线</p></li>
+<li>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>A</mi><mi>m</mi><mi>b</mi><mi>i</mi><mi>e</mi><mi>n</mi><mi>t</mi><mtext> </mtext><mi>L</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>=</mo><mi>C</mi><mo>⋅</mo><mo stretchy="false">[</mo><mtext>全局环境光强度</mtext><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">Ambient\ Light=C\cdot [全局环境光强度]
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">A</span><span class="mord mathnormal">m</span><span class="mord mathnormal">b</span><span class="mord mathnormal">i</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span><span class="mspace"> </span><span class="mord mathnormal">L</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">h</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord cjk_fallback">全</span><span class="mord cjk_fallback">局</span><span class="mord cjk_fallback">环</span><span class="mord cjk_fallback">境</span><span class="mord cjk_fallback">光</span><span class="mord cjk_fallback">强</span><span class="mord cjk_fallback">度</span><span class="mclose">]</span></span></span></span></span></p>
+</li>
+<li>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span></span></span></span>是物体表面的颜色，全局环境光强度是一个<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0,1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>的值</p>
+</li>
 </ul>
+</li>
+<li>
+<p>漫反射光（Diffuse Light）：光源射向物体表面，在各个方向上，均匀散射开来的光线</p>
+</li>
+<li>
+<p>镜面光（Specular Light）：光源射向物体表面，在特定方向上反射的光线</p>
+</li>
+</ul>
+<h2 id="blinn-phong光照模型"><a class="markdownIt-Anchor" href="#blinn-phong光照模型"></a> Blinn-Phong光照模型</h2>
+<h2 id="前向渲染与延迟渲染"><a class="markdownIt-Anchor" href="#前向渲染与延迟渲染"></a> 前向渲染与延迟渲染</h2>
+<p>对于每一个需要渲染的物体，都要逐光源渲染，每个光源会带来一定的渲染成本。延迟渲染将计算量非常大的渲染延时到后期进行处理。包含两个处理阶段（Pass）：在几何处理阶段中，先渲染场景一次，之后获取对象的各种几何属性，并存储在G缓冲纹理中。随后在光照处理阶段使用G缓冲内的纹理数据对每个片段计算场景的光照。<strong>延迟渲染</strong>只需要对每一个像素执行一次光照运算，能够渲染大量的光源而不消耗大量的性能。延迟渲染不能进行混合，因为G缓冲中所有的数据都是从一个单独的片段中来的，而混合需要对多个片段的组合进行操作。延迟渲染需要大内存开销，没有MSAA，不支持半透明物体渲染</p>
+<h2 id="透明物体与不透明物体渲染顺序"><a class="markdownIt-Anchor" href="#透明物体与不透明物体渲染顺序"></a> 透明物体与不透明物体渲染顺序</h2>
+<p>先渲染所有的不透明物体，开启深度写入和深度测试</p>
+<p>再渲染半透明物体，按由远到近排序，先渲染远处的物体，再渲染近处的物体。开启深度测试，开启混合，关闭深度写入</p>
+<h1 id="opengl"><a class="markdownIt-Anchor" href="#opengl"></a> OpenGL</h1>
+<h2 id="渲染上下文context"><a class="markdownIt-Anchor" href="#渲染上下文context"></a> 渲染上下文（Context）</h2>
+<p>OpenGL本身是一个巨大的状态机：一系列的变量描述了OpenGL此刻应当如何运行，OpenGL的状态通常被称为OpenGL上下文（Context）。我们通过改变上下文中的状态来改变接下来绘画的属性和操作的缓冲对象</p>
+<h2 id="离屏渲染"><a class="markdownIt-Anchor" href="#离屏渲染"></a> 离屏渲染</h2>
+<p><strong>GPU渲染机制</strong>：CPU计算好显示内容，提交给GPU，GPU渲染完成后将渲染结果放入帧缓冲区，随后屏幕控制器会按照VSync信号逐行读取帧缓冲区的数据，经过可能的数模转换传递给显示器显示</p>
+<p><strong>当前屏幕渲染</strong>：指GPU的渲染操作是在当前显示的屏幕缓冲区中进行</p>
+<p><strong>离屏渲染</strong>：指GPU在当前屏幕缓冲区之外新开辟一个缓冲区进行渲染操作（和双Buffer没关系）。如果把不在GPU的当前屏幕缓冲区中进行的渲染都称为离屏渲染，那么就还有一种特殊的离屏渲染方式：CPU渲染</p>
+<p>屏幕外渲染并不意味着软件绘制，但是它意味着图层必须在被显示之前在一个屏幕外上下文中被渲染（不论CPU还是GPU）</p>
+<blockquote>
+<p>当使用离屏渲染的时候很容易造成性能消耗，因为在OpenGL里离屏渲染会单独在内存中创建一个屏幕外缓冲区进行渲染，而屏幕外缓冲区和当前屏幕缓冲区上下文切换是很耗性能的</p>
+<p>由于垂直同步的机制，如果在一个 VSync 时间内，CPU 或者 GPU 没有完成内容提交，则那一帧就会被丢弃，等待下一次机会再显示，而这时显示屏会保留之前的内容不变。这就是界面卡顿的原因</p>
+</blockquote>
+<h2 id="渲染管线"><a class="markdownIt-Anchor" href="#渲染管线"></a> 渲染管线</h2>
+<p>OpenGL渲染管线就是OpenGL的工作流程，指的是一堆原始图形数据途径一个输送管道，期间经过各种变化处理最终出现在屏幕的过程</p>
+<p>图形渲染管线大概被分成两个主要部分：第一部分把3D坐标转换成2D坐标；第二部分把2D坐标转换成实际有颜色的像素</p>
+<p>OpenGL的渲染管线也是类似的一个过程，它的工序包括：<strong>顶点着色器</strong><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span>图元装配<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span><strong>几何着色器</strong><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span>光栅化<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span><strong>片段着色器</strong><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span>测试与混合</p>
+<h2 id="depth-buffer"><a class="markdownIt-Anchor" href="#depth-buffer"></a> Depth Buffer</h2>
+<p>深度缓冲，也称为z-buffer，用来存储深度值以及在深度测试时确定一个片段能否被其他片段遮挡。深度缓冲由窗口系统自动创建并将其深度值存储为16、24或32位浮点数。在大多数系统中深度缓冲区为24位</p>
+<p>当深度测试启动时，如果此测试通过，深度缓冲中的值将被设为新的深度值。如果深度测试失败，则丢弃该片段</p>
+<h3 id="提前深度测试"><a class="markdownIt-Anchor" href="#提前深度测试"></a> 提前深度测试</h3>
+<p>前深度测试（Early Depth Testing）是一个由图形硬件支持的功能</p>
+<p>提前深度测试允许深度测试在片段着色器之前运行，可以更早地踢掉一些片段永远可见的片元，节约GPU资源</p>
 
       
     </div>
