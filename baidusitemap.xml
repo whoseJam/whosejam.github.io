@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://whosejam.github.io/2024/03/21/%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86/</loc>
+    <lastmod>2024-03-21</lastmod>
+  </url>
+  <url>
+    <loc>http://whosejam.github.io/2024/03/21/%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86/</loc>
+    <lastmod>2024-03-21</lastmod>
+  </url>
+  <url>
+    <loc>http://whosejam.github.io/2024/03/21/HTTP%E4%B8%8EHTTPS/</loc>
+    <lastmod>2024-03-21</lastmod>
+  </url>
+  <url>
+    <loc>http://whosejam.github.io/2024/03/21/TCP/</loc>
+    <lastmod>2024-03-21</lastmod>
+  </url>
+  <url>
+    <loc>http://whosejam.github.io/2024/03/10/%E5%8A%A0%E7%9B%90/</loc>
+    <lastmod>2024-03-21</lastmod>
+  </url>
+  <url>
     <loc>http://whosejam.github.io/2024/03/20/DNS/</loc>
     <lastmod>2024-03-20</lastmod>
   </url>
@@ -135,10 +155,6 @@
   <url>
     <loc>http://whosejam.github.io/2023/09/05/flex%E5%B8%83%E5%B1%80/</loc>
     <lastmod>2024-03-12</lastmod>
-  </url>
-  <url>
-    <loc>http://whosejam.github.io/2024/03/10/%E5%8A%A0%E7%9B%90/</loc>
-    <lastmod>2024-03-10</lastmod>
   </url>
   <url>
     <loc>http://whosejam.github.io/2024/03/09/setjmp-longjmp/</loc>
