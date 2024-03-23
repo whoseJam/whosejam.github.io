@@ -6,7 +6,7 @@
   <link href="http://whosejam.github.io/atom.xml" rel="self"/>
   
   <link href="http://whosejam.github.io/"/>
-  <updated>2024-03-21T12:35:11.802Z</updated>
+  <updated>2024-03-21T12:43:13.733Z</updated>
   <id>http://whosejam.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>消息摘要算法</title>
+    <link href="http://whosejam.github.io/2024/03/21/%E6%B6%88%E6%81%AF%E6%91%98%E8%A6%81%E7%AE%97%E6%B3%95/"/>
+    <id>http://whosejam.github.io/2024/03/21/%E6%B6%88%E6%81%AF%E6%91%98%E8%A6%81%E7%AE%97%E6%B3%95/</id>
+    <published>2024-03-21T12:39:20.000Z</published>
+    <updated>2024-03-21T12:43:13.733Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="消息摘要算法">消息摘要算法</h1><p>消息摘要（Message Digest）又称为数字摘要（DigitalDigest）。它是一个唯一对应一个消息或者文本的固定长度的值，它由一个单向Hash加密算法对消息进行作用而产生。如果消息在图中改变了，则接受者通过对收到消息的新产生的摘要与原摘要进行比较，就可以知道消息是否被改变了。因此消息摘要保证了消息的完整性</p><p>消息摘要采用单向Hash函数把需要加密的明文摘要成一段固定位数的密文，这一串密文亦称为数字指纹</p><p>消息摘要不可逆</p><h1 id="md5">MD5</h1><h1 id="sha">SHA</h1><h1 id="mac">MAC</h1>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;消息摘要算法&quot;&gt;消息摘要算法&lt;/h1&gt;
+&lt;p&gt;消息摘要（Message Digest）又称为数字摘要（Digital
+Digest）。它是一个唯一对应一个消息或者文本的固定长度的值，它由一个单向Hash加密算法对消息进行作用而产生。如果消息在图中改变了，则接受</summary>
+      
+    
+    
+    
+    
+    <category term="安全" scheme="http://whosejam.github.io/tags/%E5%AE%89%E5%85%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>非对称加密</title>
@@ -482,31 +506,6 @@ binNumber\overset{f}{\le</summary>
     
     
     <category term="计算机图形学" scheme="http://whosejam.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>汇编常识</title>
-    <link href="http://whosejam.github.io/2024/03/13/%E6%B1%87%E7%BC%96%E5%B8%B8%E8%AF%86/"/>
-    <id>http://whosejam.github.io/2024/03/13/%E6%B1%87%E7%BC%96%E5%B8%B8%E8%AF%86/</id>
-    <published>2024-03-13T02:02:07.000Z</published>
-    <updated>2024-03-13T02:12:35.177Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文介绍的是目前最常见的x86汇编语言，即Intel公司的CPU使用的那一种</p><h1 id="寄存器种类">寄存器种类</h1><p>早期的x86CPU只有8个寄存器，而且每个都有不同的用途。现在的寄存器已经有100多个了，都变成通用寄存器，不特别指定用途了，但是早期寄存器的名字都被保存了下来</p><pre><code>EAX EBX ECX EDXEDI ESIEBP ESP</code></pre><p>除了ESP之外，其他寄存器都是通用的，ESP有特定用途，用来保存当前Stack地址</p><h1 id="伪指令">伪指令</h1><table><thead><tr class="header"><th>示例</th><th>含义</th></tr></thead><tbody><tr class="odd"><td>.section .text</td><td>把以下代码放入.text节</td></tr><tr class="even"><td>.string "foobar"</td><td>定义包含"foobar"的ASCII字符串</td></tr><tr class="odd"><td>.long 0x12345678</td><td>定义一个双字0x12345678</td></tr></tbody></table><h1 id="代码与数据分离">代码与数据分离</h1><p>编译器通常将代码和数据分为不同的节，这在反汇编或分析二进制文件的时候非常方便，因为这样就知道程序中哪些字节被解释为代码，哪些字节被解释为数据。但是，x86架构本质上并没有阻止在同一个节中混合代码和数据，实际上某些编译器或者手写汇编程序也确实将数据和代码混合在同一个节</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;本文介绍的是目前最常见的x86汇编语言，即Intel公司的CPU使用的那一种&lt;/p&gt;
-&lt;h1 id=&quot;寄存器种类&quot;&gt;寄存器种类&lt;/h1&gt;
-&lt;p&gt;早期的x86
-CPU只有8个寄存器，而且每个都有不同的用途。现在的寄存器已经有100多个了，都变成通用寄存器，不特别指定用途</summary>
-      
-    
-    
-    
-    
-    <category term="Linux" scheme="http://whosejam.github.io/tags/Linux/"/>
     
   </entry>
   
