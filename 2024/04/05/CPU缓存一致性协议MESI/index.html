@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>CPU缓存一致性协议MESI | uselessName</title>
+  <meta name="description" content="在开始前  一个多CPU的系统中，每个CPU的频率是不一定同步的  MESI         状态 图例 解释     M  只在当前Cache被修改过   E  只在当前Cache没修改过   S  在多个Cache没修改过   I 缓存已失效 其他情况    总线嗅探机制：CPU感知其他CPU的行为，是通过嗅探总">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CPU缓存一致性协议MESI">
+<meta property="og:url" content="http://whosejam.github.io/2024/04/05/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AEMESI/index.html">
+<meta property="og:site_name" content="whoseJam">
+<meta property="og:description" content="在开始前  一个多CPU的系统中，每个CPU的频率是不一定同步的  MESI         状态 图例 解释     M  只在当前Cache被修改过   E  只在当前Cache没修改过   S  在多个Cache没修改过   I 缓存已失效 其他情况    总线嗅探机制：CPU感知其他CPU的行为，是通过嗅探总">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://whosejam.github.io/2024/04/05/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AEMESI/image-20240405165257295-1712307181126-1.png">
+<meta property="og:image" content="http://whosejam.github.io/2024/04/05/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AEMESI/image-20240405165411575.png">
+<meta property="og:image" content="http://whosejam.github.io/2024/04/05/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AEMESI/image-20240405165508937-1712307310478-3.png">
+<meta property="og:image" content="http://whosejam.github.io/2024/04/05/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AEMESI/image-20240406181524588-1712398526180-3.png">
+<meta property="og:image" content="http://whosejam.github.io/2024/04/05/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AEMESI/image-20240406184104410-1712400067541-5.png">
+<meta property="article:published_time" content="2024-04-05T08:39:10.000Z">
+<meta property="article:modified_time" content="2024-04-06T14:13:14.516Z">
+<meta property="article:author" content="whoseJam">
+<meta property="article:tag" content="计算机组成原理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://whosejam.github.io/2024/04/05/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AEMESI/image-20240405165257295-1712307181126-1.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://whosejam.github.io/2024/04/05/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AEMESI/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="whoseJam" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.2"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+
+<body class="main-center theme-green" itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/whosejam" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">whoseJam</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> </small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/whosejam" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/" rel="tag">CMake</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FinRL/" rel="tag">FinRL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ICPC/" rel="tag">ICPC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/" rel="tag">JS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLVM/" rel="tag">LLVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MMCV/" rel="tag">MMCV</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS/" rel="tag">OS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OptaPlanner/" rel="tag">OptaPlanner</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Optaplanner/" rel="tag">Optaplanner</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RL/" rel="tag">RL</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/" rel="tag">SQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP-IP/" rel="tag">TCP/IP</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/netcat/" rel="tag">netcat</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sd/" rel="tag">sd</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/telnet/" rel="tag">telnet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/torch/" rel="tag">torch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/" rel="tag">vmware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" rel="tag">信息论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" rel="tag">博弈论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%89%E5%85%A8/" rel="tag">安全</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%90%9C%E7%B4%A2/" rel="tag">搜索</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E4%BC%98%E5%8C%96/" rel="tag">最优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1/" rel="tag">概率统计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag">神经网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" rel="tag">编译原理</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BE%A4%E8%AE%BA/" rel="tag">群论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E6%A6%82%E8%AE%BA/" rel="tag">航空航天概论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag">计算机图形学</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B8%B8%E8%AF%86/" rel="tag">计算机常识</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" rel="tag">计算机组成原理</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a><span class="tag-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/C/" style="font-size: 13.29px;">C++</a> <a href="/tags/CMake/" style="font-size: 13px;">CMake</a> <a href="/tags/Docker/" style="font-size: 13px;">Docker</a> <a href="/tags/FinRL/" style="font-size: 13.14px;">FinRL</a> <a href="/tags/ICPC/" style="font-size: 13px;">ICPC</a> <a href="/tags/JS/" style="font-size: 13.14px;">JS</a> <a href="/tags/Java/" style="font-size: 13.29px;">Java</a> <a href="/tags/LLM/" style="font-size: 13px;">LLM</a> <a href="/tags/LLVM/" style="font-size: 13px;">LLVM</a> <a href="/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/tags/MMCV/" style="font-size: 13px;">MMCV</a> <a href="/tags/MySQL/" style="font-size: 13.86px;">MySQL</a> <a href="/tags/OS/" style="font-size: 13px;">OS</a> <a href="/tags/OptaPlanner/" style="font-size: 13.43px;">OptaPlanner</a> <a href="/tags/Optaplanner/" style="font-size: 13px;">Optaplanner</a> <a href="/tags/RL/" style="font-size: 14px;">RL</a> <a href="/tags/SQL/" style="font-size: 13px;">SQL</a> <a href="/tags/TCP-IP/" style="font-size: 13.43px;">TCP/IP</a> <a href="/tags/netcat/" style="font-size: 13px;">netcat</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/sd/" style="font-size: 13.57px;">sd</a> <a href="/tags/telnet/" style="font-size: 13px;">telnet</a> <a href="/tags/torch/" style="font-size: 13px;">torch</a> <a href="/tags/vmware/" style="font-size: 13px;">vmware</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" style="font-size: 13px;">信息论</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 13.43px;">前端</a> <a href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" style="font-size: 13px;">博弈论</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 13.29px;">多线程</a> <a href="/tags/%E5%AE%89%E5%85%A8/" style="font-size: 13.57px;">安全</a> <a href="/tags/%E6%90%9C%E7%B4%A2/" style="font-size: 13.29px;">搜索</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 13.57px;">操作系统</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 13.14px;">数据库</a> <a href="/tags/%E6%9C%80%E4%BC%98%E5%8C%96/" style="font-size: 13px;">最优化</a> <a href="/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1/" style="font-size: 13px;">概率统计</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 13px;">爬虫</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 13px;">神经网络</a> <a href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" style="font-size: 13.43px;">编译原理</a> <a href="/tags/%E7%BE%A4%E8%AE%BA/" style="font-size: 13px;">群论</a> <a href="/tags/%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E6%A6%82%E8%AE%BA/" style="font-size: 13px;">航空航天概论</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" style="font-size: 13.14px;">计算机图形学</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B8%B8%E8%AF%86/" style="font-size: 13px;">计算机常识</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" style="font-size: 13.43px;">计算机组成原理</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 13.71px;">计算机网络</a> <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" style="font-size: 13.57px;">面向对象</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">34</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">十一月 2023</a><span class="archive-list-count">23</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">十月 2023</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">九月 2023</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">八月 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">七月 2023</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">四月 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">三月 2023</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/04/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%B8%B8%E8%AF%86/" class="title">多线程环境下的内存操作</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-04-07T03:27:18.000Z" itemprop="datePublished">2024-04-07</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/04/07/mutex%E4%B8%BA%E4%BB%80%E4%B9%88%E6%85%A2/" class="title">mutex为什么慢</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-04-07T02:39:26.000Z" itemprop="datePublished">2024-04-07</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/04/06/%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" class="title">内存模型</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-04-06T14:13:54.000Z" itemprop="datePublished">2024-04-06</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/04/05/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AEMESI/" class="title">CPU缓存一致性协议MESI</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-04-05T08:39:10.000Z" itemprop="datePublished">2024-04-05</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/04/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%A6%82%E8%BF%B0/" class="title">计算机网络概述</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-04-03T02:11:00.000Z" itemprop="datePublished">2024-04-03</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-CPU缓存一致性协议MESI" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CPU缓存一致性协议MESI
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2024/04/05/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AEMESI/" class="article-date">
+	  <time datetime="2024-04-05T08:39:10.000Z" itemprop="datePublished">2024-04-05</time>
+	</a>
+</span>
+        
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" rel="tag">计算机组成原理</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2024/04/05/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AEMESI/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="在开始前">在开始前</h1>
+<ul>
+<li>一个多CPU的系统中，每个CPU的频率是不一定同步的</li>
+</ul>
+<h1 id="mesi">MESI</h1>
+<table>
+<colgroup>
+<col style="width: 4%">
+<col style="width: 65%">
+<col style="width: 29%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>状态</th>
+<th>图例</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>M</td>
+<td><img src="/2024/04/05/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AEMESI/image-20240405165257295-1712307181126-1.png" style="zoom:25%;"></td>
+<td>只在当前Cache<br>被修改过</td>
+</tr>
+<tr class="even">
+<td>E</td>
+<td><img src="/2024/04/05/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AEMESI/image-20240405165411575.png" style="zoom:25%;"></td>
+<td>只在当前Cache<br>没修改过</td>
+</tr>
+<tr class="odd">
+<td>S</td>
+<td><img src="/2024/04/05/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AEMESI/image-20240405165508937-1712307310478-3.png" style="zoom:25%;"></td>
+<td>在多个Cache<br>没修改过</td>
+</tr>
+<tr class="even">
+<td>I</td>
+<td>缓存已失效</td>
+<td>其他情况</td>
+</tr>
+</tbody>
+</table>
+<p><strong>总线嗅探机制</strong>：CPU感知其他CPU的行为，是通过嗅探总线中其他CPU发出的请求消息完成的，有时CPU也需要针对总线中的某些消息进行响应</p>
+<table>
+<colgroup>
+<col style="width: 24%">
+<col style="width: 9%">
+<col style="width: 65%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>消息</th>
+<th>请求/响应</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Read</td>
+<td>请求</td>
+<td>通知其他处理器和内存，当前处理器准备读取某个数据。该消息包含待读取数据的内存地址</td>
+</tr>
+<tr class="even">
+<td>Read Response</td>
+<td>响应</td>
+<td>该消息包含了被请求读取的数据。该消息可能是内存返回的，也可能是其他高速缓存嗅探到Read消息返回的</td>
+</tr>
+<tr class="odd">
+<td>Invalidate</td>
+<td>请求</td>
+<td>通知其他处理器删除指定内存地址的数据副本</td>
+</tr>
+<tr class="even">
+<td>Invalidate Acknowledge</td>
+<td>响应</td>
+<td>接收到Invalidate消息的处理器必须回复此消息，表示已经删除了其高速缓存内对应的数据副本</td>
+</tr>
+<tr class="odd">
+<td>Read Invalidate</td>
+<td>请求</td>
+<td>请求一份数据，并且顺便把该数据在别的高速缓存处给Invalidate了。收到该消息的处理器应返回一个Read
+Response和一个Invalidate Acknowledge</td>
+</tr>
+<tr class="even">
+<td>Writeback</td>
+<td>响应</td>
+<td>把数据写回内存</td>
+</tr>
+</tbody>
+</table>
+<h1 id="分类讨论">分类讨论</h1>
+<p>为了分类讨论更加直观，我们把一个缓存行想象成一个变量<span class="math inline">\(x\)</span></p>
+<h3 id="mrightarrow-e"><span class="math inline">\(M\rightarrow
+E\)</span></h3>
+<ul>
+<li>描述：从独占一个和内存不一致的变量<span class="math inline">\(x\)</span>，到独占一个和内存一致的变量<span class="math inline">\(x\)</span></li>
+<li>流程：
+<ul>
+<li>发出一个Writeback响应，把<span class="math inline">\(x\)</span>写回内存</li>
+<li>于是，缓存中<span class="math inline">\(x\)</span>与内存中<span class="math inline">\(x\)</span>一致了</li>
+</ul></li>
+<li>触发时机：不知道</li>
+</ul>
+<h3 id="erightarrow-m"><span class="math inline">\(E\rightarrow
+M\)</span></h3>
+<ul>
+<li>描述：从独占一个和内存一致的变量<span class="math inline">\(x\)</span>，到独占一个和内存不一致的变量<span class="math inline">\(x\)</span></li>
+<li>流程：
+<ul>
+<li>CPU自己改了缓存中的<span class="math inline">\(x\)</span></li>
+<li>于是，缓存中<span class="math inline">\(x\)</span>与内存中<span class="math inline">\(x\)</span>不一致了</li>
+</ul></li>
+<li>触发时机：本地写</li>
+</ul>
+<h3 id="mrightarrow-i"><span class="math inline">\(M\rightarrow
+I\)</span></h3>
+<ul>
+<li>描述：从独占一个和内存不一致的变量<span class="math inline">\(x\)</span>，到变量<span class="math inline">\(x\)</span>失效</li>
+<li>流程：
+<ul>
+<li>收到一个Read Invalidate请求</li>
+<li>发出一个Read Response，携带<span class="math inline">\(x\)</span>的值</li>
+<li>将<span class="math inline">\(x\)</span>失效</li>
+<li>发出一个Invalidate Acknowledge</li>
+</ul></li>
+<li>触发时机：别的CPU想要进行原子read-modify-write操作</li>
+</ul>
+<h3 id="irightarrow-m"><span class="math inline">\(I\rightarrow
+M\)</span></h3>
+<ul>
+<li>描述：从变量<span class="math inline">\(x\)</span>失效，到独占一个和内存不一致的变量<span class="math inline">\(x\)</span></li>
+<li>流程：
+<ul>
+<li>发出一个Read Invalidate请求</li>
+<li>收到一个Read Response，包含了<span class="math inline">\(x\)</span>的值</li>
+<li>收到很多Invalidate Acknowledge，所有响应都收到后，修改<span class="math inline">\(x\)</span>，转为<span class="math inline">\(M\)</span></li>
+</ul></li>
+<li>触发时机：当前CPU想要进行read-modify-write操作</li>
+</ul>
+<h3 id="srightarrow-m"><span class="math inline">\(S\rightarrow
+M\)</span></h3>
+<ul>
+<li>描述：从共享变量<span class="math inline">\(x\)</span>，到当前CPU独占一个和内存不一致的变量<span class="math inline">\(x\)</span></li>
+<li>流程：
+<ul>
+<li>发出一个Invalidate请求</li>
+<li>收到很多Invalidate Acknowledge，所有响应都收到后，修改<span class="math inline">\(x\)</span>，转为<span class="math inline">\(M\)</span></li>
+</ul></li>
+<li>触发时机：当前CPU想要进行read-modify-write操作</li>
+</ul>
+<h3 id="mrightarrow-s"><span class="math inline">\(M\rightarrow
+S\)</span></h3>
+<ul>
+<li>描述：从独占一个和内存不一致的变量<span class="math inline">\(x\)</span>，到共享变量<span class="math inline">\(x\)</span></li>
+<li>流程：
+<ul>
+<li>收到一个Read请求</li>
+<li>返回一个Read Response，携带了<span class="math inline">\(x\)</span></li>
+</ul></li>
+<li>触发时机：别的某个CPU可能想要读取<span class="math inline">\(x\)</span>的值</li>
+</ul>
+<h3 id="erightarrow-s"><span class="math inline">\(E\rightarrow
+S\)</span></h3>
+<ul>
+<li>描述：从独占一个和内存一致的变量<span class="math inline">\(x\)</span>，到共享变量<span class="math inline">\(x\)</span></li>
+<li>流程：
+<ul>
+<li>收到一个Read请求</li>
+<li>返回一个Read Response，携带<span class="math inline">\(x\)</span>的值</li>
+</ul></li>
+<li>触发时机：别的某个CPU可能想要读取<span class="math inline">\(x\)</span>的值，这个值既可以从内存提供，也可以从当前CPU提供</li>
+</ul>
+<h3 id="srightarrow-e"><span class="math inline">\(S\rightarrow
+E\)</span></h3>
+<ul>
+<li>描述：从共享变量<span class="math inline">\(x\)</span>，到独占一个和内存一致的变量<span class="math inline">\(x\)</span></li>
+<li>流程：
+<ul>
+<li>发出一个Invalidate请求</li>
+<li>收到很多Invalidate Acknowledge，所有响应都收到后，转为<span class="math inline">\(E\)</span></li>
+<li>或者，别的CPU在丢弃这个变量<span class="math inline">\(x\)</span>（缓存不够用了），这个CPU是最后一个拥有<span class="math inline">\(x\)</span>的</li>
+</ul></li>
+<li>触发时机：预测到当前CPU很快就要往变量<span class="math inline">\(x\)</span>中写入了，这其实是一个中间状态，最终的目的还是转为<span class="math inline">\(M\)</span>，即可以参考<span class="math inline">\(S\rightarrow M\)</span></li>
+</ul>
+<h3 id="erightarrow-i"><span class="math inline">\(E\rightarrow
+I\)</span></h3>
+<ul>
+<li>描述：从独占一个和内存一致的变量<span class="math inline">\(x\)</span>，到变量<span class="math inline">\(x\)</span>失效</li>
+<li>流程：
+<ul>
+<li>收到一个Read Invalidate请求</li>
+<li>发出一个Read Response，携带<span class="math inline">\(x\)</span>的值</li>
+<li>发出一个Invalidate Acknowledge</li>
+</ul></li>
+<li>触发时机：别的CPU想要进行read-modify-write操作</li>
+</ul>
+<h3 id="irightarrow-e"><span class="math inline">\(I\rightarrow
+E\)</span></h3>
+<ul>
+<li>描述：从变量<span class="math inline">\(x\)</span>失效，到独占一个和内存一致的变量<span class="math inline">\(x\)</span></li>
+<li>流程：
+<ul>
+<li>发出一个Read Invalidate请求</li>
+<li>收到一个Read Response，包含了<span class="math inline">\(x\)</span>的值</li>
+<li>收到很多Invalidate Acknowledge，所有响应都收到后，转为<span class="math inline">\(E\)</span></li>
+</ul></li>
+<li>触发时机：<span class="math inline">\(I\rightarrow
+E\)</span>大概率不是一个最终状态，CPU实际目的还是希望能修改<span class="math inline">\(x\)</span>的值，所以一旦实际存储完成，缓存行可能会经历<span class="math inline">\(E\rightarrow M\)</span>，或者连在一起看，就是<span class="math inline">\(I\rightarrow M\)</span></li>
+</ul>
+<h3 id="irightarrow-s"><span class="math inline">\(I\rightarrow
+S\)</span></h3>
+<ul>
+<li>描述：从变量<span class="math inline">\(x\)</span>失效，到共享变量<span class="math inline">\(x\)</span></li>
+<li>流程：
+<ul>
+<li>发出一个Read请求</li>
+<li>收到一个Read Response，包含了<span class="math inline">\(x\)</span>的值</li>
+</ul></li>
+<li>触发时机：该CPU想要读取一个不在其缓存行中的值</li>
+</ul>
+<h3 id="srightarrow-i"><span class="math inline">\(S\rightarrow
+I\)</span></h3>
+<ul>
+<li>流程：从共享变量<span class="math inline">\(x\)</span>，到变量<span class="math inline">\(x\)</span>失效</li>
+<li>流程：
+<ul>
+<li>收到一个Invalidate请求</li>
+<li>发出一个Invalidate Acknowledge</li>
+</ul></li>
+<li>触发时机：别的某个共享该变量<span class="math inline">\(x\)</span>的CPU，想要对<span class="math inline">\(x\)</span>进行修改</li>
+</ul>
+<h1 id="写优化">写优化</h1>
+<h2 id="store-buffer">Store Buffer</h2>
+<p>为了优化写操作性能，在CPU和Cache之间引入了Store
+Buffer，写消息无需立即向其他CPU发送Invalidate消息，而是先写入Store
+Buffer中，然后立即返回执行其他操作，由Store
+Buffer异步执行发送广播消息，等到接收到其他CPU的响应后，再将数据从Store
+Buffer移到Cache中</p>
+<p><img src="/2024/04/05/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AEMESI/image-20240406181524588-1712398526180-3.png" alt="image-20240406181524588" style="zoom:50%;"></p>
+<h2 id="store-forwarding">Store Forwarding</h2>
+<p>不过一个问题来了，假设当前CPU在Store Buffer中记录了写操作<span class="math inline">\(wop\)</span>之后，继续之后的指令执行，并且执行了<span class="math inline">\(I=\{I_1,I_2,...,I_n\}\)</span>这些指令，而其中某条指令<span class="math inline">\(I_k\in I\)</span>依赖于<span class="math inline">\(wop\)</span>，那么就会出现程序员可见的bug，为了解决这个问题，我们允许CPU直接从Store
+Buffer里面找数据</p>
+<h2 id="store-buffer造成的问题">Store Buffer造成的问题</h2>
+<p>Store Buffer中存储了对当前CPU的某个变量集合<span class="math inline">\(X=\{x_1,x_2,...,x_n\}\)</span>尚未施加的修改，同时还有一个指令<span class="math inline">\(I\)</span>是针对某个变量<span class="math inline">\(x_t\)</span>的，满足<span class="math inline">\(x_t\notin
+X\)</span>，如果另外一个CPU请求这个变量<span class="math inline">\(x_t\)</span>的值：</p>
+<ul>
+<li>站在CPU的角度，<span class="math inline">\(I\)</span>完全可以在Store
+Buffer没有清空的情况下执行，因为Store Buffer中根本不存在对<span class="math inline">\(x_t\)</span>的影响</li>
+<li>站在程序员的角度，有可能程序员希望看见<span class="math inline">\(I\)</span>这条指令在<span class="math inline">\(x_i\in X\)</span>被修改后执行，也就是Store
+Buffer的影响必须施加完毕后，再执行<span class="math inline">\(I\)</span></li>
+</ul>
+<p>我们无法从硬件层面预测这种依赖关系，所以提供了Store Memory
+Barrier，<code>smp_wmb()</code>，其作用是告诉处理器，在执行<code>smp_wmb()</code>时，应清空Store
+Buffer</p>
+<h3 id="无store-buffer">无Store Buffer</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> a <span class="op">=</span> <span class="dv">0</span><span class="op">,</span> b <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> foo<span class="op">()</span> <span class="op">&#123;</span>    <span class="co">// Cache中存在b = 0(E)</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    a <span class="op">=</span> <span class="dv">1</span><span class="op">;</span>      <span class="co">// 远程无效化，收到Invalidate Ack后修改</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    b <span class="op">=</span> <span class="dv">1</span><span class="op">;</span>      <span class="co">// 本地写，直接修改</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="op">&#125;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> bar<span class="op">()</span> <span class="op">&#123;</span>    <span class="co">// Cache中存在a = 0(E)</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>b <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="cf">continue</span><span class="op">;</span>    <span class="co">// 远程读，读到b == 1后，本地对a的invalidate肯定生效了</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="ot">assert</span><span class="op">(</span>a <span class="op">==</span> <span class="dv">1</span><span class="op">);</span>             <span class="co">// 远程读，读到a == 1</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="op">&#125;</span></span></code></pre></div>
+<h3 id="有store-buffer-无内存屏障">有Store Buffer， 无内存屏障</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> a <span class="op">=</span> <span class="dv">0</span><span class="op">,</span> b <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> foo<span class="op">()</span> <span class="op">&#123;</span>    <span class="co">// Cache中存在b = 0(E)</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    a <span class="op">=</span> <span class="dv">1</span><span class="op">;</span>      <span class="co">// 进入Store Buffer</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    b <span class="op">=</span> <span class="dv">1</span><span class="op">;</span>      <span class="co">// 本地写，直接修改</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="op">&#125;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> bar<span class="op">()</span> <span class="op">&#123;</span>    <span class="co">// Cache中存在a = 0(E)</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>b <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="cf">continue</span><span class="op">;</span>    <span class="co">// 远程读，读到b == 1，对a = 1的修改还在foo的Store Buffer中</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="ot">assert</span><span class="op">(</span>a <span class="op">==</span> <span class="dv">1</span><span class="op">);</span>             <span class="co">// 本地读，本地对a的invalidate还没生效，assert fail</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="op">&#125;</span></span></code></pre></div>
+<h3 id="有store-buffer有内存屏障">有Store Buffer，有内存屏障</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> a <span class="op">=</span> <span class="dv">0</span><span class="op">,</span> b <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> foo<span class="op">()</span> <span class="op">&#123;</span>    <span class="co">// Cache中存在b = 0(E)</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    a <span class="op">=</span> <span class="dv">1</span><span class="op">;</span>      <span class="co">// 进行Store Buffer</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    smp_wmb<span class="op">();</span>  <span class="co">// 等待bar给出Invalidate Ack后，清空Store Buffer，a = 1(M)</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    b <span class="op">=</span> <span class="dv">1</span><span class="op">;</span>      <span class="co">// 本地写，直接修改</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="op">&#125;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> bar<span class="op">()</span> <span class="op">&#123;</span>    <span class="co">// Cache中存在a = 0(E)</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>b <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="cf">continue</span><span class="op">;</span>    <span class="co">// 远程读，读到b == 1，bar一定已经invalidate了a</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="ot">assert</span><span class="op">(</span>a <span class="op">==</span> <span class="dv">1</span><span class="op">);</span>             <span class="co">// 远程读，读到a == 1</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="op">&#125;</span></span></code></pre></div>
+<h1 id="invalidate优化">Invalidate优化</h1>
+<blockquote>
+<p>Invalidate
+Acknowledge消息可能需要很长时间。其中一个原因是，它们必须确保相应的缓存行实际上无效，如果缓存繁忙，此Invalidate可能会延迟。例如，如果CPU集中加载和存储数据，且所有这些数据都位于缓存中。此外，如果大量Invalidate消息在短时间内到达，给定的CPU可能在处理它们用时过长</p>
+</blockquote>
+<h2 id="invalidate-queue">Invalidate Queue</h2>
+<p>CPU在收到Invalidate消息后，会存储在Invalidate
+Queue中，并立即响应Invalidate
+Acknowledge，之后Invalidate再异步执行缓存失效写操作</p>
+<p><img src="/2024/04/05/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AEMESI/image-20240406184104410-1712400067541-5.png" style="zoom:50%;"></p>
+<h2 id="invalidate-queue造成的问题">Invalidate Queue造成的问题</h2>
+<p>如果Invalidate
+Queue中存在某个失效操作，还没有来得及施加在Cache中的<span class="math inline">\(x\)</span>上，CPU就开始使用<span class="math inline">\(x\)</span>的旧值了，那么就造成了缓存不一致</p>
+<p>我们提供了<code>smp_rmb()</code>，读屏障，其作用是告诉处理器，在执行<code>smp_rmb()</code>，应清空Invalidate
+Queue</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://whosejam.github.io/2024/04/05/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AEMESI/" title="CPU缓存一致性协议MESI" target="_blank" rel="external">http://whosejam.github.io/2024/04/05/CPU缓存一致性协议MESI/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/whosejam" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/whosejam" target="_blank"><span class="text-dark">whoseJam</span><small class="ml-1x"></small></a></h3>
+        <div></div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2024/04/06/%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" title="内存模型"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2024/04/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%A6%82%E8%BF%B0/" title="计算机网络概述"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/whosejam" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+<!-- hexo injector body_end start -->
+    <script src="/js/whosejam.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <script>
+        hljs.configure({
+            tabReplace: '    ',
+            classPrefix: ''
+        });
+        hljs.initHighlightingOnLoad();
+    </script><!-- hexo injector body_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+</html>
