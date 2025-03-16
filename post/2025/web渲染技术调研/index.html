@@ -8,7 +8,7 @@
 
 <link rel='canonical' href='http://localhost:1313/post/2025/web%E6%B8%B2%E6%9F%93%E6%8A%80%E6%9C%AF%E8%B0%83%E7%A0%94/'>
 
-<link rel="stylesheet" href="/scss/style.min.285e5f1176ac1230efcc8d136543529e28ff150c9112cf8d0285e7012ed795aa.css"><meta property='og:title' content="Web渲染技术调研">
+<link rel="stylesheet" href="/scss/style.min.de6fbd66795d70590394ab94ee9cb54376e677085dcf98dfcbb5553b47b088ca.css"><meta property='og:title' content="Web渲染技术调研">
 <meta property='og:description' content="Web渲染技术调研\rCanvas方案\r一个benchmark：https://benchmark.webgl.gezilinll.com/。 基于Skia的Canvas渲染方案：https://github.com/gezilinll/infinite-engine。 全平台Skia编译：https://github.com/gezilinll/skia-builder。 Manim渲染方案：https://docs.manim.community/en/stable/guides/deep_dive.html。 SVG方案\r用svg图片去渲染一个场景，好处是上手很快，实现迅速，坏处是没有办法做很深入的拓展，上限就被svg的表达能力锁死了。而且svg在做path有关的动画的时候，效率比较低下。在添加大量新元素到画布上也会有卡顿感。\n">
 <meta property='og:url' content='http://localhost:1313/post/2025/web%E6%B8%B2%E6%9F%93%E6%8A%80%E6%9C%AF%E8%B0%83%E7%A0%94/'>
 <meta property='og:site_name' content='whoseJam'>
@@ -219,6 +219,14 @@
 </footer>
 
 <script>
+    function getURL(iframe) {
+        let url = iframe.getAttribute("data-animation");
+        if (url.endsWith(".js")) url = url.replace(".js", ".html");
+        return url;
+    }
+    iframe.configure({
+        getURL
+    });
     iframe.init(document.body);
 </script>
 

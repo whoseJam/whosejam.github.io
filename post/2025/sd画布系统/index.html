@@ -8,7 +8,7 @@
 
 <link rel='canonical' href='http://localhost:1313/post/2025/sd%E7%94%BB%E5%B8%83%E7%B3%BB%E7%BB%9F/'>
 
-<link rel="stylesheet" href="/scss/style.min.285e5f1176ac1230efcc8d136543529e28ff150c9112cf8d0285e7012ed795aa.css"><meta property='og:title' content="sd画布系统">
+<link rel="stylesheet" href="/scss/style.min.de6fbd66795d70590394ab94ee9cb54376e677085dcf98dfcbb5553b47b088ca.css"><meta property='og:title' content="sd画布系统">
 <meta property='og:description' content="为什么要设立画布？\r一个动画引擎的图形表达能力肯定是越强越好。图形表达能力越强，就意味着使用者能够描述越复杂的场景。sd 运行在浏览器中，这就意味着浏览器的绘图能力天生能为 sd 所用，这赋予了 sd 极强的图形表达能力。\n然而，在浏览器中提供了 SVGElement，HTMLElement，WebGPU 和 WebGL 等多种表达图形的手段，这些手段在使用的时候多少有些区别。为了弥合这些手段之间的差异性，sd 提供了不同的画布来做相应的绘制。简单来说，画布设立的初衷就是为了尽其所能地利用浏览器的绘图能力的。\n在 sd 内部提供了各式各样的可编程节点，这些可编程节点是动画创作的基石。而这些节点背后封装的就是上述各种各样的图形表达能力，使用者需要挑选正确的画布进行绘制。\nSVG 画布\r这一张画布用来盛放所有的 SVGElement。对 SVG 格式不熟悉的读者可以参考此处：SVG：可缩放矢量图形。SVG 画布是最早开始研发的，同时功能也是最完善的，对应的可编程节点是最多的，例如：sd.Rect、sd.Circle、sd.Ellipse、sd.Path 等等。\n在代码层面，可以这样获取 SVG 画布：\nconst svg = sd.svg(); 如果希望将某个节点绘制在 SVG 画布上，可以这样做：\nconst rect = new sd.Rect(svg); const circle = new sd.Circle(svg).x(100); 更多的有关可编程节点的初始化的内容留到后续章节，此处不详细展开了。\nDIV 画布\r这一张画布用来盛放所有的 HTMLElement。DIV 画布通常盛放一些和用户交互有关的可编程节点，例如：sd.Button、sd.Input、sd.Slider 等等。\n在代码层面，可以这样获取 DIV 画布：\nconst div = sd.div(); 如果希望将某个节点绘制在 DIV 画布上，可以这样做：\nconst button = new sd.Button(div); const input = new sd.Input(div).x(100).width(80); const slider = new sd.Slider(div).x(200); THREE 画布\r浏览器的 3D 绘制能力总是用 canvas 开启，所以我们可以先新建一张 canvas：\nconst div = sd.div(); const canvas = new sd.Canvas(div); 然后激活此画布的 3D 绘制能力：\n">
 <meta property='og:url' content='http://localhost:1313/post/2025/sd%E7%94%BB%E5%B8%83%E7%B3%BB%E7%BB%9F/'>
 <meta property='og:site_name' content='whoseJam'>
@@ -162,10 +162,19 @@
 <div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">rect</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Rect</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">);</span>
 </span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">circle</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Circle</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">100</span><span style="color:#111">);</span>
 </span></span></code></pre></div><iframe
-  data-animation="svg.html"
-  src="svg.html"
-  width="100%"
-  height="100"
+    data-animation="svg.js"
+  
+    
+    
+    
+    height="100"
+    
+
+    
+
+    
+
+    
 ></iframe>
 
 <p>更多的有关可编程节点的初始化的内容留到后续章节，此处不详细展开了。</p>
@@ -178,10 +187,19 @@
 </span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">input</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Input</span><span style="color:#111">(</span><span style="color:#75af00">div</span><span style="color:#111">).</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">100</span><span style="color:#111">).</span><span style="color:#75af00">width</span><span style="color:#111">(</span><span style="color:#ae81ff">80</span><span style="color:#111">);</span>
 </span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">slider</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Slider</span><span style="color:#111">(</span><span style="color:#75af00">div</span><span style="color:#111">).</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">200</span><span style="color:#111">);</span>
 </span></span></code></pre></div><iframe
-  data-animation="div.html"
-  src="div.html"
-  width="100%"
-  height="100"
+    data-animation="div.js"
+  
+    
+    
+    
+    height="100"
+    
+
+    
+
+    
+
+    
 ></iframe>
 
 <h1 id="three-画布">THREE 画布
@@ -197,10 +215,19 @@
 </span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">c4</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Cube</span><span style="color:#111">(</span><span style="color:#75af00">three</span><span style="color:#111">).</span><span style="color:#75af00">z</span><span style="color:#111">(</span><span style="color:#ae81ff">1</span><span style="color:#111">);</span>
 </span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">light</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Light</span><span style="color:#111">(</span><span style="color:#75af00">three</span><span style="color:#111">);</span>
 </span></span></code></pre></div><iframe
-  data-animation="three.html"
-  src="three.html"
-  width="100%"
-  height="200"
+    data-animation="three.js"
+  
+    
+    
+    
+    height="200"
+    
+
+    
+
+    
+
+    
 ></iframe>
 
 <h1 id="后记">后记
@@ -265,6 +292,14 @@
 </footer>
 
 <script>
+    function getURL(iframe) {
+        let url = iframe.getAttribute("data-animation");
+        if (url.endsWith(".js")) url = url.replace(".js", ".html");
+        return url;
+    }
+    iframe.configure({
+        getURL
+    });
     iframe.init(document.body);
 </script>
 

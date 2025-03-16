@@ -25,10 +25,19 @@
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#00a8c8&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;rect&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00a8c8&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;sd&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;Rect&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;svg&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#00a8c8&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;circle&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00a8c8&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;sd&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;Circle&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;svg&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;).&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;x&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;iframe
-  data-animation=&#34;svg.html&#34;
-  src=&#34;svg.html&#34;
-  width=&#34;100%&#34;
-  height=&#34;100&#34;
+    data-animation=&#34;svg.js&#34;
+  
+    
+    
+    
+    height=&#34;100&#34;
+    
+
+    
+
+    
+
+    
 &gt;&lt;/iframe&gt;
 
 &lt;p&gt;更多的有关可编程节点的初始化的内容留到后续章节，此处不详细展开了。&lt;/p&gt;
@@ -41,10 +50,19 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#00a8c8&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;input&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00a8c8&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;sd&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;Input&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;div&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;).&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;x&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;).&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;width&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;80&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#00a8c8&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;slider&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00a8c8&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;sd&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;Slider&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;div&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;).&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;x&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;200&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;iframe
-  data-animation=&#34;div.html&#34;
-  src=&#34;div.html&#34;
-  width=&#34;100%&#34;
-  height=&#34;100&#34;
+    data-animation=&#34;div.js&#34;
+  
+    
+    
+    
+    height=&#34;100&#34;
+    
+
+    
+
+    
+
+    
 &gt;&lt;/iframe&gt;
 
 &lt;h1 id=&#34;three-画布&#34;&gt;THREE 画布
@@ -60,10 +78,19 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#00a8c8&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;c4&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00a8c8&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;sd&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;Cube&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;three&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;).&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;z&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#00a8c8&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;light&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00a8c8&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;sd&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;Light&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;three&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;iframe
-  data-animation=&#34;three.html&#34;
-  src=&#34;three.html&#34;
-  width=&#34;100%&#34;
-  height=&#34;200&#34;
+    data-animation=&#34;three.js&#34;
+  
+    
+    
+    
+    height=&#34;200&#34;
+    
+
+    
+
+    
+
+    
 &gt;&lt;/iframe&gt;
 
 &lt;h1 id=&#34;后记&#34;&gt;后记
@@ -78,10 +105,19 @@
         <guid>http://localhost:1313/post/2025/sd%E5%8A%A8%E7%94%BB%E6%A1%86%E6%9E%B6%E6%A6%82%E8%BF%B0/</guid>
         <description>&lt;h1 id=&#34;hello-sd&#34;&gt;Hello, sd!
 &lt;/h1&gt;&lt;iframe
-  data-animation=&#34;hello.html&#34;
-  src=&#34;hello.html&#34;
-  width=&#34;100%&#34;
-  height=&#34;200&#34;
+    data-animation=&#34;hello.js&#34;
+  
+    
+    
+    
+    height=&#34;200&#34;
+    
+
+    
+
+    
+
+    
 &gt;&lt;/iframe&gt;
 
 &lt;blockquote&gt;

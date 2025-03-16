@@ -8,7 +8,7 @@
 
 <link rel='canonical' href='http://localhost:1313/tags/'>
 
-<link rel="stylesheet" href="/scss/style.min.285e5f1176ac1230efcc8d136543529e28ff150c9112cf8d0285e7012ed795aa.css"><meta property='og:title' content="Tags">
+<link rel="stylesheet" href="/scss/style.min.de6fbd66795d70590394ab94ee9cb54376e677085dcf98dfcbb5553b47b088ca.css"><meta property='og:title' content="Tags">
 <meta property='og:description' content="whoseJam's Blog">
 <meta property='og:url' content='http://localhost:1313/tags/'>
 <meta property='og:site_name' content='whoseJam'>
@@ -135,6 +135,14 @@
 </footer>
 
 <script>
+    function getURL(iframe) {
+        let url = iframe.getAttribute("data-animation");
+        if (url.endsWith(".js")) url = url.replace(".js", ".html");
+        return url;
+    }
+    iframe.configure({
+        getURL
+    });
     iframe.init(document.body);
 </script>
 

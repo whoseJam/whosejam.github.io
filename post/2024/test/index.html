@@ -8,7 +8,7 @@
 
 <link rel='canonical' href='http://localhost:1313/post/2024/test/'>
 
-<link rel="stylesheet" href="/scss/style.min.285e5f1176ac1230efcc8d136543529e28ff150c9112cf8d0285e7012ed795aa.css"><meta property='og:title' content="Test">
+<link rel="stylesheet" href="/scss/style.min.de6fbd66795d70590394ab94ee9cb54376e677085dcf98dfcbb5553b47b088ca.css"><meta property='og:title' content="Test">
 <meta property='og:description' content="测试标题\r测试公式\r$$ a^2+b^2=c^2 $$\n也可以是行内公式 $a+b=c$。\n测试代码块\r#include &lt;iostream&gt; int main() { std::cout &lt;&lt; &#34;hello world\\n&#34;; return 0; } ">
 <meta property='og:url' content='http://localhost:1313/post/2024/test/'>
 <meta property='og:site_name' content='whoseJam'>
@@ -222,6 +222,14 @@ $$</p>
 </footer>
 
 <script>
+    function getURL(iframe) {
+        let url = iframe.getAttribute("data-animation");
+        if (url.endsWith(".js")) url = url.replace(".js", ".html");
+        return url;
+    }
+    iframe.configure({
+        getURL
+    });
     iframe.init(document.body);
 </script>
 
