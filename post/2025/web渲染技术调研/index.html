@@ -8,7 +8,7 @@
 
 <link rel='canonical' href='http://localhost:1313/post/2025/web%E6%B8%B2%E6%9F%93%E6%8A%80%E6%9C%AF%E8%B0%83%E7%A0%94/'>
 
-<link rel="stylesheet" href="/scss/style.min.b9c8156d464c343bdacaf14a871581fb94cbbdb9dd5cbce4ba017361187cc930.css"><meta property='og:title' content="Web渲染技术调研">
+<link rel="stylesheet" href="/scss/style.min.285e5f1176ac1230efcc8d136543529e28ff150c9112cf8d0285e7012ed795aa.css"><meta property='og:title' content="Web渲染技术调研">
 <meta property='og:description' content="Web渲染技术调研\rCanvas方案\r一个benchmark：https://benchmark.webgl.gezilinll.com/。 基于Skia的Canvas渲染方案：https://github.com/gezilinll/infinite-engine。 全平台Skia编译：https://github.com/gezilinll/skia-builder。 Manim渲染方案：https://docs.manim.community/en/stable/guides/deep_dive.html。 SVG方案\r用svg图片去渲染一个场景，好处是上手很快，实现迅速，坏处是没有办法做很深入的拓展，上限就被svg的表达能力锁死了。而且svg在做path有关的动画的时候，效率比较低下。在添加大量新元素到画布上也会有卡顿感。\n">
 <meta property='og:url' content='http://localhost:1313/post/2025/web%E6%B8%B2%E6%9F%93%E6%8A%80%E6%9C%AF%E8%B0%83%E7%A0%94/'>
 <meta property='og:site_name' content='whoseJam'>
@@ -24,9 +24,7 @@
     <script>
         (function() {
             const colorSchemeKey = 'StackColorScheme';
-            if(!localStorage.getItem(colorSchemeKey)){
-                localStorage.setItem(colorSchemeKey, "auto");
-            }
+            localStorage.setItem(colorSchemeKey, "light");
         })();
     </script><script>
     (function() {
@@ -96,26 +94,6 @@
         <li class="menu-bottom-section">
             <ol class="menu">
 
-                
-                    <li id="dark-mode-toggle">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="8" cy="12" r="2" />
-  <rect x="2" y="6" width="20" height="12" rx="6" />
-</svg>
-
-
-
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="16" cy="12" r="2" />
-  <rect x="2" y="6" width="20" height="12" rx="6" />
-</svg>
-
-
-
-                        <span>Dark Mode</span>
-                    </li>
                 
             </ol>
         </li>
@@ -329,7 +307,7 @@
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.26d0d8836ba485d737fef121c1e586ec19bf9e23afa506b96359acd8c789ecb8.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.358e7d23323b632d2391057da55273f0177b14906f8036b8bd592b2fcf876738.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

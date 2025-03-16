@@ -6,8 +6,72 @@
         <description>Recent content on whoseJam</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Sat, 15 Mar 2025 10:01:52 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>为什么我要写 sd 动画框架</title>
+        <lastBuildDate>Sun, 16 Mar 2025 08:52:57 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>sd画布系统</title>
+        <link>http://localhost:1313/post/2025/sd%E7%94%BB%E5%B8%83%E7%B3%BB%E7%BB%9F/</link>
+        <pubDate>Sun, 16 Mar 2025 08:52:57 +0800</pubDate>
+        
+        <guid>http://localhost:1313/post/2025/sd%E7%94%BB%E5%B8%83%E7%B3%BB%E7%BB%9F/</guid>
+        <description>&lt;h1 id=&#34;为什么要设立画布&#34;&gt;为什么要设立画布？
+&lt;/h1&gt;&lt;p&gt;一个动画引擎的图形表达能力肯定是越强越好。图形表达能力越强，就意味着使用者能够描述越复杂的场景。sd 运行在浏览器中，这就意味着浏览器的绘图能力天生能为 sd 所用，这赋予了 sd 极强的图形表达能力。&lt;/p&gt;
+&lt;p&gt;然而，在浏览器中提供了 &lt;code&gt;SVGElement&lt;/code&gt;，&lt;code&gt;HTMLElement&lt;/code&gt;，&lt;code&gt;WebGPU&lt;/code&gt; 和 &lt;code&gt;WebGL&lt;/code&gt; 等多种表达图形的手段，这些手段在使用的时候多少有些区别。为了弥合这些手段之间的差异性，sd 提供了不同的画布来做相应的绘制。简单来说，画布设立的初衷就是为了尽其所能地利用浏览器的绘图能力的。&lt;/p&gt;
+&lt;p&gt;在 sd 内部提供了各式各样的可编程节点，这些可编程节点是动画创作的基石。而这些节点背后封装的就是上述各种各样的图形表达能力，使用者需要挑选正确的画布进行绘制。&lt;/p&gt;
+&lt;h1 id=&#34;svg-画布&#34;&gt;SVG 画布
+&lt;/h1&gt;&lt;p&gt;这一张画布用来盛放所有的 &lt;code&gt;SVGElement&lt;/code&gt;。对 SVG 格式不熟悉的读者可以参考此处：&lt;a class=&#34;link&#34; href=&#34;https://developer.mozilla.org/zh-CN/docs/Web/SVG&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;SVG：可缩放矢量图形&lt;/a&gt;。SVG 画布是最早开始研发的，同时功能也是最完善的，对应的可编程节点是最多的，例如：&lt;code&gt;sd.Rect&lt;/code&gt;、&lt;code&gt;sd.Circle&lt;/code&gt;、&lt;code&gt;sd.Ellipse&lt;/code&gt;、&lt;code&gt;sd.Path&lt;/code&gt; 等等。&lt;/p&gt;
+&lt;p&gt;在代码层面，可以这样获取 SVG 画布：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#00a8c8&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;svg&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;sd&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;svg&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果希望将某个节点绘制在 SVG 画布上，可以这样做：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#00a8c8&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;rect&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00a8c8&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;sd&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;Rect&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;svg&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#00a8c8&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;circle&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00a8c8&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;sd&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;Circle&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;svg&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;).&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;x&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;iframe
+  data-animation=&#34;svg.html&#34;
+  src=&#34;svg.html&#34;
+  width=&#34;100%&#34;
+  height=&#34;100&#34;
+&gt;&lt;/iframe&gt;
+
+&lt;p&gt;更多的有关可编程节点的初始化的内容留到后续章节，此处不详细展开了。&lt;/p&gt;
+&lt;h1 id=&#34;div-画布&#34;&gt;DIV 画布
+&lt;/h1&gt;&lt;p&gt;这一张画布用来盛放所有的 &lt;code&gt;HTMLElement&lt;/code&gt;。DIV 画布通常盛放一些和用户交互有关的可编程节点，例如：&lt;code&gt;sd.Button&lt;/code&gt;、&lt;code&gt;sd.Input&lt;/code&gt;、&lt;code&gt;sd.Slider&lt;/code&gt; 等等。&lt;/p&gt;
+&lt;p&gt;在代码层面，可以这样获取 DIV 画布：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#00a8c8&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;div&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;sd&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;div&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果希望将某个节点绘制在 DIV 画布上，可以这样做：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#00a8c8&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;button&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00a8c8&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;sd&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;Button&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;div&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#00a8c8&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;input&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00a8c8&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;sd&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;Input&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;div&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;).&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;x&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;).&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;width&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;80&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#00a8c8&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;slider&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00a8c8&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;sd&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;Slider&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;div&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;).&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;x&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;200&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;iframe
+  data-animation=&#34;div.html&#34;
+  src=&#34;div.html&#34;
+  width=&#34;100%&#34;
+  height=&#34;100&#34;
+&gt;&lt;/iframe&gt;
+
+&lt;h1 id=&#34;three-画布&#34;&gt;THREE 画布
+&lt;/h1&gt;&lt;p&gt;浏览器的 3D 绘制能力总是用 &lt;code&gt;canvas&lt;/code&gt; 开启，所以我们可以先新建一张 &lt;code&gt;canvas&lt;/code&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#00a8c8&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;div&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;sd&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;div&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#00a8c8&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;canvas&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00a8c8&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;sd&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;Canvas&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;div&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后激活此画布的 3D 绘制能力：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#00a8c8&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;three&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;canvas&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;three&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;随后就可以在 THREE 画布上创建各种各样的 3D 的可编程节点了：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#00a8c8&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;c1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00a8c8&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;sd&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;Cube&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;three&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#00a8c8&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;c2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00a8c8&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;sd&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;Cube&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;three&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;).&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;x&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#00a8c8&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;c3&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00a8c8&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;sd&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;Cube&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;three&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;).&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;y&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#00a8c8&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;c4&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00a8c8&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;sd&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;Cube&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;three&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;).&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;z&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#00a8c8&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;light&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00a8c8&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;sd&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;Light&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#75af00&#34;&gt;three&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;iframe
+  data-animation=&#34;three.html&#34;
+  src=&#34;three.html&#34;
+  width=&#34;100%&#34;
+  height=&#34;200&#34;
+&gt;&lt;/iframe&gt;
+
+&lt;h1 id=&#34;后记&#34;&gt;后记
+&lt;/h1&gt;&lt;p&gt;目前我们所绘制的东西仍然是静态的，在后续章节中我们将尝试让它们动起来。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>为什么我要写sd动画框架</title>
         <link>http://localhost:1313/post/2025/sd%E5%8A%A8%E7%94%BB%E6%A1%86%E6%9E%B6%E6%A6%82%E8%BF%B0/</link>
         <pubDate>Sat, 15 Mar 2025 10:01:52 +0800</pubDate>
         
@@ -23,12 +87,12 @@
 &lt;blockquote&gt;
 &lt;p&gt;试一试，可以通过按键 N 播放动画下一小节，通过按键 P 回退到动画的上一小节。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h2 id=&#34;研究背景&#34;&gt;研究背景
-&lt;/h2&gt;&lt;p&gt;在算法竞赛领域，知识点越来越难，越来越抽象。传统教学媒介在呈现多维数据关系、递归回溯等动态知识时很麻烦。可视化教学为此提供了一条新的路径。&lt;/p&gt;
+&lt;h1 id=&#34;研究背景&#34;&gt;研究背景
+&lt;/h1&gt;&lt;p&gt;在算法竞赛领域，知识点越来越难，越来越抽象。传统教学媒介在呈现多维数据关系、递归回溯等动态知识时很麻烦。可视化教学为此提供了一条新的路径。&lt;/p&gt;
 &lt;p&gt;本研究旨在设计与实现一种支持深度交互的算法动画引擎，该引擎对竞赛教学场景中高频使用的数据结构进行封装，降低了算法动画的开发复杂度。&lt;/p&gt;
-&lt;h2 id=&#34;研究现状&#34;&gt;研究现状
-&lt;/h2&gt;&lt;h3 id=&#34;数字动画&#34;&gt;数字动画
-&lt;/h3&gt;&lt;p&gt;这一流派包括 PPT、Keynote、Synfig Studio、Adobe Animate 和 Blender 等等。它们的主要特点是遵循传统的动画制作范式，将算法实现与动画制作割裂为两个独立的阶段。这种分离式开发模式将会引发一系列显著的问题：&lt;/p&gt;
+&lt;h1 id=&#34;研究现状&#34;&gt;研究现状
+&lt;/h1&gt;&lt;h2 id=&#34;数字动画&#34;&gt;数字动画
+&lt;/h2&gt;&lt;p&gt;这一流派包括 PPT、Keynote、Synfig Studio、Adobe Animate 和 Blender 等等。它们的主要特点是遵循传统的动画制作范式，将算法实现与动画制作割裂为两个独立的阶段。这种分离式开发模式将会引发一系列显著的问题：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;在&lt;strong&gt;动画调试&lt;/strong&gt;方面，因涉及多元素协同运动而充满挑战，制作者需逐帧检查运行情况，过程耗时且易遗漏潜在错误；&lt;/p&gt;
@@ -40,19 +104,19 @@
 &lt;p&gt;由于需要让算法逻辑和动画效果紧密贴合，对复杂的算法而言需要投入大量的时间和精力对关键帧进行精细操作，这一过程不仅繁琐，而且对制作者的动画制作技能要求极高。&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;程序化动画工具&#34;&gt;程序化动画工具
-&lt;/h3&gt;&lt;p&gt;这一流派的设计理念类似于打造一套模块化的工具箱，通过提供一系列&lt;strong&gt;可编程组件&lt;/strong&gt;，允许用户&lt;strong&gt;以代码驱动&lt;/strong&gt;的方式动态生成动画。这种基于代码的动画制作形式，从根本上弥合了算法实现与动画制作之间的鸿沟，有效规避了传统工具中存在的割裂问题。&lt;/p&gt;
+&lt;h2 id=&#34;程序化动画工具&#34;&gt;程序化动画工具
+&lt;/h2&gt;&lt;p&gt;这一流派的设计理念类似于打造一套模块化的工具箱，通过提供一系列&lt;strong&gt;可编程组件&lt;/strong&gt;，允许用户&lt;strong&gt;以代码驱动&lt;/strong&gt;的方式动态生成动画。这种基于代码的动画制作形式，从根本上弥合了算法实现与动画制作之间的鸿沟，有效规避了传统工具中存在的割裂问题。&lt;/p&gt;
 &lt;p&gt;其中最引人注目的必然是 Manim 和 Movy.js，说来惭愧，作者本人并没有使用过这两个，所以不好评价。不过作者目前的认知上觉得由于其最终生成结果的形态均为静态视频文件。这种设计范式使得动画播放只能以线性方式进行，缺乏动态控制能力，从而无法满足教师在算法教学过程中对演示节奏的精准把控需求。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;具体而言，视频文件作为一种单向传播媒介，其播放过程是事先固定的，教师无法根据课堂实际需求而灵活地调整演示进度，例如快速跳转到某个关键步骤、回溯到前一阶段以强化学生理解，或在特定节点暂停以进行详细讲解等等。这种限制与幻灯片的交互性形成了鲜明的对比，后者允许教师通过点击或快捷键实现内容的自由切换与重复展示，从而更好地适应教学节奏与学生反馈。此外，视频文件的线性播放模式也难以支持算法教学中常见的分步演示需求。例如，在讲解递归算法时，教师可能需要反复展示某一递归层级的执行过程，而视频文件只能通过手动拖动进度条实现这一功能，操作繁琐且难以实现精确的控制。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;不过好像最近 3B1B 新出的视频展示了 Manim 的交互能力（逃），只能说在作者开始编写 sd 动画框架的时候还没见着。&lt;/p&gt;
-&lt;h3 id=&#34;可视化工具&#34;&gt;可视化工具
-&lt;/h3&gt;&lt;p&gt;这一流派包括 p5.js、D3.js、Matplotlib、Plotly、NetworkX 等等。它们的主要问题是，它们的设计初衷并非专门针对高阶算法的可视化需求，而是侧重于基础绘图或数据驱动的视觉呈现，因此在实现复杂算法逻辑展示时，往往需要用户编写大量额外的逻辑代码以完成状态管理、动态更新及交互控制等功能，限制了其在高阶算法可视化场景中的直接适用性。&lt;/p&gt;
-&lt;h3 id=&#34;算法可视化平台&#34;&gt;算法可视化平台
-&lt;/h3&gt;&lt;p&gt;专门的算法可视化平台，诸如 VisuAlgo、Algorithm Visualizer、Turing’s Craft 等等，为该领域提供了更加专业和便捷的解决方案。然而，这些平台在应用过程中也存在一定的局限性。当教师面临复杂的教学需求，或是需要深度定制算法动画时，平台的拓展性不足问题便凸显出来。这可能会限制教师在教学中根据具体教学内容和学生特点进行个性化教学资源的开发，影响教学效果的进一步提升，在一定程度上制约了算法可视化平台在复杂教学场景中的应用。&lt;/p&gt;
-&lt;h3 id=&#34;人工智能动画制作&#34;&gt;人工智能动画制作
-&lt;/h3&gt;&lt;p&gt;总所周知人工智能动画不可控，不能确保准确性。这显然与算法教学的场景相悖。&lt;/p&gt;
+&lt;h2 id=&#34;可视化工具&#34;&gt;可视化工具
+&lt;/h2&gt;&lt;p&gt;这一流派包括 p5.js、D3.js、Matplotlib、Plotly、NetworkX 等等。它们的主要问题是，它们的设计初衷并非专门针对高阶算法的可视化需求，而是侧重于基础绘图或数据驱动的视觉呈现，因此在实现复杂算法逻辑展示时，往往需要用户编写大量额外的逻辑代码以完成状态管理、动态更新及交互控制等功能，限制了其在高阶算法可视化场景中的直接适用性。&lt;/p&gt;
+&lt;h2 id=&#34;算法可视化平台&#34;&gt;算法可视化平台
+&lt;/h2&gt;&lt;p&gt;专门的算法可视化平台，诸如 VisuAlgo、Algorithm Visualizer、Turing’s Craft 等等，为该领域提供了更加专业和便捷的解决方案。然而，这些平台在应用过程中也存在一定的局限性。当教师面临复杂的教学需求，或是需要深度定制算法动画时，平台的拓展性不足问题便凸显出来。这可能会限制教师在教学中根据具体教学内容和学生特点进行个性化教学资源的开发，影响教学效果的进一步提升，在一定程度上制约了算法可视化平台在复杂教学场景中的应用。&lt;/p&gt;
+&lt;h2 id=&#34;人工智能动画制作&#34;&gt;人工智能动画制作
+&lt;/h2&gt;&lt;p&gt;众所周知人工智能动画不可控，不能确保准确性。这显然与算法教学的场景相悖。&lt;/p&gt;
 </description>
         </item>
         <item>
@@ -86,12 +150,12 @@ a^2+b^2=c^2
 $$&lt;/p&gt;
 &lt;p&gt;也可以是行内公式 $a+b=c$。&lt;/p&gt;
 &lt;h1 id=&#34;测试代码块&#34;&gt;测试代码块
-&lt;/h1&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/h1&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;() {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	std&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;cout &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;hello world&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#00a8c8&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;main&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color:#111&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#111&#34;&gt;std&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;cout&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#d88200&#34;&gt;&amp;#34;hello world&lt;/span&gt;&lt;span style=&#34;color:#8045ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#d88200&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#00a8c8&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#111&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
         </item>
         

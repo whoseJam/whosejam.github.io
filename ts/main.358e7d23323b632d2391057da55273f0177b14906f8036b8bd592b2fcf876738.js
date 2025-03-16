@@ -1,5 +1,135 @@
 (() => {
-  // ns-hugo-imp:C:\Users\27670\whoseJam\themes\stack\assets\ts\gallery.ts
+  // ns-hugo-imp:C:\Users\whosejam\Desktop\blog_source\themes\stack\assets\ts\color.ts
+  var colorsCache = {};
+  if (localStorage.hasOwnProperty("StackColorsCache")) {
+    try {
+      colorsCache = JSON.parse(localStorage.getItem("StackColorsCache"));
+    } catch (e) {
+      colorsCache = {};
+    }
+  }
+  async function getColor(key, hash, imageURL) {
+    if (!key) {
+      return await Vibrant.from(imageURL).getPalette();
+    }
+    if (!colorsCache.hasOwnProperty(key) || colorsCache[key].hash !== hash) {
+      const palette = await Vibrant.from(imageURL).getPalette();
+      colorsCache[key] = {
+        hash,
+        Vibrant: {
+          hex: palette.Vibrant.hex,
+          rgb: palette.Vibrant.rgb,
+          bodyTextColor: palette.Vibrant.bodyTextColor
+        },
+        DarkMuted: {
+          hex: palette.DarkMuted.hex,
+          rgb: palette.DarkMuted.rgb,
+          bodyTextColor: palette.DarkMuted.bodyTextColor
+        }
+      };
+      localStorage.setItem("StackColorsCache", JSON.stringify(colorsCache));
+    }
+    return colorsCache[key];
+  }
+
+  // ns-hugo-imp:C:\Users\whosejam\Desktop\blog_source\themes\stack\assets\ts\colorScheme.ts
+  var StackColorScheme = class {
+    localStorageKey = "StackColorScheme";
+    currentScheme;
+    systemPreferScheme;
+    constructor(toggleEl) {
+      this.bindMatchMedia();
+      this.currentScheme = this.getSavedScheme();
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches === true)
+        this.systemPreferScheme = "dark";
+      else
+        this.systemPreferScheme = "light";
+      this.dispatchEvent(document.documentElement.dataset.scheme);
+      if (toggleEl)
+        this.bindClick(toggleEl);
+      if (document.body.style.transition == "")
+        document.body.style.setProperty("transition", "background-color .3s ease");
+    }
+    saveScheme() {
+      localStorage.setItem(this.localStorageKey, this.currentScheme);
+    }
+    bindClick(toggleEl) {
+      toggleEl.addEventListener("click", (e) => {
+        if (this.isDark()) {
+          this.currentScheme = "light";
+        } else {
+          this.currentScheme = "dark";
+        }
+        this.setBodyClass();
+        if (this.currentScheme == this.systemPreferScheme) {
+          this.currentScheme = "auto";
+        }
+        this.saveScheme();
+      });
+    }
+    isDark() {
+      return this.currentScheme == "dark" || this.currentScheme == "auto" && this.systemPreferScheme == "dark";
+    }
+    dispatchEvent(colorScheme) {
+      const event = new CustomEvent("onColorSchemeChange", {
+        detail: colorScheme
+      });
+      window.dispatchEvent(event);
+    }
+    setBodyClass() {
+      if (this.isDark()) {
+        document.documentElement.dataset.scheme = "dark";
+      } else {
+        document.documentElement.dataset.scheme = "light";
+      }
+      this.dispatchEvent(document.documentElement.dataset.scheme);
+    }
+    getSavedScheme() {
+      const savedScheme = localStorage.getItem(this.localStorageKey);
+      if (savedScheme == "light" || savedScheme == "dark" || savedScheme == "auto") return savedScheme;
+      else return "auto";
+    }
+    bindMatchMedia() {
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+        if (e.matches) {
+          this.systemPreferScheme = "dark";
+        } else {
+          this.systemPreferScheme = "light";
+        }
+        this.setBodyClass();
+      });
+    }
+  };
+  var colorScheme_default = StackColorScheme;
+
+  // ns-hugo-imp:C:\Users\whosejam\Desktop\blog_source\themes\stack\assets\ts\createElement.ts
+  function createElement(tag, attrs, children) {
+    var element = document.createElement(tag);
+    for (let name in attrs) {
+      if (name && attrs.hasOwnProperty(name)) {
+        let value = attrs[name];
+        if (name == "dangerouslySetInnerHTML") {
+          element.innerHTML = value.__html;
+        } else if (value === true) {
+          element.setAttribute(name, name);
+        } else if (value !== false && value != null) {
+          element.setAttribute(name, value.toString());
+        }
+      }
+    }
+    for (let i = 2; i < arguments.length; i++) {
+      let child = arguments[i];
+      if (child) {
+        element.appendChild(
+          child.nodeType == null ? document.createTextNode(child.toString()) : child
+        );
+      }
+    }
+    return element;
+  }
+  var createElement_default = createElement;
+
+  // ns-hugo-imp:C:\Users\whosejam\Desktop\blog_source\themes\stack\assets\ts\gallery.ts
   var StackGallery = class _StackGallery {
     galleryUID;
     items = [];
@@ -118,40 +248,7 @@
   };
   var gallery_default = StackGallery;
 
-  // ns-hugo-imp:C:\Users\27670\whoseJam\themes\stack\assets\ts\color.ts
-  var colorsCache = {};
-  if (localStorage.hasOwnProperty("StackColorsCache")) {
-    try {
-      colorsCache = JSON.parse(localStorage.getItem("StackColorsCache"));
-    } catch (e) {
-      colorsCache = {};
-    }
-  }
-  async function getColor(key, hash, imageURL) {
-    if (!key) {
-      return await Vibrant.from(imageURL).getPalette();
-    }
-    if (!colorsCache.hasOwnProperty(key) || colorsCache[key].hash !== hash) {
-      const palette = await Vibrant.from(imageURL).getPalette();
-      colorsCache[key] = {
-        hash,
-        Vibrant: {
-          hex: palette.Vibrant.hex,
-          rgb: palette.Vibrant.rgb,
-          bodyTextColor: palette.Vibrant.bodyTextColor
-        },
-        DarkMuted: {
-          hex: palette.DarkMuted.hex,
-          rgb: palette.DarkMuted.rgb,
-          bodyTextColor: palette.DarkMuted.bodyTextColor
-        }
-      };
-      localStorage.setItem("StackColorsCache", JSON.stringify(colorsCache));
-    }
-    return colorsCache[key];
-  }
-
-  // ns-hugo-imp:C:\Users\27670\whoseJam\themes\stack\assets\ts\menu.ts
+  // ns-hugo-imp:C:\Users\whosejam\Desktop\blog_source\themes\stack\assets\ts\menu.ts
   var slideUp = (target, duration = 500) => {
     target.classList.add("transiting");
     target.style.transitionProperty = "height, margin, padding";
@@ -223,104 +320,7 @@
     }
   }
 
-  // ns-hugo-imp:C:\Users\27670\whoseJam\themes\stack\assets\ts\createElement.ts
-  function createElement(tag, attrs, children) {
-    var element = document.createElement(tag);
-    for (let name in attrs) {
-      if (name && attrs.hasOwnProperty(name)) {
-        let value = attrs[name];
-        if (name == "dangerouslySetInnerHTML") {
-          element.innerHTML = value.__html;
-        } else if (value === true) {
-          element.setAttribute(name, name);
-        } else if (value !== false && value != null) {
-          element.setAttribute(name, value.toString());
-        }
-      }
-    }
-    for (let i = 2; i < arguments.length; i++) {
-      let child = arguments[i];
-      if (child) {
-        element.appendChild(
-          child.nodeType == null ? document.createTextNode(child.toString()) : child
-        );
-      }
-    }
-    return element;
-  }
-  var createElement_default = createElement;
-
-  // ns-hugo-imp:C:\Users\27670\whoseJam\themes\stack\assets\ts\colorScheme.ts
-  var StackColorScheme = class {
-    localStorageKey = "StackColorScheme";
-    currentScheme;
-    systemPreferScheme;
-    constructor(toggleEl) {
-      this.bindMatchMedia();
-      this.currentScheme = this.getSavedScheme();
-      if (window.matchMedia("(prefers-color-scheme: dark)").matches === true)
-        this.systemPreferScheme = "dark";
-      else
-        this.systemPreferScheme = "light";
-      this.dispatchEvent(document.documentElement.dataset.scheme);
-      if (toggleEl)
-        this.bindClick(toggleEl);
-      if (document.body.style.transition == "")
-        document.body.style.setProperty("transition", "background-color .3s ease");
-    }
-    saveScheme() {
-      localStorage.setItem(this.localStorageKey, this.currentScheme);
-    }
-    bindClick(toggleEl) {
-      toggleEl.addEventListener("click", (e) => {
-        if (this.isDark()) {
-          this.currentScheme = "light";
-        } else {
-          this.currentScheme = "dark";
-        }
-        this.setBodyClass();
-        if (this.currentScheme == this.systemPreferScheme) {
-          this.currentScheme = "auto";
-        }
-        this.saveScheme();
-      });
-    }
-    isDark() {
-      return this.currentScheme == "dark" || this.currentScheme == "auto" && this.systemPreferScheme == "dark";
-    }
-    dispatchEvent(colorScheme) {
-      const event = new CustomEvent("onColorSchemeChange", {
-        detail: colorScheme
-      });
-      window.dispatchEvent(event);
-    }
-    setBodyClass() {
-      if (this.isDark()) {
-        document.documentElement.dataset.scheme = "dark";
-      } else {
-        document.documentElement.dataset.scheme = "light";
-      }
-      this.dispatchEvent(document.documentElement.dataset.scheme);
-    }
-    getSavedScheme() {
-      const savedScheme = localStorage.getItem(this.localStorageKey);
-      if (savedScheme == "light" || savedScheme == "dark" || savedScheme == "auto") return savedScheme;
-      else return "auto";
-    }
-    bindMatchMedia() {
-      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
-        if (e.matches) {
-          this.systemPreferScheme = "dark";
-        } else {
-          this.systemPreferScheme = "light";
-        }
-        this.setBodyClass();
-      });
-    }
-  };
-  var colorScheme_default = StackColorScheme;
-
-  // ns-hugo-imp:C:\Users\27670\whoseJam\themes\stack\assets\ts\scrollspy.ts
+  // ns-hugo-imp:C:\Users\whosejam\Desktop\blog_source\themes\stack\assets\ts\scrollspy.ts
   function debounced(func) {
     let timeout;
     return () => {
@@ -417,7 +417,7 @@
     window.addEventListener("resize", debounced(resizeHandler));
   }
 
-  // ns-hugo-imp:C:\Users\27670\whoseJam\themes\stack\assets\ts\smoothAnchors.ts
+  // ns-hugo-imp:C:\Users\whosejam\Desktop\blog_source\themes\stack\assets\ts\smoothAnchors.ts
   var anchorLinksQuery = "a[href]";
   function setupSmoothAnchors() {
     document.querySelectorAll(anchorLinksQuery).forEach((aElement) => {
@@ -499,9 +499,9 @@
   window.createElement = createElement_default;
 })();
 /*!
-*   Hugo Theme Stack
-*
-*   @author: Jimmy Cai
-*   @website: https://jimmycai.com
-*   @link: https://github.com/CaiJimmy/hugo-theme-stack
-*/
+ *   Hugo Theme Stack
+ *
+ *   @author: Jimmy Cai
+ *   @website: https://jimmycai.com
+ *   @link: https://github.com/CaiJimmy/hugo-theme-stack
+ */
