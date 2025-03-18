@@ -1,0 +1,1 @@
+(()=>{"use strict";const t=sd,e=t.svg(),i=new t.Rect(e),n=new t.Rect(e);n.effect("centerAtR1",(()=>{n.width(i.width()/2),n.height(i.height()/2),n.center(i.center())})),i.childAs(n),t.init((()=>{})),t.main((async()=>{await t.pause(),i.startAnimate().x(100).endAnimate()}))})();

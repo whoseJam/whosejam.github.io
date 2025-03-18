@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Hello, sd!\r试一试，可以通过按键 N 播放动画下一小节，通过按键 P 回退到动画的上一小节。\n研究背景\r在算法竞赛领域，知识点越来越难，越来越抽象。传统教学媒介在呈现多维数据关系、递归回溯等动态知识时很麻烦。可视化教学为此提供了一条新的路径。\n本研究旨在设计与实现一种支持深度交互的算法动画引擎，该引擎对竞赛教学场景中高频使用的数据结构进行封装，降低了算法动画的开发复杂度。\n研究现状\r数字动画\r这一流派包括 PPT、Keynote、Synfig Studio、Adobe Animate 和 Blender 等等。它们的主要特点是遵循传统的动画制作范式，将算法实现与动画制作割裂为两个独立的阶段。这种分离式开发模式将会引发一系列显著的问题：\n在动画调试方面，因涉及多元素协同运动而充满挑战，制作者需逐帧检查运行情况，过程耗时且易遗漏潜在错误；\n在动画维护方面，由于算法可视化效果基于预先设定的关键帧和时间轴，任何细微修改都可能牵一发而动全身，需重新调整多个关键帧属性，甚至影响后续动画效果，导致调整时间轴极为不便；\n由于需要让算法逻辑和动画效果紧密贴合，对复杂的算法而言需要投入大量的时间和精力对关键帧进行精细操作，这一过程不仅繁琐，而且对制作者的动画制作技能要求极高。\n程序化动画工具\r这一流派的设计理念类似于打造一套模块化的工具箱，通过提供一系列可编程组件，允许用户以代码驱动的方式动态生成动画。这种基于代码的动画制作形式，从根本上弥合了算法实现与动画制作之间的鸿沟，有效规避了传统工具中存在的割裂问题。\n其中最引人注目的必然是 Manim 和 Movy.js，说来惭愧，作者本人并没有使用过这两个，所以不好评价。不过作者目前的认知上觉得由于其最终生成结果的形态均为静态视频文件。这种设计范式使得动画播放只能以线性方式进行，缺乏动态控制能力，从而无法满足教师在算法教学过程中对演示节奏的精准把控需求。\n具体而言，视频文件作为一种单向传播媒介，其播放过程是事先固定的，教师无法根据课堂实际需求而灵活地调整演示进度，例如快速跳转到某个关键步骤、回溯到前一阶段以强化学生理解，或在特定节点暂停以进行详细讲解等等。这种限制与幻灯片的交互性形成了鲜明的对比，后者允许教师通过点击或快捷键实现内容的自由切换与重复展示，从而更好地适应教学节奏与学生反馈。此外，视频文件的线性播放模式也难以支持算法教学中常见的分步演示需求。例如，在讲解递归算法时，教师可能需要反复展示某一递归层级的执行过程，而视频文件只能通过手动拖动进度条实现这一功能，操作繁琐且难以实现精确的控制。\n不过好像最近 3B1B 新出的视频展示了 Manim 的交互能力（逃），只能说在作者开始编写 sd 动画框架的时候还没见着。\n可视化工具\r这一流派包括 p5.js、D3.js、Matplotlib、Plotly、NetworkX 等等。它们的主要问题是，它们的设计初衷并非专门针对高阶算法的可视化需求，而是侧重于基础绘图或数据驱动的视觉呈现，因此在实现复杂算法逻辑展示时，往往需要用户编写大量额外的逻辑代码以完成状态管理、动态更新及交互控制等功能，限制了其在高阶算法可视化场景中的直接适用性。\n算法可视化平台\r专门的算法可视化平台，诸如 VisuAlgo、Algorithm Visualizer、Turing’s Craft 等等，为该领域提供了更加专业和便捷的解决方案。然而，这些平台在应用过程中也存在一定的局限性。当教师面临复杂的教学需求，或是需要深度定制算法动画时，平台的拓展性不足问题便凸显出来。这可能会限制教师在教学中根据具体教学内容和学生特点进行个性化教学资源的开发，影响教学效果的进一步提升，在一定程度上制约了算法可视化平台在复杂教学场景中的应用。\n人工智能动画制作\r众所周知人工智能动画不可控，不能确保准确性。这显然与算法教学的场景相悖。\n">
+<title>为什么我要写sd动画框架</title>
+
+<script src="https://whosejam.site/iframe.js"></script>
+
+<link rel='canonical' href='http://localhost:1313/post/2025/sd%E5%8A%A8%E7%94%BB%E6%A1%86%E6%9E%B6%E6%A6%82%E8%BF%B0/'>
+
+<link rel="stylesheet" href="/scss/style.min.de6fbd66795d70590394ab94ee9cb54376e677085dcf98dfcbb5553b47b088ca.css"><meta property='og:title' content="为什么我要写sd动画框架">
+<meta property='og:description' content="Hello, sd!\r试一试，可以通过按键 N 播放动画下一小节，通过按键 P 回退到动画的上一小节。\n研究背景\r在算法竞赛领域，知识点越来越难，越来越抽象。传统教学媒介在呈现多维数据关系、递归回溯等动态知识时很麻烦。可视化教学为此提供了一条新的路径。\n本研究旨在设计与实现一种支持深度交互的算法动画引擎，该引擎对竞赛教学场景中高频使用的数据结构进行封装，降低了算法动画的开发复杂度。\n研究现状\r数字动画\r这一流派包括 PPT、Keynote、Synfig Studio、Adobe Animate 和 Blender 等等。它们的主要特点是遵循传统的动画制作范式，将算法实现与动画制作割裂为两个独立的阶段。这种分离式开发模式将会引发一系列显著的问题：\n在动画调试方面，因涉及多元素协同运动而充满挑战，制作者需逐帧检查运行情况，过程耗时且易遗漏潜在错误；\n在动画维护方面，由于算法可视化效果基于预先设定的关键帧和时间轴，任何细微修改都可能牵一发而动全身，需重新调整多个关键帧属性，甚至影响后续动画效果，导致调整时间轴极为不便；\n由于需要让算法逻辑和动画效果紧密贴合，对复杂的算法而言需要投入大量的时间和精力对关键帧进行精细操作，这一过程不仅繁琐，而且对制作者的动画制作技能要求极高。\n程序化动画工具\r这一流派的设计理念类似于打造一套模块化的工具箱，通过提供一系列可编程组件，允许用户以代码驱动的方式动态生成动画。这种基于代码的动画制作形式，从根本上弥合了算法实现与动画制作之间的鸿沟，有效规避了传统工具中存在的割裂问题。\n其中最引人注目的必然是 Manim 和 Movy.js，说来惭愧，作者本人并没有使用过这两个，所以不好评价。不过作者目前的认知上觉得由于其最终生成结果的形态均为静态视频文件。这种设计范式使得动画播放只能以线性方式进行，缺乏动态控制能力，从而无法满足教师在算法教学过程中对演示节奏的精准把控需求。\n具体而言，视频文件作为一种单向传播媒介，其播放过程是事先固定的，教师无法根据课堂实际需求而灵活地调整演示进度，例如快速跳转到某个关键步骤、回溯到前一阶段以强化学生理解，或在特定节点暂停以进行详细讲解等等。这种限制与幻灯片的交互性形成了鲜明的对比，后者允许教师通过点击或快捷键实现内容的自由切换与重复展示，从而更好地适应教学节奏与学生反馈。此外，视频文件的线性播放模式也难以支持算法教学中常见的分步演示需求。例如，在讲解递归算法时，教师可能需要反复展示某一递归层级的执行过程，而视频文件只能通过手动拖动进度条实现这一功能，操作繁琐且难以实现精确的控制。\n不过好像最近 3B1B 新出的视频展示了 Manim 的交互能力（逃），只能说在作者开始编写 sd 动画框架的时候还没见着。\n可视化工具\r这一流派包括 p5.js、D3.js、Matplotlib、Plotly、NetworkX 等等。它们的主要问题是，它们的设计初衷并非专门针对高阶算法的可视化需求，而是侧重于基础绘图或数据驱动的视觉呈现，因此在实现复杂算法逻辑展示时，往往需要用户编写大量额外的逻辑代码以完成状态管理、动态更新及交互控制等功能，限制了其在高阶算法可视化场景中的直接适用性。\n算法可视化平台\r专门的算法可视化平台，诸如 VisuAlgo、Algorithm Visualizer、Turing’s Craft 等等，为该领域提供了更加专业和便捷的解决方案。然而，这些平台在应用过程中也存在一定的局限性。当教师面临复杂的教学需求，或是需要深度定制算法动画时，平台的拓展性不足问题便凸显出来。这可能会限制教师在教学中根据具体教学内容和学生特点进行个性化教学资源的开发，影响教学效果的进一步提升，在一定程度上制约了算法可视化平台在复杂教学场景中的应用。\n人工智能动画制作\r众所周知人工智能动画不可控，不能确保准确性。这显然与算法教学的场景相悖。\n">
+<meta property='og:url' content='http://localhost:1313/post/2025/sd%E5%8A%A8%E7%94%BB%E6%A1%86%E6%9E%B6%E6%A6%82%E8%BF%B0/'>
+<meta property='og:site_name' content='whoseJam'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-15T10:01:52&#43;08:00'/><meta property='article:modified_time' content='2025-03-15T10:01:52&#43;08:00'/>
+<meta name="twitter:title" content="为什么我要写sd动画框架">
+<meta name="twitter:description" content="Hello, sd!\r试一试，可以通过按键 N 播放动画下一小节，通过按键 P 回退到动画的上一小节。\n研究背景\r在算法竞赛领域，知识点越来越难，越来越抽象。传统教学媒介在呈现多维数据关系、递归回溯等动态知识时很麻烦。可视化教学为此提供了一条新的路径。\n本研究旨在设计与实现一种支持深度交互的算法动画引擎，该引擎对竞赛教学场景中高频使用的数据结构进行封装，降低了算法动画的开发复杂度。\n研究现状\r数字动画\r这一流派包括 PPT、Keynote、Synfig Studio、Adobe Animate 和 Blender 等等。它们的主要特点是遵循传统的动画制作范式，将算法实现与动画制作割裂为两个独立的阶段。这种分离式开发模式将会引发一系列显著的问题：\n在动画调试方面，因涉及多元素协同运动而充满挑战，制作者需逐帧检查运行情况，过程耗时且易遗漏潜在错误；\n在动画维护方面，由于算法可视化效果基于预先设定的关键帧和时间轴，任何细微修改都可能牵一发而动全身，需重新调整多个关键帧属性，甚至影响后续动画效果，导致调整时间轴极为不便；\n由于需要让算法逻辑和动画效果紧密贴合，对复杂的算法而言需要投入大量的时间和精力对关键帧进行精细操作，这一过程不仅繁琐，而且对制作者的动画制作技能要求极高。\n程序化动画工具\r这一流派的设计理念类似于打造一套模块化的工具箱，通过提供一系列可编程组件，允许用户以代码驱动的方式动态生成动画。这种基于代码的动画制作形式，从根本上弥合了算法实现与动画制作之间的鸿沟，有效规避了传统工具中存在的割裂问题。\n其中最引人注目的必然是 Manim 和 Movy.js，说来惭愧，作者本人并没有使用过这两个，所以不好评价。不过作者目前的认知上觉得由于其最终生成结果的形态均为静态视频文件。这种设计范式使得动画播放只能以线性方式进行，缺乏动态控制能力，从而无法满足教师在算法教学过程中对演示节奏的精准把控需求。\n具体而言，视频文件作为一种单向传播媒介，其播放过程是事先固定的，教师无法根据课堂实际需求而灵活地调整演示进度，例如快速跳转到某个关键步骤、回溯到前一阶段以强化学生理解，或在特定节点暂停以进行详细讲解等等。这种限制与幻灯片的交互性形成了鲜明的对比，后者允许教师通过点击或快捷键实现内容的自由切换与重复展示，从而更好地适应教学节奏与学生反馈。此外，视频文件的线性播放模式也难以支持算法教学中常见的分步演示需求。例如，在讲解递归算法时，教师可能需要反复展示某一递归层级的执行过程，而视频文件只能通过手动拖动进度条实现这一功能，操作繁琐且难以实现精确的控制。\n不过好像最近 3B1B 新出的视频展示了 Manim 的交互能力（逃），只能说在作者开始编写 sd 动画框架的时候还没见着。\n可视化工具\r这一流派包括 p5.js、D3.js、Matplotlib、Plotly、NetworkX 等等。它们的主要问题是，它们的设计初衷并非专门针对高阶算法的可视化需求，而是侧重于基础绘图或数据驱动的视觉呈现，因此在实现复杂算法逻辑展示时，往往需要用户编写大量额外的逻辑代码以完成状态管理、动态更新及交互控制等功能，限制了其在高阶算法可视化场景中的直接适用性。\n算法可视化平台\r专门的算法可视化平台，诸如 VisuAlgo、Algorithm Visualizer、Turing’s Craft 等等，为该领域提供了更加专业和便捷的解决方案。然而，这些平台在应用过程中也存在一定的局限性。当教师面临复杂的教学需求，或是需要深度定制算法动画时，平台的拓展性不足问题便凸显出来。这可能会限制教师在教学中根据具体教学内容和学生特点进行个性化教学资源的开发，影响教学效果的进一步提升，在一定程度上制约了算法可视化平台在复杂教学场景中的应用。\n人工智能动画制作\r众所周知人工智能动画不可控，不能确保准确性。这显然与算法教学的场景相悖。\n">
+    <link rel="shortcut icon" href="/favicon.jpg" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            localStorage.setItem(colorSchemeKey, "light");
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    <img src="/img/favicon.jpg" width="300" height="300" class="site-logo" loading="lazy" alt="Avatar">
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">whoseJam</a></h1>
+            <h2 class="site-description">whoseJam&#39;s Blog</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/whoseJam'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/2025/sd%E5%8A%A8%E7%94%BB%E6%A1%86%E6%9E%B6%E6%A6%82%E8%BF%B0/">为什么我要写sd动画框架</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Mar 15, 2025</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="hello-sd">Hello, sd!
+</h1><iframe
+    data-animation="hello.js"
+  
+    
+    
+    
+    height="200"
+    
+
+    
+
+    
+
+    
+></iframe>
+
+<blockquote>
+<p>试一试，可以通过按键 N 播放动画下一小节，通过按键 P 回退到动画的上一小节。</p>
+</blockquote>
+<h1 id="研究背景">研究背景
+</h1><p>在算法竞赛领域，知识点越来越难，越来越抽象。传统教学媒介在呈现多维数据关系、递归回溯等动态知识时很麻烦。可视化教学为此提供了一条新的路径。</p>
+<p>本研究旨在设计与实现一种支持深度交互的算法动画引擎，该引擎对竞赛教学场景中高频使用的数据结构进行封装，降低了算法动画的开发复杂度。</p>
+<h1 id="研究现状">研究现状
+</h1><h2 id="数字动画">数字动画
+</h2><p>这一流派包括 PPT、Keynote、Synfig Studio、Adobe Animate 和 Blender 等等。它们的主要特点是遵循传统的动画制作范式，将算法实现与动画制作割裂为两个独立的阶段。这种分离式开发模式将会引发一系列显著的问题：</p>
+<ul>
+<li>
+<p>在<strong>动画调试</strong>方面，因涉及多元素协同运动而充满挑战，制作者需逐帧检查运行情况，过程耗时且易遗漏潜在错误；</p>
+</li>
+<li>
+<p>在<strong>动画维护</strong>方面，由于算法可视化效果基于预先设定的关键帧和时间轴，任何细微修改都可能牵一发而动全身，需重新调整多个关键帧属性，甚至影响后续动画效果，导致调整时间轴极为不便；</p>
+</li>
+<li>
+<p>由于需要让算法逻辑和动画效果紧密贴合，对复杂的算法而言需要投入大量的时间和精力对关键帧进行精细操作，这一过程不仅繁琐，而且对制作者的动画制作技能要求极高。</p>
+</li>
+</ul>
+<h2 id="程序化动画工具">程序化动画工具
+</h2><p>这一流派的设计理念类似于打造一套模块化的工具箱，通过提供一系列<strong>可编程组件</strong>，允许用户<strong>以代码驱动</strong>的方式动态生成动画。这种基于代码的动画制作形式，从根本上弥合了算法实现与动画制作之间的鸿沟，有效规避了传统工具中存在的割裂问题。</p>
+<p>其中最引人注目的必然是 Manim 和 Movy.js，说来惭愧，作者本人并没有使用过这两个，所以不好评价。不过作者目前的认知上觉得由于其最终生成结果的形态均为静态视频文件。这种设计范式使得动画播放只能以线性方式进行，缺乏动态控制能力，从而无法满足教师在算法教学过程中对演示节奏的精准把控需求。</p>
+<blockquote>
+<p>具体而言，视频文件作为一种单向传播媒介，其播放过程是事先固定的，教师无法根据课堂实际需求而灵活地调整演示进度，例如快速跳转到某个关键步骤、回溯到前一阶段以强化学生理解，或在特定节点暂停以进行详细讲解等等。这种限制与幻灯片的交互性形成了鲜明的对比，后者允许教师通过点击或快捷键实现内容的自由切换与重复展示，从而更好地适应教学节奏与学生反馈。此外，视频文件的线性播放模式也难以支持算法教学中常见的分步演示需求。例如，在讲解递归算法时，教师可能需要反复展示某一递归层级的执行过程，而视频文件只能通过手动拖动进度条实现这一功能，操作繁琐且难以实现精确的控制。</p>
+</blockquote>
+<p>不过好像最近 3B1B 新出的视频展示了 Manim 的交互能力（逃），只能说在作者开始编写 sd 动画框架的时候还没见着。</p>
+<h2 id="可视化工具">可视化工具
+</h2><p>这一流派包括 p5.js、D3.js、Matplotlib、Plotly、NetworkX 等等。它们的主要问题是，它们的设计初衷并非专门针对高阶算法的可视化需求，而是侧重于基础绘图或数据驱动的视觉呈现，因此在实现复杂算法逻辑展示时，往往需要用户编写大量额外的逻辑代码以完成状态管理、动态更新及交互控制等功能，限制了其在高阶算法可视化场景中的直接适用性。</p>
+<h2 id="算法可视化平台">算法可视化平台
+</h2><p>专门的算法可视化平台，诸如 VisuAlgo、Algorithm Visualizer、Turing’s Craft 等等，为该领域提供了更加专业和便捷的解决方案。然而，这些平台在应用过程中也存在一定的局限性。当教师面临复杂的教学需求，或是需要深度定制算法动画时，平台的拓展性不足问题便凸显出来。这可能会限制教师在教学中根据具体教学内容和学生特点进行个性化教学资源的开发，影响教学效果的进一步提升，在一定程度上制约了算法可视化平台在复杂教学场景中的应用。</p>
+<h2 id="人工智能动画制作">人工智能动画制作
+</h2><p>众所周知人工智能动画不可控，不能确保准确性。这显然与算法教学的场景相悖。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 whoseJam
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+<script>
+    function getURL(iframe) {
+        let url = iframe.getAttribute("data-animation");
+        if (url.endsWith(".js")) url = url.replace(".js", ".html");
+        return url;
+    }
+    iframe.configure({
+        getURL,
+        lazy: true
+    });
+    iframe.init(document.body);
+
+    function callback(entries, observer) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (!entry.target.showed) {
+                    iframe.show(entry.target);
+                    entry.target.showed = true;
+                } else iframe.start(entry.target);
+            } else {
+                try {
+                    iframe.stop(entry.target);
+                } catch (err) {}
+            }
+        })
+    }
+    const options = {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.5,
+    };
+    const observer = new IntersectionObserver(callback, options);
+    const iframes = document.querySelectorAll("iframe[data-animation]");
+    iframes.forEach(element => {
+        observer.observe(element);
+    });
+</script>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.8caa80979cadd687009104086fdd6a31d1498ee53a29671e41ceea222aa2938c.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
