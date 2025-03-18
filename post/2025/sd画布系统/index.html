@@ -2,18 +2,18 @@
 <html lang="en-us" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="为什么要设立画布？\r一个动画引擎的图形表达能力肯定是越强越好。图形表达能力越强，就意味着使用者能够描述越复杂的场景。sd 运行在浏览器中，这就意味着浏览器的绘图能力天生能为 sd 所用，这赋予了 sd 极强的图形表达能力。\n然而，在浏览器中提供了 SVGElement，HTMLElement，WebGPU 和 WebGL 等多种表达图形的手段，这些手段在使用的时候多少有些区别。为了弥合这些手段之间的差异性，sd 提供了不同的画布来做相应的绘制。简单来说，画布设立的初衷就是为了尽其所能地利用浏览器的绘图能力的。\n在 sd 内部提供了各式各样的可编程节点，这些可编程节点是动画创作的基石。而这些节点背后封装的就是上述各种各样的图形表达能力，使用者需要挑选正确的画布进行绘制。\nSVG 画布\r这一张画布用来盛放所有的 SVGElement。对 SVG 格式不熟悉的读者可以参考此处：SVG：可缩放矢量图形。SVG 画布是最早开始研发的，同时功能也是最完善的，对应的可编程节点是最多的，例如：sd.Rect、sd.Circle、sd.Ellipse、sd.Path 等等。\n在代码层面，可以这样获取 SVG 画布：\nconst svg = sd.svg(); 如果希望将某个节点绘制在 SVG 画布上，可以这样做：\nconst rect = new sd.Rect(svg); const circle = new sd.Circle(svg).x(100); 更多的有关可编程节点的初始化的内容留到后续章节，此处不详细展开了。\nDIV 画布\r这一张画布用来盛放所有的 HTMLElement。DIV 画布通常盛放一些和用户交互有关的可编程节点，例如：sd.Button、sd.Input、sd.Slider 等等。\n在代码层面，可以这样获取 DIV 画布：\nconst div = sd.div(); 如果希望将某个节点绘制在 DIV 画布上，可以这样做：\nconst button = new sd.Button(div); const input = new sd.Input(div).x(100).width(80); const slider = new sd.Slider(div).x(200); THREE 画布\r浏览器的 3D 绘制能力总是用 canvas 开启，所以我们可以先新建一张 canvas：\nconst div = sd.div(); const canvas = new sd.Canvas(div); 然后激活此画布的 3D 绘制能力：\n">
-<title>sd画布系统</title>
+<title>画布系统</title>
 
 <script src="https://whosejam.site/iframe.js"></script>
 
 <link rel='canonical' href='http://localhost:1313/post/2025/sd%E7%94%BB%E5%B8%83%E7%B3%BB%E7%BB%9F/'>
 
-<link rel="stylesheet" href="/scss/style.min.de6fbd66795d70590394ab94ee9cb54376e677085dcf98dfcbb5553b47b088ca.css"><meta property='og:title' content="sd画布系统">
+<link rel="stylesheet" href="/scss/style.min.de6fbd66795d70590394ab94ee9cb54376e677085dcf98dfcbb5553b47b088ca.css"><meta property='og:title' content="画布系统">
 <meta property='og:description' content="为什么要设立画布？\r一个动画引擎的图形表达能力肯定是越强越好。图形表达能力越强，就意味着使用者能够描述越复杂的场景。sd 运行在浏览器中，这就意味着浏览器的绘图能力天生能为 sd 所用，这赋予了 sd 极强的图形表达能力。\n然而，在浏览器中提供了 SVGElement，HTMLElement，WebGPU 和 WebGL 等多种表达图形的手段，这些手段在使用的时候多少有些区别。为了弥合这些手段之间的差异性，sd 提供了不同的画布来做相应的绘制。简单来说，画布设立的初衷就是为了尽其所能地利用浏览器的绘图能力的。\n在 sd 内部提供了各式各样的可编程节点，这些可编程节点是动画创作的基石。而这些节点背后封装的就是上述各种各样的图形表达能力，使用者需要挑选正确的画布进行绘制。\nSVG 画布\r这一张画布用来盛放所有的 SVGElement。对 SVG 格式不熟悉的读者可以参考此处：SVG：可缩放矢量图形。SVG 画布是最早开始研发的，同时功能也是最完善的，对应的可编程节点是最多的，例如：sd.Rect、sd.Circle、sd.Ellipse、sd.Path 等等。\n在代码层面，可以这样获取 SVG 画布：\nconst svg = sd.svg(); 如果希望将某个节点绘制在 SVG 画布上，可以这样做：\nconst rect = new sd.Rect(svg); const circle = new sd.Circle(svg).x(100); 更多的有关可编程节点的初始化的内容留到后续章节，此处不详细展开了。\nDIV 画布\r这一张画布用来盛放所有的 HTMLElement。DIV 画布通常盛放一些和用户交互有关的可编程节点，例如：sd.Button、sd.Input、sd.Slider 等等。\n在代码层面，可以这样获取 DIV 画布：\nconst div = sd.div(); 如果希望将某个节点绘制在 DIV 画布上，可以这样做：\nconst button = new sd.Button(div); const input = new sd.Input(div).x(100).width(80); const slider = new sd.Slider(div).x(200); THREE 画布\r浏览器的 3D 绘制能力总是用 canvas 开启，所以我们可以先新建一张 canvas：\nconst div = sd.div(); const canvas = new sd.Canvas(div); 然后激活此画布的 3D 绘制能力：\n">
 <meta property='og:url' content='http://localhost:1313/post/2025/sd%E7%94%BB%E5%B8%83%E7%B3%BB%E7%BB%9F/'>
 <meta property='og:site_name' content='whoseJam'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-16T08:52:57&#43;08:00'/><meta property='article:modified_time' content='2025-03-16T08:52:57&#43;08:00'/>
-<meta name="twitter:title" content="sd画布系统">
+<meta name="twitter:title" content="画布系统">
 <meta name="twitter:description" content="为什么要设立画布？\r一个动画引擎的图形表达能力肯定是越强越好。图形表达能力越强，就意味着使用者能够描述越复杂的场景。sd 运行在浏览器中，这就意味着浏览器的绘图能力天生能为 sd 所用，这赋予了 sd 极强的图形表达能力。\n然而，在浏览器中提供了 SVGElement，HTMLElement，WebGPU 和 WebGL 等多种表达图形的手段，这些手段在使用的时候多少有些区别。为了弥合这些手段之间的差异性，sd 提供了不同的画布来做相应的绘制。简单来说，画布设立的初衷就是为了尽其所能地利用浏览器的绘图能力的。\n在 sd 内部提供了各式各样的可编程节点，这些可编程节点是动画创作的基石。而这些节点背后封装的就是上述各种各样的图形表达能力，使用者需要挑选正确的画布进行绘制。\nSVG 画布\r这一张画布用来盛放所有的 SVGElement。对 SVG 格式不熟悉的读者可以参考此处：SVG：可缩放矢量图形。SVG 画布是最早开始研发的，同时功能也是最完善的，对应的可编程节点是最多的，例如：sd.Rect、sd.Circle、sd.Ellipse、sd.Path 等等。\n在代码层面，可以这样获取 SVG 画布：\nconst svg = sd.svg(); 如果希望将某个节点绘制在 SVG 画布上，可以这样做：\nconst rect = new sd.Rect(svg); const circle = new sd.Circle(svg).x(100); 更多的有关可编程节点的初始化的内容留到后续章节，此处不详细展开了。\nDIV 画布\r这一张画布用来盛放所有的 HTMLElement。DIV 画布通常盛放一些和用户交互有关的可编程节点，例如：sd.Button、sd.Input、sd.Slider 等等。\n在代码层面，可以这样获取 DIV 画布：\nconst div = sd.div(); 如果希望将某个节点绘制在 DIV 画布上，可以这样做：\nconst button = new sd.Button(div); const input = new sd.Input(div).x(100).width(80); const slider = new sd.Slider(div).x(200); THREE 画布\r浏览器的 3D 绘制能力总是用 canvas 开启，所以我们可以先新建一张 canvas：\nconst div = sd.div(); const canvas = new sd.Canvas(div); 然后激活此画布的 3D 绘制能力：\n">
     <link rel="shortcut icon" href="/favicon.jpg" />
 
@@ -111,7 +111,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/post/2025/sd%E7%94%BB%E5%B8%83%E7%B3%BB%E7%BB%9F/">sd画布系统</a>
+            <a href="/post/2025/sd%E7%94%BB%E5%B8%83%E7%B3%BB%E7%BB%9F/">画布系统</a>
         </h2>
     
         
@@ -298,9 +298,35 @@
         return url;
     }
     iframe.configure({
-        getURL
+        getURL,
+        lazy: true
     });
     iframe.init(document.body);
+
+    function callback(entries, observer) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (!entry.target.showed) {
+                    iframe.show(entry.target);
+                    entry.target.showed = true;
+                } else iframe.start(entry.target);
+            } else {
+                try {
+                    iframe.stop(entry.target);
+                } catch (err) {}
+            }
+        })
+    }
+    const options = {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.5,
+    };
+    const observer = new IntersectionObserver(callback, options);
+    const iframes = document.querySelectorAll("iframe[data-animation]");
+    iframes.forEach(element => {
+        observer.observe(element);
+    });
 </script>
 
 
@@ -388,7 +414,7 @@
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.358e7d23323b632d2391057da55273f0177b14906f8036b8bd592b2fcf876738.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.8caa80979cadd687009104086fdd6a31d1498ee53a29671e41ceea222aa2938c.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

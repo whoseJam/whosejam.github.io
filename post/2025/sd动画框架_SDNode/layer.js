@@ -1,0 +1,1 @@
+(()=>{"use strict";const e=sd,c=e.svg(),r=e.color(),l=new e.Rect(c);l.newLayer("l1"),l.newLayer("l2"),new e.Circle(l.layer("l1")).color(r.red).cy(0).cx(0),new e.Circle(l).color(r.blue).cy(40).cx(40),new e.Circle(l.layer("l2")).color(r.green).r(40).cy(0).cx(40),e.init((()=>{})),e.main((async()=>{}))})();
