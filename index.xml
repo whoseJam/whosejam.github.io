@@ -671,27 +671,6 @@
 &lt;/h2&gt;&lt;p&gt;用svg图片去渲染一个场景，好处是上手很快，实现迅速，坏处是没有办法做很深入的拓展，上限就被svg的表达能力锁死了。而且svg在做path有关的动画的时候，效率比较低下。在添加大量新元素到画布上也会有卡顿感。&lt;/p&gt;
 </description>
         </item>
-        <item>
-        <title>Test</title>
-        <link>http://localhost:1313/post/2024/test/</link>
-        <pubDate>Wed, 25 Dec 2024 15:05:28 +0800</pubDate>
-        
-        <guid>http://localhost:1313/post/2024/test/</guid>
-        <description>&lt;h1 id=&#34;测试标题&#34;&gt;测试标题
-&lt;/h1&gt;&lt;h1 id=&#34;测试公式&#34;&gt;测试公式
-&lt;/h1&gt;&lt;p&gt;$$
-a^2+b^2=c^2
-$$&lt;/p&gt;
-&lt;p&gt;也可以是行内公式 $a+b=c$。&lt;/p&gt;
-&lt;h1 id=&#34;测试代码块&#34;&gt;测试代码块
-&lt;/h1&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#00a8c8&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#75af00&#34;&gt;main&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color:#111&#34;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#111&#34;&gt;std&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;cout&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#d88200&#34;&gt;&amp;#34;hello world&lt;/span&gt;&lt;span style=&#34;color:#8045ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#d88200&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#00a8c8&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#111&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
-        </item>
         
     </channel>
 </rss>
