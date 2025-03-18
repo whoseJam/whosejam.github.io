@@ -1,1 +1,0 @@
-(()=>{"use strict";const e=sd,n=e.div(),i=new e.Canvas(n).three();new e.Cube(i),new e.Cube(i).x(1),new e.Cube(i).y(1),new e.Cube(i).z(1),new e.Light(i),e.init((()=>{})),e.main((async()=>{}))})();

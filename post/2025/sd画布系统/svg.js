@@ -1,1 +1,0 @@
-(()=>{"use strict";const n=sd,s=n.svg();new n.Rect(s),new n.Circle(s).x(100),n.init((()=>{})),n.main((async()=>{}))})();
