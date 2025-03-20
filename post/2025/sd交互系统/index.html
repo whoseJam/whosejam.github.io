@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="交互的困境\r请看以下代码，使用一个 sd.Slider 控制矩形的 $x$ 坐标：\nconst svg = sd.svg(); const div = sd.div(); const slider = new sd.Slider(div).min(0).max(5).cx(270).dy(-10).value(0); const rect = new sd.Rect(svg); slider.onChange(value =&gt; { rect.startAnimate().x(value * 100).endAnimate(); }); sd.main(async () =&gt; {}); 试一试，先后把 slider 滑动到 5, 2, 3 处，再按回退键，矩形会沿着 3, 2, 5, 0 的轨迹运动，最后消失。因为这本质上是顺序执行了下面的代码：\nrect = new sd.Rect(svg); // [0, 0] 时，矩形出现 rect.startAnimate().x(500).endAnimate(); // [0, 300] 时，x: 0 -&gt; 500 rect.startAnimate().x(200).endAnimate(); // [300, 600] 时，x: 500 -&gt; 200 rect.startAnimate().x(300).endAnimate(); // [600, 900] 时，x: 200 -&gt; 300 那么反过来，在回退时就是：\nrect.startAnimate().x(300).endAnimate(); // [0, 300] 时，x: 300 -&gt; 200 rect.startAnimate().x(200).endAnimate(); // [300, 600] 时，x: 200 -&gt;500 rect.startAnimate().x(500).endAnimate(); // [600, 900] 时，x: 500 -&gt; 0 rect = new sd.Rect(svg); // [900, 900] 时，矩形消失 所有的交互内产生的动画，都发生于同一动画阶段。大部分情况下我们并不希望如此，而是希望每一次交互都建立一个新的动画阶段。sd.inter （interact）为此提供了可能性。\n">
+<title>sd动画框架中的交互系统</title>
+
+<script src="https://whosejam.site/iframe.js"></script>
+
+<link rel='canonical' href='http://localhost:1313/post/2025/sd%E4%BA%A4%E4%BA%92%E7%B3%BB%E7%BB%9F/'>
+
+<link rel="stylesheet" href="/scss/style.min.de6fbd66795d70590394ab94ee9cb54376e677085dcf98dfcbb5553b47b088ca.css"><meta property='og:title' content="sd动画框架中的交互系统">
+<meta property='og:description' content="交互的困境\r请看以下代码，使用一个 sd.Slider 控制矩形的 $x$ 坐标：\nconst svg = sd.svg(); const div = sd.div(); const slider = new sd.Slider(div).min(0).max(5).cx(270).dy(-10).value(0); const rect = new sd.Rect(svg); slider.onChange(value =&gt; { rect.startAnimate().x(value * 100).endAnimate(); }); sd.main(async () =&gt; {}); 试一试，先后把 slider 滑动到 5, 2, 3 处，再按回退键，矩形会沿着 3, 2, 5, 0 的轨迹运动，最后消失。因为这本质上是顺序执行了下面的代码：\nrect = new sd.Rect(svg); // [0, 0] 时，矩形出现 rect.startAnimate().x(500).endAnimate(); // [0, 300] 时，x: 0 -&gt; 500 rect.startAnimate().x(200).endAnimate(); // [300, 600] 时，x: 500 -&gt; 200 rect.startAnimate().x(300).endAnimate(); // [600, 900] 时，x: 200 -&gt; 300 那么反过来，在回退时就是：\nrect.startAnimate().x(300).endAnimate(); // [0, 300] 时，x: 300 -&gt; 200 rect.startAnimate().x(200).endAnimate(); // [300, 600] 时，x: 200 -&gt;500 rect.startAnimate().x(500).endAnimate(); // [600, 900] 时，x: 500 -&gt; 0 rect = new sd.Rect(svg); // [900, 900] 时，矩形消失 所有的交互内产生的动画，都发生于同一动画阶段。大部分情况下我们并不希望如此，而是希望每一次交互都建立一个新的动画阶段。sd.inter （interact）为此提供了可能性。\n">
+<meta property='og:url' content='http://localhost:1313/post/2025/sd%E4%BA%A4%E4%BA%92%E7%B3%BB%E7%BB%9F/'>
+<meta property='og:site_name' content='whoseJam'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-20T09:58:14&#43;08:00'/><meta property='article:modified_time' content='2025-03-20T09:58:14&#43;08:00'/>
+<meta name="twitter:title" content="sd动画框架中的交互系统">
+<meta name="twitter:description" content="交互的困境\r请看以下代码，使用一个 sd.Slider 控制矩形的 $x$ 坐标：\nconst svg = sd.svg(); const div = sd.div(); const slider = new sd.Slider(div).min(0).max(5).cx(270).dy(-10).value(0); const rect = new sd.Rect(svg); slider.onChange(value =&gt; { rect.startAnimate().x(value * 100).endAnimate(); }); sd.main(async () =&gt; {}); 试一试，先后把 slider 滑动到 5, 2, 3 处，再按回退键，矩形会沿着 3, 2, 5, 0 的轨迹运动，最后消失。因为这本质上是顺序执行了下面的代码：\nrect = new sd.Rect(svg); // [0, 0] 时，矩形出现 rect.startAnimate().x(500).endAnimate(); // [0, 300] 时，x: 0 -&gt; 500 rect.startAnimate().x(200).endAnimate(); // [300, 600] 时，x: 500 -&gt; 200 rect.startAnimate().x(300).endAnimate(); // [600, 900] 时，x: 200 -&gt; 300 那么反过来，在回退时就是：\nrect.startAnimate().x(300).endAnimate(); // [0, 300] 时，x: 300 -&gt; 200 rect.startAnimate().x(200).endAnimate(); // [300, 600] 时，x: 200 -&gt;500 rect.startAnimate().x(500).endAnimate(); // [600, 900] 时，x: 500 -&gt; 0 rect = new sd.Rect(svg); // [900, 900] 时，矩形消失 所有的交互内产生的动画，都发生于同一动画阶段。大部分情况下我们并不希望如此，而是希望每一次交互都建立一个新的动画阶段。sd.inter （interact）为此提供了可能性。\n">
+    <link rel="shortcut icon" href="/favicon.jpg" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            localStorage.setItem(colorSchemeKey, "light");
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    <img src="/img/favicon.jpg" width="300" height="300" class="site-logo" loading="lazy" alt="Avatar">
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">whoseJam</a></h1>
+            <h2 class="site-description">whoseJam&#39;s Blog</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/whoseJam'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/2025/sd%E4%BA%A4%E4%BA%92%E7%B3%BB%E7%BB%9F/">sd动画框架中的交互系统</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Mar 20, 2025</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="交互的困境">交互的困境
+</h1><p>请看以下代码，使用一个 <code>sd.Slider</code> 控制矩形的 $x$ 坐标：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">div</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">div</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">slider</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Slider</span><span style="color:#111">(</span><span style="color:#75af00">div</span><span style="color:#111">).</span><span style="color:#75af00">min</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">).</span><span style="color:#75af00">max</span><span style="color:#111">(</span><span style="color:#ae81ff">5</span><span style="color:#111">).</span><span style="color:#75af00">cx</span><span style="color:#111">(</span><span style="color:#ae81ff">270</span><span style="color:#111">).</span><span style="color:#75af00">dy</span><span style="color:#111">(</span><span style="color:#f92672">-</span><span style="color:#ae81ff">10</span><span style="color:#111">).</span><span style="color:#75af00">value</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">rect</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Rect</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">slider</span><span style="color:#111">.</span><span style="color:#75af00">onChange</span><span style="color:#111">(</span><span style="color:#75af00">value</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#75af00">value</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">});</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">main</span><span style="color:#111">(</span><span style="color:#00a8c8">async</span> <span style="color:#111">()</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{});</span>
+</span></span></code></pre></div><iframe
+    data-animation="interact_with_animation_no_inter.js"
+  
+    
+    
+    
+
+    
+    data-viewBox="-10 -10 550 50"
+    
+
+    
+
+    
+></iframe>
+
+<blockquote>
+<p>试一试，先后把 slider 滑动到 5, 2, 3 处，再按回退键，矩形会沿着 3, 2, 5, 0 的轨迹运动，最后消失。因为这本质上是顺序执行了下面的代码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75af00">rect</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Rect</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">);</span>                  <span style="color:#75715e">// [0, 0] 时，矩形出现
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">500</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>  <span style="color:#75715e">// [0, 300] 时，x: 0 -&gt; 500
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">200</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>  <span style="color:#75715e">// [300, 600] 时，x: 500 -&gt; 200
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">300</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>  <span style="color:#75715e">// [600, 900] 时，x: 200 -&gt; 300
+</span></span></span></code></pre></div><p>那么反过来，在回退时就是：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">300</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>  <span style="color:#75715e">// [0, 300] 时，x: 300 -&gt; 200
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">200</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>  <span style="color:#75715e">// [300, 600] 时，x: 200 -&gt;500
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">500</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>  <span style="color:#75715e">// [600, 900] 时，x: 500 -&gt; 0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">rect</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Rect</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">);</span>                  <span style="color:#75715e">// [900, 900] 时，矩形消失
+</span></span></span></code></pre></div><p>所有的交互内产生的动画，都发生于同一动画阶段。大部分情况下我们并不希望如此，而是希望每一次交互都建立一个新的动画阶段。<code>sd.inter</code> （interact）为此提供了可能性。</p>
+</blockquote>
+<h1 id="inter">inter
+</h1><p><code>sd.inter</code> 使用方法很简单，把<strong>交互造成的动画行为</strong>包起来就行。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">div</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">div</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">slider</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Slider</span><span style="color:#111">(</span><span style="color:#75af00">div</span><span style="color:#111">).</span><span style="color:#75af00">min</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">).</span><span style="color:#75af00">max</span><span style="color:#111">(</span><span style="color:#ae81ff">5</span><span style="color:#111">).</span><span style="color:#75af00">cx</span><span style="color:#111">(</span><span style="color:#ae81ff">270</span><span style="color:#111">).</span><span style="color:#75af00">dy</span><span style="color:#111">(</span><span style="color:#f92672">-</span><span style="color:#ae81ff">10</span><span style="color:#111">).</span><span style="color:#75af00">value</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">rect</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Rect</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">slider</span><span style="color:#111">.</span><span style="color:#75af00">onChange</span><span style="color:#111">(</span><span style="color:#75af00">value</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">inter</span><span style="color:#111">(</span><span style="color:#00a8c8">async</span> <span style="color:#111">()</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#75af00">value</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">});</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">});</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">main</span><span style="color:#111">(</span><span style="color:#00a8c8">async</span> <span style="color:#111">()</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{});</span>
+</span></span></code></pre></div><iframe
+    data-animation="interact_with_animation.js"
+  
+    
+    
+    
+
+    
+    data-viewBox="-10 -10 550 50"
+    
+
+    
+
+    
+></iframe>
+
+<h2 id="交互流程vs主流程">交互流程vs主流程
+</h2><p>我们把由 <code>sd.main</code> 引导的流程叫做<strong>主流程</strong>。把由 <code>sd.inter</code> 引导的流程叫做<strong>交互流程</strong>。</p>
+<p><strong>交互流程并不能被随意触发</strong>。想象这样一个场景。在主流程中不断为矩形赋予随机的颜色。在交互流程中，存在两次对矩形 $x$ 坐标的修改动画行为：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">div</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">div</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">C</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">color</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">slider</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Slider</span><span style="color:#111">(</span><span style="color:#75af00">div</span><span style="color:#111">).</span><span style="color:#75af00">min</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">).</span><span style="color:#75af00">max</span><span style="color:#111">(</span><span style="color:#ae81ff">5</span><span style="color:#111">).</span><span style="color:#75af00">cx</span><span style="color:#111">(</span><span style="color:#ae81ff">270</span><span style="color:#111">).</span><span style="color:#75af00">dy</span><span style="color:#111">(</span><span style="color:#f92672">-</span><span style="color:#ae81ff">10</span><span style="color:#111">).</span><span style="color:#75af00">value</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">rect</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Rect</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">slider</span><span style="color:#111">.</span><span style="color:#75af00">onChange</span><span style="color:#111">(</span><span style="color:#75af00">value</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">inter</span><span style="color:#111">(</span><span style="color:#00a8c8">async</span> <span style="color:#111">()</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#75af00">value</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">});</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">});</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">main</span><span style="color:#111">(</span><span style="color:#00a8c8">async</span> <span style="color:#111">()</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">while</span> <span style="color:#111">(</span><span style="color:#00a8c8">true</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">color</span><span style="color:#111">(</span><span style="color:#75af00">C</span><span style="color:#111">.</span><span style="color:#75af00">random</span><span style="color:#111">()).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">});</span>
+</span></span></code></pre></div><iframe
+    data-animation="interact_vs_main.js"
+  
+    
+    
+    
+
+    
+    data-viewBox="-10 -10 550 50"
+    
+
+    
+
+    
+></iframe>
+
+<blockquote>
+<p>试一试，当交互发生时，左上角的圆点会由绿变红，预示着<strong>不能在当前交互流程未完成的情况下，重入另一个交互流程</strong>。同时主流程会被打断，直到<strong>交互动画行为完全完成后</strong>，才会继续主流程的动画行为。</p>
+</blockquote>
+<p>有些情况下，我们希望主流程的某段执行过程不被交互流程所打断。只需要使用 <code>sd.pause(sd.CONTINUE_FRAME)</code> 即可。例如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">C</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">color</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">arr</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#111">Array</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">resize</span><span style="color:#111">(</span><span style="color:#ae81ff">10</span><span style="color:#111">).</span><span style="color:#75af00">forEachElement</span><span style="color:#111">(</span><span style="color:#75af00">element</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">element</span><span style="color:#111">.</span><span style="color:#75af00">onClick</span><span style="color:#111">(()</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">inter</span><span style="color:#111">(</span><span style="color:#00a8c8">async</span> <span style="color:#111">()</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75af00">element</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">color</span><span style="color:#111">(</span><span style="color:#75af00">C</span><span style="color:#111">.</span><span style="color:#75af00">random</span><span style="color:#111">()).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">});</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">});</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">});</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">main</span><span style="color:#111">(</span><span style="color:#00a8c8">async</span> <span style="color:#111">()</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">(</span><span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">CONTINUE_FRAME</span><span style="color:#111">);</span> <span style="color:#75715e">// 当执行到这一行被暂停后，交互流程不能插入进来
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">arr</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">color</span><span style="color:#111">(</span><span style="color:#75af00">C</span><span style="color:#111">.</span><span style="color:#75af00">blue</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span> <span style="color:#75715e">// 现在交互流程可以插入进来了，可以先随意为数组元素着色，再移动数组
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">arr</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">dx</span><span style="color:#111">(</span><span style="color:#ae81ff">40</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">});</span>
+</span></span></code></pre></div><iframe
+    data-animation="continue_frame.js"
+  
+    
+    
+    
+    height="100"
+    
+
+    
+
+    
+
+    
+></iframe>
+
+<p>总体而言，交互流程在以下几种情况下不能被触发：</p>
+<ul>
+<li>另一个交互流程正在执行中。</li>
+<li>主流程设定了 <code>sd.pause(sd.CONTINUE_FRAME)</code>。</li>
+<li>动画正处于历史状态上时（使用了至少一次按键 P 进行回退）。</li>
+</ul>
+<p>可以观察左上角的圆点来判断当前能否触发交互流程。只有在圆点是绿色的情况下，可以触发交互流程。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 whoseJam
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+<script>
+    function getURL(iframe) {
+        let url = iframe.getAttribute("data-animation");
+        if (url.endsWith(".js")) url = url.replace(".js", ".html");
+        return url;
+    }
+    iframe.configure({
+        getURL,
+        lazy: true
+    });
+    iframe.init(document.body);
+
+    function callback(entries, observer) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (!entry.target.showed) {
+                    iframe.show(entry.target);
+                    entry.target.showed = true;
+                } else iframe.start(entry.target);
+            } else {
+                try {
+                    iframe.stop(entry.target);
+                } catch (err) {}
+            }
+        })
+    }
+    const options = {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.5,
+    };
+    const observer = new IntersectionObserver(callback, options);
+    const iframes = document.querySelectorAll("iframe[data-animation]");
+    iframes.forEach(element => {
+        observer.observe(element);
+    });
+</script>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.8caa80979cadd687009104086fdd6a31d1498ee53a29671e41ceea222aa2938c.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

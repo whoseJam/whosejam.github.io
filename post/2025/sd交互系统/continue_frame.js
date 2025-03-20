@@ -1,0 +1,1 @@
+(()=>{"use strict";const a=sd,t=a.svg(),e=a.color(),n=new a.Array(t).resize(10).forEachElement((t=>{t.onClick((()=>{a.inter((async()=>{t.startAnimate().color(e.random()).endAnimate()}))}))}));a.init((()=>{})),a.main((async()=>{await a.pause(a.CONTINUE_FRAME),n.startAnimate().color(e.blue).endAnimate(),await a.pause(),n.startAnimate().dx(40).endAnimate()}))})();

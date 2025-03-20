@@ -1,0 +1,1 @@
+(()=>{"use strict";const n=sd,e=n.svg(),i=n.div(),t=new n.Slider(i).min(0).max(5).cx(270).dy(-10).value(0),a=new n.Rect(e);t.onChange((e=>{n.inter((async()=>{a.startAnimate().x(100*e).endAnimate()}))})),n.init((()=>{})),n.main((async()=>{}))})();
