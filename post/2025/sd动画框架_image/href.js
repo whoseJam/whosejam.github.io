@@ -1,0 +1,1 @@
+(()=>{"use strict";const e=sd,n=e.svg(),g=new e.Image(n).href("/img/gift.png"),i=new e.Image(n).href("/img/gift.png").x(50);e.init((()=>{})),e.main((async()=>{await e.pause(),g.href("/img/snowflake.png"),i.startAnimate().href("/img/snowflake.png").endAnimate()}))})();
