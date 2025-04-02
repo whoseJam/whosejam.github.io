@@ -1,0 +1,1 @@
+(()=>{"use strict";const e=sd,n=e.svg(),i=new e.Line(n).x(100).y(100),r=new e.Line(n).x(200).y(100),s=new e.Line(n).x(300).y(100);e.init((()=>{})),e.main((async()=>{await e.pause(),i.arrow(),r.revArrow(),s.doubleArrow()}))})();

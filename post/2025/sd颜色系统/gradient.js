@@ -1,0 +1,1 @@
+(()=>{"use strict";const e=sd,t=e.svg(),a=e.color(),i=new e.Array(t).resize(10),r=a.gradient(a.white,a.pureBlue,0,9);e.init((()=>{})),e.main((async()=>{await e.pause(),i.startAnimate();for(let e=0;e<10;e++)i.color(e,r(e));i.endAnimate()}))})();

@@ -1,0 +1,1 @@
+(()=>{"use strict";const s=sd,t=s.svg(),a=new s.Rect(t).strokeDashArray([160,160]).strokeDashOffset(-160);s.init((()=>{})),s.main((async()=>{await s.pause(),a.startAnimate().strokeDashOffset(0).endAnimate()}))})();

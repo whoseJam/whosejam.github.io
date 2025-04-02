@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="BaseElement\r这类节点由两部分组成，背景（background）和价值物（value）。这是一个抽象类，不应该被实例化。\nAPI 列表\rclass BaseElement extends SD2DNode { constructor(target: SDNode | RenderNode, value?: any); rate(): number; rate(rate: number): this; color(): PacketColor; color(color: SDColor): this; fill(): HexColor; fill(fill: HexColor): this; fillOpacity(): number; fillOpacity(opacity: number): this; stroke(): HexColor; stroke(stroke: HexColor): this; strokeOpacity(): number; strokeOpacity(opacity: number): this; strokeWidth(): number; strokeWidth(width: number): this; background(): SDNode; text(): string; text(text: string): this; intValue(): number; value(): SDNode | undefined; value(value: any, rule?: SDRule): this; valueFromExist(value: SDNode, rule?: SDRule): this; drop(): SDNode; } rate\rclass BaseElement { rate(): number; rate(rate: number): this; } 用于管理 value 相对于 background 的空闲率。空闲率越大，value 看上去就越小。默认情况下空闲率为 1.2。\nconst svg = sd.svg(); const box = new sd.Box(svg, &#34;V&#34;); sd.main(async () =&gt; { await sd.pause(); box.startAnimate().rate(2).endAnimate(); // 提高空闲率，&#34;V&#34; 会显得很小 await sd.pause(); box.startAnimate().rate(1).endAnimate(); // 降低空闲率，&#34;V&#34; 会显得很大 }); 空闲率对不同形状的背景图形，影响略有不同。秉持汤多加盐，盐多加汤的原则去使用即可（即 value 看起来太小了就调小空闲率，value 看起来太大了就调大空闲率）。\n如果在添加 value 的时候人为指定了布局规则，则此属性失效。\n">
+<title>BaseElement</title>
+
+<script src="https://whosejam.site/iframe.js"></script>
+
+<link rel='canonical' href='http://localhost:1313/post/2025/sd%E5%8A%A8%E7%94%BB%E6%A1%86%E6%9E%B6_baseelement/'>
+
+<link rel="stylesheet" href="/scss/style.min.de6fbd66795d70590394ab94ee9cb54376e677085dcf98dfcbb5553b47b088ca.css"><meta property='og:title' content="BaseElement">
+<meta property='og:description' content="BaseElement\r这类节点由两部分组成，背景（background）和价值物（value）。这是一个抽象类，不应该被实例化。\nAPI 列表\rclass BaseElement extends SD2DNode { constructor(target: SDNode | RenderNode, value?: any); rate(): number; rate(rate: number): this; color(): PacketColor; color(color: SDColor): this; fill(): HexColor; fill(fill: HexColor): this; fillOpacity(): number; fillOpacity(opacity: number): this; stroke(): HexColor; stroke(stroke: HexColor): this; strokeOpacity(): number; strokeOpacity(opacity: number): this; strokeWidth(): number; strokeWidth(width: number): this; background(): SDNode; text(): string; text(text: string): this; intValue(): number; value(): SDNode | undefined; value(value: any, rule?: SDRule): this; valueFromExist(value: SDNode, rule?: SDRule): this; drop(): SDNode; } rate\rclass BaseElement { rate(): number; rate(rate: number): this; } 用于管理 value 相对于 background 的空闲率。空闲率越大，value 看上去就越小。默认情况下空闲率为 1.2。\nconst svg = sd.svg(); const box = new sd.Box(svg, &#34;V&#34;); sd.main(async () =&gt; { await sd.pause(); box.startAnimate().rate(2).endAnimate(); // 提高空闲率，&#34;V&#34; 会显得很小 await sd.pause(); box.startAnimate().rate(1).endAnimate(); // 降低空闲率，&#34;V&#34; 会显得很大 }); 空闲率对不同形状的背景图形，影响略有不同。秉持汤多加盐，盐多加汤的原则去使用即可（即 value 看起来太小了就调小空闲率，value 看起来太大了就调大空闲率）。\n如果在添加 value 的时候人为指定了布局规则，则此属性失效。\n">
+<meta property='og:url' content='http://localhost:1313/post/2025/sd%E5%8A%A8%E7%94%BB%E6%A1%86%E6%9E%B6_baseelement/'>
+<meta property='og:site_name' content='whoseJam'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-31T20:35:17&#43;08:00'/><meta property='article:modified_time' content='2025-03-31T20:35:17&#43;08:00'/>
+<meta name="twitter:title" content="BaseElement">
+<meta name="twitter:description" content="BaseElement\r这类节点由两部分组成，背景（background）和价值物（value）。这是一个抽象类，不应该被实例化。\nAPI 列表\rclass BaseElement extends SD2DNode { constructor(target: SDNode | RenderNode, value?: any); rate(): number; rate(rate: number): this; color(): PacketColor; color(color: SDColor): this; fill(): HexColor; fill(fill: HexColor): this; fillOpacity(): number; fillOpacity(opacity: number): this; stroke(): HexColor; stroke(stroke: HexColor): this; strokeOpacity(): number; strokeOpacity(opacity: number): this; strokeWidth(): number; strokeWidth(width: number): this; background(): SDNode; text(): string; text(text: string): this; intValue(): number; value(): SDNode | undefined; value(value: any, rule?: SDRule): this; valueFromExist(value: SDNode, rule?: SDRule): this; drop(): SDNode; } rate\rclass BaseElement { rate(): number; rate(rate: number): this; } 用于管理 value 相对于 background 的空闲率。空闲率越大，value 看上去就越小。默认情况下空闲率为 1.2。\nconst svg = sd.svg(); const box = new sd.Box(svg, &#34;V&#34;); sd.main(async () =&gt; { await sd.pause(); box.startAnimate().rate(2).endAnimate(); // 提高空闲率，&#34;V&#34; 会显得很小 await sd.pause(); box.startAnimate().rate(1).endAnimate(); // 降低空闲率，&#34;V&#34; 会显得很大 }); 空闲率对不同形状的背景图形，影响略有不同。秉持汤多加盐，盐多加汤的原则去使用即可（即 value 看起来太小了就调小空闲率，value 看起来太大了就调大空闲率）。\n如果在添加 value 的时候人为指定了布局规则，则此属性失效。\n">
+    <link rel="shortcut icon" href="/favicon.jpg" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            localStorage.setItem(colorSchemeKey, "light");
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    <img src="/img/favicon.jpg" width="300" height="300" class="site-logo" loading="lazy" alt="Avatar">
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">whoseJam</a></h1>
+            <h2 class="site-description">whoseJam&#39;s Blog</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/whoseJam'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/2025/sd%E5%8A%A8%E7%94%BB%E6%A1%86%E6%9E%B6_baseelement/">BaseElement</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Mar 31, 2025</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="baseelement">BaseElement
+</h1><p>这类节点由两部分组成，背景（background）和价值物（value）。这是一个抽象类，不应该被实例化。</p>
+<h1 id="api-列表">API 列表
+</h1><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">BaseElement</span> <span style="color:#00a8c8">extends</span> <span style="color:#75af00">SD2DNode</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">constructor</span><span style="color:#111">(</span><span style="color:#75af00">target</span>: <span style="color:#00a8c8">SDNode</span> <span style="color:#f92672">|</span> <span style="color:#75af00">RenderNode</span><span style="color:#111">,</span> <span style="color:#75af00">value?</span>: <span style="color:#00a8c8">any</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">rate</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">rate</span><span style="color:#111">(</span><span style="color:#75af00">rate</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">color</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#75af00">PacketColor</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">color</span><span style="color:#111">(</span><span style="color:#75af00">color</span>: <span style="color:#00a8c8">SDColor</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">fill</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#75af00">HexColor</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">fill</span><span style="color:#111">(</span><span style="color:#75af00">fill</span>: <span style="color:#00a8c8">HexColor</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">fillOpacity</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">fillOpacity</span><span style="color:#111">(</span><span style="color:#75af00">opacity</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">stroke</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#75af00">HexColor</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">stroke</span><span style="color:#111">(</span><span style="color:#75af00">stroke</span>: <span style="color:#00a8c8">HexColor</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">strokeOpacity</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">strokeOpacity</span><span style="color:#111">(</span><span style="color:#75af00">opacity</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">strokeWidth</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">strokeWidth</span><span style="color:#111">(</span><span style="color:#75af00">width</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">background</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#75af00">SDNode</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">text</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">string</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">text</span><span style="color:#111">(</span><span style="color:#75af00">text</span>: <span style="color:#00a8c8">string</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">intValue</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">value</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#75af00">SDNode</span> <span style="color:#f92672">|</span> <span style="color:#00a8c8">undefined</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">value</span><span style="color:#111">(</span><span style="color:#75af00">value</span>: <span style="color:#00a8c8">any</span><span style="color:#111">,</span> <span style="color:#75af00">rule?</span>: <span style="color:#00a8c8">SDRule</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">valueFromExist</span><span style="color:#111">(</span><span style="color:#75af00">value</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">,</span> <span style="color:#75af00">rule?</span>: <span style="color:#00a8c8">SDRule</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">drop</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#75af00">SDNode</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h1 id="rate">rate
+</h1><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">BaseElement</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">rate</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">rate</span><span style="color:#111">(</span><span style="color:#75af00">rate</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>用于管理 value 相对于 background 的空闲率。空闲率越大，value 看上去就越小。默认情况下空闲率为 1.2。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">box</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Box</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;V&#34;</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">main</span><span style="color:#111">(</span><span style="color:#00a8c8">async</span> <span style="color:#111">()</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">box</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">rate</span><span style="color:#111">(</span><span style="color:#ae81ff">2</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span> <span style="color:#75715e">// 提高空闲率，&#34;V&#34; 会显得很小
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">box</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">rate</span><span style="color:#111">(</span><span style="color:#ae81ff">1</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span> <span style="color:#75715e">// 降低空闲率，&#34;V&#34; 会显得很大
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">});</span>
+</span></span></code></pre></div><iframe
+    data-animation="rate.js"
+  
+    
+    
+    
+    height="150"
+    
+
+    
+
+    
+    data-viewBoxDelta="0 -1 0 1"
+    
+
+    
+></iframe>
+
+<p>空闲率对不同形状的背景图形，影响略有不同。秉持汤多加盐，盐多加汤的原则去使用即可（即 value 看起来太小了就调小空闲率，value 看起来太大了就调大空闲率）。</p>
+<p>如果在添加 value 的时候人为指定了<strong>布局规则</strong>，则此属性失效。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">R</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">rule</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">box</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Box</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">value</span><span style="color:#111">(</span><span style="color:#d88200">&#34;V&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">R</span><span style="color:#111">.</span><span style="color:#75af00">centerOnly</span><span style="color:#111">());</span> <span style="color:#75715e">// 人为指定布局规则
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">main</span><span style="color:#111">(</span><span style="color:#00a8c8">async</span> <span style="color:#111">()</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">box</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">rate</span><span style="color:#111">(</span><span style="color:#ae81ff">2</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span> <span style="color:#75715e">// 提高空闲率，&#34;V&#34; 不会变化
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">box</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">rate</span><span style="color:#111">(</span><span style="color:#ae81ff">1</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span> <span style="color:#75715e">// 降低空闲率，&#34;V&#34; 不会变化
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">});</span>
+</span></span></code></pre></div><iframe
+    data-animation="invalid_rate.js"
+  
+    
+    
+    
+    height="150"
+    
+
+    
+
+    
+    data-viewBoxDelta="0 -1 0 1"
+    
+
+    
+></iframe>
+
+<h1 id="color">color
+</h1><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">BaseElement</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">color</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#75af00">PacketColor</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">color</span><span style="color:#111">(</span><span style="color:#75af00">color</span>: <span style="color:#00a8c8">SDColor</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>用于管理 <strong>background</strong> 的颜色。</p>
+<h1 id="fill">fill
+</h1><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">BaseElement</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">fill</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#75af00">HexColor</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">fill</span><span style="color:#111">(</span><span style="color:#75af00">fill</span>: <span style="color:#00a8c8">HexColor</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>用于管理 <strong>background</strong> 的填充色。默认为白色。</p>
+<h1 id="fillopacity">fillOpacity
+</h1><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">BaseElement</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">fillOpacity</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">fillOpacity</span><span style="color:#111">(</span><span style="color:#75af00">opacity</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>用于管理 <strong>background</strong> 的填充透明度。默认为 1。</p>
+<h1 id="stroke">stroke
+</h1><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">BaseElement</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">stroke</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#75af00">HexColor</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">stroke</span><span style="color:#111">(</span><span style="color:#75af00">stroke</span>: <span style="color:#00a8c8">HexColor</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>用于管理 <strong>background</strong> 的边框色。默认为黑色。</p>
+<h1 id="strokeopacity">strokeOpacity
+</h1><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">BaseElement</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">strokeOpacity</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">strokeOpacity</span><span style="color:#111">(</span><span style="color:#75af00">opacity</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>用于管理 <strong>background</strong> 的边框透明度。默认为 1。</p>
+<h1 id="strokewidth">strokeWidth
+</h1><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">BaseElement</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">strokeWidth</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">strokeWidth</span><span style="color:#111">(</span><span style="color:#75af00">width</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>用于管理 <strong>background</strong> 的边框宽度。默认为 1。</p>
+<h1 id="background">background
+</h1><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">BaseElement</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">background</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#75af00">SDNode</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>用于获取背景节点。对于不同特化的元素，获取到的背景节点也有所不同。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">box</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Box</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">vertex</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Vertex</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">ellipseVertex</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">EllipseVertex</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">console</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">(</span><span style="color:#75af00">box</span><span style="color:#111">.</span><span style="color:#75af00">background</span><span style="color:#111">());</span> <span style="color:#75715e">// 一个 sd.Rect
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">console</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">(</span><span style="color:#75af00">vertex</span><span style="color:#111">.</span><span style="color:#75af00">background</span><span style="color:#111">());</span> <span style="color:#75715e">// 一个 sd.Circle
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">console</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">(</span><span style="color:#75af00">ellipseVertex</span><span style="color:#111">.</span><span style="color:#75af00">background</span><span style="color:#111">());</span> <span style="color:#75715e">// 一个 sd.Ellipse
+</span></span></span></code></pre></div><h1 id="text">text
+</h1><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">BaseElement</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">text</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">string</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">text</span><span style="color:#111">(</span><span style="color:#75af00">text</span>: <span style="color:#00a8c8">string</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>管理 <strong>value</strong> 的文本。当且仅当 value 是文本元素时才有效。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">box1</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Box</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;A&#34;</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">box2</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Box</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">,</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Circle</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">)).</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">100</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">console</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">(</span><span style="color:#75af00">box1</span><span style="color:#111">.</span><span style="color:#75af00">text</span><span style="color:#111">());</span> <span style="color:#75715e">// &#34;A&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// console.log(box2.text()); // this is invalid invoke
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">main</span><span style="color:#111">(</span><span style="color:#00a8c8">async</span> <span style="color:#111">()</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">box1</span><span style="color:#111">.</span><span style="color:#75af00">text</span><span style="color:#111">(</span><span style="color:#d88200">&#34;B&#34;</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">});</span>
+</span></span></code></pre></div><iframe
+    data-animation="text.js"
+  
+    
+    
+    
+    height="150"
+    
+
+    
+
+    
+    data-viewBoxDelta="0 -1 0 1"
+    
+
+    
+></iframe>
+
+<h1 id="intvalue">intValue
+</h1><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">BaseElement</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">intValue</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>将 <strong>value</strong> 对应的文本解析为整数类型，并返回。如果 value 不存在，或者对应文本是空串，则会解析为整数 0。在解析其他非数值文本的情况下会抛出错误。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">box1</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Box</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;1&#34;</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">box2</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Box</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;1.8&#34;</span><span style="color:#111">).</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">100</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">box3</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Box</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">200</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">box4</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Box</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;A&#34;</span><span style="color:#111">).</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">300</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">console</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">(</span><span style="color:#75af00">box1</span><span style="color:#111">.</span><span style="color:#75af00">intValue</span><span style="color:#111">());</span> <span style="color:#75715e">// 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">console</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">(</span><span style="color:#75af00">box2</span><span style="color:#111">.</span><span style="color:#75af00">intValue</span><span style="color:#111">());</span> <span style="color:#75715e">// 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">console</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">(</span><span style="color:#75af00">box3</span><span style="color:#111">.</span><span style="color:#75af00">intValue</span><span style="color:#111">());</span> <span style="color:#75715e">// 0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// console.log(box4.intValue()); // this is invalid invoke
+</span></span></span></code></pre></div><iframe
+    data-animation="int_value.js"
+  
+    
+    
+    
+    height="150"
+    
+
+    
+
+    
+    data-viewBoxDelta="0 -1 0 1"
+    
+
+    
+></iframe>
+
+<h1 id="value--valuefromexist">value &amp; valueFromExist
+</h1><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">BaseElement</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">value</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#75af00">SDNode</span> <span style="color:#f92672">|</span> <span style="color:#00a8c8">undefined</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">value</span><span style="color:#111">(</span><span style="color:#75af00">value</span>: <span style="color:#00a8c8">any</span><span style="color:#111">,</span> <span style="color:#75af00">rule?</span>: <span style="color:#00a8c8">SDRule</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">valueFromExist</span><span style="color:#111">(</span><span style="color:#75af00">value</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">,</span> <span style="color:#75af00">rule?</span>: <span style="color:#00a8c8">SDRule</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>管理 <strong>value</strong> 节点。可以在添加 value 节点时使用自定义布局规则，若不提供则使用默认规则（即尽量把 value 放在正中间，并且适当缩放 value，让它匹配 background 的大小）。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">EN</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">enter</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">box1</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Box</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">box2</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Box</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">100</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">box3</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Box</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">200</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">box4</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Box</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">300</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">value2</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Text</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;B&#34;</span><span style="color:#111">).</span><span style="color:#75af00">cy</span><span style="color:#111">(</span><span style="color:#ae81ff">100</span><span style="color:#111">).</span><span style="color:#75af00">cx</span><span style="color:#111">(</span><span style="color:#75af00">box2</span><span style="color:#111">.</span><span style="color:#75af00">cx</span><span style="color:#111">());</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">value3</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Circle</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">cy</span><span style="color:#111">(</span><span style="color:#ae81ff">100</span><span style="color:#111">).</span><span style="color:#75af00">cx</span><span style="color:#111">(</span><span style="color:#75af00">box3</span><span style="color:#111">.</span><span style="color:#75af00">cx</span><span style="color:#111">());</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">value4</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Text</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;C&#34;</span><span style="color:#111">).</span><span style="color:#75af00">cy</span><span style="color:#111">(</span><span style="color:#ae81ff">100</span><span style="color:#111">).</span><span style="color:#75af00">cx</span><span style="color:#111">(</span><span style="color:#75af00">box4</span><span style="color:#111">.</span><span style="color:#75af00">cx</span><span style="color:#111">());</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">main</span><span style="color:#111">(</span><span style="color:#00a8c8">async</span> <span style="color:#111">()</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">box1</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">value</span><span style="color:#111">(</span><span style="color:#d88200">&#34;A&#34;</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">box2</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">value</span><span style="color:#111">(</span><span style="color:#75af00">value2</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">box3</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">value</span><span style="color:#111">(</span><span style="color:#75af00">value3</span><span style="color:#111">.</span><span style="color:#75af00">onEnter</span><span style="color:#111">(</span><span style="color:#75af00">EN</span><span style="color:#111">.</span><span style="color:#75af00">moveTo</span><span style="color:#111">())).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75af00">box4</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">valueFromExist</span><span style="color:#111">(</span><span style="color:#75af00">value4</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">});</span>
+</span></span></code></pre></div><iframe
+    data-animation="value.js"
+  
+    
+    
+    
+
+    
+
+    
+    data-viewBoxDelta="0 -1 0 1"
+    
+
+    
+></iframe>
+
+<blockquote>
+<p>试一试，前两个 box 中，value 是浮现在 box 的正中心的；而后两个 box 中，value 是从自己原本的位置平移过去的。这就是 value 和 valueFromExist 的区别。valueFromExist 会指定 value 进入元素的方式是<strong>从当前位置平移过去</strong>。</p>
+</blockquote>
+<p>如果在一个元素已经存在 value 的情况下设置其 value，则原来那个 value 会被删掉，这里的删除将会导致原始 value <strong>永远地</strong>离开场景。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">box</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Box</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;A&#34;</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">main</span><span style="color:#111">(</span><span style="color:#00a8c8">async</span> <span style="color:#111">()</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">box</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">value</span><span style="color:#111">(</span><span style="color:#d88200">&#34;B&#34;</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span> <span style="color:#75715e">// &#34;A&#34; 被删除
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">box</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">value</span><span style="color:#111">(</span><span style="color:#00a8c8">null</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span> <span style="color:#75715e">// &#34;B&#34; 被删除
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">});</span>
+</span></span></code></pre></div><iframe
+    data-animation="repeat_value.js"
+  
+    
+    
+    
+    height="150"
+    
+
+    
+
+    
+    data-viewBoxDelta="0 -1 0 1"
+    
+
+    
+></iframe>
+
+<h1 id="drop">drop
+</h1><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">BaseElement</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">drop</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#75af00">SDNode</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>前文提到，如果 value 方法去删除已存在的 value，会导致 value 永远地离开场景，但部分情况下，我们可能希望被删除的 value 只是被元素<strong>丢弃</strong>了，它仍然存在于场景之中。有两种达成这个目的的解决方案，最直接的便是 drop 方法。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">EX</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">exit</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">box11</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Box</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;A&#34;</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">box12</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Box</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">100</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">box21</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Box</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;B&#34;</span><span style="color:#111">).</span><span style="color:#75af00">y</span><span style="color:#111">(</span><span style="color:#ae81ff">50</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">box22</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Box</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">100</span><span style="color:#111">).</span><span style="color:#75af00">y</span><span style="color:#111">(</span><span style="color:#ae81ff">50</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">main</span><span style="color:#111">(</span><span style="color:#00a8c8">async</span> <span style="color:#111">()</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">box12</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">valueFromExist</span><span style="color:#111">(</span><span style="color:#75af00">box11</span><span style="color:#111">.</span><span style="color:#75af00">drop</span><span style="color:#111">()).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span> <span style="color:#75715e">// 直接使用 drop 方法丢弃 box11 中的 value
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#00a8c8">const</span> <span style="color:#75af00">b</span> <span style="color:#f92672">=</span> <span style="color:#75af00">box21</span><span style="color:#111">.</span><span style="color:#75af00">value</span><span style="color:#111">().</span><span style="color:#75af00">onExit</span><span style="color:#111">(</span><span style="color:#75af00">EX</span><span style="color:#111">.</span><span style="color:#75af00">drop</span><span style="color:#111">());</span> <span style="color:#75715e">// 设置 box21 的 value 以 drop 的形式从 box21 中删除
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">box21</span><span style="color:#111">.</span><span style="color:#75af00">value</span><span style="color:#111">(</span><span style="color:#00a8c8">null</span><span style="color:#111">);</span> <span style="color:#75715e">// 删除 box21 中的 value
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">box22</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">valueFromExist</span><span style="color:#111">(</span><span style="color:#75af00">b</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">});</span>
+</span></span></code></pre></div><iframe
+    data-animation="drop.js"
+  
+    
+    
+    
+    height="200"
+    
+
+    
+
+    
+    data-viewBoxDelta="0 -1 0 1"
+    
+
+    
+></iframe>
+
+<blockquote>
+<p>试一试，在上例中，当 box11 或者 box21 中的 value 被删除时，它们并不会被移除到场景之外，而仅仅是被元素所丢弃了。所以我们能在之后的代码中，将这两个 value 分别转交给 box12 和 box22。</p>
+</blockquote>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 whoseJam
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+<script>
+    function getURL(iframe) {
+        let url = iframe.getAttribute("data-animation");
+        if (url.endsWith(".js")) url = url.replace(".js", ".html");
+        return url;
+    }
+    iframe.configure({
+        getURL,
+        lazy: true
+    });
+    iframe.init(document.body);
+
+    function callback(entries, observer) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (!entry.target.showed) {
+                    iframe.show(entry.target);
+                    entry.target.showed = true;
+                } else iframe.start(entry.target);
+            } else {
+                try {
+                    iframe.stop(entry.target);
+                } catch (err) {}
+            }
+        })
+    }
+    const options = {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.5,
+    };
+    const observer = new IntersectionObserver(callback, options);
+    const iframes = document.querySelectorAll("iframe[data-animation]");
+    iframes.forEach(element => {
+        observer.observe(element);
+    });
+</script>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.8caa80979cadd687009104086fdd6a31d1498ee53a29671e41ceea222aa2938c.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

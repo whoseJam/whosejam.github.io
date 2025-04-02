@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="SD2DNode\r专为 2D 的节点打造。继承自 sd.SDNode。这是一个抽象类，不应该被实例化。\nAPI 列表\rtype XLocator = &#34;x&#34; | &#34;cx&#34; | &#34;mx&#34;; type YLocator = &#34;y&#34; | &#34;cy&#34; | &#34;my&#34;; class SD2DNode extends SDNode { constructor(target: SDNode | RenderNode); // 透明度 opacity(): number; opacity(opacity: number): this; // 位置管理 inRange(point: [number, number]): boolean; x(): number; x(x: number): this; y(): number; y(y: number): this; width(): number; width(width: number): this; height(): number; height(height: number): this; scale(scale: number): this; pos(xLocator: XLocator, yLocator: YLocator, dx?: number, dy?: number): [number, number]; center(): [number, number]; center(center: [number, number]): this; center(cx: number, cy: number): this; kx(k: number): number; ky(k: number): number; dx(dx: number): this; dy(dy: number): this; cx(): number; cx(cx: number): this; cy(): number; cy(cy: number): this; mx(): number; mx(mx: number): this; my(): number; my(my: number): this; } 位置管理\r对于一个 2D 图形，我们定义：\n其左上角坐标为 $(x,y)$。 中心坐标为 $(cx,cy)$，这里的 $c$ 是 center 的意思。 右下角为 $(mx,my)$，这里的 $m$ 是 maximum 的意思。 在 x 方向上的长度为宽度，即 $width$。 在 y 方向上的长度为高度，即 $height$。 不妨来看一些例子。\n">
+<title>SD2DNode</title>
+
+<script src="https://whosejam.site/iframe.js"></script>
+
+<link rel='canonical' href='http://localhost:1313/post/2025/sd%E5%8A%A8%E7%94%BB%E6%A1%86%E6%9E%B6_sd2dnode/'>
+
+<link rel="stylesheet" href="/scss/style.min.de6fbd66795d70590394ab94ee9cb54376e677085dcf98dfcbb5553b47b088ca.css"><meta property='og:title' content="SD2DNode">
+<meta property='og:description' content="SD2DNode\r专为 2D 的节点打造。继承自 sd.SDNode。这是一个抽象类，不应该被实例化。\nAPI 列表\rtype XLocator = &#34;x&#34; | &#34;cx&#34; | &#34;mx&#34;; type YLocator = &#34;y&#34; | &#34;cy&#34; | &#34;my&#34;; class SD2DNode extends SDNode { constructor(target: SDNode | RenderNode); // 透明度 opacity(): number; opacity(opacity: number): this; // 位置管理 inRange(point: [number, number]): boolean; x(): number; x(x: number): this; y(): number; y(y: number): this; width(): number; width(width: number): this; height(): number; height(height: number): this; scale(scale: number): this; pos(xLocator: XLocator, yLocator: YLocator, dx?: number, dy?: number): [number, number]; center(): [number, number]; center(center: [number, number]): this; center(cx: number, cy: number): this; kx(k: number): number; ky(k: number): number; dx(dx: number): this; dy(dy: number): this; cx(): number; cx(cx: number): this; cy(): number; cy(cy: number): this; mx(): number; mx(mx: number): this; my(): number; my(my: number): this; } 位置管理\r对于一个 2D 图形，我们定义：\n其左上角坐标为 $(x,y)$。 中心坐标为 $(cx,cy)$，这里的 $c$ 是 center 的意思。 右下角为 $(mx,my)$，这里的 $m$ 是 maximum 的意思。 在 x 方向上的长度为宽度，即 $width$。 在 y 方向上的长度为高度，即 $height$。 不妨来看一些例子。\n">
+<meta property='og:url' content='http://localhost:1313/post/2025/sd%E5%8A%A8%E7%94%BB%E6%A1%86%E6%9E%B6_sd2dnode/'>
+<meta property='og:site_name' content='whoseJam'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-19T19:22:17&#43;08:00'/><meta property='article:modified_time' content='2025-03-19T19:22:17&#43;08:00'/>
+<meta name="twitter:title" content="SD2DNode">
+<meta name="twitter:description" content="SD2DNode\r专为 2D 的节点打造。继承自 sd.SDNode。这是一个抽象类，不应该被实例化。\nAPI 列表\rtype XLocator = &#34;x&#34; | &#34;cx&#34; | &#34;mx&#34;; type YLocator = &#34;y&#34; | &#34;cy&#34; | &#34;my&#34;; class SD2DNode extends SDNode { constructor(target: SDNode | RenderNode); // 透明度 opacity(): number; opacity(opacity: number): this; // 位置管理 inRange(point: [number, number]): boolean; x(): number; x(x: number): this; y(): number; y(y: number): this; width(): number; width(width: number): this; height(): number; height(height: number): this; scale(scale: number): this; pos(xLocator: XLocator, yLocator: YLocator, dx?: number, dy?: number): [number, number]; center(): [number, number]; center(center: [number, number]): this; center(cx: number, cy: number): this; kx(k: number): number; ky(k: number): number; dx(dx: number): this; dy(dy: number): this; cx(): number; cx(cx: number): this; cy(): number; cy(cy: number): this; mx(): number; mx(mx: number): this; my(): number; my(my: number): this; } 位置管理\r对于一个 2D 图形，我们定义：\n其左上角坐标为 $(x,y)$。 中心坐标为 $(cx,cy)$，这里的 $c$ 是 center 的意思。 右下角为 $(mx,my)$，这里的 $m$ 是 maximum 的意思。 在 x 方向上的长度为宽度，即 $width$。 在 y 方向上的长度为高度，即 $height$。 不妨来看一些例子。\n">
+    <link rel="shortcut icon" href="/favicon.jpg" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            localStorage.setItem(colorSchemeKey, "light");
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    <img src="/img/favicon.jpg" width="300" height="300" class="site-logo" loading="lazy" alt="Avatar">
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">whoseJam</a></h1>
+            <h2 class="site-description">whoseJam&#39;s Blog</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/whoseJam'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/2025/sd%E5%8A%A8%E7%94%BB%E6%A1%86%E6%9E%B6_sd2dnode/">SD2DNode</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Mar 19, 2025</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="sd2dnode">SD2DNode
+</h1><p>专为 2D 的节点打造。继承自 <code>sd.SDNode</code>。这是一个抽象类，不应该被实例化。</p>
+<h1 id="api-列表">API 列表
+</h1><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">XLocator</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;x&#34;</span> <span style="color:#f92672">|</span> <span style="color:#d88200">&#34;cx&#34;</span> <span style="color:#f92672">|</span> <span style="color:#d88200">&#34;mx&#34;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">type</span> <span style="color:#75af00">YLocator</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;y&#34;</span> <span style="color:#f92672">|</span> <span style="color:#d88200">&#34;cy&#34;</span> <span style="color:#f92672">|</span> <span style="color:#d88200">&#34;my&#34;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">SD2DNode</span> <span style="color:#00a8c8">extends</span> <span style="color:#75af00">SDNode</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">constructor</span><span style="color:#111">(</span><span style="color:#75af00">target</span>: <span style="color:#00a8c8">SDNode</span> <span style="color:#f92672">|</span> <span style="color:#75af00">RenderNode</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 透明度
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">opacity</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">opacity</span><span style="color:#111">(</span><span style="color:#75af00">opacity</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 位置管理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">inRange</span><span style="color:#111">(</span><span style="color:#75af00">point</span><span style="color:#f92672">:</span> <span style="color:#111">[</span><span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#00a8c8">number</span><span style="color:#111">])</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">boolean</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">x</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#75af00">x</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">y</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">y</span><span style="color:#111">(</span><span style="color:#75af00">y</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">width</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">width</span><span style="color:#111">(</span><span style="color:#75af00">width</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">height</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">height</span><span style="color:#111">(</span><span style="color:#75af00">height</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">scale</span><span style="color:#111">(</span><span style="color:#75af00">scale</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">pos</span><span style="color:#111">(</span><span style="color:#75af00">xLocator</span>: <span style="color:#00a8c8">XLocator</span><span style="color:#111">,</span> <span style="color:#75af00">yLocator</span>: <span style="color:#00a8c8">YLocator</span><span style="color:#111">,</span> <span style="color:#75af00">dx?</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">dy?</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#111">[</span><span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#00a8c8">number</span><span style="color:#111">];</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">center</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#111">[</span><span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#00a8c8">number</span><span style="color:#111">];</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">center</span><span style="color:#111">(</span><span style="color:#75af00">center</span><span style="color:#f92672">:</span> <span style="color:#111">[</span><span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#00a8c8">number</span><span style="color:#111">])</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">center</span><span style="color:#111">(</span><span style="color:#75af00">cx</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">cy</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">kx</span><span style="color:#111">(</span><span style="color:#75af00">k</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">ky</span><span style="color:#111">(</span><span style="color:#75af00">k</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">dx</span><span style="color:#111">(</span><span style="color:#75af00">dx</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">dy</span><span style="color:#111">(</span><span style="color:#75af00">dy</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">cx</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">cx</span><span style="color:#111">(</span><span style="color:#75af00">cx</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">cy</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">cy</span><span style="color:#111">(</span><span style="color:#75af00">cy</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">mx</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">mx</span><span style="color:#111">(</span><span style="color:#75af00">mx</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">my</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">my</span><span style="color:#111">(</span><span style="color:#75af00">my</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h1 id="位置管理">位置管理
+</h1><p>对于一个 2D 图形，我们定义：</p>
+<ul>
+<li>其左上角坐标为 $(x,y)$。</li>
+<li>中心坐标为 $(cx,cy)$，这里的 $c$ 是 center 的意思。</li>
+<li>右下角为 $(mx,my)$，这里的 $m$ 是 maximum 的意思。</li>
+<li>在 x 方向上的长度为宽度，即 $width$。</li>
+<li>在 y 方向上的长度为高度，即 $height$。</li>
+</ul>
+<p>不妨来看一些例子。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">rect</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Rect</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">width</span><span style="color:#111">(</span><span style="color:#ae81ff">500</span><span style="color:#111">).</span><span style="color:#75af00">height</span><span style="color:#111">(</span><span style="color:#ae81ff">60</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">console</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">(</span><span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">width</span><span style="color:#111">());</span> <span style="color:#75715e">// 500
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">console</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">(</span><span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">height</span><span style="color:#111">());</span> <span style="color:#75715e">// 60
+</span></span></span></code></pre></div><iframe
+    data-animation="information_of_rect.js"
+  
+    
+    
+    
+    height="180"
+    
+
+    
+
+    
+
+    
+></iframe>
+
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">circle</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Circle</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">width</span><span style="color:#111">(</span><span style="color:#ae81ff">250</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">console</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">(</span><span style="color:#75af00">circle</span><span style="color:#111">.</span><span style="color:#75af00">width</span><span style="color:#111">());</span> <span style="color:#75715e">// 250
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">console</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">(</span><span style="color:#75af00">circle</span><span style="color:#111">.</span><span style="color:#75af00">height</span><span style="color:#111">());</span> <span style="color:#75715e">// 250
+</span></span></span></code></pre></div><iframe
+    data-animation="information_of_circle.js"
+  
+    
+    
+    
+    height="400"
+    
+
+    
+
+    
+
+    
+></iframe>
+
+<p>那么位置管理相关的大部分方法作用就一目了然了，无非就是在对这几种坐标的进行获取或者赋值。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">C</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">color</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">rect</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Rect</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">main</span><span style="color:#111">(</span><span style="color:#00a8c8">async</span> <span style="color:#111">()</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">100</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span> <span style="color:#75715e">// 将 rect 的 x 坐标设置为 100
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">dx</span><span style="color:#111">(</span><span style="color:#ae81ff">100</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span> <span style="color:#75715e">// 将 rect 的 x 坐标增大 100
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">scale</span><span style="color:#111">(</span><span style="color:#ae81ff">2</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span> <span style="color:#75715e">// 将 rect 扩大至原来的两倍
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">appear</span><span style="color:#111">(</span><span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Circle</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">r</span><span style="color:#111">(</span><span style="color:#ae81ff">3</span><span style="color:#111">).</span><span style="color:#75af00">color</span><span style="color:#111">(</span><span style="color:#75af00">C</span><span style="color:#111">.</span><span style="color:#75af00">red</span><span style="color:#111">).</span><span style="color:#75af00">center</span><span style="color:#111">(</span><span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">x</span><span style="color:#111">(),</span> <span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">y</span><span style="color:#111">()));</span> <span style="color:#75715e">// 在 rect 的 (x, y) 处新建一个红点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">appear</span><span style="color:#111">(</span><span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Circle</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">r</span><span style="color:#111">(</span><span style="color:#ae81ff">3</span><span style="color:#111">).</span><span style="color:#75af00">color</span><span style="color:#111">(</span><span style="color:#75af00">C</span><span style="color:#111">.</span><span style="color:#75af00">blue</span><span style="color:#111">).</span><span style="color:#75af00">center</span><span style="color:#111">(</span><span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">center</span><span style="color:#111">()));</span> <span style="color:#75715e">// 在 rect 的中心处新建一个蓝点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">appear</span><span style="color:#111">(</span><span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Circle</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">r</span><span style="color:#111">(</span><span style="color:#ae81ff">3</span><span style="color:#111">).</span><span style="color:#75af00">color</span><span style="color:#111">(</span><span style="color:#75af00">C</span><span style="color:#111">.</span><span style="color:#75af00">green</span><span style="color:#111">).</span><span style="color:#75af00">center</span><span style="color:#111">(</span><span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">pos</span><span style="color:#111">(</span><span style="color:#d88200">&#34;mx&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;cy&#34;</span><span style="color:#111">)));</span> <span style="color:#75715e">// 在 rect 的 (mx, y) 处新建一个绿点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">appear</span><span style="color:#111">(</span><span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Circle</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">r</span><span style="color:#111">(</span><span style="color:#ae81ff">3</span><span style="color:#111">).</span><span style="color:#75af00">color</span><span style="color:#111">(</span><span style="color:#75af00">C</span><span style="color:#111">.</span><span style="color:#75af00">orange</span><span style="color:#111">).</span><span style="color:#75af00">center</span><span style="color:#111">(</span><span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">pos</span><span style="color:#111">(</span><span style="color:#d88200">&#34;x&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;y&#34;</span><span style="color:#111">,</span> <span style="color:#ae81ff">10</span><span style="color:#111">,</span> <span style="color:#ae81ff">10</span><span style="color:#111">)));</span> <span style="color:#75715e">// 在 rect 的 (x + 10, y + 10) 处新建一个橙点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">appear</span><span style="color:#111">(</span><span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Circle</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">r</span><span style="color:#111">(</span><span style="color:#ae81ff">3</span><span style="color:#111">).</span><span style="color:#75af00">color</span><span style="color:#111">(</span><span style="color:#75af00">C</span><span style="color:#111">.</span><span style="color:#75af00">black</span><span style="color:#111">).</span><span style="color:#75af00">center</span><span style="color:#111">(</span><span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">kx</span><span style="color:#111">(</span><span style="color:#ae81ff">0.75</span><span style="color:#111">),</span> <span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">ky</span><span style="color:#111">(</span><span style="color:#ae81ff">0.25</span><span style="color:#111">)));</span> <span style="color:#75715e">// 新建一个黑点，黑点的 x 坐标在 rect 的 x 方向上 3/4 的处，黑点的 y 坐标在 rect 的 y 方向上 1/4 处
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">});</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">function</span> <span style="color:#75af00">appear</span><span style="color:#111">(</span><span style="color:#75af00">object</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">object</span><span style="color:#111">.</span><span style="color:#75af00">opacity</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">).</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">opacity</span><span style="color:#111">(</span><span style="color:#ae81ff">1</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><iframe
+    data-animation="location_example.js"
+  
+    
+    
+    
+    height="180"
+    
+
+    
+
+    
+
+    
+></iframe>
+
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 whoseJam
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+<script>
+    function getURL(iframe) {
+        let url = iframe.getAttribute("data-animation");
+        if (url.endsWith(".js")) url = url.replace(".js", ".html");
+        return url;
+    }
+    iframe.configure({
+        getURL,
+        lazy: true
+    });
+    iframe.init(document.body);
+
+    function callback(entries, observer) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (!entry.target.showed) {
+                    iframe.show(entry.target);
+                    entry.target.showed = true;
+                } else iframe.start(entry.target);
+            } else {
+                try {
+                    iframe.stop(entry.target);
+                } catch (err) {}
+            }
+        })
+    }
+    const options = {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.5,
+    };
+    const observer = new IntersectionObserver(callback, options);
+    const iframes = document.querySelectorAll("iframe[data-animation]");
+    iframes.forEach(element => {
+        observer.observe(element);
+    });
+</script>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.8caa80979cadd687009104086fdd6a31d1498ee53a29671e41ceea222aa2938c.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

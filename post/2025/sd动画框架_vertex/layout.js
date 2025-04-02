@@ -1,0 +1,1 @@
+(()=>{"use strict";const t=sd,e=t.svg(),a=[new t.Circle(e),new t.Mathjax(e,"A^2"),new t.Rect(e),new t.Text(e,"A")],s=[];a.forEach(((a,n)=>{var i;i=a,t.Focus(i).focus(i).strokeWidth(1).strokeDashArray([5,5]);const r=new t.Vertex(e,a).width(80).x(100*n);s.push(r)})),t.init((()=>{})),t.main((async()=>{await t.pause(),s.forEach((t=>t.startAnimate().width(40).endAnimate()))}))})();

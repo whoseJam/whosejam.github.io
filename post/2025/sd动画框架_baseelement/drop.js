@@ -1,0 +1,1 @@
+(()=>{"use strict";const t=sd,e=t.svg(),n=t.exit(),a=new t.Box(e,"A"),i=new t.Box(e).x(100),s=new t.Box(e,"B").y(50),o=new t.Box(e).x(100).y(50);t.init((()=>{})),t.main((async()=>{await t.pause(),i.startAnimate().valueFromExist(a.drop()).endAnimate();const e=s.value().onExit(n.drop());s.value(null),o.startAnimate().valueFromExist(e).endAnimate()}))})();

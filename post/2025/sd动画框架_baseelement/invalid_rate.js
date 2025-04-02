@@ -1,0 +1,1 @@
+(()=>{"use strict";const a=sd,t=a.svg(),e=a.rule(),n=new a.Box(t).value("V",e.centerOnly());a.init((()=>{})),a.main((async()=>{await a.pause(),n.startAnimate().rate(2).endAnimate(),await a.pause(),n.startAnimate().rate(1).endAnimate()}))})();

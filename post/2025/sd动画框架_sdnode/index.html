@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="SDNode\r为了更加方便地管理场景中的可编程对象，我们把这些对象组织为一棵场景树。场景树上的每一个节点都是一个 sd.SDNode。最简单的 sd.SDNode 不包含任何子节点。稍微复杂一点的 sd.SDNode，例如 sd.Array，则会包含其他 sd.SDNode 并自动管理自己内部持有的 sd.SDNode。用户也可以选择手动管理一些场景树上的父子关系，以完成更复杂的效果。\nAPI 列表\rsd.SDNode 是一个抽象类，它是所有场景上可编程对象的基类，所以不应该直接创建 sd.SDNode。但我们仍然可以介绍一下 sd.SDNode 的各类方法的签名。我们可以把 sd.SDNode 的方法大致分为：构造方法、元信息获取、图层管理、父子管理、动画管理、响应式系统和进入退出管理这几个类别。\nclass SDNode { // 构造方法 constructor(target: SDNode | RenderNode); // 元信息 type(type: string): this; fixAspect(): boolean; // 图层管理 layer(): RenderNode; layer(name: string): RenderNode; newLayer(name: string): this; attachTo(layer: SDNode): this; attachTo(layer: RenderNode): this; // 父子管理 childAs(name: string, child: SDNode, rule: Rule): this; childAs(name: string, child: SDNode): this; childAs(child: SDNode, rule: Rule): this; childAs(child: SDNode): this; child(name: string): SDNode; hasChild(child: string | SDNode): SDNode; eraseChild(name: string): SDNode; eraseChild(child: SDNode): SDNode; // 动画管理 startAnimate(duration: number): this; startAnimate(other: SDNode): this; startAnimate(start: number, end: number): this; startAnimate(): this; endAnimate(): this; isAnimating(): boolean; delay(): number; after(delay: number): this; after(other: SDNode): this; duration(): number; // 响应式系统 freeze(): this; unfreeze(): this; freezing(): boolean; rule(): (parent: SDNode, child: SDNode) =&gt; void; rule(rule: (parent: SDNode, child: SDNode) =&gt; void): this; eraseRule(): this; effect(name: string, callback: () =&gt; void): this; uneffect(name: string): this; uneffectAll(): this; // 交互系统 drag(type: true): this; drag(type: false | null | undefined); drag(onDrag: (dx: number, dy: number) =&gt; [number, number]): this; clickable(type: true): this; clickable(type: false | null | undefined); onClick(onClick: (node: this) =&gt; void): this; onDblClick(onClick: (node: this) =&gt; void): this; // 进入退出管理 onEnter(enter: (element: SDNode, move: () =&gt; void) =&gt; void): this; onEnter(): (element: SDNode) =&gt; void | undefined; onEnterDefault(enter: (element: SDNode, move: () =&gt; void) =&gt; void): this; triggerEnter(): this; entering(): boolean; onExit(): (element: SDNode) =&gt; void | undefined; onExit(exit: (element: SDNode) =&gt; void): this; onExitDefault(exit: (element: SDNode) =&gt; void): this; triggerExit(): this; } 构造方法\r第一种构造方法是这样的：\n">
+<title>SDNode</title>
+
+<script src="https://whosejam.site/iframe.js"></script>
+
+<link rel='canonical' href='http://localhost:1313/post/2025/sd%E5%8A%A8%E7%94%BB%E6%A1%86%E6%9E%B6_sdnode/'>
+
+<link rel="stylesheet" href="/scss/style.min.de6fbd66795d70590394ab94ee9cb54376e677085dcf98dfcbb5553b47b088ca.css"><meta property='og:title' content="SDNode">
+<meta property='og:description' content="SDNode\r为了更加方便地管理场景中的可编程对象，我们把这些对象组织为一棵场景树。场景树上的每一个节点都是一个 sd.SDNode。最简单的 sd.SDNode 不包含任何子节点。稍微复杂一点的 sd.SDNode，例如 sd.Array，则会包含其他 sd.SDNode 并自动管理自己内部持有的 sd.SDNode。用户也可以选择手动管理一些场景树上的父子关系，以完成更复杂的效果。\nAPI 列表\rsd.SDNode 是一个抽象类，它是所有场景上可编程对象的基类，所以不应该直接创建 sd.SDNode。但我们仍然可以介绍一下 sd.SDNode 的各类方法的签名。我们可以把 sd.SDNode 的方法大致分为：构造方法、元信息获取、图层管理、父子管理、动画管理、响应式系统和进入退出管理这几个类别。\nclass SDNode { // 构造方法 constructor(target: SDNode | RenderNode); // 元信息 type(type: string): this; fixAspect(): boolean; // 图层管理 layer(): RenderNode; layer(name: string): RenderNode; newLayer(name: string): this; attachTo(layer: SDNode): this; attachTo(layer: RenderNode): this; // 父子管理 childAs(name: string, child: SDNode, rule: Rule): this; childAs(name: string, child: SDNode): this; childAs(child: SDNode, rule: Rule): this; childAs(child: SDNode): this; child(name: string): SDNode; hasChild(child: string | SDNode): SDNode; eraseChild(name: string): SDNode; eraseChild(child: SDNode): SDNode; // 动画管理 startAnimate(duration: number): this; startAnimate(other: SDNode): this; startAnimate(start: number, end: number): this; startAnimate(): this; endAnimate(): this; isAnimating(): boolean; delay(): number; after(delay: number): this; after(other: SDNode): this; duration(): number; // 响应式系统 freeze(): this; unfreeze(): this; freezing(): boolean; rule(): (parent: SDNode, child: SDNode) =&gt; void; rule(rule: (parent: SDNode, child: SDNode) =&gt; void): this; eraseRule(): this; effect(name: string, callback: () =&gt; void): this; uneffect(name: string): this; uneffectAll(): this; // 交互系统 drag(type: true): this; drag(type: false | null | undefined); drag(onDrag: (dx: number, dy: number) =&gt; [number, number]): this; clickable(type: true): this; clickable(type: false | null | undefined); onClick(onClick: (node: this) =&gt; void): this; onDblClick(onClick: (node: this) =&gt; void): this; // 进入退出管理 onEnter(enter: (element: SDNode, move: () =&gt; void) =&gt; void): this; onEnter(): (element: SDNode) =&gt; void | undefined; onEnterDefault(enter: (element: SDNode, move: () =&gt; void) =&gt; void): this; triggerEnter(): this; entering(): boolean; onExit(): (element: SDNode) =&gt; void | undefined; onExit(exit: (element: SDNode) =&gt; void): this; onExitDefault(exit: (element: SDNode) =&gt; void): this; triggerExit(): this; } 构造方法\r第一种构造方法是这样的：\n">
+<meta property='og:url' content='http://localhost:1313/post/2025/sd%E5%8A%A8%E7%94%BB%E6%A1%86%E6%9E%B6_sdnode/'>
+<meta property='og:site_name' content='whoseJam'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-17T11:51:42&#43;08:00'/><meta property='article:modified_time' content='2025-03-17T11:51:42&#43;08:00'/>
+<meta name="twitter:title" content="SDNode">
+<meta name="twitter:description" content="SDNode\r为了更加方便地管理场景中的可编程对象，我们把这些对象组织为一棵场景树。场景树上的每一个节点都是一个 sd.SDNode。最简单的 sd.SDNode 不包含任何子节点。稍微复杂一点的 sd.SDNode，例如 sd.Array，则会包含其他 sd.SDNode 并自动管理自己内部持有的 sd.SDNode。用户也可以选择手动管理一些场景树上的父子关系，以完成更复杂的效果。\nAPI 列表\rsd.SDNode 是一个抽象类，它是所有场景上可编程对象的基类，所以不应该直接创建 sd.SDNode。但我们仍然可以介绍一下 sd.SDNode 的各类方法的签名。我们可以把 sd.SDNode 的方法大致分为：构造方法、元信息获取、图层管理、父子管理、动画管理、响应式系统和进入退出管理这几个类别。\nclass SDNode { // 构造方法 constructor(target: SDNode | RenderNode); // 元信息 type(type: string): this; fixAspect(): boolean; // 图层管理 layer(): RenderNode; layer(name: string): RenderNode; newLayer(name: string): this; attachTo(layer: SDNode): this; attachTo(layer: RenderNode): this; // 父子管理 childAs(name: string, child: SDNode, rule: Rule): this; childAs(name: string, child: SDNode): this; childAs(child: SDNode, rule: Rule): this; childAs(child: SDNode): this; child(name: string): SDNode; hasChild(child: string | SDNode): SDNode; eraseChild(name: string): SDNode; eraseChild(child: SDNode): SDNode; // 动画管理 startAnimate(duration: number): this; startAnimate(other: SDNode): this; startAnimate(start: number, end: number): this; startAnimate(): this; endAnimate(): this; isAnimating(): boolean; delay(): number; after(delay: number): this; after(other: SDNode): this; duration(): number; // 响应式系统 freeze(): this; unfreeze(): this; freezing(): boolean; rule(): (parent: SDNode, child: SDNode) =&gt; void; rule(rule: (parent: SDNode, child: SDNode) =&gt; void): this; eraseRule(): this; effect(name: string, callback: () =&gt; void): this; uneffect(name: string): this; uneffectAll(): this; // 交互系统 drag(type: true): this; drag(type: false | null | undefined); drag(onDrag: (dx: number, dy: number) =&gt; [number, number]): this; clickable(type: true): this; clickable(type: false | null | undefined); onClick(onClick: (node: this) =&gt; void): this; onDblClick(onClick: (node: this) =&gt; void): this; // 进入退出管理 onEnter(enter: (element: SDNode, move: () =&gt; void) =&gt; void): this; onEnter(): (element: SDNode) =&gt; void | undefined; onEnterDefault(enter: (element: SDNode, move: () =&gt; void) =&gt; void): this; triggerEnter(): this; entering(): boolean; onExit(): (element: SDNode) =&gt; void | undefined; onExit(exit: (element: SDNode) =&gt; void): this; onExitDefault(exit: (element: SDNode) =&gt; void): this; triggerExit(): this; } 构造方法\r第一种构造方法是这样的：\n">
+    <link rel="shortcut icon" href="/favicon.jpg" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            localStorage.setItem(colorSchemeKey, "light");
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    <img src="/img/favicon.jpg" width="300" height="300" class="site-logo" loading="lazy" alt="Avatar">
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">whoseJam</a></h1>
+            <h2 class="site-description">whoseJam&#39;s Blog</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/whoseJam'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/2025/sd%E5%8A%A8%E7%94%BB%E6%A1%86%E6%9E%B6_sdnode/">SDNode</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Mar 17, 2025</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="sdnode">SDNode
+</h1><p>为了更加方便地管理场景中的可编程对象，我们把这些对象组织为一棵<strong>场景树</strong>。场景树上的每一个节点都是一个 <code>sd.SDNode</code>。最简单的 <code>sd.SDNode</code> 不包含任何子节点。稍微复杂一点的 <code>sd.SDNode</code>，例如 <code>sd.Array</code>，则会包含其他 <code>sd.SDNode</code> 并自动管理自己内部持有的 <code>sd.SDNode</code>。用户也可以选择手动管理一些场景树上的父子关系，以完成更复杂的效果。</p>
+<h1 id="api-列表">API 列表
+</h1><p><code>sd.SDNode</code> 是一个抽象类，它是所有场景上可编程对象的基类，所以不应该直接创建 <code>sd.SDNode</code>。但我们仍然可以介绍一下 <code>sd.SDNode</code> 的各类方法的签名。我们可以把 <code>sd.SDNode</code> 的方法大致分为：<strong>构造方法</strong>、<strong>元信息获取</strong>、<strong>图层管理</strong>、<strong>父子管理</strong>、<strong>动画管理</strong>、<strong>响应式系统</strong>和<strong>进入退出管理</strong>这几个类别。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">SDNode</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 构造方法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#00a8c8">constructor</span><span style="color:#111">(</span><span style="color:#75af00">target</span>: <span style="color:#00a8c8">SDNode</span> <span style="color:#f92672">|</span> <span style="color:#75af00">RenderNode</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 元信息
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#00a8c8">type</span><span style="color:#111">(</span><span style="color:#00a8c8">type</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">string</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">fixAspect</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">boolean</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 图层管理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">layer</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#75af00">RenderNode</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">layer</span><span style="color:#111">(</span><span style="color:#75af00">name</span>: <span style="color:#00a8c8">string</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#75af00">RenderNode</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">newLayer</span><span style="color:#111">(</span><span style="color:#75af00">name</span>: <span style="color:#00a8c8">string</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">attachTo</span><span style="color:#111">(</span><span style="color:#75af00">layer</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">attachTo</span><span style="color:#111">(</span><span style="color:#75af00">layer</span>: <span style="color:#00a8c8">RenderNode</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 父子管理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">childAs</span><span style="color:#111">(</span><span style="color:#75af00">name</span>: <span style="color:#00a8c8">string</span><span style="color:#111">,</span> <span style="color:#75af00">child</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">,</span> <span style="color:#75af00">rule</span>: <span style="color:#00a8c8">Rule</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">childAs</span><span style="color:#111">(</span><span style="color:#75af00">name</span>: <span style="color:#00a8c8">string</span><span style="color:#111">,</span> <span style="color:#75af00">child</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">childAs</span><span style="color:#111">(</span><span style="color:#75af00">child</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">,</span> <span style="color:#75af00">rule</span>: <span style="color:#00a8c8">Rule</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">childAs</span><span style="color:#111">(</span><span style="color:#75af00">child</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">child</span><span style="color:#111">(</span><span style="color:#75af00">name</span>: <span style="color:#00a8c8">string</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#75af00">SDNode</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">hasChild</span><span style="color:#111">(</span><span style="color:#75af00">child</span>: <span style="color:#00a8c8">string</span> <span style="color:#f92672">|</span> <span style="color:#75af00">SDNode</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#75af00">SDNode</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">eraseChild</span><span style="color:#111">(</span><span style="color:#75af00">name</span>: <span style="color:#00a8c8">string</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#75af00">SDNode</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">eraseChild</span><span style="color:#111">(</span><span style="color:#75af00">child</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#75af00">SDNode</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 动画管理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">startAnimate</span><span style="color:#111">(</span><span style="color:#75af00">duration</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">startAnimate</span><span style="color:#111">(</span><span style="color:#75af00">other</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">startAnimate</span><span style="color:#111">(</span><span style="color:#75af00">start</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">end</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">startAnimate</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">endAnimate</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">isAnimating</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">boolean</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">delay</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">after</span><span style="color:#111">(</span><span style="color:#75af00">delay</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">after</span><span style="color:#111">(</span><span style="color:#75af00">other</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">duration</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 响应式系统
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">freeze</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">unfreeze</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">freezing</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">boolean</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">rule</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#111">(</span><span style="color:#75af00">parent</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">,</span> <span style="color:#75af00">child</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#00a8c8">void</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">rule</span><span style="color:#111">(</span><span style="color:#75af00">rule</span><span style="color:#f92672">:</span> <span style="color:#111">(</span><span style="color:#75af00">parent</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">,</span> <span style="color:#75af00">child</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#00a8c8">void</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">eraseRule</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">effect</span><span style="color:#111">(</span><span style="color:#75af00">name</span>: <span style="color:#00a8c8">string</span><span style="color:#111">,</span> <span style="color:#75af00">callback</span><span style="color:#f92672">:</span> <span style="color:#111">()</span> <span style="color:#f92672">=&gt;</span> <span style="color:#00a8c8">void</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">uneffect</span><span style="color:#111">(</span><span style="color:#75af00">name</span>: <span style="color:#00a8c8">string</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">uneffectAll</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 交互系统
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">drag</span><span style="color:#111">(</span><span style="color:#00a8c8">type</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">true</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">drag</span><span style="color:#111">(</span><span style="color:#00a8c8">type</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">false</span> <span style="color:#f92672">|</span> <span style="color:#00a8c8">null</span> <span style="color:#f92672">|</span> <span style="color:#00a8c8">undefined</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">drag</span><span style="color:#111">(</span><span style="color:#75af00">onDrag</span><span style="color:#f92672">:</span> <span style="color:#111">(</span><span style="color:#75af00">dx</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">dy</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#111">[</span><span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#00a8c8">number</span><span style="color:#111">])</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">clickable</span><span style="color:#111">(</span><span style="color:#00a8c8">type</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">true</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">clickable</span><span style="color:#111">(</span><span style="color:#00a8c8">type</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">false</span> <span style="color:#f92672">|</span> <span style="color:#00a8c8">null</span> <span style="color:#f92672">|</span> <span style="color:#00a8c8">undefined</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">onClick</span><span style="color:#111">(</span><span style="color:#75af00">onClick</span><span style="color:#f92672">:</span> <span style="color:#111">(</span><span style="color:#75af00">node</span>: <span style="color:#00a8c8">this</span><span style="color:#111">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#00a8c8">void</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">onDblClick</span><span style="color:#111">(</span><span style="color:#75af00">onClick</span><span style="color:#f92672">:</span> <span style="color:#111">(</span><span style="color:#75af00">node</span>: <span style="color:#00a8c8">this</span><span style="color:#111">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#00a8c8">void</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 进入退出管理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">onEnter</span><span style="color:#111">(</span><span style="color:#75af00">enter</span><span style="color:#f92672">:</span> <span style="color:#111">(</span><span style="color:#75af00">element</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">,</span> <span style="color:#75af00">move</span><span style="color:#f92672">:</span> <span style="color:#111">()</span> <span style="color:#f92672">=&gt;</span> <span style="color:#00a8c8">void</span><span style="color:#111">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#00a8c8">void</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">onEnter</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#111">(</span><span style="color:#75af00">element</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#00a8c8">void</span> <span style="color:#f92672">|</span> <span style="color:#00a8c8">undefined</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">onEnterDefault</span><span style="color:#111">(</span><span style="color:#75af00">enter</span><span style="color:#f92672">:</span> <span style="color:#111">(</span><span style="color:#75af00">element</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">,</span> <span style="color:#75af00">move</span><span style="color:#f92672">:</span> <span style="color:#111">()</span> <span style="color:#f92672">=&gt;</span> <span style="color:#00a8c8">void</span><span style="color:#111">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#00a8c8">void</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">triggerEnter</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">entering</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">boolean</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">onExit</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#111">(</span><span style="color:#75af00">element</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#00a8c8">void</span> <span style="color:#f92672">|</span> <span style="color:#00a8c8">undefined</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">onExit</span><span style="color:#111">(</span><span style="color:#75af00">exit</span><span style="color:#f92672">:</span> <span style="color:#111">(</span><span style="color:#75af00">element</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#00a8c8">void</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">onExitDefault</span><span style="color:#111">(</span><span style="color:#75af00">exit</span><span style="color:#f92672">:</span> <span style="color:#111">(</span><span style="color:#75af00">element</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#00a8c8">void</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">triggerExit</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h1 id="构造方法">构造方法
+</h1><p>第一种构造方法是这样的：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">SDNode</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">constructor</span><span style="color:#111">(</span><span style="color:#75af00">target</span>: <span style="color:#00a8c8">RenderNode</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>可以认为 <code>sd.RenderNode</code> 就是一张画布，此构造方法把 <code>sd.SDNode</code> 绘制该画布上。值得注意的是，先绘制上画布的图形会被放置在靠下的图层，后绘制上画布的图形会被放置在靠上的图层。例如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">rect</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Rect</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">circle</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Circle</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">dx</span><span style="color:#111">(</span><span style="color:#ae81ff">20</span><span style="color:#111">).</span><span style="color:#75af00">dy</span><span style="color:#111">(</span><span style="color:#ae81ff">20</span><span style="color:#111">);</span> <span style="color:#75715e">// 此圆形会在方形的上方
+</span></span></span></code></pre></div><iframe
+    data-animation="overlap.js"
+  
+    
+    
+    
+    height="100"
+    
+
+    
+
+    
+
+    
+></iframe>
+
+<p>第二种构造方法是这样的：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">SDNode</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">constructor</span><span style="color:#111">(</span><span style="color:#75af00">target</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>这里并不是把 <code>target</code> 作为被创建对象的父节点的意思，而是让被创建对象绘制于 <code>target</code> 的图层上。例如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">rect</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Rect</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">circle</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Circle</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">dx</span><span style="color:#111">(</span><span style="color:#ae81ff">20</span><span style="color:#111">).</span><span style="color:#75af00">dy</span><span style="color:#111">(</span><span style="color:#ae81ff">20</span><span style="color:#111">);</span> <span style="color:#75715e">// 此圆形会在方形的上方
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">const</span> <span style="color:#75af00">ellipse</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Ellipse</span><span style="color:#111">(</span><span style="color:#75af00">rect</span><span style="color:#111">).</span><span style="color:#75af00">rx</span><span style="color:#111">(</span><span style="color:#ae81ff">40</span><span style="color:#111">).</span><span style="color:#75af00">dy</span><span style="color:#111">(</span><span style="color:#ae81ff">20</span><span style="color:#111">).</span><span style="color:#75af00">cx</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">);</span> <span style="color:#75715e">// 此椭圆并不会在圆形的上方，而是会在方形之上，圆形之下
+</span></span></span></code></pre></div><iframe
+    data-animation="complex_overlap.js"
+  
+    
+    
+    
+    height="100"
+    
+
+    
+
+    
+
+    
+></iframe>
+
+<p>如果我们把原始 SVG 画布上的内容拿出来看的话，大概长这样：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#111">&lt;</span><span style="color:#f92672">svg</span><span style="color:#111">&gt;</span>
+</span></span><span style="display:flex;"><span>    `
+</span></span><span style="display:flex;"><span>    <span style="color:#111">&lt;</span><span style="color:#f92672">g</span> <span style="color:#75af00">type</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;Rect&#34;</span><span style="color:#111">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">&lt;</span><span style="color:#f92672">rect</span> <span style="color:#75af00">省略一些属性</span><span style="color:#111">&gt;&lt;/</span><span style="color:#f92672">rect</span><span style="color:#111">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">&lt;</span><span style="color:#f92672">g</span> <span style="color:#75af00">type</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;Ellipse&#34;</span><span style="color:#111">&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">&lt;</span><span style="color:#f92672">ellipse</span> <span style="color:#75af00">省略一些属性</span><span style="color:#111">&gt;&lt;/</span><span style="color:#f92672">ellipse</span><span style="color:#111">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">&lt;/</span><span style="color:#f92672">g</span><span style="color:#111">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">&lt;/</span><span style="color:#f92672">g</span><span style="color:#111">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">&lt;</span><span style="color:#f92672">g</span> <span style="color:#75af00">type</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;Circle&#34;</span><span style="color:#111">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">&lt;</span><span style="color:#f92672">circle</span> <span style="color:#75af00">省略一些属性</span><span style="color:#111">&gt;&lt;/</span><span style="color:#f92672">circle</span><span style="color:#111">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">&lt;/</span><span style="color:#f92672">g</span><span style="color:#111">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">&lt;/</span><span style="color:#f92672">svg</span><span style="color:#111">&gt;</span>
+</span></span></code></pre></div><p>其中的 <code>g</code> 就表示一个 <code>sd.SDNode</code> 的图层，可以看见 <code>sd.Ellipse</code> 是在 <code>sd.Rect</code> 的图层之内创建的。对于其他种类的画布，构造方法的行为也是类似的，在此不赘述。</p>
+<h1 id="元信息">元信息
+</h1><p>对用户而言几乎用不到。</p>
+<h1 id="图层管理">图层管理
+</h1><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">SDNode</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 图层管理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">layer</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#75af00">RenderNode</span><span style="color:#111">;</span> <span style="color:#75715e">// 获取自带图层
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">layer</span><span style="color:#111">(</span><span style="color:#75af00">name</span>: <span style="color:#00a8c8">string</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#75af00">RenderNode</span><span style="color:#111">;</span> <span style="color:#75715e">// 获取名为 name 的图层
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">newLayer</span><span style="color:#111">(</span><span style="color:#75af00">name</span>: <span style="color:#00a8c8">string</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 新建一个名为 name 的图层
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">attachTo</span><span style="color:#111">(</span><span style="color:#75af00">target</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 将自己贴到 target 的自带图层的末尾
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">attachTo</span><span style="color:#111">(</span><span style="color:#75af00">target</span>: <span style="color:#00a8c8">RenderNode</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 将自己贴到 target 这张图层上
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>在每个 <code>sd.SDNode</code> 被创建时会自带一个图层。同时也可以新建图层。每次在图层上方绘制</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">C</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">color</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">rect</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Rect</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">newLayer</span><span style="color:#111">(</span><span style="color:#d88200">&#34;l1&#34;</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">newLayer</span><span style="color:#111">(</span><span style="color:#d88200">&#34;l2&#34;</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">redCircle</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Circle</span><span style="color:#111">(</span><span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">layer</span><span style="color:#111">(</span><span style="color:#d88200">&#34;l1&#34;</span><span style="color:#111">)).</span><span style="color:#75af00">color</span><span style="color:#111">(</span><span style="color:#75af00">C</span><span style="color:#111">.</span><span style="color:#75af00">red</span><span style="color:#111">).</span><span style="color:#75af00">cy</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">).</span><span style="color:#75af00">cx</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">blueCircle</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Circle</span><span style="color:#111">(</span><span style="color:#75af00">rect</span><span style="color:#111">).</span><span style="color:#75af00">color</span><span style="color:#111">(</span><span style="color:#75af00">C</span><span style="color:#111">.</span><span style="color:#75af00">blue</span><span style="color:#111">).</span><span style="color:#75af00">cy</span><span style="color:#111">(</span><span style="color:#ae81ff">40</span><span style="color:#111">).</span><span style="color:#75af00">cx</span><span style="color:#111">(</span><span style="color:#ae81ff">40</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 也可以用 new sd.Circle(rect.layer()) 把 blueCircle 绘制在 rect 自带图层的末尾
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">const</span> <span style="color:#75af00">greenCircle</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Circle</span><span style="color:#111">(</span><span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">layer</span><span style="color:#111">(</span><span style="color:#d88200">&#34;l2&#34;</span><span style="color:#111">)).</span><span style="color:#75af00">color</span><span style="color:#111">(</span><span style="color:#75af00">C</span><span style="color:#111">.</span><span style="color:#75af00">green</span><span style="color:#111">).</span><span style="color:#75af00">r</span><span style="color:#111">(</span><span style="color:#ae81ff">40</span><span style="color:#111">).</span><span style="color:#75af00">cy</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">).</span><span style="color:#75af00">cx</span><span style="color:#111">(</span><span style="color:#ae81ff">40</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 三个圆形从底往上的显示顺序应该是，红色在最下层，绿色在中间，蓝色在最上层
+</span></span></span></code></pre></div><iframe
+    data-animation="layer.js"
+  
+    
+    
+    
+    height="150"
+    
+
+    
+
+    
+
+    
+></iframe>
+
+<p>如果我们把原始 SVG 画布上的内容拿出来看的话，大概长这样：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#111">&lt;</span><span style="color:#f92672">svg</span><span style="color:#111">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">&lt;</span><span style="color:#f92672">g</span> <span style="color:#75af00">type</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;Rect&#34;</span> <span style="color:#75af00">这是Rect的自带图层</span><span style="color:#111">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">&lt;</span><span style="color:#f92672">rect</span> <span style="color:#75af00">省略一些属性</span><span style="color:#111">&gt;&lt;/</span><span style="color:#f92672">rect</span><span style="color:#111">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">&lt;</span><span style="color:#f92672">g</span> <span style="color:#75af00">layer</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;l1&#34;</span> <span style="color:#75af00">这是Rect新建的名为l1的图层</span><span style="color:#111">&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">&lt;</span><span style="color:#f92672">g</span> <span style="color:#75af00">type</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;Circle&#34;</span> <span style="color:#75af00">这是Circle的自带图层</span><span style="color:#111">&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#111">&lt;</span><span style="color:#f92672">circle</span> <span style="color:#75af00">红色的圆</span><span style="color:#111">&gt;&lt;/</span><span style="color:#f92672">circle</span><span style="color:#111">&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">&lt;/</span><span style="color:#f92672">g</span><span style="color:#111">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">&lt;/</span><span style="color:#f92672">g</span><span style="color:#111">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">&lt;</span><span style="color:#f92672">g</span> <span style="color:#75af00">layer</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;l2&#34;</span> <span style="color:#75af00">这是Rect新建的名为l2的图层</span><span style="color:#111">&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">&lt;</span><span style="color:#f92672">g</span> <span style="color:#75af00">type</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;Circle&#34;</span> <span style="color:#75af00">这是Circle的自带图层</span><span style="color:#111">&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#111">&lt;</span><span style="color:#f92672">circle</span> <span style="color:#75af00">绿色的圆</span><span style="color:#111">&gt;&lt;/</span><span style="color:#f92672">circle</span><span style="color:#111">&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">&lt;/</span><span style="color:#f92672">g</span><span style="color:#111">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">&lt;/</span><span style="color:#f92672">g</span><span style="color:#111">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">&lt;</span><span style="color:#f92672">g</span> <span style="color:#75af00">type</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;Circle&#34;</span> <span style="color:#75af00">这是Circle的自带图层</span><span style="color:#111">&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">&lt;</span><span style="color:#f92672">circle</span> <span style="color:#75af00">蓝色的圆</span><span style="color:#111">&gt;&lt;/</span><span style="color:#f92672">circle</span><span style="color:#111">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">&lt;/</span><span style="color:#f92672">g</span><span style="color:#111">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">&lt;/</span><span style="color:#f92672">g</span><span style="color:#111">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">&lt;/</span><span style="color:#f92672">svg</span><span style="color:#111">&gt;</span>
+</span></span></code></pre></div><h1 id="动画管理">动画管理
+</h1><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">SDNode</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 动画管理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">startAnimate</span><span style="color:#111">(</span><span style="color:#75af00">duration</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 开启一段动画编排，持续时长 duration
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">startAnimate</span><span style="color:#111">(</span><span style="color:#75af00">other</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 开启一段动画编排，动画编排的信息和 other 节点一致
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">startAnimate</span><span style="color:#111">(</span><span style="color:#75af00">start</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">end</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 开启一段动画编排，动画的持续区间为 [start, end]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">startAnimate</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 开启一段动画编排，默认持续时长 300ms
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">endAnimate</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 结束一段动画编排
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">isAnimating</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">boolean</span><span style="color:#111">;</span> <span style="color:#75715e">// 判断是否正处于动画编排中
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">delay</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span> <span style="color:#75715e">// 获取动画编排的起始时间
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">after</span><span style="color:#111">(</span><span style="color:#75af00">delay</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">after</span><span style="color:#111">(</span><span style="color:#75af00">other</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">duration</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span> <span style="color:#75715e">// 获取当前动画编排的持续时长
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>在场景树上的各种节点 <code>sd.SDNode</code> 有各种各样的属性。可以通过相应的方法去访问对应属性。修改对应属性后，其效果会<strong>生硬</strong>地呈现出来。例如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">rect</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Rect</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">100</span><span style="color:#111">);</span> <span style="color:#75715e">// 设置 rect 的 x 坐标为 100
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">console</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">(</span><span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">x</span><span style="color:#111">());</span> <span style="color:#75715e">// 100
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">main</span><span style="color:#111">(</span><span style="color:#00a8c8">async</span> <span style="color:#111">()</span> <span style="color:#f92672">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span> <span style="color:#75715e">// 暂停一下，需要按 N 才能执行后续代码
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">200</span><span style="color:#111">);</span> <span style="color:#75715e">// 将 rect 的 x 坐标改为 200
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">console</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">(</span><span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">x</span><span style="color:#111">());</span> <span style="color:#75715e">// 200
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">});</span>
+</span></span></code></pre></div><iframe
+    data-animation="naive_set.js"
+  
+    
+    
+    
+    height="100"
+    
+
+    
+
+    
+
+    
+></iframe>
+
+<p>如果我们希望让这个修改的视觉呈现更<strong>舒缓</strong>一些，应该怎么办呢？只需要简单地将修改放进 <code>startAnimate</code> 和 <code>endAnimate</code> 之间即可。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">rect</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Rect</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">100</span><span style="color:#111">);</span> <span style="color:#75715e">// 设置 rect 的 x 坐标为 100
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">console</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">(</span><span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">x</span><span style="color:#111">());</span> <span style="color:#75715e">// 100
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">main</span><span style="color:#111">(</span><span style="color:#00a8c8">async</span> <span style="color:#111">()</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">200</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span> <span style="color:#75715e">// 将 rect 的 x 坐标改为 200
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">console</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">(</span><span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">x</span><span style="color:#111">());</span> <span style="color:#75715e">// 200
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">});</span>
+</span></span></code></pre></div><iframe
+    data-animation="animation_set.js"
+  
+    
+    
+    
+    height="100"
+    
+
+    
+
+    
+
+    
+></iframe>
+
+<p>来点更好玩的，我们可以在 <code>startAnimate</code> 和 <code>endAnimate</code> 之间连续完成多个修改操作。这些修改都会被自动动画化。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">rect</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Rect</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">);</span> <span style="color:#75715e">// x = 0, y = 0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">main</span><span style="color:#111">(</span><span style="color:#00a8c8">async</span> <span style="color:#111">()</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">rect</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">100</span><span style="color:#111">).</span><span style="color:#75af00">y</span><span style="color:#111">(</span><span style="color:#ae81ff">100</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span> <span style="color:#75715e">// 在一段动画编排中完成多个属性修改
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">});</span>
+</span></span></code></pre></div><iframe
+    data-animation="animation_combination.js"
+  
+    
+    
+    
+    height="200"
+    
+
+    
+
+    
+
+    
+></iframe>
+
+<p>我们把由 <code>startAnimate</code> 引领，由 <code>endAnimate</code> 结尾，中间一系列属性修改操作构成的整体，叫做一次<strong>动画编排</strong>。</p>
+<p>我们可以为动画编排设定不同的持续时长。例如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">rects</span> <span style="color:#f92672">=</span> <span style="color:#111">[];</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">for</span> <span style="color:#111">(</span><span style="color:#00a8c8">let</span> <span style="color:#75af00">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span><span style="color:#111">;</span> <span style="color:#75af00">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">5</span><span style="color:#111">;</span> <span style="color:#75af00">i</span><span style="color:#f92672">++</span><span style="color:#111">)</span> <span style="color:#75af00">rects</span><span style="color:#111">.</span><span style="color:#75af00">push</span><span style="color:#111">(</span><span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Rect</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">y</span><span style="color:#111">(</span><span style="color:#75af00">i</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">50</span><span style="color:#111">));</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">main</span><span style="color:#111">(</span><span style="color:#00a8c8">async</span> <span style="color:#111">()</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 使用 startAnimate(duration: number)，其中 duration 表示动画持续时间，以 ms 为单位
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// 如果不填写 duration，则动画持续时长默认为 300ms
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#00a8c8">for</span> <span style="color:#111">(</span><span style="color:#00a8c8">let</span> <span style="color:#75af00">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span><span style="color:#111">;</span> <span style="color:#75af00">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">5</span><span style="color:#111">;</span> <span style="color:#75af00">i</span><span style="color:#f92672">++</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75af00">rects</span><span style="color:#111">[</span><span style="color:#75af00">i</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">((</span><span style="color:#75af00">i</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span><span style="color:#111">)</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">300</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">.</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">600</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">.</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">});</span>
+</span></span></code></pre></div><iframe
+    data-animation="animation_duration.js"
+  
+    
+    
+    
+    height="200"
+    
+
+    
+
+    
+
+    
+></iframe>
+
+<h1 id="响应式系统">响应式系统
+</h1><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">SDNode</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 响应式系统
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">freeze</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 冻结当前节点的响应式作用（性能优化，通常不会使用）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">unfreeze</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 解冻当前节点的响应式作用（性能优化，通常不会使用）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">freezing</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">boolean</span><span style="color:#111">;</span> <span style="color:#75715e">// 判断当前节点是否处于冻结状态（性能优化，通常不会使用）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">rule</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#111">(</span><span style="color:#75af00">parent</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">,</span> <span style="color:#75af00">child</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#00a8c8">void</span><span style="color:#111">;</span> <span style="color:#75715e">// 获取父子节点之间的布局规则
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">rule</span><span style="color:#111">(</span><span style="color:#75af00">rule</span><span style="color:#f92672">:</span> <span style="color:#111">(</span><span style="color:#75af00">parent</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">,</span> <span style="color:#75af00">child</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#00a8c8">void</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 定义父子节点之间的布局规则
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">eraseRule</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 删除父子节点之间的布局规则
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">effect</span><span style="color:#111">(</span><span style="color:#75af00">name</span>: <span style="color:#00a8c8">string</span><span style="color:#111">,</span> <span style="color:#75af00">callback</span><span style="color:#f92672">:</span> <span style="color:#111">()</span> <span style="color:#f92672">=&gt;</span> <span style="color:#00a8c8">void</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 定义一个名为 name 的响应式作用
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">uneffect</span><span style="color:#111">(</span><span style="color:#75af00">name</span>: <span style="color:#00a8c8">string</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 取消名为 name 的响应式作用
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">uneffectAll</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 取消所有响应式作用
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>在动画场景中难免会出现类似这样的需求：让某个文本元素始终位于某个数组上方中间的位置，<strong>无论数组如何移动或者缩放</strong>。这要求文本元素能够自动监听数组的位置的改变，这种情况下，我们认为文本元素的坐标相对于数组而言是具有<strong>响应关系</strong>的。注意到响应关系还具有传递性，如果全权交给程序员负责，心智负担过重。所以本框架提供了一套工具辅助完成响应关系的构建和追踪。</p>
+<p>第一种定义响应关系的方法是通过 <code>effect</code> 来完成的：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">r1</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Rect</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">r2</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Rect</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">r2</span><span style="color:#111">.</span><span style="color:#75af00">effect</span><span style="color:#111">(</span><span style="color:#d88200">&#34;centerAtR1&#34;</span><span style="color:#111">,</span> <span style="color:#111">()</span> <span style="color:#f92672">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 定义一个名为 centerAtR1 的响应式作用
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">r2</span><span style="color:#111">.</span><span style="color:#75af00">width</span><span style="color:#111">(</span><span style="color:#75af00">r1</span><span style="color:#111">.</span><span style="color:#75af00">width</span><span style="color:#111">()</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">r2</span><span style="color:#111">.</span><span style="color:#75af00">height</span><span style="color:#111">(</span><span style="color:#75af00">r1</span><span style="color:#111">.</span><span style="color:#75af00">height</span><span style="color:#111">()</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">r2</span><span style="color:#111">.</span><span style="color:#75af00">center</span><span style="color:#111">(</span><span style="color:#75af00">r1</span><span style="color:#111">.</span><span style="color:#75af00">center</span><span style="color:#111">());</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">});</span>
+</span></span></code></pre></div><iframe
+    data-animation="effect.js"
+  
+    
+    
+    
+    height="150"
+    
+
+    
+
+    
+    data-viewBoxDelta="40 0 100 0"
+    
+
+    
+></iframe>
+
+<blockquote>
+<p>试一试，当修改 <code>r1</code> 的各项属性时，<code>r2</code> 的各项属性会随之改变，确保 <code>r2</code> 始终位于 <code>r1</code> 的中心位置，并且 <code>r2</code> 的长宽始终是 <code>r1</code> 的一半。</p>
+</blockquote>
+<p>但这样遇到动画后有一个问题。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">main</span><span style="color:#111">(</span><span style="color:#00a8c8">async</span> <span style="color:#111">()</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">r1</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">(</span><span style="color:#ae81ff">1000</span><span style="color:#111">).</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">100</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">});</span>
+</span></span></code></pre></div><iframe
+    data-animation="effect_error_with_animation.js"
+  
+    
+    
+    
+    height="100"
+    
+
+    
+
+    
+
+    
+></iframe>
+
+<blockquote>
+<p>当 <code>r1</code> 进入动画状态后，<code>r2</code> 并没有随之进入动画状态，因为 <code>r1</code> 和 <code>r2</code> 是两个独立的个体，并没有任何说明指导 <code>r1</code> 的动画编排必然会导致 <code>r2</code> 的动画编排。作者在最初设计时，决定当一个节点进入动画编排状态后，其所有子节点会随之自动进入动画编排状态。所以把 <code>r2</code> 设置 <code>r1</code> 的子节点则可解决这个问题。</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75af00">r1</span><span style="color:#111">.</span><span style="color:#75af00">childAs</span><span style="color:#111">(</span><span style="color:#75af00">r2</span><span style="color:#111">);</span> <span style="color:#75715e">// 将 r2 作为 r1 的子节点（后续父子管理章会展开解释，在这里先用着）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">main</span><span style="color:#111">(</span><span style="color:#00a8c8">async</span> <span style="color:#111">()</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">r1</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">100</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">});</span>
+</span></span></code></pre></div><iframe
+    data-animation="effect_with_animation.js"
+  
+    
+    
+    
+    height="100"
+    
+
+    
+
+    
+
+    
+></iframe>
+
+<p>作者观察到，大部分动画场景下的响应式作用，其实只出现在父子之间，所以另外提供了一种定义响应关系的方法：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">r1</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Rect</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">r2</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Rect</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">r1</span><span style="color:#111">.</span><span style="color:#75af00">childAs</span><span style="color:#111">(</span><span style="color:#75af00">r2</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">r2</span><span style="color:#111">.</span><span style="color:#75af00">rule</span><span style="color:#111">((</span><span style="color:#75af00">parent</span><span style="color:#111">,</span> <span style="color:#75af00">child</span><span style="color:#111">)</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">child</span><span style="color:#111">.</span><span style="color:#75af00">width</span><span style="color:#111">(</span><span style="color:#75af00">parent</span><span style="color:#111">.</span><span style="color:#75af00">width</span><span style="color:#111">()</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">child</span><span style="color:#111">.</span><span style="color:#75af00">height</span><span style="color:#111">(</span><span style="color:#75af00">parent</span><span style="color:#111">.</span><span style="color:#75af00">height</span><span style="color:#111">()</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">child</span><span style="color:#111">.</span><span style="color:#75af00">center</span><span style="color:#111">(</span><span style="color:#75af00">parent</span><span style="color:#111">.</span><span style="color:#75af00">center</span><span style="color:#111">());</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">});</span>
+</span></span></code></pre></div><p><code>rule</code> 定义的是一种父子之间的响应式关系，其形式为读取父节点的某些属性，经过一系列计算后，得出子节点的某些属性。</p>
+<iframe
+    data-animation="rule.js"
+  
+    
+    
+    
+    height="100"
+    
+
+    
+
+    
+
+    
+></iframe>
+
+<p>事实上，在 sd 动画框架中内置了一个 <code>sd.rule</code> 系统，其内预设了一些常见的父子布局规则。在通常情况中是不需要自己手动编写这样的布局规则的，使用预设的规则足矣，只有在极其需要定制化的时候才有必要手动编写。</p>
+<h1 id="父子管理">父子管理
+</h1><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">SDNode</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 父子管理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">childAs</span><span style="color:#111">(</span><span style="color:#75af00">name</span>: <span style="color:#00a8c8">string</span><span style="color:#111">,</span> <span style="color:#75af00">child</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">,</span> <span style="color:#75af00">rule</span>: <span style="color:#00a8c8">Rule</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 添加一个名为 name 的 child，且定义 rule
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">childAs</span><span style="color:#111">(</span><span style="color:#75af00">name</span>: <span style="color:#00a8c8">string</span><span style="color:#111">,</span> <span style="color:#75af00">child</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 添加一个名为 name 的 child
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">childAs</span><span style="color:#111">(</span><span style="color:#75af00">child</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">,</span> <span style="color:#75af00">rule</span>: <span style="color:#00a8c8">Rule</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 添加一个匿名 child，且定义 rule
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">childAs</span><span style="color:#111">(</span><span style="color:#75af00">child</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 添加一个匿名 child
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">child</span><span style="color:#111">(</span><span style="color:#75af00">name</span>: <span style="color:#00a8c8">string</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#75af00">SDNode</span><span style="color:#111">;</span> <span style="color:#75715e">// 获取名为 name 的 child
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">hasChild</span><span style="color:#111">(</span><span style="color:#75af00">child</span>: <span style="color:#00a8c8">string</span> <span style="color:#f92672">|</span> <span style="color:#75af00">SDNode</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#75af00">SDNode</span><span style="color:#111">;</span> <span style="color:#75715e">// 判断某个 child 是否存在
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">eraseChild</span><span style="color:#111">(</span><span style="color:#75af00">child</span>: <span style="color:#00a8c8">string</span> <span style="color:#f92672">|</span> <span style="color:#75af00">SDNode</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#75af00">SDNode</span><span style="color:#111">;</span> <span style="color:#75715e">// 删除某个 child
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">}</span>
+</span></span></code></pre></div><p><code>childAs</code> 方法让添加一个子节点变得非常灵活，一个子节点可以是匿名的，可以是非匿名的。在非匿名的情况下，未来可以通过名字去获取或者删除该子节点。同时，可以在添加子节点的时候顺便定义父子之间的响应式作用，例如简化 <code>rule</code> 篇的代码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">r1</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Rect</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">childAs</span><span style="color:#111">(</span><span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Rect</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">),</span> <span style="color:#111">(</span><span style="color:#75af00">parent</span><span style="color:#111">,</span> <span style="color:#75af00">child</span><span style="color:#111">)</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">child</span><span style="color:#111">.</span><span style="color:#75af00">width</span><span style="color:#111">(</span><span style="color:#75af00">parent</span><span style="color:#111">.</span><span style="color:#75af00">width</span><span style="color:#111">()</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">child</span><span style="color:#111">.</span><span style="color:#75af00">height</span><span style="color:#111">(</span><span style="color:#75af00">parent</span><span style="color:#111">.</span><span style="color:#75af00">height</span><span style="color:#111">()</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">child</span><span style="color:#111">.</span><span style="color:#75af00">center</span><span style="color:#111">(</span><span style="color:#75af00">parent</span><span style="color:#111">.</span><span style="color:#75af00">center</span><span style="color:#111">());</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">});</span>
+</span></span></code></pre></div><h1 id="进入退出管理">进入退出管理
+</h1><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">SDNode</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 进入退出管理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">onEnter</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#111">(</span><span style="color:#75af00">element</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#00a8c8">void</span> <span style="color:#f92672">|</span> <span style="color:#00a8c8">undefined</span><span style="color:#111">;</span> <span style="color:#75715e">// 获取进入阶段的过渡方法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">onEnter</span><span style="color:#111">(</span><span style="color:#75af00">enter</span><span style="color:#f92672">:</span> <span style="color:#111">(</span><span style="color:#75af00">element</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">,</span> <span style="color:#75af00">move</span><span style="color:#f92672">:</span> <span style="color:#111">()</span> <span style="color:#f92672">=&gt;</span> <span style="color:#00a8c8">void</span><span style="color:#111">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#00a8c8">void</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 设置进入阶段的过渡方法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">onEnterDefault</span><span style="color:#111">(</span><span style="color:#75af00">enter</span><span style="color:#f92672">:</span> <span style="color:#111">(</span><span style="color:#75af00">element</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">,</span> <span style="color:#75af00">move</span><span style="color:#f92672">:</span> <span style="color:#111">()</span> <span style="color:#f92672">=&gt;</span> <span style="color:#00a8c8">void</span><span style="color:#111">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#00a8c8">void</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 设置进入阶段的默认过渡方法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">triggerEnter</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 触发进入阶段的过渡方法（框架内部使用）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">entering</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">boolean</span><span style="color:#111">;</span> <span style="color:#75715e">// 判断是否正处于进入阶段
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">onExit</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#111">(</span><span style="color:#75af00">element</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#00a8c8">void</span> <span style="color:#f92672">|</span> <span style="color:#00a8c8">undefined</span><span style="color:#111">;</span> <span style="color:#75715e">// 获取退出阶段的过渡方法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">onExit</span><span style="color:#111">(</span><span style="color:#75af00">exit</span><span style="color:#f92672">:</span> <span style="color:#111">(</span><span style="color:#75af00">element</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#00a8c8">void</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 设置退出阶段的过渡方法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">onExitDefault</span><span style="color:#111">(</span><span style="color:#75af00">exit</span><span style="color:#f92672">:</span> <span style="color:#111">(</span><span style="color:#75af00">element</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#00a8c8">void</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 设置退出阶段的默认过渡方法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">triggerExit</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 触发退出阶段（框架内部使用）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>当一个节点成为另一个节点的子节点，我们称为<strong>进入阶段</strong>。当一个子节点被移除时，我们称为<strong>退出阶段</strong>。进入和退出阶段显然都需要使用动画，来让此过程更加舒缓。</p>
+<p>对于<strong>进入阶段</strong>而言，各种预设定义在 <code>sd.enter</code> 中。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">R</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">rule</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">EN</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">enter</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">EX</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">exit</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#111">[</span><span style="color:#75af00">fa1</span><span style="color:#111">,</span> <span style="color:#75af00">child1</span><span style="color:#111">]</span> <span style="color:#f92672">=</span> <span style="color:#111">[</span><span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Rect</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">),</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Circle</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">100</span><span style="color:#111">)];</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#111">[</span><span style="color:#75af00">fa2</span><span style="color:#111">,</span> <span style="color:#75af00">child2</span><span style="color:#111">]</span> <span style="color:#f92672">=</span> <span style="color:#111">[</span><span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Rect</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">y</span><span style="color:#111">(</span><span style="color:#ae81ff">50</span><span style="color:#111">),</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Circle</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">y</span><span style="color:#111">(</span><span style="color:#ae81ff">50</span><span style="color:#111">).</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">100</span><span style="color:#111">)];</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">main</span><span style="color:#111">(</span><span style="color:#00a8c8">async</span> <span style="color:#111">()</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">fa1</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">childAs</span><span style="color:#111">(</span><span style="color:#75af00">child1</span><span style="color:#111">.</span><span style="color:#75af00">onEnter</span><span style="color:#111">(</span><span style="color:#75af00">EN</span><span style="color:#111">.</span><span style="color:#75af00">appear</span><span style="color:#111">()),</span> <span style="color:#75af00">R</span><span style="color:#111">.</span><span style="color:#75af00">centerOnly</span><span style="color:#111">()).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">fa2</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">childAs</span><span style="color:#111">(</span><span style="color:#75af00">child2</span><span style="color:#111">.</span><span style="color:#75af00">onEnter</span><span style="color:#111">(</span><span style="color:#75af00">EN</span><span style="color:#111">.</span><span style="color:#75af00">moveTo</span><span style="color:#111">()),</span> <span style="color:#75af00">R</span><span style="color:#111">.</span><span style="color:#75af00">centerOnly</span><span style="color:#111">()).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">});</span>
+</span></span></code></pre></div><p>对于<strong>退出阶段</strong>而言，各种预设定义在 <code>sd.exit</code> 中。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">main</span><span style="color:#111">(</span><span style="color:#00a8c8">async</span> <span style="color:#111">()</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">fa1</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">eraseChild</span><span style="color:#111">(</span><span style="color:#75af00">child1</span><span style="color:#111">.</span><span style="color:#75af00">onExit</span><span style="color:#111">(</span><span style="color:#75af00">EX</span><span style="color:#111">.</span><span style="color:#75af00">fade</span><span style="color:#111">())).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">fa2</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">eraseChild</span><span style="color:#111">(</span><span style="color:#75af00">child2</span><span style="color:#111">.</span><span style="color:#75af00">onExit</span><span style="color:#111">(</span><span style="color:#75af00">EX</span><span style="color:#111">.</span><span style="color:#75af00">drop</span><span style="color:#111">())).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">});</span>
+</span></span></code></pre></div><iframe
+    data-animation="enter_and_exit.js"
+  
+    
+    
+    
+    height="150"
+    
+
+    
+
+    
+
+    
+></iframe>
+
+<h1 id="交互系统">交互系统
+</h1><p>略</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 whoseJam
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+<script>
+    function getURL(iframe) {
+        let url = iframe.getAttribute("data-animation");
+        if (url.endsWith(".js")) url = url.replace(".js", ".html");
+        return url;
+    }
+    iframe.configure({
+        getURL,
+        lazy: true
+    });
+    iframe.init(document.body);
+
+    function callback(entries, observer) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (!entry.target.showed) {
+                    iframe.show(entry.target);
+                    entry.target.showed = true;
+                } else iframe.start(entry.target);
+            } else {
+                try {
+                    iframe.stop(entry.target);
+                } catch (err) {}
+            }
+        })
+    }
+    const options = {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.5,
+    };
+    const observer = new IntersectionObserver(callback, options);
+    const iframes = document.querySelectorAll("iframe[data-animation]");
+    iframes.forEach(element => {
+        observer.observe(element);
+    });
+</script>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.8caa80979cadd687009104086fdd6a31d1498ee53a29671e41ceea222aa2938c.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

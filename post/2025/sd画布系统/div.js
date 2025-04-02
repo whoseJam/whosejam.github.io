@@ -1,0 +1,1 @@
+(()=>{"use strict";const n=sd,t=n.div();new n.Button(t),new n.Input(t).x(100).width(80),new n.Slider(t).x(200),n.init((()=>{})),n.main((async()=>{}))})();

@@ -1,0 +1,1 @@
+(()=>{"use strict";const o=sd,n=o.svg(),e=new o.Box(n,"1"),l=new o.Box(n,"1.8").x(100),s=new o.Box(n).x(200),i=new o.Box(n,"A").x(300);console.log(e.intValue()),console.log(l.intValue()),console.log(s.intValue()),console.log(i.intValue()),o.init((()=>{})),o.main((async()=>{}))})();

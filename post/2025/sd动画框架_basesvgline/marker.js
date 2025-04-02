@@ -1,0 +1,1 @@
+(()=>{"use strict";const a=sd,r=a.svg(),t=[];["arrow","adaptiveArrow"].forEach(((e,s)=>{const i=new a.Line(r);i.source(0,40*s),i.target(200,40*s),i.markerStart(e).markerMid(e).markerEnd(e),t.push(i)})),a.init((()=>{})),a.main((async()=>{await a.pause(),t.forEach((a=>{a.startAnimate().strokeWidth(3).endAnimate()}))}))})();

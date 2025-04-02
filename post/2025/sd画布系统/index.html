@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="为什么要设立画布？\r一个动画引擎的图形表达能力肯定是越强越好。图形表达能力越强，就意味着使用者能够描述越复杂的场景。sd 运行在浏览器中，这就意味着浏览器的绘图能力天生能为 sd 所用，这赋予了 sd 极强的图形表达能力。\n然而，在浏览器中提供了 SVGElement，HTMLElement，WebGPU 和 WebGL 等多种表达图形的手段，这些手段在使用的时候多少有些区别。为了弥合这些手段之间的差异性，sd 提供了不同的画布来做相应的绘制。简单来说，画布设立的初衷就是为了尽其所能地利用浏览器的绘图能力的。\n在 sd 内部提供了各式各样的可编程节点，这些可编程节点是动画创作的基石。而这些节点背后封装的就是上述各种各样的图形表达能力，使用者需要挑选正确的画布进行绘制。\nSVG 画布\r这一张画布用来盛放所有的 SVGElement。对 SVG 格式不熟悉的读者可以参考此处：SVG：可缩放矢量图形。SVG 画布是最早开始研发的，同时功能也是最完善的，对应的可编程节点是最多的，例如：sd.Rect、sd.Circle、sd.Ellipse、sd.Path 等等。\n在代码层面，可以这样获取 SVG 画布：\nconst svg = sd.svg(); 如果希望将某个节点绘制在 SVG 画布上，可以这样做：\nconst rect = new sd.Rect(svg); const circle = new sd.Circle(svg).x(100); 更多的有关可编程节点的初始化的内容留到后续章节，此处不详细展开了。\nDIV 画布\r这一张画布用来盛放所有的 HTMLElement。DIV 画布通常盛放一些和用户交互有关的可编程节点，例如：sd.Button、sd.Input、sd.Slider 等等。\n在代码层面，可以这样获取 DIV 画布：\nconst div = sd.div(); 如果希望将某个节点绘制在 DIV 画布上，可以这样做：\nconst button = new sd.Button(div); const input = new sd.Input(div).x(100).width(80); const slider = new sd.Slider(div).x(200); THREE 画布\r浏览器的 3D 绘制能力总是用 canvas 开启，所以我们可以先新建一张 canvas：\nconst div = sd.div(); const canvas = new sd.Canvas(div); 然后激活此画布的 3D 绘制能力：\n">
+<title>sd动画框架中的画布系统</title>
+
+<script src="https://whosejam.site/iframe.js"></script>
+
+<link rel='canonical' href='http://localhost:1313/post/2025/sd%E7%94%BB%E5%B8%83%E7%B3%BB%E7%BB%9F/'>
+
+<link rel="stylesheet" href="/scss/style.min.de6fbd66795d70590394ab94ee9cb54376e677085dcf98dfcbb5553b47b088ca.css"><meta property='og:title' content="sd动画框架中的画布系统">
+<meta property='og:description' content="为什么要设立画布？\r一个动画引擎的图形表达能力肯定是越强越好。图形表达能力越强，就意味着使用者能够描述越复杂的场景。sd 运行在浏览器中，这就意味着浏览器的绘图能力天生能为 sd 所用，这赋予了 sd 极强的图形表达能力。\n然而，在浏览器中提供了 SVGElement，HTMLElement，WebGPU 和 WebGL 等多种表达图形的手段，这些手段在使用的时候多少有些区别。为了弥合这些手段之间的差异性，sd 提供了不同的画布来做相应的绘制。简单来说，画布设立的初衷就是为了尽其所能地利用浏览器的绘图能力的。\n在 sd 内部提供了各式各样的可编程节点，这些可编程节点是动画创作的基石。而这些节点背后封装的就是上述各种各样的图形表达能力，使用者需要挑选正确的画布进行绘制。\nSVG 画布\r这一张画布用来盛放所有的 SVGElement。对 SVG 格式不熟悉的读者可以参考此处：SVG：可缩放矢量图形。SVG 画布是最早开始研发的，同时功能也是最完善的，对应的可编程节点是最多的，例如：sd.Rect、sd.Circle、sd.Ellipse、sd.Path 等等。\n在代码层面，可以这样获取 SVG 画布：\nconst svg = sd.svg(); 如果希望将某个节点绘制在 SVG 画布上，可以这样做：\nconst rect = new sd.Rect(svg); const circle = new sd.Circle(svg).x(100); 更多的有关可编程节点的初始化的内容留到后续章节，此处不详细展开了。\nDIV 画布\r这一张画布用来盛放所有的 HTMLElement。DIV 画布通常盛放一些和用户交互有关的可编程节点，例如：sd.Button、sd.Input、sd.Slider 等等。\n在代码层面，可以这样获取 DIV 画布：\nconst div = sd.div(); 如果希望将某个节点绘制在 DIV 画布上，可以这样做：\nconst button = new sd.Button(div); const input = new sd.Input(div).x(100).width(80); const slider = new sd.Slider(div).x(200); THREE 画布\r浏览器的 3D 绘制能力总是用 canvas 开启，所以我们可以先新建一张 canvas：\nconst div = sd.div(); const canvas = new sd.Canvas(div); 然后激活此画布的 3D 绘制能力：\n">
+<meta property='og:url' content='http://localhost:1313/post/2025/sd%E7%94%BB%E5%B8%83%E7%B3%BB%E7%BB%9F/'>
+<meta property='og:site_name' content='whoseJam'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-16T08:52:57&#43;08:00'/><meta property='article:modified_time' content='2025-03-16T08:52:57&#43;08:00'/>
+<meta name="twitter:title" content="sd动画框架中的画布系统">
+<meta name="twitter:description" content="为什么要设立画布？\r一个动画引擎的图形表达能力肯定是越强越好。图形表达能力越强，就意味着使用者能够描述越复杂的场景。sd 运行在浏览器中，这就意味着浏览器的绘图能力天生能为 sd 所用，这赋予了 sd 极强的图形表达能力。\n然而，在浏览器中提供了 SVGElement，HTMLElement，WebGPU 和 WebGL 等多种表达图形的手段，这些手段在使用的时候多少有些区别。为了弥合这些手段之间的差异性，sd 提供了不同的画布来做相应的绘制。简单来说，画布设立的初衷就是为了尽其所能地利用浏览器的绘图能力的。\n在 sd 内部提供了各式各样的可编程节点，这些可编程节点是动画创作的基石。而这些节点背后封装的就是上述各种各样的图形表达能力，使用者需要挑选正确的画布进行绘制。\nSVG 画布\r这一张画布用来盛放所有的 SVGElement。对 SVG 格式不熟悉的读者可以参考此处：SVG：可缩放矢量图形。SVG 画布是最早开始研发的，同时功能也是最完善的，对应的可编程节点是最多的，例如：sd.Rect、sd.Circle、sd.Ellipse、sd.Path 等等。\n在代码层面，可以这样获取 SVG 画布：\nconst svg = sd.svg(); 如果希望将某个节点绘制在 SVG 画布上，可以这样做：\nconst rect = new sd.Rect(svg); const circle = new sd.Circle(svg).x(100); 更多的有关可编程节点的初始化的内容留到后续章节，此处不详细展开了。\nDIV 画布\r这一张画布用来盛放所有的 HTMLElement。DIV 画布通常盛放一些和用户交互有关的可编程节点，例如：sd.Button、sd.Input、sd.Slider 等等。\n在代码层面，可以这样获取 DIV 画布：\nconst div = sd.div(); 如果希望将某个节点绘制在 DIV 画布上，可以这样做：\nconst button = new sd.Button(div); const input = new sd.Input(div).x(100).width(80); const slider = new sd.Slider(div).x(200); THREE 画布\r浏览器的 3D 绘制能力总是用 canvas 开启，所以我们可以先新建一张 canvas：\nconst div = sd.div(); const canvas = new sd.Canvas(div); 然后激活此画布的 3D 绘制能力：\n">
+    <link rel="shortcut icon" href="/favicon.jpg" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            localStorage.setItem(colorSchemeKey, "light");
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    <img src="/img/favicon.jpg" width="300" height="300" class="site-logo" loading="lazy" alt="Avatar">
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">whoseJam</a></h1>
+            <h2 class="site-description">whoseJam&#39;s Blog</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/whoseJam'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/2025/sd%E7%94%BB%E5%B8%83%E7%B3%BB%E7%BB%9F/">sd动画框架中的画布系统</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Mar 16, 2025</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="为什么要设立画布">为什么要设立画布？
+</h1><p>一个动画引擎的图形表达能力肯定是越强越好。图形表达能力越强，就意味着使用者能够描述越复杂的场景。sd 运行在浏览器中，这就意味着浏览器的绘图能力天生能为 sd 所用，这赋予了 sd 极强的图形表达能力。</p>
+<p>然而，在浏览器中提供了 <code>SVGElement</code>，<code>HTMLElement</code>，<code>WebGPU</code> 和 <code>WebGL</code> 等多种表达图形的手段，这些手段在使用的时候多少有些区别。为了弥合这些手段之间的差异性，sd 提供了不同的画布来做相应的绘制。简单来说，画布设立的初衷就是为了尽其所能地利用浏览器的绘图能力的。</p>
+<p>在 sd 内部提供了各式各样的可编程节点，这些可编程节点是动画创作的基石。而这些节点背后封装的就是上述各种各样的图形表达能力，使用者需要挑选正确的画布进行绘制。</p>
+<h1 id="svg-画布">SVG 画布
+</h1><p>这一张画布用来盛放所有的 <code>SVGElement</code>。对 SVG 格式不熟悉的读者可以参考此处：<a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/SVG"  target="_blank" rel="noopener"
+    >SVG：可缩放矢量图形</a>。SVG 画布是最早开始研发的，同时功能也是最完善的，对应的可编程节点是最多的，例如：<code>sd.Rect</code>、<code>sd.Circle</code>、<code>sd.Ellipse</code>、<code>sd.Path</code> 等等。</p>
+<p>在代码层面，可以这样获取 SVG 画布：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span></code></pre></div><p>如果希望将某个节点绘制在 SVG 画布上，可以这样做：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">rect</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Rect</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">circle</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Circle</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">100</span><span style="color:#111">);</span>
+</span></span></code></pre></div><iframe
+    data-animation="svg.js"
+  
+    
+    
+    
+    height="100"
+    
+
+    
+
+    
+
+    
+></iframe>
+
+<p>更多的有关可编程节点的初始化的内容留到后续章节，此处不详细展开了。</p>
+<h1 id="div-画布">DIV 画布
+</h1><p>这一张画布用来盛放所有的 <code>HTMLElement</code>。DIV 画布通常盛放一些和用户交互有关的可编程节点，例如：<code>sd.Button</code>、<code>sd.Input</code>、<code>sd.Slider</code> 等等。</p>
+<p>在代码层面，可以这样获取 DIV 画布：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">div</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">div</span><span style="color:#111">();</span>
+</span></span></code></pre></div><p>如果希望将某个节点绘制在 DIV 画布上，可以这样做：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">button</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Button</span><span style="color:#111">(</span><span style="color:#75af00">div</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">input</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Input</span><span style="color:#111">(</span><span style="color:#75af00">div</span><span style="color:#111">).</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">100</span><span style="color:#111">).</span><span style="color:#75af00">width</span><span style="color:#111">(</span><span style="color:#ae81ff">80</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">slider</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Slider</span><span style="color:#111">(</span><span style="color:#75af00">div</span><span style="color:#111">).</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">200</span><span style="color:#111">);</span>
+</span></span></code></pre></div><iframe
+    data-animation="div.js"
+  
+    
+    
+    
+    height="100"
+    
+
+    
+
+    
+
+    
+></iframe>
+
+<h1 id="three-画布">THREE 画布
+</h1><p>浏览器的 3D 绘制能力总是用 <code>canvas</code> 开启，所以我们可以先新建一张 <code>canvas</code>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">div</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">div</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">canvas</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Canvas</span><span style="color:#111">(</span><span style="color:#75af00">div</span><span style="color:#111">);</span>
+</span></span></code></pre></div><p>然后激活此画布的 3D 绘制能力：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">three</span> <span style="color:#f92672">=</span> <span style="color:#75af00">canvas</span><span style="color:#111">.</span><span style="color:#75af00">three</span><span style="color:#111">();</span>
+</span></span></code></pre></div><p>随后就可以在 THREE 画布上创建各种各样的 3D 的可编程节点了：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">c1</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Cube</span><span style="color:#111">(</span><span style="color:#75af00">three</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">c2</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Cube</span><span style="color:#111">(</span><span style="color:#75af00">three</span><span style="color:#111">).</span><span style="color:#75af00">x</span><span style="color:#111">(</span><span style="color:#ae81ff">1</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">c3</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Cube</span><span style="color:#111">(</span><span style="color:#75af00">three</span><span style="color:#111">).</span><span style="color:#75af00">y</span><span style="color:#111">(</span><span style="color:#ae81ff">1</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">c4</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Cube</span><span style="color:#111">(</span><span style="color:#75af00">three</span><span style="color:#111">).</span><span style="color:#75af00">z</span><span style="color:#111">(</span><span style="color:#ae81ff">1</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">light</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Light</span><span style="color:#111">(</span><span style="color:#75af00">three</span><span style="color:#111">);</span>
+</span></span></code></pre></div><iframe
+    data-animation="three.js"
+  
+    
+    
+    
+    height="200"
+    
+
+    
+
+    
+
+    
+></iframe>
+
+<h1 id="后记">后记
+</h1><p>目前我们所绘制的东西仍然是静态的，在后续章节中我们将尝试让它们动起来。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 whoseJam
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+<script>
+    function getURL(iframe) {
+        let url = iframe.getAttribute("data-animation");
+        if (url.endsWith(".js")) url = url.replace(".js", ".html");
+        return url;
+    }
+    iframe.configure({
+        getURL,
+        lazy: true
+    });
+    iframe.init(document.body);
+
+    function callback(entries, observer) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (!entry.target.showed) {
+                    iframe.show(entry.target);
+                    entry.target.showed = true;
+                } else iframe.start(entry.target);
+            } else {
+                try {
+                    iframe.stop(entry.target);
+                } catch (err) {}
+            }
+        })
+    }
+    const options = {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.5,
+    };
+    const observer = new IntersectionObserver(callback, options);
+    const iframes = document.querySelectorAll("iframe[data-animation]");
+    iframes.forEach(element => {
+        observer.observe(element);
+    });
+</script>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.8caa80979cadd687009104086fdd6a31d1498ee53a29671e41ceea222aa2938c.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,1 @@
+(()=>{"use strict";const t=sd,e=t.svg(),s=[];for(let a=0;a<5;a++)s.push(new t.Rect(e).y(50*a));t.init((()=>{})),t.main((async()=>{await t.pause();for(let t=0;t<5;t++)s[t].startAnimate(300*(t+1)).x(600).endAnimate()}))})();
