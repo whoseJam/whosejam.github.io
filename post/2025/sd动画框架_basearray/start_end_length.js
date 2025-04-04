@@ -1,0 +1,1 @@
+(()=>{"use strict";const e=sd,t=e.svg(),n=new e.Array(t).resize(7);e.Pointer(n,"start","b").moveTo(n.start()),e.Pointer(n,"end","b").moveTo(n.end()),e.Brace(n).brace(n.start(),n.end(),"b").value("length"),e.init((()=>{})),e.main((async()=>{}))})();

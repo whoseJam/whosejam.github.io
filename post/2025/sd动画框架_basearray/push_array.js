@@ -1,0 +1,1 @@
+(()=>{"use strict";const r=sd,a=r.svg(),s=new r.Array(a).pushArray([1,2,3,4,5]),n=new r.Array(a).y(60).pushArray("ABC");r.init((()=>{r.Label(s,"arr1"),r.Label(n,"arr2")})),r.main((async()=>{}))})();
