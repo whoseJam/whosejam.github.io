@@ -1,0 +1,1 @@
+(()=>{"use strict";const e=sd,n=e.svg();new e.Tree(n).root(1).link(1,2).link(1,3),new e.Tree(n).link(1,2).link(1,3).dx(250),new e.Tree(n).newNode(1).newNode(2).newLink(1,2).newNode(3).newLink(1,3).dx(500),e.init((()=>[])),e.main((async()=>{}))})();
