@@ -1,0 +1,1 @@
+(()=>{"use strict";const n=sd,e=n.svg();new n.DAG(e).link(1,2).link(1,3).link(2,3).width(100).height(100),new n.DAG(e).newNode(1).newNode(2).newNode(3).newLink(1,2).newLink(1,3).newLink(2,3).dx(300).width(100).height(100),n.init((()=>{})),n.main((async()=>{}))})();

@@ -1,0 +1,1 @@
+(()=>{"use strict";const e=sd,n=e.svg(),i=e.color(),s=new e.DAG(n).width(100).height(100);s.link(1,2,new e.Image(n).href("/img/gift.png").scale(.5)),s.newNode(3).newLink(1,3,new e.Image(n).href("/img/snowflake.png").scale(.5)),s.newLink(2,3,new e.Rect(n).color(i.blue).scale(.5)),e.init((()=>{})),e.main((async()=>{}))})();
