@@ -1,0 +1,1 @@
+(()=>{"use strict";const s=sd,i=s.svg();new s.Grid(i).pushRow(3).pushRow(2).pushRow(1),s.init((()=>{})),s.main((async()=>{}))})();

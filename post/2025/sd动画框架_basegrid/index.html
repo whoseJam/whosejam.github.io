@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="BaseGrid\r这类节点拥有二维数组的结构，意味着可以用两个索引去获取其内部的每个元素。我们把二维数组称为网格。\n网格内的每个元素被抽象为一个个 element。\n这是一个抽象类，不应该被实例化。\nAPI 列表\rclass BaseGrid extends SD2DNode { // 索引管理 startN(): number; startN(start: number): this; startM(): number; startM(start: number): this; endN(): number; endM(): number; endM(i: number): number; idxN(i: number): number; idxM(j: number): number; n(n: number): this; m(m: number): this; // 元素访问管理 element(i: number, j: number): SDNode; forEachElement(callback: (element: SDNode, rowId: number, colId: number) =&gt; void): this; // 元素属性管理 opacity(i: number, j: number): number; opacity(i: number, j: number, opacity: number): this; color(color: SDColor): this; color(i: number, j: number): SDColor; color(i: number, j: number, color: SDColor): this; text(i: number, j: number): string; text(i: number, j: number, text: string): this; intValue(i: number, j: number): number; value(i: number, j: number): SDNode; value(i: number, j: number, value: any): this; // 插入管理 insert(i: number, j: number, value?: any): this; insertFromExistValue(i: number, j: number, value: SDNode): this; insertFromExistElement(i: number, j: number, element: SDNode): this; pushCol(): this; pushCol(count: number): this; pushRow(): this; pushRow(count: number): this; // 删除管理 erase(i: number, j: number): this; dropElement(i: number, j: number): SDNode | undefined; dropValue(i: number, j: number): SDNode | undefined; popCol(): this; popRow(): this; } 索引管理\rclass BaseGrid { startN(): number; // 获取第一维度起始索引 startN(start: number): this; // 设置第一维度起始索引 startM(): number; // 获取第二维度起始索引 startM(start: number): this; // 设置第二维度起始索引 endN(): number; // 获取第一维度结束索引 endM(): number; // 获取第二维度结束索引 endM(i: number): number; // 获取第一维度指定的第二维度的结束索引 idxN(i: number): number; // 将第一维度的逻辑索引转化为物理索引，对用户而言用不到 idxM(j: number): number; // 将第二维度的逻辑索引转化为物理索引，对用户而言用不到 n(): number; // 获取第一维度的长度 n(n: number): this; // 设置第一维度的长度 m(): number; // 获取第二维度的长度 m(m: number): this; // 设置第二维度的长度 } 上文提到的二维数组并不一定是规整的，例如，二维数组可能是这样的：\n">
+<title>BaseGrid</title>
+
+<script src="https://whosejam.site/iframe.js"></script>
+
+<link rel='canonical' href='http://localhost:1313/post/2025/sd%E5%8A%A8%E7%94%BB%E6%A1%86%E6%9E%B6_basegrid/'>
+
+<link rel="stylesheet" href="/scss/style.min.de6fbd66795d70590394ab94ee9cb54376e677085dcf98dfcbb5553b47b088ca.css"><meta property='og:title' content="BaseGrid">
+<meta property='og:description' content="BaseGrid\r这类节点拥有二维数组的结构，意味着可以用两个索引去获取其内部的每个元素。我们把二维数组称为网格。\n网格内的每个元素被抽象为一个个 element。\n这是一个抽象类，不应该被实例化。\nAPI 列表\rclass BaseGrid extends SD2DNode { // 索引管理 startN(): number; startN(start: number): this; startM(): number; startM(start: number): this; endN(): number; endM(): number; endM(i: number): number; idxN(i: number): number; idxM(j: number): number; n(n: number): this; m(m: number): this; // 元素访问管理 element(i: number, j: number): SDNode; forEachElement(callback: (element: SDNode, rowId: number, colId: number) =&gt; void): this; // 元素属性管理 opacity(i: number, j: number): number; opacity(i: number, j: number, opacity: number): this; color(color: SDColor): this; color(i: number, j: number): SDColor; color(i: number, j: number, color: SDColor): this; text(i: number, j: number): string; text(i: number, j: number, text: string): this; intValue(i: number, j: number): number; value(i: number, j: number): SDNode; value(i: number, j: number, value: any): this; // 插入管理 insert(i: number, j: number, value?: any): this; insertFromExistValue(i: number, j: number, value: SDNode): this; insertFromExistElement(i: number, j: number, element: SDNode): this; pushCol(): this; pushCol(count: number): this; pushRow(): this; pushRow(count: number): this; // 删除管理 erase(i: number, j: number): this; dropElement(i: number, j: number): SDNode | undefined; dropValue(i: number, j: number): SDNode | undefined; popCol(): this; popRow(): this; } 索引管理\rclass BaseGrid { startN(): number; // 获取第一维度起始索引 startN(start: number): this; // 设置第一维度起始索引 startM(): number; // 获取第二维度起始索引 startM(start: number): this; // 设置第二维度起始索引 endN(): number; // 获取第一维度结束索引 endM(): number; // 获取第二维度结束索引 endM(i: number): number; // 获取第一维度指定的第二维度的结束索引 idxN(i: number): number; // 将第一维度的逻辑索引转化为物理索引，对用户而言用不到 idxM(j: number): number; // 将第二维度的逻辑索引转化为物理索引，对用户而言用不到 n(): number; // 获取第一维度的长度 n(n: number): this; // 设置第一维度的长度 m(): number; // 获取第二维度的长度 m(m: number): this; // 设置第二维度的长度 } 上文提到的二维数组并不一定是规整的，例如，二维数组可能是这样的：\n">
+<meta property='og:url' content='http://localhost:1313/post/2025/sd%E5%8A%A8%E7%94%BB%E6%A1%86%E6%9E%B6_basegrid/'>
+<meta property='og:site_name' content='whoseJam'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-04-08T08:56:18&#43;08:00'/><meta property='article:modified_time' content='2025-04-08T08:56:18&#43;08:00'/>
+<meta name="twitter:title" content="BaseGrid">
+<meta name="twitter:description" content="BaseGrid\r这类节点拥有二维数组的结构，意味着可以用两个索引去获取其内部的每个元素。我们把二维数组称为网格。\n网格内的每个元素被抽象为一个个 element。\n这是一个抽象类，不应该被实例化。\nAPI 列表\rclass BaseGrid extends SD2DNode { // 索引管理 startN(): number; startN(start: number): this; startM(): number; startM(start: number): this; endN(): number; endM(): number; endM(i: number): number; idxN(i: number): number; idxM(j: number): number; n(n: number): this; m(m: number): this; // 元素访问管理 element(i: number, j: number): SDNode; forEachElement(callback: (element: SDNode, rowId: number, colId: number) =&gt; void): this; // 元素属性管理 opacity(i: number, j: number): number; opacity(i: number, j: number, opacity: number): this; color(color: SDColor): this; color(i: number, j: number): SDColor; color(i: number, j: number, color: SDColor): this; text(i: number, j: number): string; text(i: number, j: number, text: string): this; intValue(i: number, j: number): number; value(i: number, j: number): SDNode; value(i: number, j: number, value: any): this; // 插入管理 insert(i: number, j: number, value?: any): this; insertFromExistValue(i: number, j: number, value: SDNode): this; insertFromExistElement(i: number, j: number, element: SDNode): this; pushCol(): this; pushCol(count: number): this; pushRow(): this; pushRow(count: number): this; // 删除管理 erase(i: number, j: number): this; dropElement(i: number, j: number): SDNode | undefined; dropValue(i: number, j: number): SDNode | undefined; popCol(): this; popRow(): this; } 索引管理\rclass BaseGrid { startN(): number; // 获取第一维度起始索引 startN(start: number): this; // 设置第一维度起始索引 startM(): number; // 获取第二维度起始索引 startM(start: number): this; // 设置第二维度起始索引 endN(): number; // 获取第一维度结束索引 endM(): number; // 获取第二维度结束索引 endM(i: number): number; // 获取第一维度指定的第二维度的结束索引 idxN(i: number): number; // 将第一维度的逻辑索引转化为物理索引，对用户而言用不到 idxM(j: number): number; // 将第二维度的逻辑索引转化为物理索引，对用户而言用不到 n(): number; // 获取第一维度的长度 n(n: number): this; // 设置第一维度的长度 m(): number; // 获取第二维度的长度 m(m: number): this; // 设置第二维度的长度 } 上文提到的二维数组并不一定是规整的，例如，二维数组可能是这样的：\n">
+    <link rel="shortcut icon" href="/favicon.jpg" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            localStorage.setItem(colorSchemeKey, "light");
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    <img src="/img/favicon.jpg" width="300" height="300" class="site-logo" loading="lazy" alt="Avatar">
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">whoseJam</a></h1>
+            <h2 class="site-description">whoseJam&#39;s Blog</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/whoseJam'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/2025/sd%E5%8A%A8%E7%94%BB%E6%A1%86%E6%9E%B6_basegrid/">BaseGrid</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Apr 08, 2025</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="basegrid">BaseGrid
+</h1><p>这类节点拥有二维数组的结构，意味着可以用<strong>两个索引去获取</strong>其内部的每个元素。我们把二维数组称为网格。</p>
+<p>网格内的每个元素被抽象为一个个 element。</p>
+<p>这是一个抽象类，不应该被实例化。</p>
+<h1 id="api-列表">API 列表
+</h1><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">BaseGrid</span> <span style="color:#00a8c8">extends</span> <span style="color:#75af00">SD2DNode</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 索引管理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">startN</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">startN</span><span style="color:#111">(</span><span style="color:#75af00">start</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">startM</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">startM</span><span style="color:#111">(</span><span style="color:#75af00">start</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">endN</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">endM</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">endM</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">idxN</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">idxM</span><span style="color:#111">(</span><span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">n</span><span style="color:#111">(</span><span style="color:#75af00">n</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">m</span><span style="color:#111">(</span><span style="color:#75af00">m</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 元素访问管理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">element</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#75af00">SDNode</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">forEachElement</span><span style="color:#111">(</span><span style="color:#75af00">callback</span><span style="color:#f92672">:</span> <span style="color:#111">(</span><span style="color:#75af00">element</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">,</span> <span style="color:#75af00">rowId</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">colId</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#00a8c8">void</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 元素属性管理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">opacity</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">opacity</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">opacity</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">color</span><span style="color:#111">(</span><span style="color:#75af00">color</span>: <span style="color:#00a8c8">SDColor</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">color</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#75af00">SDColor</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">color</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">color</span>: <span style="color:#00a8c8">SDColor</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">text</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">string</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">text</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">text</span>: <span style="color:#00a8c8">string</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">intValue</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">value</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#75af00">SDNode</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">value</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">value</span>: <span style="color:#00a8c8">any</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 插入管理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">insert</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">value?</span>: <span style="color:#00a8c8">any</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">insertFromExistValue</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">value</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">insertFromExistElement</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">element</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">pushCol</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">pushCol</span><span style="color:#111">(</span><span style="color:#75af00">count</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">pushRow</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">pushRow</span><span style="color:#111">(</span><span style="color:#75af00">count</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 删除管理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">erase</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">dropElement</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#75af00">SDNode</span> <span style="color:#f92672">|</span> <span style="color:#00a8c8">undefined</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">dropValue</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#75af00">SDNode</span> <span style="color:#f92672">|</span> <span style="color:#00a8c8">undefined</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">popCol</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">popRow</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h1 id="索引管理">索引管理
+</h1><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">BaseGrid</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">startN</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span> <span style="color:#75715e">// 获取第一维度起始索引
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">startN</span><span style="color:#111">(</span><span style="color:#75af00">start</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 设置第一维度起始索引
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">startM</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span> <span style="color:#75715e">// 获取第二维度起始索引
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">startM</span><span style="color:#111">(</span><span style="color:#75af00">start</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 设置第二维度起始索引
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">endN</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span> <span style="color:#75715e">// 获取第一维度结束索引
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">endM</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span> <span style="color:#75715e">// 获取第二维度结束索引
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">endM</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span> <span style="color:#75715e">// 获取第一维度指定的第二维度的结束索引
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">idxN</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span> <span style="color:#75715e">// 将第一维度的逻辑索引转化为物理索引，对用户而言用不到
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">idxM</span><span style="color:#111">(</span><span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span> <span style="color:#75715e">// 将第二维度的逻辑索引转化为物理索引，对用户而言用不到
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">n</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span> <span style="color:#75715e">// 获取第一维度的长度
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">n</span><span style="color:#111">(</span><span style="color:#75af00">n</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 设置第一维度的长度
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">m</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span> <span style="color:#75715e">// 获取第二维度的长度
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">m</span><span style="color:#111">(</span><span style="color:#75af00">m</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 设置第二维度的长度
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>上文提到的二维数组并不一定是规整的，例如，二维数组可能是这样的：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#111">[</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">[</span><span style="color:#ae81ff">1</span><span style="color:#111">,</span> <span style="color:#ae81ff">2</span><span style="color:#111">,</span> <span style="color:#ae81ff">3</span><span style="color:#111">],</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">[</span><span style="color:#ae81ff">4</span><span style="color:#111">,</span> <span style="color:#ae81ff">5</span><span style="color:#111">],</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">[],</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">[</span><span style="color:#ae81ff">6</span><span style="color:#111">,</span> <span style="color:#ae81ff">7</span><span style="color:#111">,</span> <span style="color:#ae81ff">8</span><span style="color:#111">,</span> <span style="color:#ae81ff">9</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">];</span>
+</span></span></code></pre></div><p>我们用<strong>第一维度</strong>指外层数组，用<strong>第二维度</strong>指内层数组。对于第一维度而言，它一定只有一个长度，对于第二维度而言，它可能就有不同的长度了，所以 endM 相比于 endN 多了一种重载。</p>
+<p>默认情况下，当我们说第二维度的长度，而没有指定具体第一维度时，我们在说第二维度最长的那个长度。例如上述二维数组的例子中，其第二维度的长度就是 4。</p>
+<p>通过 n 和 m 这两个方法，我们可以很方便地初始化一个规整的二维数组出来。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">grid</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Grid</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">n</span><span style="color:#111">(</span><span style="color:#ae81ff">3</span><span style="color:#111">).</span><span style="color:#75af00">m</span><span style="color:#111">(</span><span style="color:#ae81ff">6</span><span style="color:#111">);</span>
+</span></span></code></pre></div><iframe
+    data-animation="n_m.js"
+  
+    
+    
+    
+    height="200"
+    
+
+    
+
+    
+
+    
+></iframe>
+
+<h1 id="元素访问管理">元素访问管理
+</h1><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">BaseGrid</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">element</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#75af00">SDNode</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">forEachElement</span><span style="color:#111">(</span><span style="color:#75af00">callback</span><span style="color:#f92672">:</span> <span style="color:#111">(</span><span style="color:#75af00">element</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">,</span> <span style="color:#75af00">rowId</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">colId</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#00a8c8">void</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h1 id="元素属性管理">元素属性管理
+</h1><p>各种各样的管理元素属性的方法。</p>
+<h2 id="opacity">opacity
+</h2><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">BaseGrid</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">opacity</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span> <span style="color:#75715e">// 获取目标元素的透明度
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">opacity</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">opacity</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 设置目标元素的透明度
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>管理 <strong>element</strong> 的透明度。</p>
+<h2 id="color">color
+</h2><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">BaseGrid</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">color</span><span style="color:#111">(</span><span style="color:#75af00">color</span>: <span style="color:#00a8c8">SDColor</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 设置每一个元素的颜色
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">color</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#75af00">SDColor</span><span style="color:#111">;</span> <span style="color:#75715e">// 获取目标元素的颜色
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">color</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">color</span>: <span style="color:#00a8c8">SDColor</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 设置目标元素的颜色
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>管理 <strong>element</strong> 的颜色。</p>
+<h2 id="text">text
+</h2><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">BaseGrid</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">text</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">string</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">text</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">text</span>: <span style="color:#00a8c8">string</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>管理 <strong>element</strong> 的文本。当 element 本身就是文本元素，或者 element 的 value 是文本元素时有效。</p>
+<h2 id="intvalue">intValue
+</h2><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">BaseGrid</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">intValue</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">number</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>将 <strong>element</strong> 对应的文本解析为整数类型，并返回。如果 value 不存在，或者对应文本是空串，则会解析为整数 0。在解析其他非数值文本的情况下会抛出错误。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">grid</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Grid</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">insert</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;1&#34;</span><span style="color:#111">).</span><span style="color:#75af00">insert</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#ae81ff">1</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;2.8&#34;</span><span style="color:#111">).</span><span style="color:#75af00">insert</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#ae81ff">2</span><span style="color:#111">).</span><span style="color:#75af00">insert</span><span style="color:#111">(</span><span style="color:#ae81ff">1</span><span style="color:#111">,</span> <span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;A&#34;</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">console</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">(</span><span style="color:#75af00">grid</span><span style="color:#111">.</span><span style="color:#75af00">intValue</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#ae81ff">0</span><span style="color:#111">));</span> <span style="color:#75715e">// 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">console</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">(</span><span style="color:#75af00">grid</span><span style="color:#111">.</span><span style="color:#75af00">intValue</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#ae81ff">1</span><span style="color:#111">));</span> <span style="color:#75715e">// 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">console</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">(</span><span style="color:#75af00">grid</span><span style="color:#111">.</span><span style="color:#75af00">intValue</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#ae81ff">2</span><span style="color:#111">));</span> <span style="color:#75715e">// 0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// console.log(grid.intValue(1, 0)); // this is an invalid invoke
+</span></span></span></code></pre></div><iframe
+    data-animation="int_value.js"
+  
+    
+    
+    
+    height="200"
+    
+
+    
+
+    
+
+    
+></iframe>
+
+<h2 id="value">value
+</h2><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">BaseGrid</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">value</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#75af00">SDNode</span><span style="color:#111">;</span> <span style="color:#75715e">// 获取目标元素的价值物
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">value</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">value</span>: <span style="color:#00a8c8">any</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 设置目标元素的价值物
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>管理 <strong>element</strong> 的 value。</p>
+<h1 id="插入管理">插入管理
+</h1><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">BaseGrid</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">insert</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">value?</span>: <span style="color:#00a8c8">any</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">insertFromExistValue</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">value</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">insertFromExistElement</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">element</span>: <span style="color:#00a8c8">SDNode</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">pushCol</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">pushCol</span><span style="color:#111">(</span><span style="color:#75af00">count</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">pushRow</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">pushRow</span><span style="color:#111">(</span><span style="color:#75af00">count</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><h2 id="insert">insert
+</h2><p>insert 类型的插入需要指定插入的位置。有三种不同类型的 insert，下面演示它们的区别：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">grid</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Grid</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">n</span><span style="color:#111">(</span><span style="color:#ae81ff">1</span><span style="color:#111">).</span><span style="color:#75af00">m</span><span style="color:#111">(</span><span style="color:#ae81ff">3</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">value1</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Circle</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">cx</span><span style="color:#111">(</span><span style="color:#75af00">grid</span><span style="color:#111">.</span><span style="color:#75af00">element</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#ae81ff">0</span><span style="color:#111">).</span><span style="color:#75af00">cx</span><span style="color:#111">()).</span><span style="color:#75af00">cy</span><span style="color:#111">(</span><span style="color:#ae81ff">120</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">value2</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Text</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;A&#34;</span><span style="color:#111">).</span><span style="color:#75af00">cx</span><span style="color:#111">(</span><span style="color:#75af00">grid</span><span style="color:#111">.</span><span style="color:#75af00">element</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#ae81ff">1</span><span style="color:#111">).</span><span style="color:#75af00">cx</span><span style="color:#111">()).</span><span style="color:#75af00">cy</span><span style="color:#111">(</span><span style="color:#ae81ff">120</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">value3</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Box</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;B&#34;</span><span style="color:#111">).</span><span style="color:#75af00">cx</span><span style="color:#111">(</span><span style="color:#75af00">grid</span><span style="color:#111">.</span><span style="color:#75af00">element</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#ae81ff">2</span><span style="color:#111">).</span><span style="color:#75af00">cx</span><span style="color:#111">()).</span><span style="color:#75af00">cy</span><span style="color:#111">(</span><span style="color:#ae81ff">120</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">main</span><span style="color:#111">(</span><span style="color:#00a8c8">async</span> <span style="color:#111">()</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">grid</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">insert</span><span style="color:#111">(</span><span style="color:#ae81ff">1</span><span style="color:#111">,</span> <span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#75af00">value1</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">grid</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">insertFromExistValue</span><span style="color:#111">(</span><span style="color:#ae81ff">1</span><span style="color:#111">,</span> <span style="color:#ae81ff">1</span><span style="color:#111">,</span> <span style="color:#75af00">value2</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">grid</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">insertFromExistElement</span><span style="color:#111">(</span><span style="color:#ae81ff">1</span><span style="color:#111">,</span> <span style="color:#ae81ff">2</span><span style="color:#111">,</span> <span style="color:#75af00">value3</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">});</span>
+</span></span></code></pre></div><iframe
+    data-animation="insert.js"
+  
+    
+    
+    
+    height="250"
+    
+
+    
+
+    
+
+    
+></iframe>
+
+<h2 id="pushcol--pushrow">pushCol &amp; pushRow
+</h2><p>我们把二维数组的第一维度中每个元素看作是一行（第一维度上每个元素是一个数组），第二维度中每个元素看作位于某列上（第二维度上每个元素是一个 element）。这两个 push 方法提供了快速添加一行一列的方案。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">grid</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Grid</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">pushRow</span><span style="color:#111">(</span><span style="color:#ae81ff">3</span><span style="color:#111">).</span><span style="color:#75af00">pushRow</span><span style="color:#111">(</span><span style="color:#ae81ff">2</span><span style="color:#111">).</span><span style="color:#75af00">pushRow</span><span style="color:#111">(</span><span style="color:#ae81ff">1</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">[
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    [e, e, e],
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    [e, e],
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    [e]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div><iframe
+    data-animation="push_row.js"
+  
+    
+    
+    
+    height="200"
+    
+
+    
+
+    
+
+    
+></iframe>
+
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">grid</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Grid</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">pushCol</span><span style="color:#111">(</span><span style="color:#ae81ff">3</span><span style="color:#111">).</span><span style="color:#75af00">pushCol</span><span style="color:#111">(</span><span style="color:#ae81ff">2</span><span style="color:#111">).</span><span style="color:#75af00">pushCol</span><span style="color:#111">(</span><span style="color:#ae81ff">1</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// pushCol(1).pushCol(2).pushCol(3) 的效果与 pushCol(3).pushCol(2).push(1) 是一样的
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 对 pushCol 而言，如果其作用于第一维度上的某个数组，则新元素会被附加到该数组的末尾
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">[
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    [e, e, e],
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    [e, e],
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    [e],
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div><iframe
+    data-animation="push_col.js"
+  
+    
+    
+    
+    height="200"
+    
+
+    
+
+    
+
+    
+></iframe>
+
+<h1 id="删除管理">删除管理
+</h1><p>用来删掉网格中的元素。</p>
+<h2 id="erase">erase
+</h2><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">BaesGrid</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">erase</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 删除目标元素
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>顾名意思，把某个 element 从网格中删除。默认情况下删除 element 会导致其<strong>永远地</strong>离开场景。</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">grid</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Grid</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">n</span><span style="color:#111">(</span><span style="color:#ae81ff">3</span><span style="color:#111">).</span><span style="color:#75af00">m</span><span style="color:#111">(</span><span style="color:#ae81ff">6</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">main</span><span style="color:#111">(</span><span style="color:#00a8c8">async</span> <span style="color:#111">()</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">grid</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">().</span><span style="color:#75af00">erase</span><span style="color:#111">(</span><span style="color:#ae81ff">1</span><span style="color:#111">,</span> <span style="color:#ae81ff">2</span><span style="color:#111">).</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">});</span>
+</span></span></code></pre></div><iframe
+    data-animation="erase.js"
+  
+    
+    
+    
+    height="200"
+    
+
+    
+
+    
+
+    
+></iframe>
+
+<h2 id="drop">drop
+</h2><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">BaseGrid</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">dropElement</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#75af00">SDNode</span> <span style="color:#f92672">|</span> <span style="color:#00a8c8">undefined</span><span style="color:#111">;</span> <span style="color:#75715e">// 丢弃目标元素
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">dropValue</span><span style="color:#111">(</span><span style="color:#75af00">i</span>: <span style="color:#00a8c8">number</span><span style="color:#111">,</span> <span style="color:#75af00">j</span>: <span style="color:#00a8c8">number</span><span style="color:#111">)</span><span style="color:#f92672">:</span> <span style="color:#75af00">SDNode</span> <span style="color:#f92672">|</span> <span style="color:#00a8c8">undefined</span><span style="color:#111">;</span> <span style="color:#75715e">// 丢弃目标元素的价值物
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">}</span>
+</span></span></code></pre></div><p>前文提到，使用 erase 一类的方法去删除某个 element，会导致 element（及其内部的 value，如果有）永远地离开场景。但部分情况下，我们可能希望被删除的 element 或者 value 只是被网格<strong>丢弃</strong>了，它仍然存在于场景之中。有两种达成这个目的的解决方案，最直接的便是 drop 方法。下面的代码以交换两个网格中的元素为例进行演示：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">svg</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">EN</span> <span style="color:#f92672">=</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">enter</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">grid1</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Grid</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">insert</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#ae81ff">1</span><span style="color:#111">).</span><span style="color:#75af00">insert</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#ae81ff">1</span><span style="color:#111">,</span> <span style="color:#ae81ff">2</span><span style="color:#111">).</span><span style="color:#75af00">insert</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#ae81ff">2</span><span style="color:#111">,</span> <span style="color:#ae81ff">3</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">const</span> <span style="color:#75af00">grid2</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">Grid</span><span style="color:#111">(</span><span style="color:#75af00">svg</span><span style="color:#111">).</span><span style="color:#75af00">y</span><span style="color:#111">(</span><span style="color:#ae81ff">100</span><span style="color:#111">).</span><span style="color:#75af00">insert</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;A&#34;</span><span style="color:#111">).</span><span style="color:#75af00">insert</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#ae81ff">1</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;B&#34;</span><span style="color:#111">).</span><span style="color:#75af00">insert</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#ae81ff">2</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;C&#34;</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">function</span> <span style="color:#75af00">swapByValue</span><span style="color:#111">(</span><span style="color:#75af00">x</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">grid1</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">grid2</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">const</span> <span style="color:#75af00">v1</span> <span style="color:#f92672">=</span> <span style="color:#75af00">grid1</span><span style="color:#111">.</span><span style="color:#75af00">dropValue</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#75af00">x</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">const</span> <span style="color:#75af00">v2</span> <span style="color:#f92672">=</span> <span style="color:#75af00">grid2</span><span style="color:#111">.</span><span style="color:#75af00">dropValue</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#75af00">x</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">grid1</span><span style="color:#111">.</span><span style="color:#75af00">element</span><span style="color:#111">(</span><span style="color:#75af00">x</span><span style="color:#111">).</span><span style="color:#75af00">valueFromExist</span><span style="color:#111">(</span><span style="color:#75af00">v2</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">grid2</span><span style="color:#111">.</span><span style="color:#75af00">element</span><span style="color:#111">(</span><span style="color:#75af00">x</span><span style="color:#111">).</span><span style="color:#75af00">valueFromExist</span><span style="color:#111">(</span><span style="color:#75af00">v1</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">grid1</span><span style="color:#111">.</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">grid2</span><span style="color:#111">.</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">function</span> <span style="color:#75af00">swapByElement</span><span style="color:#111">(</span><span style="color:#75af00">x</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">grid1</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">grid2</span><span style="color:#111">.</span><span style="color:#75af00">startAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">const</span> <span style="color:#75af00">e1</span> <span style="color:#f92672">=</span> <span style="color:#75af00">grid1</span><span style="color:#111">.</span><span style="color:#75af00">dropElement</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#75af00">x</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">const</span> <span style="color:#75af00">e2</span> <span style="color:#f92672">=</span> <span style="color:#75af00">grid2</span><span style="color:#111">.</span><span style="color:#75af00">dropElement</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#75af00">x</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">grid1</span><span style="color:#111">.</span><span style="color:#75af00">insertFromExistElement</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#75af00">x</span><span style="color:#111">,</span> <span style="color:#75af00">e2</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">grid2</span><span style="color:#111">.</span><span style="color:#75af00">insertFromExistElement</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#75af00">x</span><span style="color:#111">,</span> <span style="color:#75af00">e1</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">grid1</span><span style="color:#111">.</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">grid2</span><span style="color:#111">.</span><span style="color:#75af00">endAnimate</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">main</span><span style="color:#111">(</span><span style="color:#00a8c8">async</span> <span style="color:#111">()</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">swapByValue</span><span style="color:#111">(</span><span style="color:#ae81ff">2</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">await</span> <span style="color:#75af00">sd</span><span style="color:#111">.</span><span style="color:#75af00">pause</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">swapByElement</span><span style="color:#111">(</span><span style="color:#ae81ff">1</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">});</span>
+</span></span></code></pre></div><iframe
+    data-animation="drop.js"
+  
+    
+    
+    
+    height="200"
+    
+
+    
+
+    
+
+    
+></iframe>
+
+<blockquote>
+<p>试一试，dropValue 和 dropElement 的区别。</p>
+</blockquote>
+<h2 id="poprow--popcol">popRow &amp; popCol
+</h2><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#00a8c8">class</span> <span style="color:#75af00">BaseGrid</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">popCol</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 删掉最后一列
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75af00">popRow</span><span style="color:#111">()</span><span style="color:#f92672">:</span> <span style="color:#00a8c8">this</span><span style="color:#111">;</span> <span style="color:#75715e">// 删掉最后一行
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">}</span>
+</span></span></code></pre></div>
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 whoseJam
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+<script>
+    function getURL(iframe) {
+        let url = iframe.getAttribute("data-animation");
+        if (url.endsWith(".js")) url = url.replace(".js", ".html");
+        return url;
+    }
+    iframe.configure({
+        getURL,
+        lazy: true
+    });
+    iframe.init(document.body);
+
+    function callback(entries, observer) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (!entry.target.showed) {
+                    iframe.show(entry.target);
+                    entry.target.showed = true;
+                } else iframe.start(entry.target);
+            } else {
+                try {
+                    iframe.stop(entry.target);
+                } catch (err) {}
+            }
+        })
+    }
+    const options = {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.5,
+    };
+    const observer = new IntersectionObserver(callback, options);
+    const iframes = document.querySelectorAll("iframe[data-animation]");
+    iframes.forEach(element => {
+        observer.observe(element);
+    });
+</script>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.8caa80979cadd687009104086fdd6a31d1498ee53a29671e41ceea222aa2938c.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
